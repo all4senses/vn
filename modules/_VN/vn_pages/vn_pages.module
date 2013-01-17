@@ -904,22 +904,22 @@ function vn_pages_buildHome($name, $data) {
   // $out .= vn_blocks_getBlockThemed($block_data);
   
   // Get block for Top pick business providers.
-  $block_data = array('module' => 'views', 'delta' => 'providers-block', 'shadow' => FALSE);
-  $out .= vn_blocks_getBlockThemed($block_data);
+//  $block_data = array('module' => 'views', 'delta' => 'providers-block', 'shadow' => FALSE);
+//  $out .= vn_blocks_getBlockThemed($block_data);
  
   // Get block for Top pick residential providers.
 //  $block_data = array('module' => 'views', 'delta' => 'providers-block_1', 'shadow' => FALSE); 
 //  $out .= vn_blocks_getBlockThemed($block_data);
   
-  $out .='<div id="bottom-with-latest-articles" class="with-articles preface">';
-  
-      $out .= render($seo_welcome_node_view['field_preface_bottom']);
-
-      // Get block for All latest articles (news, blogs)Top pick residential providers.
-      $block_data = array('module' => 'views', 'delta' => 'articles-block_home_all_latest_articles', 'shadow' => FALSE); 
-      $out .= vn_blocks_getBlockThemed($block_data);
-      
-  $out .='<div class="bottom-clear"></div></div>';
+//  $out .='<div id="bottom-with-latest-articles" class="with-articles preface">';
+//  
+//      $out .= render($seo_welcome_node_view['field_preface_bottom']);
+//
+//      // Get block for All latest articles (news, blogs)Top pick residential providers.
+//      $block_data = array('module' => 'views', 'delta' => 'articles-block_home_all_latest_articles', 'shadow' => FALSE); 
+//      $out .= vn_blocks_getBlockThemed($block_data);
+//      
+//  $out .='<div class="bottom-clear"></div></div>';
   
   return $out;
 }

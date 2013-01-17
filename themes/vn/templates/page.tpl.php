@@ -19,11 +19,11 @@
       
       <div id="logo-block">
         <a href="<?php print $front_page; ?>" title="<?php print 'GetVoIP Home'; ?>" id="logo">
-          <img src="<?php print 'http://getvoip.com/sites/all/themes/gv_orange/css/images/getvoip-logo2.png'; ?>" alt="GetVoIP.com - Complete VoIP Provider Directory & Service Guide" title="<?php print t('GetVoIP Home'); ?>" />
+          <img src="<?php print 'http://voipnow.org/sites/all/themes/vn_/css/images/getvoip-logo2.png'; ?>" alt="voipnow.org - Complete VoIP Provider Directory & Service Guide" title="<?php print t('GetVoIP Home'); ?>" />
         </a>
         <div class="descr">
           <div class="title">2013 VOIP GUIDE</div>
-          <div class="subtitle">SERVICE PROVIDER REVIEWS</div><div class="stars"><img src="/sites/all/themes/gv_orange/css/images/sprite-0.png" alt="Provider Reviews From Consumers" title="VoIP Reviews"/></div>
+          <div class="subtitle">SERVICE PROVIDER REVIEWS</div><div class="stars"><img src="/sites/all/themes/vn_/css/images/sprite-0.png" alt="Provider Reviews From Consumers" title="VoIP Reviews"/></div>
         </div>
       </div>
       
@@ -31,13 +31,13 @@
           global $user;
 
 //        if ($user->uid == 1) {
-          echo /*'<a id="itexpo" href="http://getvoip.com/blog/tags/itexpo-2012"></a>',*/ render($page['header']); 
+          echo /*'<a id="itexpo" href="http://voipnow.org/blog/tags/itexpo-2012"></a>',*/ render($page['header']); 
           
-          echo gv_blocks_getBlockThemed(array('module' => 'om_maximenu', 'delta' => 'om-maximenu-1', 'no_subject' => TRUE, 'class' => 'block-om-maximenu', 'shadow' => FALSE), TRUE, '+31 day', ($user->uid ? '_logged' : NULL));
+          echo vn_blocks_getBlockThemed(array('module' => 'om_maximenu', 'delta' => 'om-maximenu-1', 'no_subject' => TRUE, 'class' => 'block-om-maximenu', 'shadow' => FALSE), TRUE, '+31 day', ($user->uid ? '_logged' : NULL));
           
 //        }
 //        else {
-//          echo '<div id="block-gv-blocks-header-links"><div class="follow-us">Follow Us</div>', gv_blocks_get_headerLinks(), '</div>', render($page['header']); 
+//          echo '<div id="block-vn-blocks-header-links"><div class="follow-us">Follow Us</div>', vn_blocks_get_headerLinks(), '</div>', render($page['header']); 
 //        }
       ?>
     </nav> <!-- /#navigation -->
@@ -97,30 +97,30 @@
           
           <?php 
           //global $user;
-          $pages_with_timestamp = array(
-            '/compare-business-voip-providers', 
-            '/business-voip-reviews', 
-            '/compare-residential-voip-providers', 
-            '/best-voip-service-providers',
-            '/residential-voip-reviews', 
-            '/sip-trunking-providers',
-            '/internet-fax-service-providers',
-            '/providers/reviews', 
-            '/about-voip-services', 
-            '/blog', 
-            '/news', 
-            '/voip-provider-submit-user-review',
-            '/about-us',
-            '/contact-us',
-            '/advertise',
-            '/press',
-            '/privacy-policy',
-            '/terms-of-use',
-            '/our-team',
-          );
-          //if ($user->uid == 1) {
-          if($is_front || in_array($_SERVER['REDIRECT_URL'], $pages_with_timestamp))
-            echo gv_misc_lastUpdatedStamp();
+//          $pages_with_timestamp = array(
+//            '/compare-business-voip-providers', 
+//            '/business-voip-reviews', 
+//            '/compare-residential-voip-providers', 
+//            '/best-voip-service-providers',
+//            '/residential-voip-reviews', 
+//            '/sip-trunking-providers',
+//            '/internet-fax-service-providers',
+//            '/providers/reviews', 
+//            '/about-voip-services', 
+//            '/blog', 
+//            '/news', 
+//            '/voip-provider-submit-user-review',
+//            '/about-us',
+//            '/contact-us',
+//            '/advertise',
+//            '/press',
+//            '/privacy-policy',
+//            '/terms-of-use',
+//            '/our-team',
+//          );
+//          //if ($user->uid == 1) {
+//          if($is_front || in_array($_SERVER['REDIRECT_URL'], $pages_with_timestamp))
+//            echo vn_misc_lastUpdatedStamp();
               
           //}
           ?>
@@ -148,7 +148,7 @@
   
   <footer id="footer" role="contentinfo" class="clearfix">
     <?php echo render($page['footer']); ?>
-    <div class="c">© 2013 GetVoIP.com | All Rights Reserved</div>
+    <div class="c">© 2013 voipnow.org | All Rights Reserved</div>
     
 
     
@@ -156,19 +156,19 @@
       
       
       if (1/*$user->uid*/) {
-        echo '<div id="block-gv-blocks-follow-links"><div class="follow-us">Follow Us</div>', gv_blocks_get_headerLinks(), '</div>';
+        echo '<div id="block-vn-blocks-follow-links"><div class="follow-us">Follow Us</div>', vn_blocks_get_headerLinks(), '</div>';
         ?>
           <!--<div id="lock-n-rss">-->
-            <div id="sitelock"><a href="#" onclick="window.open('https://www.sitelock.com/verify.php?site=getvoip.com','SiteLock','width=600,height=600,left=160,top=170');" ><img alt="website security" title="SiteLock"  src="//shield.sitelock.com/shield/getvoip.com"/></a></div>
-            <!--<a id="valid-rss" href="http://appc.w3.org/check.cgi?url=http%3A//getvoip.com/rss.xml"><img src="http://getvoip.com/sites/all/themes/gv_orange/css/images/valid-rss-rogers.png" alt="[Valid RSS]" title="Validate my RSS feed" /></a> -->
+            <div id="sitelock"><a href="#" onclick="window.open('https://www.sitelock.com/verify.php?site=voipnow.org','SiteLock','width=600,height=600,left=160,top=170');" ><img alt="website security" title="SiteLock"  src="//shield.sitelock.com/shield/voipnow.org"/></a></div>
+            <!--<a id="valid-rss" href="http://appc.w3.org/check.cgi?url=http%3A//voipnow.org/rss.xml"><img src="http://voipnow.org/sites/all/themes/vn_/css/images/valid-rss-rogers.png" alt="[Valid RSS]" title="Validate my RSS feed" /></a> -->
           <!--</div>-->
         <?php
           
       }
       else { 
         ?>
-          <div id="sitelock"><a href="#" onclick="window.open('https://www.sitelock.com/verify.php?site=getvoip.com','SiteLock','width=600,height=600,left=160,top=170');" ><img alt="website security" title="SiteLock"  src="//shield.sitelock.com/shield/getvoip.com"/></a></div>
-          <a id="valid-rss" href="http://appc.w3.org/check.cgi?url=http%3A//getvoip.com/rss.xml"><img src="http://getvoip.com/sites/all/themes/gv_orange/css/images/valid-rss-rogers.png" alt="[Valid RSS]" title="Validate my RSS feed" /></a>
+          <div id="sitelock"><a href="#" onclick="window.open('https://www.sitelock.com/verify.php?site=voipnow.org','SiteLock','width=600,height=600,left=160,top=170');" ><img alt="website security" title="SiteLock"  src="//shield.sitelock.com/shield/voipnow.org"/></a></div>
+          <a id="valid-rss" href="http://appc.w3.org/check.cgi?url=http%3A//voipnow.org/rss.xml"><img src="http://voipnow.org/sites/all/themes/vn_/css/images/valid-rss-rogers.png" alt="[Valid RSS]" title="Validate my RSS feed" /></a>
         <?php
       }
     ?>

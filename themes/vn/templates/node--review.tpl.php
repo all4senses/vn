@@ -86,14 +86,14 @@
 
         <div class="content"<?php print $content_attributes; ?>>
           
-          <div class="gv_votes">
-            <?php echo '<div class="caption"><span>' , t('User\'s Rating') , ':</span> <span property="v:rating">' , (empty($node->field_r_rating_overall['und'][0]['value']) ? $node->field_r_rating_overall[0]['value'] : $node->field_r_rating_overall['und'][0]['value']), '</span>' /* render($content['gv_rating_overall'])*/ , '<div class="bottom-clear"></div></div>' , render($content['gv_ratings']); ?>
+          <div class="vn_votes">
+            <?php echo '<div class="caption"><span>' , t('User\'s Rating') , ':</span> <span property="v:rating">' , (empty($node->field_r_rating_overall['und'][0]['value']) ? $node->field_r_rating_overall[0]['value'] : $node->field_r_rating_overall['und'][0]['value']), '</span>' /* render($content['vn_rating_overall'])*/ , '<div class="bottom-clear"></div></div>' , render($content['vn_ratings']); ?>
             <div class="rate-other">
               <?php if (!$page): ?>
                 <div class="text"><?php echo '<div class="title">' , t('Date:') , '</div><div property="v:dtreviewed" content="' . date('Y-m-d', $node->created) . '">' , date('F j, Y', $node->created) , '</div>'; ?></div>
                 <div class="text"><?php echo '<div class="title">' , t('Reviewer:') , '</div><div property="v:reviewer">' , $node->field_r_fname['und'][0]['safe_value'] , '</div>'; ?></div>
               <?php endif; ?>
-              <div class="text"><?php echo '<div class="title">' . t('Recommend') . ': </div><div class="data">' . $node->gv_recommend . '</div>'?></div>
+              <div class="text"><?php echo '<div class="title">' . t('Recommend') . ': </div><div class="data">' . $node->vn_recommend . '</div>'?></div>
             </div>
           </div>
           

@@ -79,7 +79,7 @@
 
       print render($content);
     
-      $url = 'http://getvoip.com' . ($_GET['q'] == 'home' ? '' : $_SERVER['REQUEST_URI']); // . ($_GET['q'] == 'home' ? '/' : (strpos($_GET['q'], 'node/') === FALSE ? ('/' . $_GET['q']) : url($_GET['q'])));
+      $url = 'http://voipnow.org' . ($_GET['q'] == 'home' ? '' : $_SERVER['REQUEST_URI']); // . ($_GET['q'] == 'home' ? '/' : (strpos($_GET['q'], 'node/') === FALSE ? ('/' . $_GET['q']) : url($_GET['q'])));
     ?>
     
      <div class="share">
@@ -92,7 +92,7 @@
                 $share_title = NULL;
                 
                 if ($is_front) {
-                  $share_title = gv_misc_metatag_getFrontTitle();
+                  $share_title = vn_misc_metatag_getFrontTitle();
                 }
                 
                 if (!$share_title) {
@@ -103,7 +103,7 @@
                     $share_title = $title;
                   }
                 }
-                echo gv_blocks_getSocialiteButtons($url, $share_title); 
+                echo vn_blocks_getSocialiteButtons($url, $share_title); 
               
               ?> 
 

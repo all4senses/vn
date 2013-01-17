@@ -5,7 +5,7 @@
       <div class="content page preface">
         <?php
         
-          drupal_set_title('Page Not Found | GetVoIP.com');
+          drupal_set_title('Page Not Found | VoIPNow.org');
         
           // Hide comments, tags, and links now so that we can render them later.
           hide($content['comments']);
@@ -13,7 +13,7 @@
           print render($content);
           
           // Get content of the Sitemap.
-          $sitemap_body = cache_get('gv_sitemap_body');
+          $sitemap_body = cache_get('vn_sitemap_body');
           if (!$sitemap_body || empty($sitemap_body->data)) {
             $key = 'view-sitemap-page';
             $query = db_select('node', 'n');
@@ -29,7 +29,7 @@
               $sitemap_body = $matches[1];
             }
 
-            cache_set('gv_sitemap_body', $sitemap_body);
+            cache_set('vn_sitemap_body', $sitemap_body);
           }
           else 
           {

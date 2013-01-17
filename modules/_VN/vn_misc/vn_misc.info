@@ -1,0 +1,6 @@
+name = VN Misc
+package = VoIP Now
+description = "Miscelanious helper functions and hooks implementations"
+core = 7.x
+tags[] = VoIP Now
+files[] = vn_misc.module

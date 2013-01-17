@@ -1,0 +1,2997 @@
+<?php
+
+/**
+ * @file
+ * Module for building and managing site's pages.
+ */
+
+/**
+ * Constants for ratins titles, etc.
+ */
+module_load_include('inc', 'vn_misc', 'inc/constants');
+
+
+/**
+ * Implements hook_menu().
+ */
+function vn_pages_menu() {
+  
+  $items['home'] = array(
+    'title' => 'Home page',
+    //'description' => 'Home page',
+    //'page callback' => 'drupal_get_form',
+    'page callback' => 'vn_pages_buildHome',
+    ////'page callback' => 'vn_pages_showPage',
+    ////'page arguments' => array('vn_pages_home'/*$name*/, 'via_function'/* $call_type: direct_theme OR via_function */, 'vn_pages_buildHome' /*$build_function*/), //array(1),
+    //'access callback' => 'vn_pages_access',
+    //'access arguments' => array('home'),
+    'access arguments' => array('access content'),  
+    'type' => MENU_CALLBACK,
+  );
+  
+  
+  return $items;
+}
+
+
+/**
+ * Implements Hook Process Html.
+ * Minify html on the fly.
+ */
+function vn_misc_process_html(&$vars) {
+  
+  global $user;
+  
+  if (!$user->uid) {
+    
+      // Minify a Html Page content.
+      $vars['page'] = preg_replace(
+        array(
+          '/ {2,}/',
+          '/<!--.*?-->|\t|(?:\r?\n[ \t]*)+/s',
+        ),
+        array(
+          ' ',
+          '',
+        ),
+        $vars['page']
+      );
+
+  }
+  else {
+    //dpm($vars);
+  }
+  
+}
+
+
+/**
+ * Implementing hook_js_alter
+ * @param $javascript
+ */
+function vn_misc_js_alter(&$javascript) {
+
+  ////global $user;
+  ////if (!$user->uid) {
+    
+    // Minify all js on the page.
+    
+    $add_to_minified = NULL;
+    $from_scratch = FALSE;
+    
+    $vn_minified_js = variable_get('vn_minified_js');
+    
+    if ($vn_minified_js) {
+      foreach($javascript as $filename => $attr){
+        
+        if (isset($vn_minified_js[$filename])) {
+          $javascript[$filename]['data'] = $vn_minified_js[$filename];
+        }
+        elseif (strpos($filename, '.js') && !strpos($attr['data'], 'min.js') && !strpos($attr['data'], 'jsmin-gv')) {
+          $add_to_minified[$filename] = $attr;
+        }
+      }
+    }
+    else {
+      $add_to_minified = $javascript;
+      $from_scratch = TRUE;
+    }
+    
+    // Create minified version of js files, not yet created.
+    if($add_to_minified) {
+
+      include_once DRUPAL_ROOT . '/sites/all/libraries/minify/min/lib/JSMin.php';
+    
+      foreach($add_to_minified as $filename => $attr){
+
+        if(!$from_scratch || (strpos($filename, '.js') && !strpos($attr['data'], 'min.js') && !strpos($attr['data'], 'jsmin-gv'))) {
+
+          $source_fpath_short = $attr['data'];
+          $source_fpath = DRUPAL_ROOT . '/' . $source_fpath_short;
+
+          if ($source_content = file_get_contents($source_fpath)) {
+            if ($minOutput = JSMin::minify($source_content)) {
+              $target_path_short = 'f/jsmin-gv/' . str_replace('/', '-', $source_fpath_short);
+              if (file_put_contents(DRUPAL_ROOT . '/' . $target_path_short, $minOutput)) {
+                $vn_minified_js[$filename] = $target_path_short;
+                $javascript[$filename]['data'] = $vn_minified_js[$filename];
+              }
+            }
+          }
+
+        } // End of if(strpos($filename, '.js') && !strpos($attr['data'], "min.js") && !strpos($attr['data'], "jsmin-gv")) {
+
+      } // End of foreach($javascript as $filename => $attr){
+      
+      variable_set('vn_minified_js', $vn_minified_js);
+    } // End of if($add_to_minified) {
+      
+    
+    // Replace js with min.js
+//    foreach($javascript as $filename => $attr) {
+//      if (isset($vn_minified_js[$filename])) {
+//        $javascript[$filename]['data'] = $vn_minified_js[$filename];
+//      }
+//    }
+    
+    
+  ////} // End of if ($user->uid != 1) {
+
+}
+
+
+/**
+ * Implements hook_flush_caches().
+ */
+function vn_misc_flush_caches() {
+  // Remove all minified files from jsmin-gv folder.
+  $dir = 'f/jsmin-gv';
+  $objects = scandir($dir);
+  foreach ($objects as $object) {
+    if ($object != "." && $object != "..") {
+      unlink($dir . "/" . $object);
+    }
+  }
+  variable_del('vn_minified_js');
+  
+  // Recalculate the reviews amount.
+  $query = db_select('votingapi_vote', 'v');
+  $query->condition('v.value_type', 'percent')
+        ->condition('v.tag', 'overall');
+  //$votes = $query->execute();
+  $countQuery = $query->countQuery();
+  $num_votes = $countQuery->execute()->fetchField();
+  variable_set('vn_allReviewsAmount', $num_votes + 100);
+}
+
+
+/**
+ * 
+ * User permissions access calback function for the admin.
+ * 
+ */
+function vn_misc_userIsAdmin() {
+  global $user;
+  if (in_array('administrator', $user->roles)) {
+    return TRUE;
+  }
+  else {
+    return FALSE;
+  }
+}
+
+
+/**
+ * 
+ * A form for a Quote Requests data page, including not submitted, but captured data.
+ * 
+ */
+function vn_pages_quoteRequestsList_form($form, &$form_state) {
+  
+  //$args = arg();
+  //dpm($args);
+    
+  // Show newsletter emails
+  if (arg(3) == 'newsletter-emails') {
+    
+    $query = db_select('vn_emails_subscribed', 'e')
+          ->fields('e', array('email'));
+    //$query->condition('e.source', NULL);
+    $email = $query->execute()->fetchField();
+
+    $results = $query->execute();
+
+    $emails = '<br/><div><strong>Newsletter emails.</strong></div><br/>';
+    
+    $count = NULL;
+    $all_emails = array();
+    foreach ($results as $result) {
+      $all_emails[] = $result->email;
+      $emails .= '<div>' . $result->email . '</div>';
+      $count++;
+
+    }
+    $emails .= '<br/><div><strong>Amount of emails:</strong> ' . $count . '</div>';
+    $emails .= '<br/><div style="width: 1100px;"><strong>All emails separated by commas:</strong><br/> ' . implode(', ', $all_emails) . '</div>';
+  
+
+    $form['emails'] = array(
+      '#type' => 'markup',
+      '#markup' => '<div class="type">' . l('All Quote requests data', 'admin/content/quote-requests') . ' - ' . l('Quote requests emails only', 'admin/content/quote-requests/emails') .  ' - ' . l('Reviews emails', 'admin/content/quote-requests/reviews-emails') . ' - ' . l('Disqus emails', 'admin/content/quote-requests/disqus-emails') . '</div><br/>' . $emails,
+    );
+    
+    return $form;
+  }
+  // Show emails only.
+  elseif (arg(3) == 'emails') {
+    
+    // Requests emails only.
+    
+    $query = db_select('vn_quote_requests', 'qr'); //->extend('PagerDefault');
+    $query->fields('qr', array(/*'data', */'email_presented', 'timestamp'));
+    $query->condition('qr.email_presented', '0', '!=');
+    $query->condition('qr.email_presented', '', '!=');
+    $query->isNotNull('qr.email_presented');
+
+    $ucaptureds = 
+      $query
+        //->orderBy($sort, $order)
+        //->limit(20)
+        ->execute();
+
+    $emails = '<br/><div><strong>Quote requests emails only.</strong></div><br/>';
+//    foreach ($ucaptureds as $ucaptured) {
+//      $data = unserialize($ucaptured->data);
+//      $emails .= '<div>' . $data['Email'] . '</div>';
+//    }
+    
+    
+    
+    $count = NULL;
+    $all_emails = array();
+    foreach ($ucaptureds as $ucaptured) {
+      //$data = unserialize($ucaptured->data);
+      
+//      if (in_array($data['Email'], $all_emails) || !strpos($data['Email'], '@') || strpos($data['Email'], 'test@') !== FALSE || strpos($data['Email'], '@test') !== FALSE) {
+//        continue;
+//      }
+      if (in_array($ucaptured->email_presented, $all_emails) || !strpos($ucaptured->email_presented, '@') || strpos($ucaptured->email_presented, 'getvoip.') !== FALSE || strpos($ucaptured->email_presented, 'test@') !== FALSE || strpos($ucaptured->email_presented, '@test') !== FALSE) {
+        continue;
+      }
+      $all_emails[] = $ucaptured->email_presented;
+      $emails .= '<div>' . $ucaptured->email_presented . '</div>';
+      $count++;
+
+    }
+    $emails .= '<br/><div><strong>Amount of emails:</strong> ' . $count . '</div>';
+    $emails .= '<br/><div style="width: 1100px;"><strong>All emails separated by commas:</strong><br/> ' . implode(', ', $all_emails) . '</div>';
+  
+
+    $form['emails'] = array(
+      '#type' => 'markup',
+      '#markup' => '<div class="type">' . l('All Quote requests data', 'admin/content/quote-requests') . ' - ' . l('Reviews emails', 'admin/content/quote-requests/reviews-emails') . ' - ' . l('Disqus emails', 'admin/content/quote-requests/disqus-emails') . ' - ' . l('Newsletter emails', 'admin/content/quote-requests/newsletter-emails') . '</div><br/>' . $emails,
+    );
+    
+    return $form;
+  }
+  elseif (arg(3) == 'reviews-emails') {
+    // Show reviews emails.
+    $query = db_select('field_data_field_r_email', 're'); //->extend('PagerDefault');
+    $query->fields('re', array('field_r_email_value'));
+    
+    $results = 
+      $query
+        //->orderBy($sort, $order)
+        //->limit(20)
+        ->execute();
+
+    $emails = '<br/><div><strong>Reviews emails.</strong></div><br/>';
+//    foreach ($ucaptureds as $ucaptured) {
+//      $data = unserialize($ucaptured->data);
+//      $emails .= '<div>' . $data['Email'] . '</div>';
+//    }
+    
+    
+    
+    $count = NULL;
+    $all_emails = array();
+    foreach ($results as $result) {
+      //$data = unserialize($ucaptured->data);
+      
+//      if (in_array($data['Email'], $all_emails) || !strpos($data['Email'], '@') || strpos($data['Email'], 'test@') !== FALSE || strpos($data['Email'], '@test') !== FALSE) {
+//        continue;
+//      }
+      if (in_array($result->field_r_email_value, $all_emails) || !strpos($result->field_r_email_value, '@') || strpos($result->field_r_email_value, 'getvoip.') !== FALSE || strpos($result->field_r_email_value, 'test') !== FALSE || strpos($result->field_r_email_value, 'ruben') !== FALSE || strpos($result->field_r_email_value, 'alexxhome') !== FALSE || strpos($result->field_r_email_value, 'all4senses') !== FALSE) {
+        continue;
+      }
+      $all_emails[] = $result->field_r_email_value;
+      $emails .= '<div>' . $result->field_r_email_value . '</div>';
+      $count++;
+
+    }
+    $emails .= '<br/><div><strong>Amount of emails:</strong> ' . $count . '</div>';
+    $emails .= '<br/><div style="width: 1100px;"><strong>All emails separated by commas:</strong><br/> ' . implode(', ', $all_emails) . '</div>';
+  
+
+    $form['emails'] = array(
+      '#type' => 'markup',
+      '#markup' => '<div class="type">' . l('All Quote requests data', 'admin/content/quote-requests') . ' - ' . l('Quote requests emails only', 'admin/content/quote-requests/emails') . ' - ' . l('Disqus emails', 'admin/content/quote-requests/disqus-emails') . ' - ' . l('Newsletter emails', 'admin/content/quote-requests/newsletter-emails') . '</div><br/>' . $emails,
+    );
+    
+    return $form;
+  }
+  elseif (arg(3) == 'disqus-emails') {
+    // Show Disqus emails.
+
+    $vn_disqus_users = unserialize(variable_get('vn_disqus_users', serialize(array())));
+    
+    $emails = '<br/><div><strong>Disqus emails.</strong></div><br/>';
+
+    $count = NULL;
+    $all_emails = array();
+    foreach ($vn_disqus_users as $disqus_user) {
+      $emails .= '<div>' . $disqus_user['email'] . '</div>';
+      $all_emails[] = $disqus_user['email'];
+      $count++;
+    }
+    $emails .= '<br/><div><strong>Amount of emails:</strong> ' . $count . '</div>';
+    $emails .= '<br/><div style="width: 1100px;"><strong>All emails separated by commas:</strong><br/> ' . implode(', ', $all_emails) . '</div>';
+  
+
+    $form['emails'] = array(
+      '#type' => 'markup',
+      '#markup' => '<div class="type">' . l('All Quote requests data', 'admin/content/quote-requests') . ' - ' . l('Quote requests emails only', 'admin/content/quote-requests/emails')  . ' - ' . l('Reviews emails', 'admin/content/quote-requests/reviews-emails') . ' - ' . l('Newsletter emails', 'admin/content/quote-requests/newsletter-emails') . '</div><br/>' . $emails,
+    );
+    
+    return $form;
+  }
+  
+  
+  
+  
+  // All Quote Requests Data.
+  
+  if (@$_GET['op'] == 'delete' && @$_GET['timestamp']) {
+    
+    $result = db_delete('vn_quote_requests')
+      ->condition('timestamp', $_GET['timestamp'])
+      ->execute();
+    
+    if ($result) {
+      drupal_set_message('The data row with the timestamp "' . date('Y-m-d, H:i:s', $_GET['timestamp']) . '" has been deleted.');
+    }
+    else {
+      drupal_set_message('The data row with the timestamp "' . date('Y-m-d, H:i:s', $_GET['timestamp']) . '" has not been found in the database.', 'warning');
+    }
+    
+    unset($_GET['q'], $_GET['op'], $_GET['timestamp']);
+    drupal_goto($_SERVER['REDIRECT_URL'], array('query' => $_GET));
+  }
+  elseif (@$_GET['op'] == 'check' && @$_GET['timestamp']) {
+    
+    $result = db_update('vn_quote_requests')
+      ->fields(array(
+        'checked' => 1,
+      ))
+      ->condition('timestamp', $_GET['timestamp'])
+      ->execute();
+    
+    if ($result) {
+      drupal_set_message('The data row with the timestamp "' . date('Y-m-d, H:i:s', $_GET['timestamp']) . '" is now checked.');
+    }
+    else {
+      drupal_set_message('Something wrong has happened while updating the row with the timestamp "' . date('Y-m-d, H:i:s', $_GET['timestamp']) . '". Check the data.', 'warning');
+    }
+    
+    unset($_GET['q'], $_GET['op'], $_GET['timestamp']);
+    drupal_goto($_SERVER['REDIRECT_URL'], array('query' => $_GET));
+  }
+  elseif (@$_GET['op'] == 'uncheck' && @$_GET['timestamp']) {
+    
+    $result = db_update('vn_quote_requests')
+      ->fields(array(
+        'checked' => 0,
+      ))
+      ->condition('timestamp', $_GET['timestamp'])
+      ->execute();
+    
+    if ($result) {
+      drupal_set_message('The data row with the timestamp "' . date('Y-m-d, H:i:s', $_GET['timestamp']) . '" is now unchecked.');
+    }
+    else {
+      drupal_set_message('Something wrong has happened while updating the row with the timestamp "' . date('Y-m-d, H:i:s', $_GET['timestamp']) . '". Check the data.', 'warning');
+    }
+    
+    unset($_GET['q'], $_GET['op'], $_GET['timestamp']);
+    drupal_goto($_SERVER['REDIRECT_URL'], array('query' => $_GET));
+  }
+  
+  // Remove all useless rows (without emails).
+//  $current_time = time();
+//  $result = db_delete('vn_quote_requests')
+//    ->condition('email_presented', 0)
+//    ->condition('timestamp', ($current_time - 1200), '<') // 20 min old
+//    ->execute();
+  
+  
+  
+  $form['emails'] = array(
+    '#type' => 'markup',
+    '#markup' => '<div class="type">' . l('Quote requests emails only', 'admin/content/quote-requests/emails') . ' - ' . l('Reviews emails', 'admin/content/quote-requests/reviews-emails') . ' - ' . l('Disqus emails', 'admin/content/quote-requests/disqus-emails') . ' - ' . l('Newsletter emails', 'admin/content/quote-requests/newsletter-emails') . '</div>'
+      . '<br/><div><strong>All Quote Requests data.</strong></div><br/>',
+  );
+  
+  $sort = @$_GET['sort'] ? $_GET['sort'] : 'timestamp';
+  
+  $query = '';
+  foreach ($_GET as $key => $value) {
+    if ($key != 'q' && $key != 'sort' && $key != 'order') {
+      $query .= ($query ? '&' : '?') . $key . '=' . $value;
+    }
+  }
+  
+  $sort_options = array('timestamp' => 'Submission started', 'via_block' => 'Page / Block', 'status' => 'Status', 'checked' => 'Checked / Alerted', 'ip' => 'User IP');
+  $start_url = $_SERVER['REDIRECT_URL'] . $query . ($query ? '&' : '?');
+  
+  $sort_exposed = '';
+  $order = 'DESC';
+  foreach($sort_options as $sort_option => $sort_title) {
+    $order_marker = '';
+    if ($sort_option == @$_GET['sort']) {
+      if (!@$_GET['order'] || $_GET['order'] == 'DESC') {
+        $current_order = 'ASC';
+        $order = 'ASC';
+        $order_marker = '&darr;';
+      }
+      else {
+        $current_order = 'DESC';
+        $order = 'DESC';
+        $order_marker = '&uarr;';
+      }
+    }
+    else {
+      $current_order = 'DESC';
+    }
+    //$sort_exposed .= ' | <a href="' . $start_url . 'sort=' . $sort_option . '&order=' . $current_order . '">' . $sort_title . $order_marker . '</a>';
+    $sort_links[$sort_option] = '<a href="' . $start_url . 'sort=' . $sort_option . '&order=' . $current_order . '">' . $sort_title . ' ' . $order_marker . '</a>';
+  }
+  
+  
+  $filter_by = array('with_emails' => 'Only with emails','all' => 'Show all', 'not_alerted' => 'Captured, NOT alerted', 'alerted' => 'Captured and alerted', 'submitted' => 'Submitted', 'checked' => 'Checked / Alerted', 'unchecked' => 'Not Checked / Not Alerted');
+  $filter_by_db = array('with_emails' => NULL,  'all' => NULL, 'not_alerted' => array('status', 0), 'alerted' => array('status', 1), 'submitted' => array('status', 2), 'checked' => array('checked', 1), 'unchecked' => array('checked', 0));
+  $current_filter = isset($filter_by[@$_GET['filter']]) ? $_GET['filter'] : 'with_emails';
+  
+  
+  $query = db_select('vn_quote_requests', 'qr')->extend('PagerDefault');
+  $query->fields('qr', array('timestamp', 'via_block', 'data', 'status', 'checked', 'ip'));
+  
+  
+  if ($filter_by_db[$current_filter]) {
+    $query->condition($filter_by_db[$current_filter][0], $filter_by_db[$current_filter][1]);
+  }
+  elseif ($current_filter == 'with_emails') {
+    $query->condition('qr.email_presented', '0', '!=');
+    $query->condition('qr.email_presented', '', '!=');
+    $query->isNotNull('qr.email_presented');
+  }
+  $ucaptureds = 
+    $query
+      ->orderBy($sort, $order)
+      ->limit(20)
+      ->execute();
+  
+  
+  $form['filter'] = array(
+    '#type' => 'radios',
+    '#title' => t('Filter by: '),
+    '#default_value' => $current_filter,
+    '#options' => $filter_by,
+    '#attributes' =>  array('class' =>array('filter_by'), 'onClick' => array('javascript:this.form.submit();')),
+  );
+ 
+    
+  $form['table_start'] = array(
+    '#type' => 'markup',
+    '#markup' => '<table class="views-table quote-requests"><thead><tr><th>Num</th><th>' . $sort_links['timestamp'] . '</th><th>' . $sort_links['status'] . '</th><th>' . $sort_links['via_block'] . '</th><th>' . $sort_links['checked'] . '</th><th>' . $sort_links['ip'] . '</th><th class="data">Data</th><th>Operations</th></tr></thead><tbody>',
+  );
+  
+  $tr_class = 'even';
+  foreach ($ucaptureds as $key => $ucaptured) {
+    switch ($ucaptured->status) {
+      case 0:
+        $status = 'Captured, NOT alerted';
+        $status_class = 'not-alerted';
+        break;
+      case 1:
+        $status = 'Captured, alerted';
+        $status_class = 'alerted';
+        break;
+      case 2:
+        $status = 'Submitted';
+        $status_class = 'submitted';
+        break;
+    }
+    $data = '';
+    $ucaptured_data = unserialize($ucaptured->data);
+    $ucaptured_data = vn_misc_setUcapturedVariable(NULL, $ucaptured_data, TRUE);
+    foreach ($ucaptured_data as $title => $value) {
+      if ($title == 'Submit Time' && is_numeric($value)) {
+        $value = date('Y-m-d, H:i:s', $value);
+      }
+      elseif ($title == 'Submission Duration' && is_numeric($value)) {
+        $value = number_format($value / 60, 2, '.', '') . ' min';
+      }
+      $data .= "<div>$title: $value</div>";
+    }
+    $form['item_' . ($key + 1) . 'a'] = array(
+      '#markup' => '<tr class="'. ($tr_class == 'odd' ? $tr_class = 'even' : $tr_class = 'odd') . '"><td>' . ($key + 1) . '</td><td>' . date('Y-m-d, H:i:s', $ucaptured->timestamp) . '</td><td class="' . $status_class . '">' . $status . '</td><td>' . (empty($ucaptured->via_block) ? 'Via page' : 'Via block' ) . '</td>',
+    );
+    
+    $delete_url = $_GET + array('op' => 'delete', 'timestamp' => $ucaptured->timestamp);
+    $check_url = $_SERVER['REQUEST_URI'] . ($_SERVER['REQUEST_URI'] == $_SERVER['REDIRECT_URL'] ? '?' : '&') . 'op=check&timestamp=' . $ucaptured->timestamp;
+    $uncheck_url = $_SERVER['REQUEST_URI'] . ($_SERVER['REQUEST_URI'] == $_SERVER['REDIRECT_URL'] ? '?' : '&') . 'op=uncheck&timestamp=' . $ucaptured->timestamp;
+    unset($delete_url['q']);
+
+    
+    $form['item_' . ($key + 1) . 'b'] = array(
+      '#type' => 'checkbox',
+      '#default_value' => $ucaptured->checked,
+      '#prefix' => '<td>',
+      '#suffix' => '</td>',
+      '#attributes' =>  array('class' =>array('checked'), 'onClick' => array('javascript:window.location.href = "http://voipnow.org' . ($ucaptured->checked ? $uncheck_url : $check_url) . '";')),
+    );
+    
+    
+    $form['item_' . ($key + 1) . 'c'] = array(
+      '#markup' => '<td>' . $ucaptured->ip . '</td><td class="data">' . $data . '</td><td>' . l('Delete', $_GET['q'], array('query' => $delete_url)) . '</td></tr>',
+    );
+  }
+
+  $form['table_close'] = array(
+    '#type' => 'markup',
+    '#markup' => '</tbody></table></div>',
+  );
+  
+  $form['pager'] = array(
+    '#theme' => 'pager',
+    //'#weight' => 5,
+  );
+  
+  //$form['actions']['submit']['#submit'][] = 'vn_pages_quoteRequestsList_formSubmit';
+  //$form['#submit'][] = 'vn_pages_quoteRequestsList_formSubmit';
+  $form['#validate'][] = 'vn_pages_quoteRequestsList_formValidate';
+  
+  
+  return $form;
+}
+
+
+/**
+ * Custom submit of a form for a Quote Requests List page.
+ *
+ * Provides a filtering functionality.
+ * 
+ * @param array &$form
+ *   Array with declared form.
+ *
+ * @param array &$form_state
+ *   Array with current form state.
+
+ * @return void
+ *   Return nothing.
+ */
+function vn_pages_quoteRequestsList_formValidate(&$form, &$form_state) {
+
+  $get = $_GET;
+  unset($get['q']);
+  $get['filter'] = $form_state['values']['filter'];
+  
+  drupal_goto($_GET['q'], array('query' => $get));
+}
+
+//function vn_pages_quoteRequestsList_formSubmit(&$form, &$form_state) {
+//
+//}
+
+
+/**
+ * Returns a themed News topics page.
+ * 
+ * Allows to use same topics for News, Articles, Blog posts, etc.
+ */
+/*
+function vn_pages_buildTopicsPage($content_type_label) {
+  global $language;
+  //$content_types = array('blog_post' => 'blog', 'news_post' => 'news', 'article' => 'articles');
+  // Inverted...
+  $content_types = array('blog' => 'blog_post', 'news' => 'news_post', 'articles' => 'article');
+  $content_type = $content_types[$content_type_label];
+  
+  $topics = cache_get($content_type . '_topics_page' . $language->language);
+  if (1) { //(!$topics || empty($topics->data) || $topics->expire < time()) {
+    $topics_array = vn_misc_getTopics($content_type, $content_type_label);
+
+    if (!$topics_array) {
+      return NULL;
+    }
+    
+    // Simple List.
+    // $topics = theme('vn_misc_submenuSimple', array('submenu' => array('below' => $topics_array), 'class' => 'topics'));
+    // Tag cloud.
+    $topics_array = tagadelic_sort_tags(tagadelic_build_weighted_tags($topics_array, 12));
+    $topics = theme('vn_misc_tagadelicWeighted_acceptPredefinedTermsPaths', array('terms' => $topics_array));
+  
+
+    //$page_title = '<h1 id="page-title" class="title">' . drupal_ucfirst($content_type_label) . ' tags</h1>';
+    $show_all_url = '<div class="more-link">' . l(t('Show all posts'), $content_type_label) . '</div>';
+    $topics = $topics . $show_all_url; // $page_title . $topics . $show_all_url;
+    // Expire = current time + 4 hours.
+    cache_set($content_type . '_topics_page' . $language->language, $topics, 'cache', time() + 14400);
+  }
+  else {
+    $topics = $topics->data;
+  }
+  
+  if ($preface = vn_misc_getPrefaceByKey($content_type_label . '_tags') ) {
+    //dpm($preface);
+    //drupal_set_title($preface->title);
+    if (isset($preface->metatags['title']['value']) && $preface->metatags['title']['value']) {
+      drupal_set_title($preface->metatags['title']['value']);
+    }
+    else {
+      drupal_set_title($preface->title);
+    }
+    
+    $preface->title_no_link = TRUE;
+    $preface = render(node_view($preface, 'full'));
+  }
+  
+  return '<div class="tags">' . $preface . $topics . '</div>'; 
+}
+*/
+
+
+/**
+ * Returns a admin page of all tags of s specific content type.
+ */
+function vn_pages_editTagsPage_form($form, &$form_state, $content_type_label) {
+  
+  
+  $voc_names = array('topics' => 'topics', 'blog' => 'blog_tags', 'news' => 'news_tags', 'articles' => 'articles_tags');
+  
+  //$content_types = array('blog' => 'blog_post', 'news' => 'news_post', 'articles' => 'article');
+  //$content_type = $content_types[$content_type_label];
+  //$tags_array = vn_misc_getTopics($content_type, $content_type_label, NULL, TRUE, 80);
+  //$main_topics_voc = taxonomy_vocabulary_machine_name_load(TOPICS);
+  
+  $voc = taxonomy_vocabulary_machine_name_load($voc_names[$content_type_label]);
+  
+  $tags_array = array();
+  $query = db_select('taxonomy_term_data', 'td')->extend('pagerDefault')->limit(80);
+  $query->fields('td', array('name', 'tid', 'vid', 'description'));
+  $query->leftJoin('taxonomy_index', 'ti', 'ti.tid = td.tid');
+  $query->leftJoin('node', 'n', 'n.nid = ti.nid');
+  //$query->where('n.nid = ti.nid AND n.type = :type', array(':type' => $content_type))
+  $query->addExpression('COUNT(n.nid)', 'count');
+  $query->groupBy('td.name');
+  $query->condition('td.vid', $voc->vid);
+  $query->orderBy('count', 'ASC');
+  $results = $query->execute();
+
+  foreach($results as $result) {
+    $result->link = array('link_title' => $result->name, 'href' => 'taxonomy/term/' . $result->tid);
+    $tags_array[$result->tid] = $result;
+  }
+
+  
+  $content_type_label_title = ucfirst($content_type_label);
+  $form['Title'] = array(
+    '#markup' => $content_type_label == 'topics' 
+                        ? '<h1>Main Tags holder Admin page</h1><div class="cloud-link">' . l('Blog tags admin page', 'blog/tags-admin')  . '</div><div class="cloud-link">' . l('News tags admin page', 'news/tags-admin')  . '</div><div class="cloud-link">' . l('Voip Library tags admin page', 'articles/tags-admin')  . '</div>'
+                        : '<h1>' . $content_type_label_title . ' Tags Admin page</h1><div class="cloud-link">' . l($content_type_label_title . ' tags cloud page', $content_type_label . '/tags')  . '</div><div class="cloud-link">' . l('Main tags holder Admin page', 'topics/tags-admin')  . '</div>',
+  );
+  if (!$tags_array) {
+    $form['no_results'] = array(
+      '#markup' => '<div class="no-results">No tags here yet...</div>',
+    ); 
+  }
+  else {
+    $form['tags_array'] = array(
+      '#type' => 'hidden',
+      '#value' => serialize($tags_array),
+    );
+    $form['tags'] = array(
+      '#type' => 'container',
+      '#tree' => TRUE,
+    );
+    foreach ($tags_array as $tid => $tag) {
+      $form['tags'][$tid] = array(
+        '#type' => 'checkbox',
+        '#default_value' => FALSE,
+        '#title' => '<div class="tag">' . l($tag->name, $tag->link['href'], array('attributes' => array('target' => '_blank'))) . '<span class="tid">, tid =' . $tid . ',</span> <span' . ($tag->count == 1? ' class="zero"' : '') . '>' . $tag->count . '</span> posts</div>',
+      );
+    }
+    
+    if ($content_type_label != 'topics') {
+      $form['more'] = array(
+        '#markup' => '<div class="more-link">' . l('Show all posts...', $content_type_label) . '</div>',
+      );
+    }
+    
+    $form['select_all'] = array(
+      '#markup' => '<div class="select-all" style="cursor: pointer; color: gray; margin: 0 0 20px 25px;">Select/Unselect all tags</div>',
+    );
+    
+    $form['actions']['submit'] = array(
+      '#type' => 'submit',
+      '#value' => t('Delete all selected tags'),
+      '#weight' => 40,
+    ); 
+    
+    $form['pager'] = array(
+      '#type' => 'markup',
+      '#markup' => theme('pager'),
+    );
+    
+    $form['#submit'][] = 'vn_pages_editTagsPage_formSubmit';
+  }
+  
+  
+  $path_to_custom_js = drupal_get_path('module', 'vn_pages') . '/js/';
+  drupal_add_js($path_to_custom_js . 'vn_selectAllTagsToDel.js');
+  
+
+  return $form; 
+}
+
+
+function vn_pages_editTagsPage_formSubmit($form, &$form_state) {
+  
+  //dpm($form); dpm($form_state['values']);
+  
+  $tags_array = unserialize($form_state['values']['tags_array']);
+  $tags_to_delete = array();
+  foreach ($form_state['values']['tags'] as $tid => $value) {
+    if ($value) {
+      $tags_to_delete[$tid] = $tags_array[$tid]->name;
+    }
+  }
+  
+  //dpm($tags_to_delete);
+  if (!empty($tags_to_delete)) {
+    foreach ($tags_to_delete as $tid => $name) {
+      taxonomy_term_delete($tid);
+      drupal_set_message('A tag "' . $name . '" has been deleted.');
+    }
+    // Clear all caches.
+    drupal_flush_all_caches();
+  }
+}
+
+
+/**
+ * Returns a block with a cloud of all tags of s specific content type.
+ */
+function vn_pages_buildTopicsPage($content_type_label) {
+  
+  global $language;
+  global $user;
+  
+  //$content_types = array('blog_post' => 'blog', 'news_post' => 'news', 'article' => 'articles');
+  // Inverted...
+  $content_types = array('blog' => 'blog_post', 'news' => 'news_post', 'articles' => 'article');
+  $content_type = $content_types[$content_type_label];
+  
+  // Uncomment to use a cache.
+  //$tags = cache_get($content_type . '_tags_page' . $language->language);
+  
+  // Comment to use a cache.
+  if (1) { 
+    
+  // Uncomment to use a cache.
+  //if (!$tags || empty($tags->data) || $tags->expire < time()) {
+    
+    $tags_array = vn_misc_getTopics($content_type, $content_type_label);
+
+    if (!$tags_array) {
+      return NULL;
+    }
+    
+    // Simple List.
+    // $tags = theme('vn_misc_submenuSimple', array('submenu' => array('below' => $tags_array), 'class' => 'tags'));
+    // Tag cloud.
+    $tags_array = tagadelic_sort_tags(tagadelic_build_weighted_tags($tags_array, 12));
+    $tags = theme('vn_misc_tagadelicWeighted_acceptPredefinedTermsPaths', array('terms' => $tags_array));
+  
+
+    //$page_title = '<h1 id="page-title" class="title">' . drupal_ucfirst($content_type_label) . ' tags</h1>';
+    $show_all_url = '<div class="more-link">' . l(t('Show all posts'), $content_type_label) . '</div>';
+    $tags = /*$page_title .*/ $tags . $show_all_url;
+    // Expire = current time + 4 hours.
+   
+    // Uncomment to use a cache.
+    // cache_set($content_type . '_tags_page' . $language->language, $tags, 'cache', time() + 14400);
+    
+  }
+  else {
+    $tags = $tags->data;
+  }
+  
+  /*
+  if ($preface = vn_misc_getPrefaceByKey($content_type_label . '_tags') ) {
+    //dpm($preface);
+    //drupal_set_title($preface->title);
+    if (isset($preface->metatags['title']['value']) && $preface->metatags['title']['value']) {
+      drupal_set_title($preface->metatags['title']['value']);
+    }
+    else {
+      drupal_set_title($preface->title);
+    }
+    
+    $preface->title_no_link = TRUE;
+    $preface = render(node_view($preface, 'full'));
+  }
+  return '<div class="tags">' . $preface . $topics . '</div>'; 
+  */
+  
+  return ($user->uid ? '<div class="tags-admin-link">' . l(ucfirst($content_type_label) . ' tags Admin page', $content_type_label . '/tags-admin') . '</div>' : '') . '<div class="tags">' . $tags . '</div>'; 
+}
+
+
+
+
+/**
+ * Returns a themed News topics page.
+ * 
+ * Allows to use same topics for News, Articles, Blog posts, etc.
+ */
+/*
+function vn_pages_buildNewsTopics() {
+  global $language;
+  $topics = cache_get('news_topics_page' . $language->language);
+  if (!$topics || empty($topics->data) || $topics->expire < time()) {
+    $topics = vn_misc_getTopics('news_post', 'news');
+    $topics = theme('vn_misc_submenuSimple', array('submenu' => array('below' => $topics), 'class' => 'topics'));
+    // Expire = current time + 4 hours.
+    cache_set('news_topics_page' . $language->language, $topics, 'cache', time() + 14400);
+  }
+  else {
+    $topics = $topics->data;
+  }
+  return $topics; 
+}
+*/
+
+/**
+ * Implements hook_access().
+ */
+function vn_pages_access($type = null) {
+  switch ($type) {
+    default:
+      if (arg(1) == 'edit') {
+        if(!user_access('administer site configuration')) {
+          return false;
+        }
+      }
+    break;
+  }
+  return true;
+}
+
+
+/**
+ * Prepare data for output it via theme function
+ */
+function vn_pages_buildHome($name, $data) {
+  $out = '';
+    
+  $seo_welcome_node = vn_misc_getPrefaceByKey('front');
+  $seo_welcome_node->title_no_link = TRUE;
+  $seo_welcome_node_view = node_view($seo_welcome_node, 'full');
+
+  // Uncomment to hide a main part of the preface from the main content region.
+//  global $user;
+//  if (!$user->uid) {
+    $out .= render($seo_welcome_node_view);
+//  }
+  
+  
+  // Content of a home page saved in db as a var.
+  // $out .= theme($name, array('data' => $data));
+  
+  // Get block for Latest VoIP articles (+ news, blog posts, etc).
+  // $block_data = array('module' => 'views', 'delta' => 'articles-block');
+  // $out .= vn_blocks_getBlockThemed($block_data);
+  
+  // Get block for Top pick business providers.
+  $block_data = array('module' => 'views', 'delta' => 'providers-block', 'shadow' => FALSE);
+  $out .= vn_blocks_getBlockThemed($block_data);
+ 
+  // Get block for Top pick residential providers.
+//  $block_data = array('module' => 'views', 'delta' => 'providers-block_1', 'shadow' => FALSE); 
+//  $out .= vn_blocks_getBlockThemed($block_data);
+  
+  $out .='<div id="bottom-with-latest-articles" class="with-articles preface">';
+  
+      $out .= render($seo_welcome_node_view['field_preface_bottom']);
+
+      // Get block for All latest articles (news, blogs)Top pick residential providers.
+      $block_data = array('module' => 'views', 'delta' => 'articles-block_home_all_latest_articles', 'shadow' => FALSE); 
+      $out .= vn_blocks_getBlockThemed($block_data);
+      
+  $out .='<div class="bottom-clear"></div></div>';
+  
+  return $out;
+}
+
+
+/**
+ * Implements hook_form_alter().
+ *
+ * @param array &$form
+ *   Array with declared form.
+ *
+ * @param array &$form_state
+ *   Array with current form state.
+ *
+ * @param string $form_id
+ *   Form ID.
+ *
+ * @return void
+ *   Return nothing.
+ */
+function vn_pages_form_alter(&$form, &$form_state, $form_id) {
+  
+   //dpm($form_id);  dpm($form);
+  // $conf['locale_custom_strings_en']['old string'] = 'new string'
+  
+  switch ($form_id) {
+    
+    case 'user_login_block':
+    case 'user_login':
+      
+      // Disable login for disabled users
+      $form['#validate'][] = 'vn_pages_validateForm_disableUserLoginForDisabled';
+                
+      break;
+    
+    
+    
+    
+    
+    case 'news_post_node_form':
+    case 'blog_post_node_form':
+      
+          // Set a select of available providers.
+//        $providers['_none'] = t('- Select a value -');
+//        vn_misc_getProviders($providers);
+//        $form['field_providers_mentioned']['und']['#options'] = $providers;
+        
+    case 'article_node_form':
+      
+        //dpm($form);      
+        
+        $extra_data = unserialize($form['field_extra_data']['und'][0]['value']['#default_value']);
+        //dpm($extra_data);
+        
+        $form['author']['guest_author'] = array(
+          '#type' => 'textfield',
+          '#title' => 'Guest Post author',
+          '#default_value' => !empty($extra_data['guest_author']) ? $extra_data['guest_author'] : '',
+        );
+        
+        
+        // Restore aliased pdfs links, from /pdfs/ to /sites/default/files/pdfs/
+        $form['body'] = vn_misc_rewriteLinks('pdfs', $form, 'back');
+        
+      
+        //$form['field_a_teaser']['und'][0]['#format'] = 'full_html';
+        $form['field_a_teaser']['#access'] = FALSE;
+        $form['field_main_image']['#access'] = FALSE;
+        $form['field_extra_data']['#access'] = FALSE;
+        
+        $form['#validate'][] = 'vn_pages_validateForm_article';
+                
+      break;
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    case 'quote_node_form':
+      
+      //dpm($form);
+      $data = unserialize($form['field_q_data']['und'][0]['value']['#default_value']);
+      $form['field_q_data']['#access'] = FALSE;
+      //dpm($data);
+      
+      $form['bottom_text'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Bottom text'),
+        '#collapsible' => TRUE,
+        '#collapsed' => FALSE,
+        //'#description' => t(''),
+        '#weight' => 10,
+        '#tree' => TRUE,
+      );
+            $form['bottom_text']['left_title'] = array(
+              '#type' => 'textfield',
+              '#title' => t('Left title'),
+              //'#description' => t(''),
+              '#default_value' => isset($data['bottom_text']['left_title']) ? $data['bottom_text']['left_title'] : '',
+            );
+            $form['bottom_text']['left_text'] = array(
+              '#type' => 'textarea',
+              '#title' => t('Left text'),
+              //'#description' => t(''),
+              '#default_value' => isset($data['bottom_text']['left_text']) ? $data['bottom_text']['left_text'] : '',
+            );
+      
+            $form['bottom_text']['center_title'] = array(
+              '#type' => 'textfield',
+              '#title' => t('Center title'),
+              //'#description' => t(''),
+              '#default_value' => isset($data['bottom_text']['center_title']) ? $data['bottom_text']['center_title'] : '',
+            );
+            $form['bottom_text']['center_text'] = array(
+              '#type' => 'textarea',
+              '#title' => t('Сenter text'),
+              //'#description' => t(''),
+              '#default_value' => isset($data['bottom_text']['center_text']) ? $data['bottom_text']['center_text'] : '',
+            );
+            
+            $form['bottom_text']['right_title'] = array(
+              '#type' => 'textfield',
+              '#title' => t('Right title'),
+              //'#description' => t(''),
+              '#default_value' => isset($data['bottom_text']['right_title']) ? $data['bottom_text']['right_title'] : '',
+            );
+            $form['bottom_text']['right_text'] = array(
+              '#type' => 'textarea',
+              '#title' => t('Right text'),
+              //'#description' => t(''),
+              '#default_value' => isset($data['bottom_text']['right_text']) ? $data['bottom_text']['right_text'] : '',
+            );
+      
+      $form['#validate'][] = 'vn_pages_validateForm_quote';
+      
+      break;
+    
+    
+    
+    
+    
+    
+    
+    case 'user_profile_form':
+      
+      // Disallow edit own profile for a Guest user.
+      global $user;
+      if($user->name == 'guest') {
+        drupal_goto('');
+      }
+      
+      $form['field_u_bio']['und'][0]['#format'] = 'full_html';
+      
+      break;
+      
+      
+      
+      
+      
+      
+      
+      
+    case 'provider_node_form':
+      
+      //dpm($form);
+
+      /*
+      
+      // Fix weights of some fields.
+      $form['field_p_name']['#weight'] = 1;
+      
+      $form['title']['#weight'] = 2;
+      $form['title']['#description'] = t('Used in header of provider page');
+      
+      
+      //$form['body']['#weight'] = 2;
+      //$form['body']['und'][0]['#weight'] = 2;
+      
+      // Hide a placeholder field field_p_data
+      $form['field_p_data']['#access'] = FALSE;
+      $form['field_p_fees_save']['#access'] = FALSE;
+      $form['field_p_data_quick']['#access'] = FALSE;
+      
+      // Fix a summary height.
+      //unset($form['body']['und'][0]['summary']['#attached']['js']);
+      // Fix Ckeditor intrusion results.
+      if (trim($form['body']['und'][0]['summary']['#default_value']) == '<br />') {
+        $form['body']['und'][0]['summary']['#default_value'] = '';
+      }
+      // Doesn't work.
+      //$form['body']['und'][0]['summary']['#format'] = 'plain_text';
+      // Doesn't work.
+      //$form['body']['und'][0]['summary']['#rows'] = 3;
+      
+      // Add temporary fields which will be saved as aggregated data in a one real field field_p_data
+      
+      $p_data = unserialize($form['field_p_data']['und'][0]['value']['#default_value']);
+      //$p_fees_save = unserialize($form['field_p_fees_save']['und'][0]['value']['#default_value']);
+      //dpm($p_data);
+      //dpm($p_fees_save);
+      //$p_data_quick = unserialize($form['field_p_data_quick']['und'][0]['value']['#default_value']);
+      //dpm($p_data_quick);
+      
+      
+      $form['data_info'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('General Provider Info'),
+        '#collapsible' => TRUE,
+        '#collapsed' => FALSE,
+        '#tree' => TRUE,
+        '#weight' => 10,
+      );
+            $form['data_info']['i_heads'] = array(
+              '#type' => 'textfield',
+              '#title' => t('Headquarters'),
+              '#default_value' => isset($p_data['info']['i_heads']) ? $p_data['info']['i_heads'] : '',
+            );
+            $form['data_info']['i_founded'] = array(
+              '#type' => 'textfield',
+              '#title' => t('Founded In'),
+              '#default_value' => isset($p_data['info']['i_founded']) ? $p_data['info']['i_founded'] : '',
+            );
+            $form['data_info']['i_availability'] = array(
+              '#type' => 'textfield',
+              '#title' => t('Service Availability'),
+              '#default_value' => isset($p_data['info']['i_availability']) ? $p_data['info']['i_availability'] : '',
+            );
+            $form['data_info']['i_web'] = array(
+              '#type' => 'textfield',
+              '#title' => t('Web Site'),
+              '#description' => t('Please, use a format "http://example.com" strictly!'),
+              '#default_value' => isset($p_data['info']['i_web']) ? $p_data['info']['i_web'] : '',
+              '#element_validate' => array('vn_misc_elementValidate_url'),
+            );
+            $form['data_info']['i_web_display'] = array(
+              '#type' => 'textfield',
+              '#title' => t('Display Website as'),
+              '#description' => t('If empty, Web Site field content will be used, without http(s)://'),
+              '#default_value' => isset($p_data['info']['i_web_display']) ? $p_data['info']['i_web_display'] : '',
+              '#element_validate' => array('vn_misc_elementValidate_url'),
+            );
+            $form['data_info']['i_web_hide'] = array(
+              '#type' => 'checkbox',
+              '#title' => t('Hide Web Site'),
+              '#default_value' => isset($p_data['info']['i_web_hide']) ? $p_data['info']['i_web_hide'] : 0,
+            );
+            
+//            $form['data_info']['i_email'] = array(
+//              '#type' => 'textfield',
+//              '#title' => t('Email'),
+//              //'#description' => t(''),
+//              '#element_validate' => array('vn_misc_elementValidate_email'),
+//              '#default_value' => isset($p_data['info']['i_email']) ? $p_data['info']['i_email'] : '',
+//            );
+            
+        
+      
+            
+            
+      $service_types = unserialize(SERVICE_TYPES);
+      $service_descriptions = unserialize(SERVICE_DESCRIPTIONS);
+      $fee_types = unserialize(FEE_TYPES);
+      $load_key = 's';
+      
+      
+      $form['s'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Provider services'),
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+        '#tree' => TRUE,
+        '#weight' => 12,
+      );
+            foreach ($service_types as $service_type_key => $service_type_title) {
+              
+              $form['s'][$service_type_key] = array(
+                '#type' => 'fieldset',
+                '#title' => t("$service_type_title serviсes"),
+                '#collapsible' => TRUE,
+                '#collapsed' => TRUE,
+                '#states' => array(
+                                  // Hide the this service section when a corresponding checkbox is disabled.
+                                  'invisible' => array(
+                                      ':input[value="' . vn_misc_refineServiceTypeKey_Reverse($service_type_key) . '"]' => array('checked' => FALSE),
+                                ),
+                            ),
+              );
+                  
+              
+              
+              
+                  // Descriptions fields
+                  foreach ($service_descriptions as $service_description_key => $service_description_title) {
+                    
+                    $form['s'][$service_type_key][$service_description_key] = array(
+                      '#type' => 'textfield',
+                      '#title' => t($service_description_title),
+                      '#default_value' => isset($p_data['s'][$service_type_key][$service_description_key]) ? $p_data['s'][$service_type_key][$service_description_key] : '',
+                                          //$p_data['s']['re']['pti']
+                    );
+                    
+                  }
+                  
+                  // Fees
+                  $form['s'][$service_type_key]['fees'] = array(
+                    '#type' => 'fieldset',
+                    '#collapsible' => TRUE,
+                    '#collapsed' => FALSE,
+                    '#title' => t("$service_type_title services fees"),
+                  );
+                      foreach ($fee_types as $fee_type_key => $fee_type_data) {
+                        
+                        $form['s'][$service_type_key]['fees'][$fee_type_key] = array(
+                          '#type' => 'textfield',
+                          '#title' => t($fee_type_data[0]),
+                          '#field_prefix' => $fee_type_data[1],
+                          '#default_value' => isset($p_data['s'][$service_type_key]['fees'][$fee_type_key]) ? $p_data['s'][$service_type_key]['fees'][$fee_type_key] : '',
+                                              // $p_data['s']['re']['fees']['mon']
+                        );                    
+                        
+                      }
+                      
+                  
+                  // Move defined via admin panel fields with a taxonomy autocomplete for corresponding Features tags to the corresponding fieldset.
+                  $form['s'][$service_type_key]['field_p_' . $service_type_key . '_features'] = $form['field_p_' . $service_type_key . '_features'];
+                  $form['field_p_' . $service_type_key . '_features']['#access'] = FALSE;
+                  
+                  // Add tags weights editing window for corresponding features.
+                  if ($load_key == 's' && isset($p_data['s'][$service_type_key]['weights_' . $service_type_key . '_features']) && !empty($p_data['s'][$service_type_key]['weights_' . $service_type_key . '_features'])) {
+                    $features_weights = $p_data['s'][$service_type_key]['weights_' . $service_type_key . '_features'];
+                    //$p_data['services']['re']['weights_re_features'];
+                  }
+                  else {
+                    $features_weights = NULL;
+                  }
+                  
+                  if($features_weights) {
+                    
+                      $form['s'][$service_type_key]['weights_' . $service_type_key . '_features'] = array(
+                        '#type' => 'fieldset',
+                        '#title' => t("$service_type_title Features tags weights"),
+                        '#collapsible' => TRUE,
+                        '#collapsed' => TRUE,
+                        '#weight' => $form['s'][$service_type_key]['field_p_' . $service_type_key . '_features']['#weight'] + 1,
+                      );
+
+                            foreach($features_weights as $tid => $term) {
+                              $form['s'][$service_type_key]['weights_' . $service_type_key . '_features'][$tid] = array(
+                                '#type' => 'textfield',
+                                '#size' => 3,
+                                '#title' => t($term['name']),
+                                '#default_value' => $term['weight'],
+                              );
+                            }
+                            
+                  } // End of if($features_weights) {
+                  
+              
+            } // End of foreach ($service_types as $service_type => $service_type_short) {
+      
+            
+              
+                  
+      $form['field_p_types']['#suffix'] = '<div class="bottom-clear"></div>';
+      
+      $form['field_p_erating']['#prefix'] = '<div id="listings">';
+      //$form['field_p_erating_cc']['#suffix'] = '<div class="bottom-clear"></div></div>';
+      $form['field_p_erating_re_ca']['#suffix'] = '<div class="bottom-clear"></div></div>';
+       
+                  
+      $form['data_quote'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Quote and Its Author'),
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+        '#tree' => TRUE,
+        '#weight' => 12,
+      );
+            $form['data_quote']['q_text'] = array(
+              '#type' => 'textarea',
+              //'#type' => 'text_format',
+              //'#format' => 'full_html',
+                
+              '#title' => t('Quote text'),
+              '#default_value' => isset($p_data['quote']['q_text']) ? $p_data['quote']['q_text'] : '',
+            );
+            $form['data_quote']['q_author'] = array(
+              '#type' => 'textfield',
+              '#title' => t('Quote author'),
+              '#default_value' => isset($p_data['quote']['q_author']) ? $p_data['quote']['q_author'] : '',
+            );
+      
+      */      
+      
+      $form['#validate'][] = 'vn_pages_validateForm_provider';
+      
+    break;
+    
+    
+    
+    
+    
+    
+    
+  
+       
+    case 'preface_node_form':
+      
+      // Hide some options for all.
+      $form['comment_settings']['#access'] = FALSE;
+      $form['revision_information']['#access'] = FALSE;
+      
+      // And leave some options for the root.
+      global $user;
+      if ($user->uid != 1) {
+        $form['field_preface_key']['#access'] = FALSE;
+      }
+      if (!in_array('administrator', $user->roles)) {
+        // Deny to change the status of the node (it should always be unpublished).
+        $form['options']['#access'] = FALSE;
+        // Hide url aliasing options.
+        $form['path']['#access'] = FALSE;
+      }
+      
+      
+      // Connect Ckeditor for additional fields.
+      
+      //$form['body']['und'][0]['#format'] = 'vn_full_html'; // link
+      //$form['body']['und'][0]['#format'] = 'filtered_html'; // unlink
+      $keys = element_children($form['field_preface_bottom']['und']);
+      foreach ($keys as $key) {
+        $form['field_preface_bottom']['und'][$key]['field_preface_b_body']['und'][0]['#format'] = 'full_html'; // link Ckeditor
+      }
+      
+    break; // End of case 'preface_node_form':
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    case 'review_node_form':
+      
+      // Control the editing of review pages.
+      
+      /*
+       
+      // Metatags.
+      vn_misc_addMetatag('title', 'Review Your VoIP Provider');
+      vn_misc_addMetatag('description', 'Share your feedback with others. Rate and review your user experience with your current VoIP Provider. Let others know.');
+      vn_misc_addMetatag('keywords', 'submit voip review, review my voip provider, rate my provider, voip provider submit review');
+      
+      global $user;
+      
+      
+      if (in_array('administrator', $user->roles)) {
+        $current_user_is_admin = TRUE;
+      }
+      else {
+        $current_user_is_admin = FALSE;
+      }
+      
+      
+     
+      if (!$current_user_is_admin) {
+        $form['title']['#access'] = FALSE;
+        // Show authoring info (including a date) only for administrator.
+        $form['author']['#access'] = FALSE;
+      }
+//      else {
+//        // Or connect datepicker to a post date field
+//        $module_path = drupal_get_path('module', 'vn_pages');
+//  
+//        $form['#attached']['css'][] = $module_path . '/css/vn_pages.css';
+//        $form['#attached']['js'][] = $module_path . '/js/vn_review_datepicker.js';
+//        $form['#attached']['library'][] = array('system', 'ui.datepicker');
+//      }
+      
+      //$breadcrumb = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), 'Submit Provider Review' )));
+      
+      // Set outer fieldset with the main caption for the Submit a Review page.
+      $form['#prefix'] = '<fieldset id="outer-box" class="form-wrapper"><legend><span class="fieldset-legend">' . t('Share Your Feedback - What Do You Think of Your VoIP Provider?') . '</span></legend><div class="fieldset-wrapper" style="display: block;">';
+      $form['#suffix'] = '</div></fieldset>';
+      
+      //dpm($form);
+      $form['actions']['submit']['#value'] = t('Submit Review');
+      
+      // Make some small corrections.
+      $form['title']['#title'] = t('Review title');
+      $form['title']['#weight'] = -1;
+      
+      
+      
+      
+      
+      // Convert the field_r_notapproved (if it is set) to a checkbox temporarily.
+      if (isset($form['field_r_notapproved'])) {
+        // Only admin can approve it.
+        $form['field_r_notapproved']['#access'] = FALSE;
+        if ($current_user_is_admin) {
+          $form['field_r_notapproved_checkbox'] = array(
+            '#type' => 'checkbox',
+            '#title' => t('This review is approved'),
+            '#default_value' => !$form['field_r_notapproved']['und'][0]['value']['#default_value'],
+            '#weight' => 30,
+          );
+        }
+        elseif(arg(1) != 'add') {
+          $form['field_r_notapproved_info'] = array(
+            '#type' => 'item',
+            '#title' => t('Approval status for this review:'),
+            '#markup' => $form['field_r_notapproved']['und'][0]['value']['#default_value'] ? t('Is not approved') : t('Is approved'),
+            '#weight' => 30,
+          );
+        }
+      }
+      
+      // Hide some fields, so that even super admin could not see and change it.
+      $form['field_r_rating_overall']['#access'] = FALSE;
+      $form['options']['promote']['#access'] = FALSE;
+      $form['options']['sticky']['#access'] = FALSE;
+      $form['revision_information']['#access'] = FALSE;
+      $form['comment_settings']['#access'] = FALSE;
+      $form['field_r_provider_name']['#access'] = FALSE;
+      
+      
+      
+      
+      
+      // Group fields
+      
+      $form['about_you'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Step 1: Your Information'),
+        '#weight' => -15,
+      );
+          // Rebuild fields for fname, lname and email to make it possibele to add a Title attr to a input tag.
+          $fields_to_rebuild = array('field_r_fname' => FNAME_HINT, 'field_r_lname' => LNAME_HINT, 'field_r_email' => EMAIL_HINT);
+          foreach ($fields_to_rebuild as $field_to_rebuild => $field_hint) {
+            $temp_field = $form[$field_to_rebuild]['und'][0];
+            $form['about_you'][$field_to_rebuild . '_temp'] = array(
+                '#type' => 'textfield',
+                '#title' => t($temp_field['#title']),
+                '#default_value' => $temp_field['value']['#default_value'],
+                '#description' => $temp_field['#description'],
+                '#required' => $temp_field['value']['#required'],
+                '#attributes' => array('title' => t($field_hint)),
+            );
+            $form[$field_to_rebuild]['#access'] = FALSE;
+          }
+          $form['about_you']['field_r_fname_temp']['#title'] = t('Your name');
+          $form['about_you']['field_r_lname_temp']['#title'] = '';
+          
+          
+          
+      $form['provider'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Step 2: Your VoIP Provider Details'),
+        //'#collapsible' => TRUE,
+        //'#collapsed' => FALSE,
+        '#weight' => -10,
+      );
+          $form['provider']['field_ref_provider'] = $form['field_ref_provider'];
+          $form['provider']['field_r_oprovider'] = $form['field_r_oprovider'];
+          unset($form['field_ref_provider'], $form['field_r_oprovider']);
+      
+          $form['field_r_data']['#access'] = FALSE;
+          
+          
+          $lines_options = array(1 => '1 - 5', 2 => '6 - 10', 3 => '11+');
+          $form['provider']['lines'] = array(
+            '#type' => 'radios',
+            //'#title' => t('How many lines do you have:'),
+            '#options' => $lines_options,
+            '#default_value' => FALSE,
+            '#weight' => 10,
+            '#prefix' => '<div class="label left">' . t('How many lines do you have:') . '</div>',
+          );
+          
+          
+      
+          
+      // Rate and vote group.
+      $rating_options = array('' => FALSE, '20' => 'Horrible', '40' => 'Bad', '60' => 'OK', '80' => 'Good', '100' => 'Excellent');
+      $weight = 8;
+     
+      //$vote_keys = array('features', 'sound', 'rely', 'money', 'service');
+      $vote_keys = array('sound' => SOUND, 'install' => INSTALL, 'service' => CUSTOMER, 'rely' => RELY, 'features' => FEATURES, 'money' => PRICE, );
+      $votes = array();
+      $form['ureview'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Step 3: Rate and Review Your VoIP Provider'),
+        '#weight' => -4,
+      );
+          
+          $form['ureview']['votes'] = array(
+              '#type' => 'container',
+              '#prefix' => '<div class="rate-caption"><div class="col-2">' . t('Click Stars To Start Reviewing') . '</div><div class="col-3">' . t('Rate it') . '</div></div>',
+          );
+          foreach ($vote_keys as $vote_key => $vote_title) {
+            $form['ureview']['votes']['rating_' . $vote_key] = array(
+              '#type' => 'select',
+              '#options' => $rating_options,
+              '#default_value' => $rating_options[''],
+              '#prefix' => '<div class="vote"><div class="vote-title">' . t($vote_title) . '</div>',
+              '#suffix' => '<div class="choice" id="edit-rating-' . $vote_key . '-choice">Rate it!</div></div>',
+            );
+//            $form['ureview']['votes']['rating_' . $vote_key . '_choice1'] = array(
+//              '#markup' => '<div class="choice" id="edit-rating-' . $vote_key . '-choice">Rate it!</div>',
+//              //'#weight' => $weight++,
+//            );
+          }
+      
+          //$rating_recommend_options = $rating_options = array('' => '- ' . t('Select a value') . ' -', '100' => 'Yes', '0' => 'No');
+          $rating_recommend_options = $rating_options = array('100' => 'Yes', '0' => 'No');
+          $form['ureview']['rating_recommend'] = array(
+              '#type' => 'radios',
+              '#options' => $rating_recommend_options,
+              '#default_value' => FALSE,
+              '#prefix' => '<div class="label left">' . t(RECOMMEND) . '</div>',
+          );
+          
+          // just for reference from a below call
+          //$form['ureview']['rating_recommend']['#default_value'] = $recommend;
+      
+          $form['ureview']['pros'] = array(
+            '#type' => 'textfield',
+            '#title' => t('Pros'),
+            '#default_value' => '',
+            '#attributes' => array('title' => t(PROS_HINT)),
+          );
+          $form['ureview']['cons'] = array(
+            '#type' => 'textfield',
+            '#title' => t('Cons'),
+            '#default_value' => '',
+            '#attributes' => array('title' => t(CONS_HINT)),
+          );
+          
+          
+          //$form['body']['#weight'] = 2;
+          $form['body']['und'][0]['value']['#rows'] = 5;
+          // Unlink Ckeditor
+          // Bad trial...
+          //$form['body']['und'][0]['#type'] = 'textarea';
+          // Good trial! :)
+          ///$form['body']['und'][0]['#format'] = 'vn_full_html'; // link
+          $form['body']['und'][0]['#format'] = 'filtered_html'; // unlink
+          
+          $form['ureview']['body'] = $form['body'];
+          unset($form['body']);
+          
+          
+      // Hide helper hidden field (for saving temporary serialized ratings data)
+      $form['field_ratings_oprovider']['#access'] = FALSE;
+      
+      // Hide approvecode field (used for unauthorized user email approve).
+      // It should be empty if a user has approved email.
+      $form['field_r_approvecode']['#access'] = FALSE;
+      
+      
+      
+      if(arg(1) == 'add') {
+        
+        // Add a review page.
+      
+        // This TEMPORARY title will see only Administrators.
+        if (!$current_user_is_admin) {
+          $form['title']['#default_value'] = 'Unapproved review';
+        }
+        
+        // Generate an approval code for email verification.
+        if (!$user->uid) {
+          $form['field_r_approvecode']['und'][0]['value']['#default_value'] = md5(time());
+        }
+        
+        if ($user->uid) {
+          // Get all additional data for first/last names extraction.
+          $user = user_load($user->uid);
+          // Autofill first/last names and email.
+          //$form['about_you']['field_r_fname']['und'][0]['value']['#default_value'] = $user->field_u_fname['und'][0]['value'];
+          //$form['about_you']['field_r_lname']['und'][0]['value']['#default_value'] = $user->field_u_lname['und'][0]['value'];
+          //$form['about_you']['field_r_email']['und'][0]['value']['#default_value'] = $user->mail;
+          $form['about_you']['field_r_fname_temp']['#default_value'] = $user->field_u_fname['und'][0]['value'];
+          $form['about_you']['field_r_lname_temp']['#default_value'] = $user->field_u_lname['und'][0]['value'];
+          $form['about_you']['field_r_email_temp']['#default_value'] = $user->mail;
+          
+          // Disallow to choose another email for a registered user.
+          $form['about_you']['field_r_email_temp']['#access'] = FALSE;
+          $form['about_you']['email_autofilled'] = array(
+              '#type' => 'item',
+              '#title' => t('Your email'),
+              '#markup' => $user->mail,
+          );
+
+        }
+//        else {
+//          // Options for not logged in users.
+//          $info_for_notlogged = '<fieldset id="not-logged-info" class="collapsible form-wrapper"><legend><span class="fieldset-legend"><a class="fieldset-title" href="#">' . t('You are not logged in...') . '</a></span></legend><div class="fieldset-wrapper" style="display: block;"><div>' . t('You may !login or !register to have a full control over your submitted reviews...', array('!login' => l(t('log in'), "user", array('query' => array('destination' => url($_GET['q']))) ), '!register' => l(t('register'), "user/register", array('query' => array('destination' => url($_GET['q']))) )) ) . '</div><div>' . t('Or submit a review as a guest (right below), but you will not be avle to edit or cancel it.') . '</div></div></fieldset>';
+//          $form['#prefix'] = $info_for_notlogged . '<fieldset id="submit-guest" class="collapsible form-wrapper"><legend><span class="fieldset-legend"><a class="fieldset-title" href="#">' . t('Submit a review as a guest') . '</a></span></legend><div class="fieldset-wrapper" style="display: block;">';
+//          $form['#suffix'] = '</div></fieldset>';
+//        }
+        if ($current_user_is_admin) {
+          $form['about_you']['user_ip_show'] = array(
+              '#type' => 'item',
+              '#title' => t('User IP:'),
+              '#markup' => $_SERVER['REMOTE_ADDR'],
+          );
+        }
+        $form['user_ip'] = array(
+          '#type' => 'hidden',
+          '#value' => $_SERVER['REMOTE_ADDR'],
+        );
+        
+        
+        // Set a select of available providers.
+        $providers['_none'] = t('- Select a value -');
+        vn_misc_getProviders($providers);
+        $providers[41] = t('OTHER SP');
+        $form['provider']['field_ref_provider']['und']['#options'] = $providers;
+        $form['provider']['field_ref_provider']['und']['#default_value'][0] = '_none';
+
+        // Check if the review is added via a button on a provider's page.
+        $provider_nid = NULL;
+        if (isset($_GET['id'])) {
+          $provider_nid = check_plain($_GET['id']);
+          if(!isset($providers[$provider_nid])) {
+            $provider_nid = NULL;
+          }
+          else {
+            $provider_id_source = t('your choice while viewing this provider\'s page');
+          }
+        }
+        elseif ($_SERVER['HTTP_REFERER']) {
+          // If a user has clicked "Submit a review" on the Provider's page, treat it as choice of that provider.
+          $refferer = explode('http://voipnow.org/', $_SERVER['HTTP_REFERER']);
+          if (isset($refferer[1]) && $refferer[1]) {
+            $query = db_select('url_alias', 'ua')
+              ->fields('ua', array('source'))
+              ->condition('alias', $refferer[1]);
+            $source = $query->execute()->fetchField();
+            $source = str_replace('node/', '', $source);
+            if (is_numeric($source)) {
+              $query = db_select('node', 'n')
+                ->fields('n', array('type'))
+                ->condition('nid', $source);
+              $type = $query->execute()->fetchField();
+              if ($type == 'provider') {
+                $provider_nid = $source;
+                $provider_id_source = t('the page you have been viewing when clicked a Submit review button');
+              }
+            }
+          } // End of if (isset($refferer[1]) && $refferer[1]) {
+        } // End of elseif ($_SERVER['HTTP_REFERER']) {
+        
+        
+        // If a target provider has been defined by id from url or by referrer (previous) page,
+        // set this provider as selected by default and show its info and preview.
+        if ($provider_nid) {
+          
+          
+//          $form['provider']['id_source'] = array(
+//            '#markup' => '<div class="id-source">' . t('A taget provider has been chosen based on !source.', array('!source' => $provider_id_source)) . '<div>' . t('If You want to chose an other provider, please click !here.', array('!here' => l(t('here'), 'node/add/review'))) . '</div></div>',
+//          ); 
+//          
+//          $provider_node = node_load($provider_nid);
+//          $form['provider']['provider_title'] = array(
+//            '#type' => 'item',
+//            '#title' => t('A provider You have chosen'),
+//            '#markup' => l($provider_node->title, 'node/' . $provider_node->nid),
+//          ); 
+//          
+//          $provider_preview = '<div class="p-preview">' . render(node_view($provider_node, 'teaser')) . '</div>';
+//          $form['provider']['preview'] = array(
+//            '#type' => 'fieldset',
+//            '#title' => t('Provider preview') . ': ' . $provider_node->title,
+//            '#collapsible' => TRUE,
+//            '#collapsed' => TRUE,
+//          );
+//              $form['provider']['preview']['provider_preview'] = array(
+//                '#markup' => $provider_preview,
+//                '#weight' => -100,
+//              ); 
+          
+          
+          //$form['field_ref_provider']['und']['#options'] = array($provider_nid => $providers[$provider->nid]);
+          //$form['field_r_oprovider']['und'][0]['value']['#default_value'] = $provider_nid;
+          $form['provider']['field_ref_provider']['und']['#default_value'][0] = $provider_nid;
+          //$form['provider']['field_ref_provider']['#access'] = FALSE;
+          //$form['provider']['field_r_oprovider']['#access'] = FALSE;
+          
+        } // End of if($provider_nid) { // // If a target provider has been defined by id from url or by referrer (previous) page,
+        
+        
+      } // End of if(arg(1) == 'add') {
+      else {
+        
+        
+        // Edit a review page.
+        
+        
+        
+        // Show saved it a hidden field other data
+        if (isset($form['field_r_data']['und'][0]['value']['#default_value'])) {
+          $other_data = unserialize($form['field_r_data']['und'][0]['value']['#default_value']);
+          $form['provider']['lines']['#default_value'] = $other_data['lines'];
+          $form['ureview']['pros']['#default_value'] = $other_data['pros'];
+          $form['ureview']['cons']['#default_value'] = $other_data['cons'];
+          
+          $user_ip = isset($other_data['user_ip']) ? $other_data['user_ip'] : 'N/A';
+          if ($current_user_is_admin) {
+            $form['about_you']['user_ip_show'] = array(
+                '#type' => 'item',
+                '#title' => t('User IP:'),
+                '#markup' => $user_ip,
+            );
+          }
+          $form['user_ip'] = array(
+            '#type' => 'hidden',
+            '#value' => $user_ip,
+          );
+        }
+
+        // Save the current email... in case it will be changes now, we could delete old it's votes connected to the old email.
+        $form['email_old'] = array(
+          '#type' => 'hidden',
+          '#value' => $form['about_you']['field_r_email_temp']['#default_value'],
+        );
+        
+        // Disallow to choose another email for a registered user.
+        if (!$current_user_is_admin) {
+          $form['about_you']['field_r_email_temp']['#access'] = FALSE;
+          $form['about_you']['email_autofilled'] = array(
+              '#type' => 'item',
+              '#title' => t('Your email'),
+              //'#markup' => $form['about_you']['field_r_email']['und'][0]['value']['#default_value'],
+              '#markup' => $form['about_you']['field_r_email_temp']['#default_value'],
+          );
+        }
+        if(!isset($form['provider']['field_ref_provider']['und']['#default_value'][0]) || $form['provider']['field_ref_provider']['und']['#default_value'][0] == '_none') {
+          // If a provider has not been selected from a list,
+          // then it has been set manually in the field field_r_oprovider
+          
+          $providers = array();
+          vn_misc_getProviders($providers);
+          $providers[41] = t('OTHER SP');
+          
+          $form['provider']['field_ref_provider']['und']['#options'] = $providers;
+          $form['provider']['field_ref_provider']['und']['#default_value'][0] = 41;
+          
+          // Should we allow to a regular user to edit the name in the text field / reselect from the list?
+          // Or once chosen it could not be changed by the user (for example, it could be changed only by an admin)?
+          // Let's choose the second variant.
+          if(!in_array('administrator', $user->roles)) {
+            $form['provider']['field_ref_provider']['#access'] = FALSE;
+            $form['provider']['field_r_oprovider']['#access'] = FALSE;  
+            $form['provider']['provider_title_noedit'] = array(
+              '#type' => 'item',
+              '#title' => t('Your VoIP Service Provider') . ' (*)',
+              '#markup' => '<div class="text">' . $form['provider']['field_r_oprovider']['und'][0]['value']['#default_value'] . '</div>',
+              //'#weight' => -100,
+            ); 
+          }
+          
+          // Load saved votes from this node's field_ratings_oprovider
+          $field_ratings_oprovider = unserialize($form['field_ratings_oprovider']['und'][0]['value']['#default_value']);
+
+          foreach ($field_ratings_oprovider as $tag => $value) {
+            $form['ureview']['votes']['rating_' . $tag]['#default_value'] = $value;
+          }
+          
+          $form['ureview']['rating_recommend']['#default_value'] = $field_ratings_oprovider['recommend'];
+          
+        } // End of if(!isset($form['field_ref_provider']['und']['#default_value'][0]) || $form['field_ref_provider']['und']['#default_value'][0] == '_none') {
+        else {
+          // A provider has been selected from a list.
+          
+          // If this review is not approved OR this review is NOT published.
+          // Load votes data from a local field_ratings_oprovider, not from Voting api tables.
+          if ($form['field_r_notapproved']['und'][0]['value']['#default_value'] || !$form['options']['status']['#default_value']) {
+            $saved_ratings = unserialize($form['field_ratings_oprovider']['und'][0]['value']['#default_value']);
+            foreach ($saved_ratings as $tag => $value) {
+              if ($tag == 'recommend') {
+                $recommend = $value;
+                continue;
+              }
+              $form['ureview']['votes']['rating_' . $tag]['#default_value'] = $value;
+            }
+          }
+          else {
+            // Else load saved votes for a provider of this review.
+            $criteria = array(
+              'entity_type' => 'node',
+              'entity_id' => $form['provider']['field_ref_provider']['und']['#default_value'][0],
+              'uid' => $form['uid']['#value'],
+              // Make it possible to count votes of several unauthorized (uid = 0, but with different emails) users.
+              'vote_source' => $form['about_you']['field_r_email_temp']['#default_value'],
+            );
+            
+            $votes = vn_misc_getVotesIDs($criteria); // = votingapi_select_votes($criteria)
+            
+            if ($votes) {
+              foreach ($votes as $vote) {
+                if ($vote['tag'] == 'recommend') {
+                  $recommend = $vote['value'];
+                  continue;
+                }
+                $form['ureview']['votes']['rating_' . $vote['tag']]['#default_value'] = $vote['value'];
+              }
+            }
+          } // End of else of if ($form['field_r_notapproved']['und'][0]['#default_value']) {
+          if (isset($recommend)) {
+            $form['ureview']['rating_recommend']['#default_value'] = $recommend;
+          }
+          
+          // Show preview of the provider (as a teaser) on the edit form.
+          $provider_node = node_load($form['provider']['field_ref_provider']['und']['#default_value'][0]);
+          
+//          $provider_preview = '<div class="p-preview">' . render(node_view($provider_node, 'teaser')) . '</div>';
+//          $form['provider']['provider_preview'] = array(
+//              '#markup' => $provider_preview,
+//              '#weight' => -100,
+//          ); 
+          
+          $form['provider']['provider_title_noedit'] = array(
+            '#type' => 'item',
+            '#title' => t('Your VoIP Service Provider:'),
+            '#markup' => '<div class="text">' . l(html_entity_decode($provider_node->field_p_name['und'][0]['safe_value']), 'node/' . $provider_node->nid) . '</div>',
+            //'#weight' => -100,
+          );
+          
+          $form['provider']['field_ref_provider']['#access'] = FALSE;
+          $form['provider']['field_r_oprovider']['#access'] = FALSE;
+          
+          
+        } // End of A provider has been selected from a list.
+        
+      } // End of Edit a review page.
+      
+      
+      
+      // Add stars widgets to a Rating block
+      $module_path = drupal_get_path('module', 'vn_pages');
+      $module_misc_path = drupal_get_path('module', 'vn_misc');
+      
+      $form['#attached']['js'] = array(
+
+        // Add a characters counter.
+        //$module_misc_path . '/js/vn_misc_charCount.js',
+        //'sites/all/libraries/jquery.plugins/charCount.js',
+
+        // Add hints inside some fields
+        $module_path . '/js/vn_review_fieldHints.js',
+
+        // Add stars widgets to a Rating block
+        $module_path . '/js/vn_review_stars.js',
+        'sites/all/libraries/jquery.ui.stars/jquery.ui.stars.min.js',
+      );
+
+      $form['#attached']['library'][] = array('system', 'ui.widget');
+
+      $form['#attached']['css'] = array(
+        'sites/all/libraries/jquery.ui.stars/css/jquery.ui.stars.css',
+      );
+
+      
+      
+
+  
+      $form['#attributes']['class'][] = 'gv-edit-review-page';
+  
+      $form['#validate'][] = 'vn_pages_validateForm_review';
+      $form['#submit'][] = 'vn_pages_submitForm_review';
+      
+      */
+      
+    break; // End of Review of provider
+    
+    
+  } // End of switch ($form_id) {
+  
+  
+  // Add a Save Draft button.
+  switch ($form_id) {
+    
+    case 'news_post_node_form':
+    case 'blog_post_node_form':
+    case 'article_node_form':
+    case 'provider_node_form':
+    
+      
+        $form['actions']['save_draft'] = array(
+          '#type' => 'submit',
+          '#value' => 'Save Draft',
+          '#submit' => array('node_form_submit'),
+          '#weight' => 6,
+        );
+      
+        $form['#submit'][] = 'vn_pages_submitForm_saveDraft';
+        
+        break;
+      
+  } // End of switch ($form_id) { // Save Draft button
+  
+}
+
+
+/**
+ * Disable user login for disabled users.
+ *
+ * @param array &$form
+ *   Array with declared form.
+ *
+ * @param array &$form_state
+ *   Array with current form state.
+
+ * @return void
+ *   Return nothing.
+ */
+function vn_pages_validateForm_disableUserLoginForDisabled(&$form, &$form_state) {
+  
+  //dpm($form_state); dpm($form);
+  
+  if (!empty($form_state['uid']) && $u = user_load($form_state['uid'])) {
+    if (in_array('disabled', $u->roles)) {
+      form_set_error('name',t('Sorry, but Your account is blocked. Please contact administrator to unblock it.'));
+    }
+  }
+}
+
+
+/**
+ * Custom validate of article type form.
+ *
+ * @param array &$form
+ *   Array with declared form.
+ *
+ * @param array &$form_state
+ *   Array with current form state.
+
+ * @return void
+ *   Return nothing.
+ */
+function vn_pages_validateForm_article(&$form, &$form_state) {
+
+  /*
+  // Define a main image and build a custom teaser.
+  $teaser_data = vn_misc_getArticleTeaserData('all', $form_state['values']['body']['und'][0]['value'], $form_state['values']['nid']);
+
+  //dpm($form_state['values']);
+  
+  form_set_value($form['field_a_teaser'], array('und' => array(0 => array('value' => $teaser_data['teaser'], 'format' => 'full_html') )), $form_state);
+  form_set_value($form['field_main_image'], array('und' => array(0 => array('value' => serialize($teaser_data['main_image']), 'format' => 'full_html') )), $form_state);
+  
+  
+  $extra_data = array(
+    'title' => $form_state['values']['title'], 
+    'teaser_block' => $teaser_data['teaser_block'], 
+    'teaser_home' => $teaser_data['teaser_home']
+  );
+  
+  if (!empty($form_state['values']['guest_author'])) {
+    $extra_data['guest_author'] = $form_state['values']['guest_author'];
+  }
+  
+  form_set_value($form['field_extra_data'], array('und' => array(0 => array('value' => serialize($extra_data), 'format' => 'full_html') )), $form_state);
+  */
+}
+
+
+/**
+ * Custom validate of article type form.
+ *
+ * @param array &$form
+ *   Array with declared form.
+ *
+ * @param array &$form_state
+ *   Array with current form state.
+
+ * @return void
+ *   Return nothing.
+ */
+function vn_pages_submitForm_saveDraft(&$form, &$form_state) {
+
+          
+  if ($form_state['values']['op'] == 'Save' && @$form_state['build_info']['args'][0]->status == 0) {
+    // NOT publish ---> Publish
+    //drupal_set_message('NOT publish ---> Publish', 'warning');
+
+    $form_state['values']['status'] = 1;
+    drupal_set_message(t('This article is now published!'), 'warning');
+    $status_changed = TRUE;
+  }
+  elseif (($form_state['values']['op'] == 'Save Draft' ||  $form_state['values']['status'] == 0) && @$form_state['build_info']['args'][0]->status == 1) {
+    // Publish ---> NOT publish
+    //drupal_set_message('Publish ---> NOT publish', 'warning');
+
+    $form_state['values']['status'] = 0;
+    drupal_set_message(t('Attention! This article is saved as draft and is not published now!'), 'warning');
+    $status_changed = TRUE;
+  }
+  elseif (!$form_state['values']['nid'] || @$form_state['build_info']['args'][0]->field_show_in_block['und'][0]['value'] != @$form_state['values']['field_show_in_block']['und'][0]['value'] || $form_state['values']['op'] == 'Delete') {
+    $status_changed = TRUE;
+  }
+  else {
+    $status_changed = FALSE;
+  }
+  
+  //if ($status_changed) 
+  {
+    // Clear the views cache.
+    //drupal_flush_all_caches(); // This would clear a Boost cache as well, but we have a Boost Expire module that do it itself.
+    // So we clear here only a views caches.
+    cache_clear_all('*', 'cache_views', TRUE);
+    cache_clear_all('*', 'cache_views_data', TRUE);
+    drupal_set_message(t('A cache has been flushed.'), 'warning');
+  }
+  
+}
+
+
+
+/**
+ * Custom validate of provider type form.
+ *
+ * @param array &$form
+ *   Array with declared form.
+ *
+ * @param array &$form_state
+ *   Array with current form state.
+
+ * @return void
+ *   Return nothing.
+ */
+function vn_pages_validateForm_provider(&$form, &$form_state) {
+   
+  //dpm($form_state);
+   
+  /*
+  
+  $p_data['info'] = $form_state['values']['data_info'];
+  $p_data['quote'] = $form_state['values']['data_quote'];
+  
+  foreach ($form_state['values']['s'] as $service_type_short => $value) {
+   
+     // Restore an original features field.
+    form_set_value($form['field_p_' . $service_type_short . '_features'], $form_state['values']['s'][$service_type_short]['field_p_' . $service_type_short . '_features'], $form_state);
+  
+    $p_data['s'][$service_type_short] = $value;
+    // Initially unset Features and its Weights
+    unset($p_data['s'][$service_type_short]['field_p_' . $service_type_short . '_features']);
+    if (isset($p_data['s'][$service_type_short]['weights_' . $service_type_short . '_features'])) {
+      unset($p_data['s'][$service_type_short]['weights_' . $service_type_short . '_features']);
+    }
+    
+    // Save weights for Re Features (on the next editing).
+    foreach ($form_state['values']['s'][$service_type_short]['field_p_' . $service_type_short . '_features']['und'] as $term) {
+      // Choose every selected (with autoselect) tag.
+      $p_data['s'][$service_type_short]['weights_' . $service_type_short . '_features'][$term['tid']] = array('name' => $term['name'], 'weight' => 0);
+    
+      // Save weight if it set at the weights editing fieldset
+      if(isset($form_state['values']['s'][$service_type_short]['weights_' . $service_type_short . '_features'][$term['tid']])) {
+        $p_data['s'][$service_type_short]['weights_' . $service_type_short . '_features'][$term['tid']]['weight'] = $form_state['values']['s'][$service_type_short]['weights_' . $service_type_short . '_features'][$term['tid']];
+      }
+    }
+    // Sort tags by weights.
+    if (isset($p_data['s'][$service_type_short]['weights_' . $service_type_short . '_features'])) {
+      uasort($p_data['s'][$service_type_short]['weights_' . $service_type_short . '_features'], 'vn_misc_sortArrayByWeight');
+    }
+
+    // Save collected FEES data from temporary fields to a excessive field for using it from views
+    $p_fees_save[$service_type_short] = $p_data['s'][$service_type_short]['fees'];
+   
+  }
+
+  $logo = file_load($form_state['values']['field_p_logo']['und'][0]['fid']);
+  
+  if ($logo) {
+    
+    $p_data['share_src_themed'] = vn_misc_getShareSrcThemed_fromUri($logo->uri);
+
+  }
+  
+ 
+  // Second trial... 
+  // Save some more aggregated data to other field
+  $p_data_quick['name'] = $form_state['values']['field_p_name']['und'][0]['value'];
+  $p_data_quick['i_web'] = isset($p_data['info']['i_web']) ? $p_data['info']['i_web'] : '';
+  // Logo has been defined above.
+  if ($logo) {
+    $p_data_quick['i_logo_uri'] = $logo->uri;
+    $p_data_quick['i_logo_alt'] = $form_state['values']['field_p_logo']['und'][0]['alt'];
+    $p_data_quick['i_logo_title'] = $form_state['values']['field_p_logo']['und'][0]['title'];
+  }
+  
+  foreach ($p_data['s'] as $service_type_short => $service) {
+    
+    // Save collected Features and FEES data from temporary fields to a excessive field for using it from views
+    $p_data_quick[$service_type_short]['plan'] = isset($service['pti']) ? $service['pti'] : '';
+    
+    // YouTube video ID
+    if (isset($service['vr-y']) && $service['vr-y']) {
+      // Allow to enter direct YouTube url and then parse it to save just a video ID.
+      if (preg_match('|^.*v=(.*)&.*$|', $service['vr-y'], $matches)) {
+        $p_data_quick[$service_type_short]['vr-y'] = $matches[1];
+        // Replace url with id to save in this field... so the next edit session a user will see a video id, not url
+        $p_data['s'][$service_type_short]['vr-y'] = $matches[1];
+      }
+      else {
+        $p_data_quick[$service_type_short]['vr-y'] = $service['vr-y'];
+      }
+    }
+    
+    $p_data_quick[$service_type_short]['fees'] = array(
+      'back' => isset($service['mbg']) ? $service['mbg'] : '',
+      'monthly' => isset($service['fees']['mon']) ? $service['fees']['mon'] : '',
+      'setup' => isset($service['fees']['set']) ? $service['fees']['set'] : '',
+    );
+    
+    if (isset($service['weights_' . $service_type_short . '_features'])) {
+      $count = 0;
+      foreach ($service['weights_' . $service_type_short . '_features'] as $term_id => $term_data) {
+        $p_data_quick[$service_type_short]['feat'][$term_id] = $term_data['name'];
+        if ($count++ > 1) {
+          break;
+        }
+      }
+    } // End of if (isset($service['weights_' . $service_type_short . 're_features'])) {
+    
+  } // foreach ($p_data['s'] as $service_type_short => $service) {
+  
+    
+  // Save collected data from temporary fields and weights to a real placeholder field field_p_data as a serialized data.
+  form_set_value($form['field_p_data'], array('und' => array(0 => array('value' => serialize($p_data)))), $form_state);
+  
+  // Before saving, remove unused services from quick data fields.
+  foreach ($form_state['values']['field_p_types']['und'] as $used_type) {
+    // Collect used services keys.
+    $used_service_type_keys[] = vn_misc_refineServiceTypeKey($used_type['value']);
+  }
+  foreach ($p_fees_save as $key => $value) {
+    // If it is a service key and it's  not used.
+    if (!in_array($key, $used_service_type_keys)) {
+      unset($p_fees_save[$key], $p_data_quick[$key]);
+    }
+  }
+  
+  // Save collected FEES data from temporary fields to a excessive field for using it from views
+  form_set_value($form['field_p_fees_save'], array('und' => array(0 => array('value' => serialize($p_fees_save)))), $form_state);
+  // Reset a helper session var with all fees.
+  if (isset($_SESSION['all_fees'])) {
+    unset($_SESSION['all_fees']);
+  }
+
+  form_set_value($form['field_p_data_quick'], array('und' => array(0 => array('value' => serialize($p_data_quick)))), $form_state);
+//  //Reset a helper session var with all quick data.
+//  if(isset($_SESSION['p_all_data_quick'])) {
+//    unset($_SESSION['p_all_data_quick']);
+//  }
+//  //vn_misc_getProvidersDataQuick('all', TRUE);
+  
+ */ 
+  
+}
+
+
+/**
+ * Custom validate of review type form.
+ *
+ * @param array &$form
+ *   Array with declared form.
+ *
+ * @param array &$form_state
+ *   Array with current form state.
+
+ * @return void
+ *   Return nothing.
+ */
+function vn_pages_validateForm_quote(&$form, &$form_state) {
+  
+  //dpm($form_state['values']);
+  $data = serialize(array(
+    'bottom_text' => $form_state['values']['bottom_text'],
+  ));
+  form_set_value($form['field_q_data'], array('und' => array(0 => array('value' => $data) )), $form_state);
+  
+}
+
+
+/**
+ * Custom validate of review type form.
+ *
+ * @param array &$form
+ *   Array with declared form.
+ *
+ * @param array &$form_state
+ *   Array with current form state.
+
+ * @return void
+ *   Return nothing.
+ */
+function vn_pages_validateForm_review(&$form, &$form_state) {
+  
+  /*
+  //dpm($form); dpm($form_state);
+
+  // Don't check anything if we delete the node.
+  if ($form_state['submit_handlers'][0] == 'node_form_delete_submit') {
+    return;
+  }
+    
+  global $user;
+  if (in_array('administrator', $user->roles)) {
+    $current_is_administrator = TRUE;
+  }
+  else {
+    $current_is_administrator = FALSE;
+  }
+
+  
+  // Clear hints, if any.
+  $fields_to_clear_hints = array('field_r_fname_temp' => array('hint' => FNAME_HINT, 'set' => 'about_you'), 'field_r_lname_temp' => array('hint' => LNAME_HINT, 'set' => 'about_you', 'title' => t('Last name')), 'field_r_email_temp' => array('hint' => EMAIL_HINT, 'set' => 'about_you'), 'pros' => array('hint' => PROS_HINT, 'set' => 'ureview'), 'cons' => array('hint' => CONS_HINT, 'set' => 'ureview'));
+  foreach ($fields_to_clear_hints as $fname => $fdata) {
+   
+    if ($form_state['values'][$fname] == t($fdata['hint'])) {
+      
+      // This clear the field.
+      $form[$fdata['set']][$fname]['#value'] = NULL;
+      
+      // Just in case.
+      // BUT! It causes fatal eror with #parent index absence
+      //form_set_value($form[$fdata['set']][$fname], array('#value' => NULL), $form_state);
+      
+      // Just in case on more.
+      $form_state['values'][$fname] = NULL;
+      
+      if (isset($form[$fdata['set']][$fname]['#required']) && $form[$fdata['set']][$fname]['#required']) {
+        form_set_error($fname, t('Please fill the field "' . ($form[$fdata['set']][$fname]['#title'] ? $form[$fdata['set']][$fname]['#title'] : $fdata['title'] ) . '"'));
+      }
+    }
+    
+  }
+  // Doesnot affect the for after errors
+  //$form_state['rebuild'] = TRUE;
+  
+    
+   // Rebuild original fields field_r_fname, field_r_lname, field_r_email from temporary fields fields field_r_fname_temp, field_r_lname_temp, field_r_email_temp
+  // Without this (with just rewriting those field with its simplified versions) Drupal will fire errors like eg Warning: array_values() expects parameter 1 to be array, string given in _field_filter_items()...)
+  form_set_value($form['field_r_fname'], array('und' => array(0 => array('value' => isset($form_state['values']['field_r_fname_temp']) ? $form_state['values']['field_r_fname_temp'] : NULL ))), $form_state);
+  form_set_value($form['field_r_lname'], array('und' => array(0 => array('value' => isset($form_state['values']['field_r_lname_temp']) ? $form_state['values']['field_r_lname_temp'] : NULL ))), $form_state);
+  form_set_value($form['field_r_email'], array('und' => array(0 => array('value' => isset($form_state['values']['field_r_email_temp']) ? $form_state['values']['field_r_email_temp'] : NULL ))), $form_state);
+
+  // Check if a not logged in user has entered an email which is already is taken with one of our registered user.
+  if (!$current_is_administrator && !$form_state['values']['uid'] && isset($form_state['values']['field_r_email_temp']) && $form_state['values']['field_r_email_temp']) {
+    //if (vn_misc_emailIsRegistered($form_state['values']['field_r_email']['und'][0]['value'])) {
+    if (vn_misc_emailIsRegistered($form_state['values']['field_r_email_temp'])) {
+      form_set_error('field_r_email',t('Sorry, an email You have entered is already registered in our system. If it is your email, please !login and proceed with submitting this review as a logged in user.', array('!login' => l('Log in', 'user/login', array('query' => array('destination' => url($_GET['q'])))))));
+      return;
+    }
+  }
+  
+  //$rating_options = array('rating_features' => 'Features Rating', 'rating_sound' => 'Sound Rating', 'rating_rely' => 'Rely Rating', 'rating_money' => 'Money Rating', 'rating_service' => 'Service Rating', 'rating_recommend' => 'Would you recommend this VoIP provider?');
+  //$rating_options = array('rating_features' => FEATURES, 'rating_sound' => SOUND, 'rating_rely' => RELY, 'rating_money' => PRICE, 'rating_service' => CUSTOMER, 'rating_recommend' => RECOMMEND);
+  $rating_options = array('sound' => SOUND, 'install' => INSTALL, 'service' => CUSTOMER, 'rely' => RELY, 'features' => FEATURES, 'money' => PRICE, 'recommend' => RECOMMEND);
+  
+  foreach ($rating_options as $rating_option => $rating_option_title) {
+    if ($form_state['values']['rating_' . $rating_option] === FALSE) {
+      form_set_error($rating_option, t('Please make your choice for "' . $rating_option_title . '"'));
+    }
+  }
+  
+  
+  
+  if (!$form_state['values']['lines']) {
+    form_set_error('lines',t('Please set a numbers of lines'));
+  }
+  else {
+    // Save several vars in the field
+    $field_r_data = serialize(array('lines' => $form_state['values']['lines'], 'pros' => $form_state['values']['pros'], 'cons' => $form_state['values']['cons'], 'user_ip' => $form_state['values']['user_ip']));
+    form_set_value($form['field_r_data'], array('und' => array(0 => array('value' => $field_r_data))), $form_state);
+  }
+  
+  
+  // An Administrator MUST set the real title for the review.
+  if ($current_is_administrator && !$form_state['values']['field_r_notapproved']['und'][0]['value'] && $form_state['values']['title'] == 'Unapproved review') {
+    form_set_error('title',t('Please set a new title for this review'));
+  }
+  
+  // Rebuild field_r_notapproved from the temp field field_r_notapproved_checkbox.
+  if (!isset($form_state['values']['field_r_notapproved_info'])) {
+    $field_r_notapproved = (isset($form_state['values']['field_r_notapproved_checkbox']) && $form_state['values']['field_r_notapproved_checkbox']) ? 0 : 1;
+    form_set_value($form['field_r_notapproved'], array('und' => array(0 => array('value' => $field_r_notapproved))), $form_state);
+  }
+  
+  // If field_ref_provider is choosen as OTHER SP, the field_r_oprovider should be set as well
+  if ($form_state['values']['field_ref_provider']['und'][0]['target_id'] == 41 && !$form_state['values']['field_r_oprovider']['und'][0]['value']) {
+    form_set_error('field_r_oprovider', t('Please write in the name of a Provider'));  
+  }
+
+  // Current review data and uid for defining (see below) if the author of this review has already submitted a review for a selected provider.
+  $author_uid = isset($form_state['values']['uid']) ? $form_state['values']['uid'] : NULL;
+  $current_review_nid = isset($form_state['values']['nid']) ? $form_state['values']['nid'] : NULL;
+  $is_approved = !isset($form_state['values']['field_r_notapproved']['und'][0]['value']) || !$form_state['values']['field_r_notapproved']['und'][0]['value'];
+  
+
+  
+  
+  //$author_email = isset($form_state['values']['field_r_email']['und'][0]['value']) ? $form_state['values']['field_r_email']['und'][0]['value'] : NULL;
+  $author_email = isset($form_state['values']['field_r_email_temp']) ? $form_state['values']['field_r_email_temp'] : NULL;
+  
+  
+  // Prepare votes to save in a temporary field (it may be not used, but just in case and for a code simplifying).
+  //$rating_options = array('features', 'sound', 'rely', 'money', 'service', 'recommend');
+  $votes = array();
+  foreach ($rating_options as $vote_key => $vote_title) {
+    if(isset($form_state['values']['rating_' . $vote_key])) {
+      $votes[$vote_key] = $form_state['values']['rating_' . $vote_key];
+    }
+  }
+  // Save votes to the temporary votes field.
+  // It maybe reset later on (in node_save hook). But just for the sake of a code simplifying.
+  // On node_presave it field may be cleared and its data will be pushed to Voting API tables.
+  // OR it its data may remain, if the review is not approved OR it's for not listed provider
+  form_set_value($form['field_ratings_oprovider'], array('und' => array(0 => array('value' => serialize($votes)))), $form_state);
+    
+  // If OTHER SP has been set.
+  if($form_state['values']['field_ref_provider']['und'][0]['target_id'] == 41 && isset($form_state['values']['field_r_oprovider']['und'][0]['value']) && $form_state['values']['field_r_oprovider']['und'][0]['value']) {
+    // Check if author of this review has already submitted a review for a selected provider.
+    $review = vn_misc_userHasSubmittedReview(NULL, $author_uid, $author_email, $form_state['values']['field_r_oprovider']['und'][0]['value'], $current_review_nid);
+  } // End of if($form_state['values']['field_ref_provider']['und'][0]['target_id'] == 41 && isset($form_state['values']['field_r_oprovider']['und'][0]['value']) && $form_state['values']['field_r_oprovider']['und'][0]['value']) {
+  else {
+    // Check if author of this review has already submitted a review for a selected provider.
+    $review = vn_misc_userHasSubmittedReview($form_state['values']['field_ref_provider']['und'][0]['target_id'], $author_uid, $author_email, NULL, $current_review_nid);
+  } // End of Or else reset the the temporary votes field.
+  if ($review) {
+    $text =  t('You have already submitted a review for this provider');
+    if($user->uid || !$review->field_r_notapproved_value) {
+      $text .= ': ' . l($review->title, 'node/' . $review->nid);
+    }
+    if($review->field_r_notapproved_value) {
+      $text .= '. ' . t('But it\'s not yet approved by our administrators.');
+    }
+    form_set_error('field_ref_provider', $text);
+  } // End of if ($review) {
+  
+  */
+  
+}
+
+
+/**
+ * Custom additional submit of review type form.
+ *
+ * @param array &$form
+ *   Array with declared form.
+ *
+ * @param array &$form_state
+ *   Array with current form state.
+
+ * @return void
+ *   Return nothing.
+ */
+function vn_pages_submitForm_review(&$form, &$form_state) {
+  
+  /*
+  global $user;
+  // Just submitted new review.
+  if (!isset($form_state['values']['nid']) OR !$form_state['values']['nid']) {
+    $text = t('<span class="review"><span class="success">Your review has been successfully submitted. Thank you for your time and efforts in sharing your much appreciated feedback.</span> <span class="approve">It will be published as soon as our administrators have approved it.</span> <span class="contact">If we may be of any further assistance please email us at contact@voipnow.org</span>');
+    // Send verification code to approve email for an unregistered user.
+    if (!$form_state['values']['uid']) {
+      vn_misc_sendMessage('email_verification', array('verification_code' => $form_state['values']['field_r_approvecode']['und'][0]['value'] . '=' . urlencode($form_state['values']['field_r_email']['und'][0]['value']), 'email' => $form_state['values']['field_r_email']['und'][0]['value']));
+      $text .= '<div class="emailed">' . t('To assist in getting your review published faster, we have sent you an email verification with 1-click instructions for immediate publishing of your review.') . '</div>';
+    }
+    $text .= '</span>';
+    drupal_set_message($text);
+
+//    $provider_nid = isset($node->field_ref_provider['und'][0]['target_id']) ? $node->field_ref_provider['und'][0]['target_id'] : NULL;
+//    
+//    // Save a provider name to the review
+//    if ($provider_nid && $provider_nid != 41) {
+//      $provider = node_load($provider_nid);
+//      $node->field_r_provider_name['und'][0]['value'] = $provider->field_p_name['und'][0]['value'];
+//    } 
+//    else {
+//      $node->field_r_provider_name['und'][0]['value'] = $node->field_r_oprovider['und'][0]['value'];
+//    }
+//    
+    
+    // Notify all admins.
+    if ($form_state['values']['field_r_oprovider']['und'][0]['value']) {
+      $provider_name = $form_state['values']['field_r_oprovider']['und'][0]['value'];
+    }
+    else {
+      $provider_name = $form_state['complete form']['provider']['field_ref_provider']['und']['#options'][$form_state['values']['field_ref_provider']['und'][0]['target_id']];
+    }
+    
+    vn_misc_sendMessage('new_review_admin_notify', array('provider_name' => $provider_name));
+  } // End of if (!isset($form_state['values']['nid']) OR !$form_state['values']['nid']) {
+  else {
+    // clear previous votes if an email has been chabged
+    // Some excessive code, that duplicates almost the same in hook_update, but only in case if an email has been changed
+    if ($form_state['values']['email_old'] != $form_state['values']['field_r_email_temp']) {
+      
+      $provider_nid = isset($form_state['values']['field_ref_provider']['und'][0]['target_id']) ? $form_state['values']['field_ref_provider']['und'][0]['target_id'] : NULL;
+      if ($provider_nid && $provider_nid != 41) {
+        $saved_ratings = unserialize($form_state['values']['field_ratings_oprovider']['und'][0]['value']);
+        
+        $vote_keys = array('sound' => SOUND, 'install' => INSTALL, 'service' => CUSTOMER, 'rely' => RELY, 'features' => FEATURES, 'money' => PRICE, 'recommend' => RECOMMEND);
+        $votes = array();
+        
+        foreach ($vote_keys as $vote_key => $vote_title) {
+          $votes[] = array(
+            'tag' => $vote_key,
+            'entity_type' => 'node',
+            'entity_id' => $provider_nid,
+            'uid' => $form_state['values']['uid'],
+            'vote_source' => $form_state['values']['email_old'],
+          );
+        }
+        // Overall average rating.
+        $votes[] = array(
+          'tag' => 'overall',
+          'entity_type' => 'node',
+          'entity_id' => $provider_nid,
+          'uid' => $form_state['values']['uid'],
+          'vote_source' => $form_state['values']['email_old'],
+        );
+        
+        // Remove (clear) this review's previous votes from a target provider calculation set.
+        foreach ($votes as $c) {
+          $select_votes = vn_misc_getVotesIDs($c); //votingapi_select_votes($c);
+          votingapi_delete_votes($select_votes);
+        }
+        
+      } // End of if ($provider_nid && $provider_nid != 41) {
+      
+    } // End of if ($form_state['values']['email_old'] != $form_state['values']['field_r_email_temp'])
+    
+  } // End of Else of if (!isset($form_state['values']['nid']) OR !$form_state['values']['nid']) {
+  
+  
+  
+  // Redirect doesn't work this way!
+  //$form_state['redirect'] = '/'; 
+
+  // Redirect Works! this way
+  // Unregistered user cannot view any unpublished content, including just submitted (and not yet approved and not published) review.
+  // So we have to redirect it to a target provider page if it's set OR to the home page.
+  
+  if (!$user->uid) {
+    if (isset($form_state['values']['field_ref_provider']['und'][0]['target_id']) && $form_state['values']['field_ref_provider']['und'][0]['target_id']) {
+      // Redirect to a target provider page, if it's set.
+      $_GET['destination'] = ltrim(url('node/' . $form_state['values']['field_ref_provider']['und'][0]['target_id']), '/');
+    }
+    else {
+      // Or reditect to the home page.
+      $_GET['destination'] = '';
+    }
+  }
+  
+  */
+  
+}
+
+
+/**
+ * Implements hook_node_update().
+ *
+ * @return void
+ *   Return nothing.
+ */
+function vn_pages_node_update($node) {
+  
+  if ($node->type == 'provider') {
+    
+    // Reset ProvidersDataQuick in session var.
+    vn_misc_getProvidersDataQuick('all', FALSE, TRUE);    
+  }
+}
+
+
+/**
+ * Implements hook_node_presave().
+ *
+ * @return void
+ *   Return nothing.
+ */
+function vn_pages_node_presave($node) {
+  
+  if ($node->type == 'review') {
+    /*
+    // Unpublish, if is not approved... and publish if approved.
+    $is_approved = (isset($node->field_r_notapproved['und'][0]['value']) && $node->field_r_notapproved['und'][0]['value']) ? 0 : 1;
+    if ($is_approved) {
+      $node->status = 1;
+    }
+    else {
+      $node->status = 0;
+    }
+    
+    // Extract votes data from the local saved field.
+    $saved_ratings = unserialize($node->field_ratings_oprovider['und'][0]['value']);
+    $provider_nid = isset($node->field_ref_provider['und'][0]['target_id']) ? $node->field_ref_provider['und'][0]['target_id'] : NULL;
+    
+    
+    
+    // Create a votes array
+    
+    //$vote_keys = array('features', 'sound', 'rely', 'money', 'service', 'recommend');
+    $vote_keys = array('sound' => SOUND, 'install' => INSTALL, 'service' => CUSTOMER, 'rely' => RELY, 'features' => FEATURES, 'money' => PRICE, 'recommend' => RECOMMEND);
+    $votes = array();
+
+    $overall_count = 0;
+    $overall_summ = 0;
+    foreach ($vote_keys as $vote_key => $vote_title) {
+      $votes[] = array(
+        'tag' => $vote_key,
+        'entity_type' => 'node',
+        'entity_id' => $provider_nid,
+        'value_type' => 'percent',
+        'value' => $saved_ratings[$vote_key],//$form_state['values']['rating_' . $vote_key],
+        'uid' => $node->uid,
+        'vote_source' => $node->field_r_email['und'][0]['value'],
+      );
+      $overall_count++;
+      $overall_summ += $saved_ratings[$vote_key];
+    }
+
+    // Calculate overall average rating.
+    $rating_overall = $overall_summ / $overall_count;
+    $votes[] = array(
+      'tag' => 'overall',
+      'entity_type' => 'node',
+      'entity_id' => $provider_nid,
+      'value_type' => 'percent',
+      'value' => $rating_overall,
+      'uid' => $node->uid,
+      'vote_source' => $node->field_r_email['und'][0]['value'],
+    );
+    $node->field_r_rating_overall['und'][0]['value'] = $rating_overall * 0.05;
+
+
+    // If a provider was chosen from a list, save voting results to Voting API tables.
+    if ($provider_nid && $provider_nid != 41) {
+      
+        // Remove (clear) this review's previous votes from a target provider calculation set.
+        foreach ($votes as $c) {
+          unset($c['value_type'], $c['value']);
+          $select_votes = vn_misc_getVotesIDs($c); //votingapi_select_votes($c);
+          votingapi_delete_votes($select_votes);
+        }
+   
+        // If approved and published,
+        // Add this review's votes to a target provider overall rating calculation in Voting API tables.
+        if ($is_approved && $node->status) {
+          votingapi_set_votes($votes, $votes);
+          // Clear temporary field votes.
+          $node->field_ratings_oprovider['und'][0]['value'] = '';
+        }
+        else {
+          // Recalculate results after deleting this preview votings (above).
+          // (Adding voting (above), if approved, call this function itself).
+          votingapi_recalculate_results('node', $provider_nid);
+        }
+        
+        // Save a provider name to the review
+        $provider = node_load($provider_nid);
+        $node->field_r_provider_name['und'][0]['value'] = $provider->field_p_name['und'][0]['value'];
+    } // End of if ($provider_nid && $provider_nid != 41) {
+    else {
+      $node->field_r_provider_name['und'][0]['value'] = $node->field_r_oprovider['und'][0]['value'];
+    }
+    
+    // If chosen OTHER SP (and dummy nid), replace a dummy nid with 0, 
+    // as we don't want to associate this review with that dummy nid node, of course.
+    // Or clear OTHER SP field.
+    if ($node->field_ref_provider['und'][0]['target_id'] == 41) {
+      $node->field_ref_provider['und'][0]['target_id'] = 0;
+    }
+    else {
+      $node->field_r_oprovider['und'][0]['value'] = '';
+    }
+    
+    */
+    
+  } // End of if ($node->type == 'review') {
+ 
+  
+}
+
+
+/**
+ * Implements hook_form().
+ *
+ * Provider preview form for a Review page.
+ * 
+ * @return $form
+ *   Return nothing.
+ */
+function vn_pages_addProviderPreview_form($node, &$form_state, $provider_nid) {
+  
+  $provider_node = node_load($provider_nid);
+  $form['provider_set'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Provider description (for a quick reference)'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+      '#weight' => -100,
+  );
+  $form['provider_set']['provider'] = node_view($provider_node, 'teaser');
+  
+  return $form;
+}
+
+
+
+/**
+ * Implements hook_node_view().
+ *
+ * @return void
+ *   Return nothing.
+ */
+function vn_pages_node_view($node, $view_mode) {
+
+  switch ($node->type) {
+    
+    case 'quote':
+      /*
+      $node->q_data = unserialize($node->field_q_data['und'][0]['value']);
+      
+      // Redirect old versions Quote pages to the latest version.
+      global $user;
+      if (!$user->uid && !strpos($node->title, 'Quote page v3')) {
+        drupal_goto('compare-voip-solutions', array(), 301);
+      }
+      */
+      
+      break; // End of quote.
+    
+    
+    
+    
+    case 'review': // Provider's review
+      /*
+      
+      if(isset($node->field_ref_provider['und'][0]['target_id']) && $node->field_ref_provider['und'][0]['target_id']) {
+        
+//        // Show preview of the provider (as a teaser)
+//        if ($view_mode == 'full') {
+//          $node->content['provider_descr'] = drupal_get_form('vn_pages_addProviderPreview_form', $node->field_ref_provider['und'][0]['target_id']);
+//        }
+
+        $provider = node_load($node->field_ref_provider['und'][0]['target_id']);
+        $p_data = unserialize($provider->field_p_data['und'][0]['value']);
+        $provider_url = $p_data['info']['i_web'];
+
+        
+        // Define a pic for share
+        global $review_share_src_themed;
+        if (isset($p_data['share_src_themed']) && $p_data['share_src_themed']) {
+          $review_share_src_themed = $p_data['share_src_themed'];
+        }
+        elseif (isset($provider->field_p_logo['und'][0]['uri']) && $provider->field_p_logo['und'][0]['uri']) {
+          $review_share_src_themed = vn_misc_getPathFromStreamUri($provider->field_p_logo['und'][0]['uri']);
+        }
+
+        $node->content['provider_url'] = $provider_url;
+      }
+      
+      // Show data from field_r_oprovider, if is not set field_ref_provider
+      if ( !isset($node->field_ref_provider['und'][0]['target_id']) && isset($node->field_r_oprovider['und'][0]['value']) ) {
+        $node->content['field_r_oprovider']['#title'] = t('Your VoIP Service Provider') . ' (*)';
+      }
+      else {
+        unset($node->content['field_r_oprovider']);
+      }
+      
+      // Show voting results for this provider and user (author of this review).
+      // Take votes from a local ratings field if it's not empty.
+      if (!empty($node->field_ratings_oprovider['und'][0]['value'])) {
+        $votes_simple_format = unserialize($node->field_ratings_oprovider['und'][0]['value']);
+        // Rebuild the array to the votes api format
+        foreach ($votes_simple_format as $tag => $value) {
+          $votes[] = array('tag' => $tag, 'value' => $value);
+        }
+      }
+      else {
+        // Or if the local votest field is empty, 
+        // load saved votes from Voting API table.
+        $criteria = array(
+          'entity_type' => 'node',
+          'entity_id' => $node->field_ref_provider['und'][0]['target_id'],
+          'uid' => $node->uid,
+          // Make it possible to count votes of several unauthorized (uid = 0, but with different emails) users.
+          'vote_source' => $node->field_r_email['und'][0]['value'],
+        );
+        $votes = vn_misc_getVotesIDs($criteria); // = votingapi_select_votes($criteria);
+      }
+      
+      vn_pages_addRatingsToNodeThemed($node, $votes);
+      
+      if (isset($node->field_r_data['und'][0]['value'])) {
+        $node->content['r_data'] = unserialize($node->field_r_data['und'][0]['value']);
+      }
+      
+//      // Add a provider name in front of title
+//      if ($view_mode == 'full') {
+//        drupal_set_title($node->field_r_provider_name['und'][0]['safe_value'] . ': ' . $node->title);
+//      }
+    */
+    break; // End of case 'review':
+    
+    
+    
+    
+    
+    case 'provider':
+      /*
+      if ($view_mode == 'full') {
+        
+        global $user;
+        
+        // For a registered user....
+        // Add a "Add a review" button to the Provider's page 
+        // OR link to review of the current user if he has already submitted a review for this Provider.
+        if ($user->uid) {
+          if (!$review = vn_misc_userHasSubmittedReview($node->nid, $user->uid)) {
+            $node->content['add_review'] = drupal_get_form('vn_pages_addReviewButton_form', $node->nid);
+          }
+          else {
+            $node->content['add_review'] = array(
+              '#markup' => '<div class="add_review">' . t('You have already submitted a review for this provider:') . ' ' . l('"' . $review->title . '"', 'node/' . $review->nid) . '</div>',
+            );
+            $node->current_user_has_review = url('node/' . $review->nid);
+            $node->current_user_has_review_title = $review->title;
+          }
+        }
+        else {
+          $node->content['add_review'] = drupal_get_form('vn_pages_addReviewButton_form', $node->nid);
+        }
+
+        
+        // Load votes for a provider.
+        $criteria = array(
+          'entity_type' => 'node',
+          'entity_id' => $node->nid,
+          'function' => 'average',
+        );
+        $votes = votingapi_select_results($criteria);
+        $criteria['function'] = 'count';
+        $counts = votingapi_select_results($criteria);
+        $node->vn_voters = isset($counts[0]['value']) ? $counts[0]['value'] : '';
+        vn_pages_addRatingsToNodeThemed($node, $votes, $counts);
+
+        
+        
+        // Load and show all the data from the placeholder field field_p_data serialized data
+        if (isset($node->field_p_data['und'][0]['value'])) {
+
+          $p_data = unserialize($node->field_p_data['und'][0]['value']);
+          $node->p_data = $p_data;
+        } // End of if (isset($node->field_p_data['und'][0]['value'])) {        
+        
+        
+        // Add tabs.
+        $module_path = drupal_get_path('module', 'vn_pages');
+        drupal_add_library('system', 'ui.tabs');
+        drupal_add_js( $module_path . '/js/vn_addTabs.js'); 
+    
+      } // End of if ($view_mode == 'full') {
+        
+       */ 
+    break; // End of case 'provider':
+  
+    
+
+    
+    
+    case 'preface':
+      
+      $preface_key = @$node->field_preface_key['und'][0]['value'];
+      
+      // Disable ?page* links for /sitemap.
+      if (@$_SERVER['REDIRECT_URL'] == '/sitemap' && $_SERVER['REQUEST_URI'] != '/sitemap') {
+        //drupal_not_found();
+        vn_misc_drupal_not_found();
+        drupal_exit();
+      }
+      
+      if ($preface_key) {
+        // Load Colorbox plugin to show YouTube videos in a popup windows
+        // But just for some pages, where links to those videos are presented.
+        /*
+        $pages_with_video_to_popup = array('front', 'page-compare-business-voip-providers', 'page-compare-residential-voip-providers', 'page-compare-sip-voip-providers', 'page-compare-ifa-voip-providers');
+        if (in_array($preface_key, $pages_with_video_to_popup)) {
+          vn_misc_loadColorboxForVideoLinks();
+        }
+        */
+      }
+      
+      
+      // Set metatags from the preface to a page where the preface is placed
+      // Except of the front page, where it can be set via admin interface of the Metatags.
+      // AND except of published prefaces, because thier metatags will be pulled automatically!
+
+      if (isset($node->metatags) && count($node->metatags) && !$node->status) {
+        foreach($node->metatags as $metatag_title => $metatag_data) {
+
+          vn_misc_addMetatag($metatag_title, $metatag_data['value']);
+
+        }
+    
+      }
+        
+      
+    break;
+  
+  } // End of switch ($node->type) {
+  
+  if ($view_mode == 'full') {
+    vn_misc_addSocialShareData_toPage($node);
+  }
+}
+
+
+/**
+ * Implements hook_node_delete().
+ *
+ * @return void
+ *   Return nothing.
+ */
+function vn_pages_node_delete($node) {
+  switch ($node->type) {
+    case 'review':
+      // Delete vote of this user for this provider, if it exists.
+      if (isset($node->field_ref_provider['und'][0]['target_id'])) {
+        $criteria = array(
+          'entity_type' => 'node',
+          'entity_id' => $node->field_ref_provider['und'][0]['target_id'],
+          'uid' => $node->uid,
+          'vote_source' => $node->field_r_email['und'][0]['value'],
+        );
+        $select_votes = vn_misc_getVotesIDs($criteria); //votingapi_select_votes($criteria);
+        votingapi_delete_votes($select_votes);
+        votingapi_recalculate_results('node', $node->field_ref_provider['und'][0]['target_id']);
+      }
+      
+      break;
+  }
+  
+  cache_clear_all('*', 'cache_views', TRUE);
+  cache_clear_all('*', 'cache_views_data', TRUE);
+  drupal_set_message(t('A cache has been flushed.'), 'warning');
+}
+
+
+/**
+ * Append to a node (for a hook node_view) a themed set of rating votes.
+ *
+ * @return void
+ *   Return nothing.
+ */
+function vn_pages_addRatingsToNodeThemed($node, $votes, $counts = NULL, $semicolon = '') {
+  $overall_vote = NULL;
+  if ($votes) {
+    //$rating_titles = array('features' => FEATURES, 'sound' => SOUND, 'service' => CUSTOMER, 'money' => PRICE, 'rely' => RELY, 'recommend' => RECOMMEND);
+    $rating_titles = array('sound' => SOUND, 'install' => INSTALL, 'service' => CUSTOMER, 'rely' => RELY, 'features' => FEATURES, 'money' => PRICE, 'overall' => OVERALL, 'recommend' => RECOMMEND);
+    $node->content['vn_ratings'] = array(
+        '#markup' => '',
+        //'#prefix' => '<div class="vn_votes">',
+        //'#suffix' => '</div>',
+    );
+
+    //Sort votes.
+    foreach ($rating_titles as $rating_tag => $rating_title) {
+      foreach ($votes as $vote) {
+        if($vote['tag'] == $rating_tag) {
+          $votes_sorted[] = $vote;
+        }
+      }
+    }
+    
+    $zebra = 0;
+    $zebra_odd = array(1,3,5,7,9);
+    foreach ($votes_sorted as $key => $vote) {
+      $zebra++;
+      if ($vote['tag'] == 'overall') {
+        $overall_vote = $vote;
+        continue;
+      }
+      if ($vote['tag'] == 'recommend') {
+        $recommend_vote = $vote;
+        continue;
+      }
+      $node->content['vn_ratings']['#markup'] .= '<div class="vn_vote ' . (in_array($zebra, $zebra_odd) ? 'odd' : 'even') .'"><div class="title">' . t($rating_titles[$vote['tag']]) . $semicolon . '</div>' 
+        // Using own theming function for fivestar (replicate of the original fivestar theme function).
+        . theme('vn_misc_fivestar_static', array('rating' => $vote['value'], 'stars' => 5, 'tag' => $vote['tag'], 'widget' => array('name' => 'stars', 'css' => 'stars.css')))
+        // Using the original fivestar theme function.
+        //. theme('fivestar_static', array('rating' => $vote['value'], 'stars' => 5, 'tag' => $vote['tag'], 'widget' => array('name' => 'hearts', 'css' => 'hearts.css')))
+        . '</div>';
+    }
+    
+
+    // Add a caption.
+    $node->content['vn_ratings']['#markup'] = '<div class="data">' . $node->content['vn_ratings']['#markup'] . '</div>';
+    
+    if ($overall_vote) {
+      $node->vn_rating_overall = number_format($overall_vote['value'] * 0.05, 1);
+    }
+    
+    
+    // Recommend vote.
+    if (isset($recommend_vote['function'])) {
+      // If it's agregated cached results (calculated via function)
+      // we'll show percent of voters recomendations.
+      $node->vn_recommend = number_format($recommend_vote['value'], 0);
+    }
+    else {
+      $node->vn_recommend = $recommend_vote['value'] ? t('Yes') : t('No');
+    }
+    // In case of using the original fivestar theme function there should be connected original fivestar's css
+    /*
+    $path = drupal_get_path('module', 'fivestar');
+    drupal_add_css($path . '/css/fivestar.css');
+    drupal_add_css($path . '/widgets/hearts/hearts.css');
+    */
+  }
+}
+
+
+/**
+ * Implements hook_form().
+ *
+ * Button for submit a review for the current provider.
+ * 
+ * @return $form
+ *   Return nothing.
+ */
+function vn_pages_addReviewButton_form($node, &$form_state, $provider_nid) {
+  $form['id'] = array(
+      '#type' => 'hidden',
+      '#value' => $provider_nid,
+  );
+  $form['actions'] = array('#type' => 'actions');
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Add a review'),
+  ); 
+  //$form['#action'] = url('node/add/review', array('query' => array('id' => $provider_nid)));
+  return $form;
+}
+
+
+/**
+ * Implements hook_form_submit().
+ *
+ * Append nid to url and redirect to node/add/review via GET parameter.
+ * 
+ * @return $form
+ *   Return nothing.
+ */
+function vn_pages_addReviewButton_form_submit(&$form, &$form_state) {
+  drupal_goto('node/add/review', array('query' => array('id' => $form_state['values']['id'])));
+}
+

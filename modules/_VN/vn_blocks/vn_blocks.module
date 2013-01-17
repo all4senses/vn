@@ -1,0 +1,499 @@
+<?php
+
+/**
+ * @file
+ * Module for building and managing site's blocks.
+ */
+
+
+module_load_include('inc', 'vn_blocks', 'inc/constants');
+
+
+/**
+ * Implements hook_block_info().
+ */
+function vn_blocks_block_info() {
+  
+  $blocks['main_menu_om_blog'] = array(
+    'info' => t('OM Blog'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  
+  $blocks['footer_menu'] = array(
+    'info' => t('Footer menu'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  $blocks['header_links'] = array(
+    'info' => t('Header links'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  
+  
+  $blocks['request_quote_v6'] = array(
+    'info' => t('Request a quote block v6 (sidebar 2 steps)'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  ); 
+  
+      
+  return $blocks;
+}
+
+
+/**
+ * Implements hook_block_view().
+ */
+function vn_blocks_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {      
+    case 'main_menu_om_blog':
+      $block['subject'] = t('OM Blog');
+      $block['content'] = vn_blocks_get_omMenuBlock_byTitle('Blog', 'vn_blocks_get_omMenuBlock_Blog');
+      break;
+    
+    case 'footer_menu':
+      $block['subject'] = t('Footer menu');
+      $block['content'] = vn_blocks_get_footerMenu();
+      break; 
+    case 'header_links':
+      $block['subject'] = t('Header links');
+      $block['content'] = vn_blocks_get_headerLinks();
+      break; 
+    
+    case 'request_quote_v6':
+      $block['subject'] = t('Request a quote block v6 (for a side bar 2 steps)');
+      $block['content'] = vn_blocks_get_requestQuote_block_v6();
+      break;
+    
+    
+  }
+
+  return $block;
+}
+
+
+/**
+ * Implements hook_block_configure().
+ */
+function vn_blocks_block_configure($delta = '') {
+  
+  $form = array();
+  
+  if ($delta == 'weekly_video') {
+    
+    $form['youtube_video_id'] = array(
+      '#type' => 'textfield', 
+      '#title' => t('YouTube video id'),
+      '#default_value' => variable_get('vn_weekly_video_block', NULL), 
+    );
+    
+  }
+  
+  return $form;
+}
+
+
+/**
+ * Implements hook_block_save().
+ */
+function vn_blocks_block_save($delta = '', $edit = array()) {
+
+  if ($delta == 'weekly_video') {
+    variable_set('vn_weekly_video_block', $edit['youtube_video_id']);
+  }
+  
+}
+
+
+
+/**
+ * Returns an ad block by its name.
+ */
+function vn_blocks_getAdBlock($ad_name) {
+  switch ($ad_name) {
+    
+    case 'speedtest_page':
+      return '<a href="/voip-speed-test"><img alt="VoIP Speed Test Tool" title="VoIP Speed Test Tool" src="/f/speedtestbanner.png" /></a>';
+  }
+}
+
+
+/**
+ * Returns a themed Header links block.
+ */
+function vn_blocks_get_headerLinks() {
+  
+  $cid = 'vn_cached_headerLinks';
+  $cache = cache_get($cid, 'cache');
+
+  if ($cache && !empty($cache->data) && $cache->expire > time()) {
+    $out = $cache->data;
+  }
+  else {
+    $menu = menu_build_tree('menu-header-links');
+    $out = theme('vn_misc_headerLinks', array('submenu' => array('below' => $menu)));
+    
+    cache_set($cid, $out, 'cache', strtotime('+31 day'));
+  } 
+  
+//  $menu = menu_build_tree('menu-header-links');
+//  $out = theme('vn_misc_headerLinks', array('submenu' => array('below' => $menu)));
+  return $out;
+}
+
+
+/**
+ * Returns a themed Footer menu.
+ */
+function vn_blocks_get_footerMenu() {
+  
+  $cid = 'vn_footer_menu';
+  $cache = cache_get($cid, 'cache');
+
+  if ($cache && !empty($cache->data) && $cache->expire > time()) {
+    $out = $cache->data;
+  }
+  else {
+    $menu = menu_build_tree('menu-footer-menu');
+    $out = theme('vn_misc_submenuSimple', array('submenu' => array('below' => $menu), 'class' => 'menu', 'delimiter' => '<li> | </li>')); // . '<div class="c">В© 2012 GetVoIP.com | All Rights Reserved</div>';
+    
+    cache_set($cid, $out, 'cache', strtotime('+31 day'));
+  } 
+  
+  //$menu = menu_build_tree('menu-footer-menu');
+  //$out = theme('vn_misc_submenuSimple', array('submenu' => array('below' => $menu), 'class' => 'menu', 'delimiter' => '<li> | </li>')); // . '<div class="c">В© 2012 GetVoIP.com | All Rights Reserved</div>';
+  
+  return $out;
+}
+
+
+/**
+ * Dispatcher for getting themed block for MegaMenu by a block title.
+ */
+function vn_blocks_get_omMenuBlock_byTitle($title, $function) {
+
+  // global $language;
+  // $types = cache_get('types_' . $language->language);
+  // Expire = current time + 2 hours.
+  // cache_set('types_' . $language->language, $types, 'cache', time() + 7200);
+  
+  // Get main menu wireframe menu.
+  $submenu = vn_blocks_getSubmenuByTitle('main-menu', $title);
+  //return '<div class="om-btitle">' . $title . '</div>' . $function($submenu);
+  return $function($submenu);
+}
+
+
+/**
+ * Returns a themed VoIP Blog block content for MegaMenu.
+ */
+function vn_blocks_get_omMenuBlock_Blog($submenu) {
+  $block_data = array('module' => 'vn_blocks', 'delta' => 'blog_post_topics', 'subject_visible' => FALSE);
+  $out = vn_blocks_getBlockThemed($block_data);
+  return $out;  
+  //return theme('vn_misc_submenuSimple', array('submenu' => $submenu, 'class' => 'block'));
+}
+
+
+/**
+ * Returns a submenu from a menu.
+ */
+function vn_blocks_getSubmenuByTitle($menu_name, $submenu_title) {
+  $menu = menu_build_tree($menu_name);
+  if(!$menu) {
+    return NULL;
+  }
+  foreach ($menu as $submenu) {
+    if ($submenu['link']['link_title'] == $submenu_title) {
+      return $submenu;
+    }
+  }
+  return NULL;
+}
+
+
+/**
+ * Wrap a block content in proper block's divs.
+ */
+function vn_blocks_wrapInBlockThemed($block_data, $block)
+{
+  if(!isset($block['content']) || !$block['content']) {
+      return null;
+  }
+  if (is_array($block['content'])) {
+    $block['content'] = render($block);
+  }
+  if(isset($block_data['subjectTag']) && $block_data['subjectTag']) {
+    $subjectTag = $block_data['subjectTag'];
+  }
+  else {
+    $subjectTag = 'h2';
+  }
+  if(isset($block_data['replaceUnderlinesWithDashesInID']) && $block_data['replaceUnderlinesWithDashesInID']) {
+    $block_data['module'] = str_replace('_', '-', $block_data['module']);
+    $block_data['delta'] = str_replace('_', '-', $block_data['delta']);
+  }
+  if (isset($block_data['shadow']) && $block_data['shadow']) {
+    return 
+      '<section id="block-' . $block_data['module'] . '-' . $block_data['delta'] . '" class="block gv block-' . $block_data['module'] . (isset($block_data['class']) ? ' ' . $block_data['class'] : '') . '">' 
+        . '<div class="inside">'
+            . ( ($block['subject'] && (!isset($block_data['subject_visible']) || $block_data['subject_visible']) )
+                ? 
+                '<div class="block-icon pngfix"></div><' . $subjectTag . ' class="block-title">' . $block['subject'] . '</' . $subjectTag . '>'
+                :
+                '') 
+            . '<div class="content">' . $block['content'] . '</div>
+          </div> <!-- /.inside -->
+          <div class="shadow"></div>
+      </section>';
+  }
+  else {
+    return 
+      '<section id="block-' . $block_data['module'] . '-' . $block_data['delta'] . '" class="block gv block-' . $block_data['module'] . (isset($block_data['class']) ? ' ' . $block_data['class'] : '') . '">' 
+         . ( ($block['subject'] && (!isset($block_data['subject_visible']) || $block_data['subject_visible']) )
+            ? 
+            '<div class="block-icon pngfix"></div><' . $subjectTag . ' class="block-title">' . $block['subject'] . '</' . $subjectTag . '>'
+            :
+            '') 
+         . '<div class="content">' . $block['content'] . '</div>
+      </section>';
+  }
+}
+
+
+/**
+ * Returns a content of a block wrapped in proper divs.
+ */
+function vn_blocks_getBlockThemed_noCache($block_data){
+  
+  // No caching version.
+  
+  $block = module_invoke($block_data['module'], 'block_view', $block_data['delta']);
+  if ($block) {
+    if (isset($block_data['subject'])) {
+      $block['subject'] = $block_data['subject'];
+    }
+    elseif (@$block_data['no_subject']) {
+      $block['subject'] = '';
+    }
+    return vn_blocks_wrapInBlockThemed($block_data, $block);
+  }
+  return NULL;
+  
+}
+
+
+/**
+ * Returns a content of a block wrapped in proper divs.
+ */
+function vn_blocks_getBlockThemed($block_data, $cache_on = FALSE, $cache_expire_str = FALSE, $suffix = NULL)
+{
+
+  
+  
+  // No caching version.
+  
+  if (!$cache_on) {
+    return vn_blocks_getBlockThemed_noCache($block_data);
+  }
+
+  
+  
+  // Caching system version.
+  
+  $cid = 'gv-block-cache---' . $block_data['module'] . '-' . $block_data['delta'] . $suffix;
+  $cache = cache_get($cid, 'cache');
+
+  if ($cache && !empty($cache->data) && $cache->expire > time()) {
+    $out = $cache->data;
+  }
+  else {
+
+    if ($out = vn_blocks_getBlockThemed_noCache($block_data)) {
+      if ($cache_expire_str) {
+        cache_set($cid, $out, 'cache', strtotime($cache_expire_str));
+      }
+      else {
+        cache_set($cid, $out, 'cache');
+      }
+      
+    }
+
+  } // End of else of if ($cache && !empty($cache->data) && $cache->expire > time()) {
+
+  return $out;
+}
+
+
+/**
+ * Returns a content of a block Get access to the VoIP footprint... Banner.
+ */
+function vn_blocks_get_accessToFootprintBanner() {
+  return '<div class="link">' . l(t('Learn more'), '<front>') . '</div>';
+}
+
+
+/**
+ * Block Request a quote with a multistep form v6.
+ */
+function vn_blocks_get_requestQuote_block_v6() {
+  
+  drupal_add_library('system', 'ui.core');
+  drupal_add_library('system', 'ui.widget');
+  drupal_add_library('system', 'ui.position');  
+
+  drupal_add_js('sites/all/libraries/jquery.plugins/jquery.hint-with-password.js');
+  
+  $path_to_custom_js = drupal_get_path('module', 'vn_blocks') . '/js/';
+  drupal_add_js($path_to_custom_js . 'vn_requestquote_v5.js');
+  
+  $path_to_custom_js = 'sites/all/modules/_JS/multipart_form/';
+  drupal_add_js($path_to_custom_js . 'jquery.form.js');
+  drupal_add_js($path_to_custom_js . 'jquery.validate.js');
+  drupal_add_js($path_to_custom_js . 'jquery.form.wizard-min.js');
+  
+  
+  // height: 140px; 
+  $token = md5(time()); //drupal_get_token('test');
+  $_SESSION['requestQuoteToken'] = $token;
+
+  $out = '
+   <div id="up">
+      <div class="caption">Compare Leading Providers</div>
+      <div class="text">Low Price Assurance</div>
+      <div class="text">Personal Service Reps</div>
+      <div class="text">Unlimited Calling & Faxing</div>
+      <div class="img"></div>
+   </div>
+   <div class="bottom-clear"></div>   
+   <div id="requestQuoteFormWrapper">
+        <div class="sending results" style="display: none;"></div>
+        <div class="success results" style="display: none;"></div>
+        <div class="fail results" style="display: none;">The Request has failed! <br>Something went wrong. <br>Please, contact the site administrator.</div>
+        
+        <form class="multipartForm bbq" method="post" action="/request" style="overflow: hidden;">
+
+                
+                <div id="fieldWrapper">
+                    
+                    <div class="step" id="questions_section">
+                           
+                                <div class="wrapper top first">
+                                  <div class="question">' . t('Lines needed') . ':</div>
+                                  <select name="phones_amt" id="phones_amt" class="input required">
+                                    <!-- <option value="1 - 4">1 - 4</option> -->
+                                    <option value="1">1</option>
+                                    <option value="2 - 4">2 - 4</option>
+                                    <option selected="selected" value="5 - 10">5 - 10</option>
+                                    <option value="11 - 20">11 - 20</option>
+                                    <option value="21 - 50">21 - 50</option>
+                                    <option value="More than 50">More than 50</option>
+                                  </select>
+                                </div>
+
+                                <div class="wrapper top">
+                                  <div class="question">' . t('Service Type') . ':</div>
+                                  <select name="q_type" id="q_type" class="input required">
+                                    <option selected="selected" value="Business">' . t('Business') .'</option>
+                                    <option value="Home">' . t('Home') .'</option>
+                                    <option value="Home-Based Business">' . t('Home-Based Business') .'</option>
+                                  </select>
+                                </div>
+
+
+                                <div class="wrapper top last">
+                                  <div class="question">' . t('Buying time frame') . ':</div>
+                                  <select name="buying_time" id="buying_time" class="input required">
+                                    <!--<option value="">- Select a value -</option>-->
+                                    <option value="ASAP">' . t('ASAP') .'</option>
+                                    <option value="1-3 Months">' . t('1-3 Months') .'</option>
+                                    <option value="3-6 Months">' . t('3-6 Months') .'</option>
+                                  </select>
+                                </div>
+                          
+
+                            <div class="bottom-clear"></div>
+                            
+                            <div class="guide">Free VoIP Guide With Request</div>
+                            
+
+                            <div class="bottom-clear"></div>
+                            
+                              
+                            <!--<div id="on_error"></div>-->
+
+                            <div class="step-notice">' . t('Step <span class="f">!first</span>of<span class="s">!second</span>', array('!first' => 1, '!second' => 2)) . '</div>
+                                
+
+                    </div>
+
+
+
+                    
+
+
+                    <div class="step" id="personal_data">
+                    
+           
+                            
+                                <div class="wrapper middle first">
+                                    <input class="after required firstname" name="firstname" id="firstname" title="First Name *" />
+                                </div>
+
+                                <div class="wrapper middle">
+                                    <input class="after required lastname" name="lastname" id="lastname" title="Last Name *" />
+                                </div>
+
+                                <div class="wrapper middle last">
+                                    <input class="after email required" name="email" id="email" title="Email Address *" />
+                                </div>
+
+                                <div class="wrapper middle phone">
+                                    <input class="after required phone" name="phone" id="phone" value="" title="Phone Number *" />
+                                </div>
+
+                                <div class="wrapper middle company">
+                                    <input class="after" name="company" id="company" title="Company" />
+                                </div>
+
+                            <div class="bottom-clear"></div>
+                            
+                            <div class="guide">Free VoIP Guide With Request</div>
+           
+                            
+                            <!--<div id="on_error"></div>-->
+
+                            <div class="protected"></div>
+
+                    </div>
+
+
+
+
+
+                
+                </div>
+                
+                
+            
+                <div id="Navigation"> 							
+                        <input class="navigation_button" id="back" value="Back" type="reset" />
+                        <input class="navigation_button" id="next" value="Get Quotes" type="submit" />
+                </div>
+                
+                
+                <input type="hidden" name="token" value="' . $token . '" />
+                <input type="hidden" name="source" value="block" />
+                <input type="hidden" name="version" value="6" />
+                <input type="hidden" name="referrer" value="" />
+                <input type="hidden" name="url" value="" />
+                
+        </form>
+
+        <p id="data"></p>
+</div>
+<div class="block_footer"></div>
+  ';
+  
+  return $out;
+}
+

@@ -1,0 +1,6 @@
+name = VN Pages
+package = VoIP Now
+description = "Various functions and forms for pages"
+core = 7.x
+tags[] = VoIP Now
+files[] = vn_pages.module

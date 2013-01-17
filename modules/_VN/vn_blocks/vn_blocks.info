@@ -1,0 +1,6 @@
+name = VN Blocks
+package = VoIP Now
+description = "Defines different blocks for the site including ones for side bars and MegaMenu"
+core = 7.x
+tags[] = VoIP Now
+files[] = vn_blocks.module

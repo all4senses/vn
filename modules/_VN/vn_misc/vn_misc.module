@@ -2369,7 +2369,7 @@ function vn_misc_testPage() {
   $query->condition('vp.post_status', 'publish');
   $query->condition('vp.post_type', 'post');
   $query->range(0, 10);
-  $resuls = $query->execute()->fetchAllAssoc();
+  $resuls = $query->execute()->fetchAllAssoc('ID');
   
   dpm($resuls);
   

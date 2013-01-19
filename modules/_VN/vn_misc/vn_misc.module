@@ -2368,6 +2368,7 @@ function vn_misc_testPage() {
   $query->fields('tr');
   $query->condition('vp.post_status', 'publish');
   $query->condition('vp.post_type', 'post');
+  $query->orderBy('ID');
   $query->range(0, 20);
   $resuls = $query->execute()->fetchAllAssoc('ID');
   

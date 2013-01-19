@@ -1,9 +1,3 @@
-
-<div>test articles</div>
-<?php return; ?>
-
-
-
 <?php if (!$page): ?>
   <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
   <!-- <div class="inside"> -->
@@ -49,9 +43,6 @@
               $created_str = date('F d, Y \a\t g:ia', $node->created);
               $created_rdf = preg_replace('|(.*)content=\"(.*)\"\s(.*)|', '$2', $date); //date('Y-m-d\TH:i:s', $node->created); 
               
-              //$author = user_load($node->uid);
-              //$author_name = $author->realname;
-              
               $paths_with_latest_article = FALSE;
               if (!$page) {
                 $paths_with_latest_articles = array('/compare-business-voip-providers', '/compare-residential-voip-providers', '/business-voip-features', '/sip-trunking-providers', '/canada-voip', '/internet-fax-service-providers');
@@ -74,20 +65,6 @@
             
               if ($page) {
                 
-                /*
-                global $user;
-                if ($user->uid && $node->uid) {
-                  $submitted = preg_replace('/(<span.*>)(.*)(<a.*a>)(.*)(<\/span>)/', "$1By$3$created_str$5", $submitted);
-                }
-                elseif (!$node->uid) {
-                  $submitted = preg_replace('/(<span.*>)(.*)(<span.*span>)(.*)(<\/span>)/', "$1By $3 $created_str$5", $submitted);
-                }
-                // Make a link for an authors profile from just a Name.
-                else {
-                  $submitted = preg_replace('/(<span.*>)(.*)<span(.*)(about=")(.*)(".*)>(.*)<\/span>.*(<\/span>)/', "$1By<a href=" . '"$5"' . "$3$4$5$6>$7</a>$created_str$8", $submitted);
-                }
-                */
-               
                 if ($node->uid) {
                   
                   global $language;
@@ -155,29 +132,8 @@
           // Hide comments, tags, and links now so that we can render them later.
           hide($content['comments']);
           hide($content['links']);
-          hide($content['field_topics']);
           
           
-          switch ($node->type) {
-            case 'news_post':
-              $target = 'news';
-              $target_tags = @$node->field_tags_news['und'];
-              $field_tags_current = @$content['field_tags_news'];
-              hide($content['field_tags_news']);
-              break;
-            case 'blog_post':
-              $target = 'blog';
-              $target_tags = @$node->field_tags_blog['und'];
-              $field_tags_current = @$content['field_tags_blog'];
-              hide($content['field_tags_blog']);
-              break;
-            case 'article':
-              $target = 'articles';
-              $target_tags = @$node->field_tags_articles['und'];
-              $field_tags_current = @$content['field_tags_articles'];
-              hide($content['field_tags_articles']);
-              break;
-          }
           //dpm($content);
           //dpm($node);
           
@@ -206,16 +162,6 @@
             
             hide($content['body']);
           }
-          
-          /*
-          if (isset($content['field_topics']) && (!isset($content['metatags']['keywords']['#attached']['drupal_add_html_head'][0][0]['#value']) || !$content['metatags']['keywords']['#attached']['drupal_add_html_head'][0][0]['#value']) ) {
-            hide($content['metatags']['keywords']);
-            vn_misc_pushTagsToMetatags('keywords', $content['field_topics']);
-          }
-          else {
-            vn_misc_addMetatag('news_keywords', $content['metatags']['keywords']['#attached']['drupal_add_html_head'][0][0]['#value']);
-          }
-          */
           
           $keyword_metatag_name = ($node->type == 'news_post') ? 'news_keywords' : 'keywords';
           
@@ -277,42 +223,8 @@
                       
 
                       <div class="main">
-                        
-                            <?php //if(1): ?>
 
-                              <?php echo vn_blocks_getSocialiteButtons($url, $title); ?> 
-
-                            <?php /*else: ?> 
-        
-
-                                <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
-                                <script type="IN/Share" data-url="<?php echo $url?>" data-counter="right" data-showzero="true"></script>
-
-                                <script type="text/javascript">
-                                  (function() {
-                                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-                                    po.src = 'https://apis.google.com/js/plusone.js';
-                                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-                                  })();
-                                </script>
-                                <g:plusone size="medium" href="<?php echo $url?>"></g:plusone>
-
-                                <div id="fb-root"></div>
-                                <script>(function(d, s, id) {
-                                  var js, fjs = d.getElementsByTagName(s)[0];
-                                  if (d.getElementById(id)) return;
-                                  js = d.createElement(s); js.id = id;
-                                  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=138241656284512";
-                                  fjs.parentNode.insertBefore(js, fjs);
-                                }(document, 'script', 'facebook-jssdk'));</script>
-                                <div class="fb-like" data-href="<?php echo $url?>" data-send="false" data-layout="button_count" data-width="80" data-show-faces="false"></div>
-
-                                <a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo $url?>">Tweet</a>
-                                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-                            <?php endif; // Of else of if($user->uid == 1) 
-                             */
-                            ?> 
+                      <?php echo vn_blocks_getSocialiteButtons($url, $title); ?>
                         
                       </div> <!-- main share buttons -->
 
@@ -320,41 +232,19 @@
 
 
                     <?php 
+                    /*
                       $tags = NULL;
-                      /*
-                      switch ($node->type) {
-                        case 'news_post':
-                          $target = 'news';
-                          $target_tags = @$node->field_tags_news['und'];
-                          break;
-                        case 'blog_post':
-                          $target = 'blog';
-                          $target_tags = @$node->field_tags_blog['und'];
-                          break;
-                        case 'article':
-                          $target = 'articles';
-                          $target_tags = @$node->field_tags_articles['und'];
-                          break;
-                      }
-                      */
                       if (!$target_tags) {
                         $target_tags = array();
                       }
                       
-//                      global $user;
-//                      if ($user->uid != 1) {
-//                        foreach ($target_tags as $key => $value) {
-//                          $tags .= ($tags ? '<div class="delim">|</div>' : '') . l(t($content['field_topics'][$key]['#title']), 'taxonomy/term/' . $value['tid']);
-//                        }
-//                      }
-//                      else {
                         foreach ($target_tags as $key => $value) {
                           $tags .= ($tags ? '<div class="delim">|</div>' : '') . l($field_tags_current[$key]['#title'], 'taxonomy/term/' . $value['tid']);
                         }
-//                      }
                       if ($tags) {
                         echo '<div class="topics"><div class="title">' . t('TAGS:') . '</div>' . $tags . '<div class="bottom-clear"></div></div>';
                       }
+                      */
                     ?>
                   </footer>
     
@@ -370,15 +260,6 @@
       
   </div> <!-- main-content -->
   
-      <div class="providers">
-        <?php 
-          $block_data = array('module' => 'views', 'delta' => 'providers-block_pick_bu', 'shadow' => TRUE);
-          echo vn_blocks_getBlockThemed($block_data);
-          $block_data = array('module' => 'views', 'delta' => 'providers-block_pick_re', 'shadow' => TRUE);
-          echo vn_blocks_getBlockThemed($block_data);
-          echo '<div class="bottom-clear"></div>';
-        ?>
-      </div>
 
   <?php endif; ?>
   

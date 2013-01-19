@@ -2364,8 +2364,8 @@ function vn_misc_testPage() {
 
   $query = db_select('voip_posts', 'vp')
         ->fields('vp');
-  $query->leftJoin('voip_term_relationships', 'tr', 'tr.object_id = vp.ID')
-        ->fields('tr');
+  $query->leftJoin('voip_term_relationships', 'tr', 'tr.object_id = vp.ID');
+  $query->fields('tr');
   $query->condition('vp.post_status', 'publish');
   $query->condition('vp.post_type', 'post');
   $query->range(0, 10);

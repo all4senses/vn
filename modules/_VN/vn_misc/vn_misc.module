@@ -2362,6 +2362,79 @@ function vn_misc_getYoutubeVideoThumb($video_id) {
 function vn_misc_testPage() {
   $out = '<div>Start test...</div>';
 
+  //vn_misc_import_wp_blogPosts();
+  
+  vn_misc_import_wp_providers();
+  
+  return $out . '<br>End of Test';
+}
+
+
+/**
+ * Imports blog_posts from a wp table.
+ */
+function vn_misc_import_wp_providers() {
+  
+  $query = db_select('voip_posts', 'vp')
+        ->fields('vp', array('ID', 'post_content', 'post_title', 'post_name', 'post_parent', 'post_date', 'post_modified'));
+  $query->leftJoin('voip_postmeta', 'pm', 'pm.post_id = vp.ID');
+  $query->fields('pm');
+  
+  $query->condition('vp.post_status', 'publish');
+  $query->condition('vp.post_type', 'page');
+  $query->condition('vp.post_parent', 18); // 18 - ID of the page Providers
+  //$query->condition('tr.term_taxonomy_id', 3); // 3 - Features, 4 - News
+  
+  $query->orderBy('ID');
+  //$query->range(0, 20);
+  $results = $query->execute()->fetchAllAssoc('ID');
+  
+  dpm($results);
+  
+  return;
+  
+  $category_map = array(
+    3 => 1, // Features
+    4 => 2, // News
+  );
+  
+  foreach ($results as $result) {
+    
+    $form_state['values'] = array(
+      'title' => $result->post_title,
+      'post_date' => $result->post_date,
+      'created' => strtotime($result->post_date),
+      'changed' => strtotime($result->post_modified),
+      'category' => $category_map[$result->term_taxonomy_id],
+      'url_alias' => date('Y\/m', strtotime($result->post_date)) . '/' . $result->post_name,
+      'ID' => $result->ID,
+    );
+    
+    $form_state['values']['body']['und'][0]['value'] = $result->post_content;
+    
+    if (preg_match('/(.*)<!--more-->(.*)/s', $form_state['values']['body']['und'][0]['value'], $matches)) {
+      //dpm($matches);
+      $form_state['values']['body']['und'][0]['value'] = $matches[1] . /*'<span id="more"></span>' .*/ $matches[2];
+      $form_state['values']['body']['und'][0]['summary'] = $matches[1] . '<p><a href="/' . $form_state['values']['url_alias'] . '#more" class="more-link">Read the rest of this entry »</a></p>';
+      //$body_full_markup = preg_replace('|\[video:.*(http.*)\]|', '<a href="$1"> [Watch a video] </a>', $body_full_markup);
+    }
+    else {
+      $form_state['values']['body']['und'][0]['summary'] = '';
+    }
+    
+    
+    // Add only one node.
+    vn_misc_createNode_BlogPost($form_state);
+    break;
+  }
+}
+
+
+/**
+ * Imports blog_posts from a wp table.
+ */
+function vn_misc_import_wp_blogPosts() { 
+  
   $query = db_select('voip_posts', 'vp')
         ->fields('vp', array('ID', 'post_content', 'post_title', 'post_name', 'post_parent', 'post_date', 'post_modified'));
   $query->leftJoin('voip_term_relationships', 'tr', 'tr.object_id = vp.ID');
@@ -2411,8 +2484,6 @@ function vn_misc_testPage() {
     vn_misc_createNode_BlogPost($form_state);
     break;
   }
-  
-  return $out . '<br>End of Test';
 }
 
 

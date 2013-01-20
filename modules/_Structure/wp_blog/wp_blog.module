@@ -8,7 +8,7 @@
 
 // The default system name for the blog-post content type.  This can be changed
 // through the admin UI.
-define('WP_BLOG_DEFAULT_CTYPE', 'wp_blog');
+define('WP_BLOG_DEFAULT_CTYPE', 'blog_post');
 
 /**
  * Implements hook_help().

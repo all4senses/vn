@@ -1090,7 +1090,7 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
       
       //dpm($form);
 
-      /*
+      
       
       // Fix weights of some fields.
       $form['field_p_name']['#weight'] = 1;
@@ -1104,7 +1104,7 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
       
       // Hide a placeholder field field_p_data
       $form['field_p_data']['#access'] = FALSE;
-      $form['field_p_fees_save']['#access'] = FALSE;
+      ////$form['field_p_fees_save']['#access'] = FALSE;
       $form['field_p_data_quick']['#access'] = FALSE;
       
       // Fix a summary height.
@@ -1180,8 +1180,28 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
 //            );
             
         
+      $form['wp'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('WP Data'),
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+        '#tree' => TRUE,
+        '#weight' => 11,
+      );
       
-            
+            foreach ($p_data['wp'] as $wp_group_title => $wp_group) {
+              
+              $form['wp'][$wp_group_title] = array(
+                '#type' => 'fieldset',
+                '#title' => $wp_group_title,
+                '#collapsible' => TRUE,
+                '#collapsed' => TRUE,
+              );
+              
+                foreach ($wp_group as $wp_key => $wp_value) {
+                  
+                }
+            }
             
       $service_types = unserialize(SERVICE_TYPES);
       $service_descriptions = unserialize(SERVICE_DESCRIPTIONS);
@@ -1316,7 +1336,7 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
               '#default_value' => isset($p_data['quote']['q_author']) ? $p_data['quote']['q_author'] : '',
             );
       
-      */      
+            
       
       $form['#validate'][] = 'vn_pages_validateForm_provider';
       

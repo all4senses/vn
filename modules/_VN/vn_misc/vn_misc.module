@@ -2377,8 +2377,8 @@ function vn_misc_import_wp_providers() {
   
   $query = db_select('voip_posts', 'vp')
         ->fields('vp', array('ID', 'post_content', 'post_title', 'post_name', 'post_parent', 'post_date', 'post_modified'));
-  $query->leftJoin('voip_postmeta', 'pm', 'pm.post_id = vp.ID');
-  $query->fields('pm');
+  //$query->leftJoin('voip_postmeta', 'pm', 'pm.post_id = vp.ID');
+  //$query->fields('pm');
   
   $query->condition('vp.post_status', 'publish');
   $query->condition('vp.post_type', 'page');
@@ -2387,7 +2387,19 @@ function vn_misc_import_wp_providers() {
   
   $query->orderBy('ID');
   //$query->range(0, 20);
-  $results = $query->execute()->fetchAllAssoc('ID');
+  $providers = $query->execute()->fetchAllAssoc('ID'); // 'ID'
+  
+  foreach ($providers as $provider) {
+    $query = db_select('voip_postmeta', 'pm')
+        ->fields('pm');
+    
+    $query->condition('pm.post_id', $provider->ID);
+
+    //$query->orderBy('ID');
+    //$query->range(0, 20);
+    $postmeta = $query->execute()->fetchAll(); // 'ID'
+    $providers[$provider->ID]['postmeta'] = $postmeta;
+  }
   
   dpm($results);
   

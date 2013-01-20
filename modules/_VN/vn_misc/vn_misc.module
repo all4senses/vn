@@ -2472,7 +2472,7 @@ function vn_misc_createNode_BlogPost($form_state) {
   
   
   $node->path = array(
-    'alias' => 'yyy',
+    'alias' => date('Y\/m') . '/' . $form_state['values']['url_part'],
     'language' => $node->language,
     'pathauto' => 0,
   );

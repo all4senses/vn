@@ -2390,7 +2390,7 @@ function vn_misc_testPage() {
       'created' => strtotime($result->post_date),
       'changed' => strtotime($result->post_modified),
       'category' => $category_map[$result->term_taxonomy_id],
-      'url_part' => $result->post_name,
+      'url_alias' => date('Y\/m', $form_state['values']['created']) . '/' . $result->post_name,
       'ID' => $result->ID,
     );
     
@@ -2398,7 +2398,8 @@ function vn_misc_testPage() {
     
     if (preg_match('/(.*)<!--more-->(.*)/s', $form_state['values']['body']['und'][0]['value'], $matches)) {
       //dpm($matches);
-      $form_state['values']['body']['und'][0]['summary'] = $matches[1];
+      $form_state['values']['body']['und'][0]['value'] = $matches[1] . '<span id="more"></span>' . $matches[2];
+      $form_state['values']['body']['und'][0]['summary'] = $matches[1] . '<p><a href="/' . $form_state['values']['url_alias'] . '#more" class="more-link">Read the rest of this entry »</a></p>';
       //$body_full_markup = preg_replace('|\[video:.*(http.*)\]|', '<a href="$1"> [Watch a video] </a>', $body_full_markup);
     }
     else {
@@ -2472,7 +2473,7 @@ function vn_misc_createNode_BlogPost($form_state) {
   
   
   $node->path = array(
-    'alias' => date('Y\/m', $form_state['values']['created']) . '/' . $form_state['values']['url_part'],
+    'alias' => $form_state['values']['url_alias'],
     'language' => $node->language,
     'pathauto' => 0,
   );

@@ -2398,7 +2398,7 @@ function vn_misc_import_wp_providers() {
     //$query->orderBy('ID');
     //$query->range(0, 20);
     $postmeta = $query->execute()->fetchAll(); // 'ID'
-    $providers[$provider->ID]['postmeta'] = $postmeta;
+    $providers[$provider->ID]->postmeta = $postmeta;
   }
   
   dpm($results);

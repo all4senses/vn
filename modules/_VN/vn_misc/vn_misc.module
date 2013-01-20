@@ -2390,7 +2390,7 @@ function vn_misc_testPage() {
       'created' => strtotime($result->post_date),
       'changed' => strtotime($result->post_modified),
       'category' => $category_map[$result->term_taxonomy_id],
-      'url_alias' => date('Y\/m', $form_state['values']['created']) . '/' . $result->post_name,
+      'url_alias' => date('Y\/m', strtotime($result->post_date)) . '/' . $result->post_name,
       'ID' => $result->ID,
     );
     
@@ -2459,11 +2459,6 @@ function vn_misc_createNode_BlogPost($form_state) {
   $node->field_a_teaser[$node->language][0] = array(
     'value' => NULL,
     'safe_value' => NULL,
-    'format' => 'full_html',
-  );
-  $node->field_old_url_name[$node->language][0] = array(
-    'value' => $form_state['values']['url_part'],
-    'safe_value' => $form_state['values']['url_part'],
     'format' => 'full_html',
   );
   

@@ -2401,7 +2401,7 @@ function vn_misc_import_wp_providers() {
     $providers[$provider->ID]->postmeta = $postmeta;
   }
   
-  dpm($results);
+  dpm($providers);
   
   return;
   

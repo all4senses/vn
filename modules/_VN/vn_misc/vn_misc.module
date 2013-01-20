@@ -2397,7 +2397,7 @@ function vn_misc_testPage() {
     $form_state['values']['body']['und'][0]['value'] = $result->post_content;
     
     if (preg_match('/(.*)<!--more-->(.*)/s', $form_state['values']['body']['und'][0]['value'], $matches)) {
-      dpm($matches);
+      //dpm($matches);
       $form_state['values']['body']['und'][0]['summary'] = $matches[1];
       //$body_full_markup = preg_replace('|\[video:.*(http.*)\]|', '<a href="$1"> [Watch a video] </a>', $body_full_markup);
     }
@@ -2470,6 +2470,12 @@ function vn_misc_createNode_BlogPost($form_state) {
   
   $node->field_categories[$node->language][0]['tid'] = $form_state['values']['category'];
   
+  
+  $node->path = array(
+    'alias' => 'yyy',
+    'language' => $node->language,
+    'pathauto' => 0,
+  );
   
   //dpm($node);
   //return;

@@ -2408,7 +2408,12 @@ function vn_misc_import_wp_providers() {
     //$query->range(0, 20);
     $postmetas = $query->execute();//->fetchAll(); // 'ID'
     foreach ($postmetas as $postmeta) {
-      $providers[$provider->ID]->postmeta[$postmeta->meta_key] = $postmeta->meta_value;
+      foreach ($fields as $title => $field) {
+        if (isset($field[$postmeta->meta_key])) {
+          $meta_group = $title;
+        }
+      }
+      $providers[$provider->ID]->postmeta[$meta_group][$postmeta->meta_key] = $postmeta->meta_value;
     }
     
   }

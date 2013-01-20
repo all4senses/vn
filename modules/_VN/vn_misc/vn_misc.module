@@ -2471,8 +2471,8 @@ function vn_misc_createNode_BlogPost($form_state) {
   $node->field_categories[$node->language][0]['tid'] = $form_state['values']['category'];
   
   
-  dpm($node);
-  return;
+  //dpm($node);
+  //return;
   
   if ($node = node_submit($node)) {
     node_save($node);

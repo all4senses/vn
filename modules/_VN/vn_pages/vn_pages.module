@@ -87,7 +87,7 @@ function vn_misc_js_alter(&$javascript) {
         if (isset($vn_minified_js[$filename])) {
           $javascript[$filename]['data'] = $vn_minified_js[$filename];
         }
-        elseif (strpos($filename, '.js') && !strpos($attr['data'], 'min.js') && !strpos($attr['data'], 'jsmin-gv')) {
+        elseif (strpos($filename, '.js') && !strpos($attr['data'], 'min.js') && !strpos($attr['data'], 'jsmin-vn')) {
           $add_to_minified[$filename] = $attr;
         }
       }
@@ -104,14 +104,14 @@ function vn_misc_js_alter(&$javascript) {
     
       foreach($add_to_minified as $filename => $attr){
 
-        if(!$from_scratch || (strpos($filename, '.js') && !strpos($attr['data'], 'min.js') && !strpos($attr['data'], 'jsmin-gv'))) {
+        if(!$from_scratch || (strpos($filename, '.js') && !strpos($attr['data'], 'min.js') && !strpos($attr['data'], 'jsmin-vn'))) {
 
           $source_fpath_short = $attr['data'];
           $source_fpath = DRUPAL_ROOT . '/' . $source_fpath_short;
 
           if ($source_content = file_get_contents($source_fpath)) {
             if ($minOutput = JSMin::minify($source_content)) {
-              $target_path_short = 'f/jsmin-gv/' . str_replace('/', '-', $source_fpath_short);
+              $target_path_short = 'f/jsmin-vn/' . str_replace('/', '-', $source_fpath_short);
               if (file_put_contents(DRUPAL_ROOT . '/' . $target_path_short, $minOutput)) {
                 $vn_minified_js[$filename] = $target_path_short;
                 $javascript[$filename]['data'] = $vn_minified_js[$filename];
@@ -119,7 +119,7 @@ function vn_misc_js_alter(&$javascript) {
             }
           }
 
-        } // End of if(strpos($filename, '.js') && !strpos($attr['data'], "min.js") && !strpos($attr['data'], "jsmin-gv")) {
+        } // End of if(strpos($filename, '.js') && !strpos($attr['data'], "min.js") && !strpos($attr['data'], "jsmin-vn")) {
 
       } // End of foreach($javascript as $filename => $attr){
       
@@ -144,8 +144,8 @@ function vn_misc_js_alter(&$javascript) {
  * Implements hook_flush_caches().
  */
 function vn_misc_flush_caches() {
-  // Remove all minified files from jsmin-gv folder.
-  $dir = 'f/jsmin-gv';
+  // Remove all minified files from jsmin-vn folder.
+  $dir = 'f/jsmin-vn';
   $objects = scandir($dir);
   foreach ($objects as $object) {
     if ($object != "." && $object != "..") {
@@ -255,7 +255,7 @@ function vn_pages_quoteRequestsList_form($form, &$form_state) {
 //      if (in_array($data['Email'], $all_emails) || !strpos($data['Email'], '@') || strpos($data['Email'], 'test@') !== FALSE || strpos($data['Email'], '@test') !== FALSE) {
 //        continue;
 //      }
-      if (in_array($ucaptured->email_presented, $all_emails) || !strpos($ucaptured->email_presented, '@') || strpos($ucaptured->email_presented, 'getvoip.') !== FALSE || strpos($ucaptured->email_presented, 'test@') !== FALSE || strpos($ucaptured->email_presented, '@test') !== FALSE) {
+      if (in_array($ucaptured->email_presented, $all_emails) || !strpos($ucaptured->email_presented, '@') || strpos($ucaptured->email_presented, 'voipnow.') !== FALSE || strpos($ucaptured->email_presented, 'test@') !== FALSE || strpos($ucaptured->email_presented, '@test') !== FALSE) {
         continue;
       }
       $all_emails[] = $ucaptured->email_presented;
@@ -301,7 +301,7 @@ function vn_pages_quoteRequestsList_form($form, &$form_state) {
 //      if (in_array($data['Email'], $all_emails) || !strpos($data['Email'], '@') || strpos($data['Email'], 'test@') !== FALSE || strpos($data['Email'], '@test') !== FALSE) {
 //        continue;
 //      }
-      if (in_array($result->field_r_email_value, $all_emails) || !strpos($result->field_r_email_value, '@') || strpos($result->field_r_email_value, 'getvoip.') !== FALSE || strpos($result->field_r_email_value, 'test') !== FALSE || strpos($result->field_r_email_value, 'ruben') !== FALSE || strpos($result->field_r_email_value, 'alexxhome') !== FALSE || strpos($result->field_r_email_value, 'all4senses') !== FALSE) {
+      if (in_array($result->field_r_email_value, $all_emails) || !strpos($result->field_r_email_value, '@') || strpos($result->field_r_email_value, 'voipnow.') !== FALSE || strpos($result->field_r_email_value, 'test') !== FALSE || strpos($result->field_r_email_value, 'ruben') !== FALSE || strpos($result->field_r_email_value, 'alexxhome') !== FALSE || strpos($result->field_r_email_value, 'all4senses') !== FALSE) {
         continue;
       }
       $all_emails[] = $result->field_r_email_value;
@@ -1898,7 +1898,7 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
       
 
   
-      $form['#attributes']['class'][] = 'gv-edit-review-page';
+      $form['#attributes']['class'][] = 'vn-edit-review-page';
   
       $form['#validate'][] = 'vn_pages_validateForm_review';
       $form['#submit'][] = 'vn_pages_submitForm_review';

@@ -154,13 +154,13 @@ function vn_blocks_get_footerMenu() {
   }
   else {
     $menu = menu_build_tree('menu-footer-menu');
-    $out = theme('vn_misc_submenuSimple', array('submenu' => array('below' => $menu), 'class' => 'menu', 'delimiter' => '<li> | </li>')); // . '<div class="c">В© 2012 GetVoIP.com | All Rights Reserved</div>';
+    $out = theme('vn_misc_submenuSimple', array('submenu' => array('below' => $menu), 'class' => 'menu', 'delimiter' => '<li> | </li>')); // . '<div class="c">В© 2012 voipnow.org | All Rights Reserved</div>';
     
     cache_set($cid, $out, 'cache', strtotime('+31 day'));
   } 
   
   //$menu = menu_build_tree('menu-footer-menu');
-  //$out = theme('vn_misc_submenuSimple', array('submenu' => array('below' => $menu), 'class' => 'menu', 'delimiter' => '<li> | </li>')); // . '<div class="c">В© 2012 GetVoIP.com | All Rights Reserved</div>';
+  //$out = theme('vn_misc_submenuSimple', array('submenu' => array('below' => $menu), 'class' => 'menu', 'delimiter' => '<li> | </li>')); // . '<div class="c">В© 2012 voipnow.org | All Rights Reserved</div>';
   
   return $out;
 }
@@ -234,7 +234,7 @@ function vn_blocks_wrapInBlockThemed($block_data, $block)
   }
   if (isset($block_data['shadow']) && $block_data['shadow']) {
     return 
-      '<section id="block-' . $block_data['module'] . '-' . $block_data['delta'] . '" class="block gv block-' . $block_data['module'] . (isset($block_data['class']) ? ' ' . $block_data['class'] : '') . '">' 
+      '<section id="block-' . $block_data['module'] . '-' . $block_data['delta'] . '" class="block vn block-' . $block_data['module'] . (isset($block_data['class']) ? ' ' . $block_data['class'] : '') . '">' 
         . '<div class="inside">'
             . ( ($block['subject'] && (!isset($block_data['subject_visible']) || $block_data['subject_visible']) )
                 ? 
@@ -248,7 +248,7 @@ function vn_blocks_wrapInBlockThemed($block_data, $block)
   }
   else {
     return 
-      '<section id="block-' . $block_data['module'] . '-' . $block_data['delta'] . '" class="block gv block-' . $block_data['module'] . (isset($block_data['class']) ? ' ' . $block_data['class'] : '') . '">' 
+      '<section id="block-' . $block_data['module'] . '-' . $block_data['delta'] . '" class="block vn block-' . $block_data['module'] . (isset($block_data['class']) ? ' ' . $block_data['class'] : '') . '">' 
          . ( ($block['subject'] && (!isset($block_data['subject_visible']) || $block_data['subject_visible']) )
             ? 
             '<div class="block-icon pngfix"></div><' . $subjectTag . ' class="block-title">' . $block['subject'] . '</' . $subjectTag . '>'
@@ -300,7 +300,7 @@ function vn_blocks_getBlockThemed($block_data, $cache_on = FALSE, $cache_expire_
   
   // Caching system version.
   
-  $cid = 'gv-block-cache---' . $block_data['module'] . '-' . $block_data['delta'] . $suffix;
+  $cid = 'vn-block-cache---' . $block_data['module'] . '-' . $block_data['delta'] . $suffix;
   $cache = cache_get($cid, 'cache');
 
   if ($cache && !empty($cache->data) && $cache->expire > time()) {

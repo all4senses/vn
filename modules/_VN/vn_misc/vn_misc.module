@@ -538,7 +538,7 @@ function vn_misc_fieldSave($field_name, $entity_id, $data, $entity_type = 'node'
 
 
 /**
- * Prevent Enter button on Content_GetVoIP page while inline editing fields.
+ * Prevent Enter button on Content_voipnow page while inline editing fields.
  */
 function vn_misc_preventEnterOnEditField() {
   $path_to_custom_js = drupal_get_path('module', 'vn_misc') . '/js/';
@@ -831,7 +831,7 @@ function vn_misc_views_api() {
 
 
 /**
- * Form with a fieldset of Add content section for Admin Content GetVoIP page (by Views).
+ * Form with a fieldset of Add content section for Admin Content voipnow page (by Views).
  */
 function vn_misc_AddContentSection_form() {
   
@@ -1317,8 +1317,8 @@ function vn_misc_addSocialShareData_toPage($node) {
   
   if (!$image){
     // Show default image - the logo.
-    //$image = '/sites/all/themes/vn/css/images/getvoip-logo.png';
-    $image = '/sites/all/themes/vn/css/images/getvoip-logo2-t.png';
+    //$image = '/sites/all/themes/vn/css/images/voipnow-logo.png';
+    $image = '/sites/all/themes/vn/css/images/voipnow-logo2-t.png';
   }
 
   if (!strpos($image, '//voipnow.org')) {
@@ -1406,7 +1406,7 @@ function vn_misc_addSocialShareData_toPage($node) {
       '#tag' => 'meta',
       '#attributes' => array(
           'property' => 'fb:admins',
-          'content' => 'http://www.facebook.com/getvoipservice',
+          'content' => 'http://www.facebook.com/voipnowservice',
       ),
     ),
       */
@@ -2369,13 +2369,46 @@ function vn_misc_testPage() {
   
   $query->condition('vp.post_status', 'publish');
   $query->condition('vp.post_type', 'post');
-  //$query->condition('tr.term_taxonomy_id', 3); // 3 - Features, 4 - News
+  $query->condition('tr.term_taxonomy_id', 3); // 3 - Features, 4 - News
   
   $query->orderBy('ID');
   //$query->range(0, 20);
-  $resuls = $query->execute()->fetchAllAssoc('ID');
+  $results = $query->execute()->fetchAllAssoc('ID');
   
-  dpm($resuls);
+  dpm($results);
+  
+  $category_map = array(
+    3 => 1, // Features
+    4 => 2, // News
+  );
+  
+  foreach ($results as $result) {
+    
+    $form_state['values'] = array(
+      'title' => $result->post_title,
+      'created' => strtotime($result->post_date),
+      'changed' => strtotime($result->post_modified),
+      'category' => $category_map[$result->term_taxonomy_id],
+      'url_part' => $result->post_name,
+      'ID' => $result->ID,
+    );
+    
+    $form_state['values']['body']['und'][0]['value'] = $result->post_content;
+    
+    if (preg_match('/(.*)<!--more-->(.*)/', $form_state['values']['body']['und'][0]['value'], $matches)) {
+      //dpm($matches);
+      $form_state['values']['body']['und'][0]['summary'] = $matches[1];
+      //$body_full_markup = preg_replace('|\[video:.*(http.*)\]|', '<a href="$1"> [Watch a video] </a>', $body_full_markup);
+    }
+    else {
+      $form_state['values']['body']['und'][0]['summary'] = '';
+    }
+    
+    
+    // Add only one node.
+    vn_misc_createNode_BlogPost($form_state);
+    break;
+  }
   
   return $out . '<br>End of Test';
 }
@@ -2384,96 +2417,60 @@ function vn_misc_testPage() {
 /**
  * Creates a node blog_post.
  */
-function vn_misc_createNode_BlogPost($node) { 
+function vn_misc_createNode_BlogPost($form_state) { 
   
   global $user;
   
   $node = new stdClass();
-  $node->type = 'phone_review';
+  $node->type = 'blog_post';
   node_object_prepare($node);
   
-  $node->title = 'Unapproved review';
+  $node->created = $form_state['values']['created'];
+  $node->changed = $form_state['values']['changed'];
+  
+          
+  $node->title = $form_state['values']['title'];
   $node->language = LANGUAGE_NONE;
   $node->uid = $user->uid;
-  $node->status = 0;
+  $node->status = 1;
   $node->promote = 0;
   $node->sticky = 0;
   $node->comment = 0;
   
-  $node->body[$node->language][0] = $form_state['values']['review'];
-  $node->body[$node->language][0]['summary'] = '';
-  $node->body[$node->language][0]['safe_summary'] = '';
-  $node->body[$node->language][0]['safe_value'] = check_plain($form_state['values']['review']['value']);
+  $node->body[$node->language][0]['format'] = 'full_html';
+  $node->body[$node->language][0]['value'] = $form_state['values']['body']['und'][0]['value'];
+  $node->body[$node->language][0]['summary'] = $form_state['values']['body']['und'][0]['summary'];
+  $node->body[$node->language][0]['safe_summary'] = check_plain($form_state['values']['body']['und'][0]['summary']);
+  $node->body[$node->language][0]['safe_value'] = check_plain($form_state['values']['body']['und'][0]['value']);
   
-  $user_mail = $user->uid ? $user->mail : $form_state['values']['email'];
-  $node->field_r_email[$node->language][0] = array(
-    'value' => $user_mail,
-    'safe_value' => check_plain($user_mail),
-    'format' => NULL,
+  $node->field_extra_data[$node->language][0] = array(
+    'value' => NULL,
+    'safe_value' => NULL,
+    'format' => 'full_html',
   );
-  $node->field_r_fname[$node->language][0] = array(
-    'value' => $form_state['values']['name'],
-    'safe_value' => check_plain($form_state['values']['name']),
-    'format' => NULL,
+  $node->field_main_image[$node->language][0] = array(
+    'value' => NULL,
+    'safe_value' => NULL,
+    'format' => 'full_html',
   );
-  
-  $node->field_r_notapproved[$node->language][0]['value'] = 1;
-  $node->field_r_rating_overall[$node->language][0]['value'] = NULL;
-  $node->field_ref_phone[$node->language][0]['target_id'] = $form_state['values']['phone_nid'];
-  
-  $node->field_r_approvecode[$node->language][0] = array(
-    'value' => $form_state['values']['field_r_approvecode'],
-    'safe_value' => check_plain($form_state['values']['field_r_approvecode']),
-    'format' => NULL,
+  $node->field_a_teaser[$node->language][0] = array(
+    'value' => NULL,
+    'safe_value' => NULL,
+    'format' => 'full_html',
   );
-  
-  $node->field_p_name[$node->language][0] = array(
-    'value' => $form_state['values']['phone_model'],
-    'safe_value' => check_plain($form_state['values']['phone_model']),
-    'format' => NULL,
+  $node->field_old_url_name[$node->language][0] = array(
+    'value' => $form_state['values']['url_part'],
+    'safe_value' => $form_state['values']['url_part'],
+    'format' => 'full_html',
   );
   
+  $node->field_old_id[$node->language][0]['value'] = $form_state['values']['ID'];
   
-  // Prepare votes to save in a temporary field (it may be not used, but just in case and for a code simplifying).
-  $rating_options = array('performance' => PERFORMANCE, 'voice' => VOICE, 'install' => INSTALL, 'use_ease' => USE_EASE, 'durability' => DURABILITY, 'features' => FEATURES, 'price' => PRICE, 'recommend' => RECOMMEND_PHONE);
-  $votes = array();
-  foreach ($rating_options as $vote_key => $vote_title) {
-    if(isset($form_state['values']['rating_' . $vote_key])) {
-      $votes[$vote_key] = $form_state['values']['rating_' . $vote_key];
-    }
-  }
-  // Save votes to the temporary votes at r_data field.
-  // It maybe reset later on. But just for the sake of a code simplifying.
-  // On node_presave it field may be cleared and its data will be pushed to Voting API tables.
-  // OR it its data may remain, if the review is not approved OR it's for not listed provider
-
-  // Save several vars in the field
-  $field_r_data = serialize(array('saved_ratings' => $votes, 'user_ip' => $form_state['values']['user_ip']));
-  
-  $node->field_r_data[$node->language][0] = array(
-    'value' => $field_r_data,
-    'safe_value' => check_plain($field_r_data),
-    'format' => NULL,
-  );
-  
+  $node->field_categories[$node->language][0]['tid'] = $form_state['values']['category'];
   
   if ($node = node_submit($node)) {
     node_save($node);
-    //drupal_set_message('Saved, Ok!', 'warning');
-    
-    
-    // Show a Success message and Send notifications.
-    $text = t('<span class="review"><span class="success">Your review has been successfully submitted. Thank you for your time and efforts in sharing your much appreciated feedback.</span> <span class="approve">It will be published as soon as our administrators have approved it.</span> <span class="contact">If we may be of any further assistance please email us at contact@getvoip.com</span>');
-    // Send verification code to approve email for an unregistered user.
-    if (!$user->uid) {
-      gv_misc_sendMessage('email_verification', array('verification_code' => $form_state['values']['field_r_approvecode'] . '=' . urlencode($form_state['values']['email']), 'email' => $form_state['values']['email']));
-      $text .= '<div class="emailed">' . t('To assist in getting your review published faster, we have sent you an email verification with 1-click instructions for immediate publishing of your review.') . '</div>';
-    }
-    $text .= '</span>';
-    drupal_set_message($text);
-
-    // Notify all admins.
-    gv_misc_sendMessage('new_phone_review_admin_notify', array('phone_name' => $form_state['values']['phone_model']));
+    drupal_set_message('Saved, Ok!', 'warning');
   }
   
 }
@@ -2550,7 +2547,7 @@ To faster verify and publish your review, please click on the email verification
 !url
 
 Best Wishes,
-GetVoIP Team
+VoIP Now Team
 ', array('!url' => 'http://voipnow.org/approve/email/' . $params['verification_code']));
       
       break;
@@ -2964,7 +2961,7 @@ function theme_vn_misc_submenuSimple($vars) {
   $level = isset($vars['level']) ? $vars['level'] : 0;
   $class = isset($vars['class']) ? $vars['class'] : 'om-links';
   $delimiter = isset($vars['delimiter']) ? $vars['delimiter'] : '';
-  $out = '<ul class="gv ' . $class . ' lvl-' . $level . '">';
+  $out = '<ul class="vn ' . $class . ' lvl-' . $level . '">';
   $count = 0;
   foreach ($vars['submenu']['below'] as $submenu) {
     if (is_object($submenu)) {
@@ -3022,13 +3019,13 @@ function theme_vn_misc_fivestar_static($variables) {
   $tag = $variables['tag'];
   $widget = $variables['widget'];
 
-  // GV Intrusion!!!!
+  // vn Intrusion!!!!
   $path = drupal_get_path('module', 'vn_misc') . '/css/fivestar';
   drupal_add_css($path . '/css/fivestar.css');
   // END of intrusion.
   
   if($widget['name'] != 'default') {
-    // GV changes.
+    // vn changes.
     //drupal_add_css($widget['css']);
     drupal_add_css($path . '/widgets/' . $widget['name'] . '/' . $widget['css']);
   }

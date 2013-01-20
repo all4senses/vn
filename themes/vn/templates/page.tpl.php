@@ -18,8 +18,8 @@
       <div id="header-menu-back"></div>
       
       <div id="logo-block">
-        <a href="<?php print $front_page; ?>" title="<?php print 'GetVoIP Home'; ?>" id="logo">
-          <img src="<?php print 'http://voipnow.org/sites/all/themes/vn_/css/images/getvoip-logo2.png'; ?>" alt="voipnow.org - Complete VoIP Provider Directory & Service Guide" title="<?php print t('GetVoIP Home'); ?>" />
+        <a href="<?php print $front_page; ?>" title="<?php print 'VoIP Now Home'; ?>" id="logo">
+          <img src="<?php print 'http://voipnow.org/sites/all/themes/vn_/css/images/voipnow-logo.png'; ?>" alt="VoIP Now" title="<?php print t('VoIP Now Home'); ?>" />
         </a>
         <div class="descr">
           <div class="title">2013 VOIP GUIDE</div>

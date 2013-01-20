@@ -436,22 +436,22 @@ function vn_misc_views_default_views() {
   
   
   
-  /* Content GetVoIP */
+  /* Content voipnow */
   /* ---------------------------------------------------------------- */
   
   $view = new view;
-  $view->name = 'content_getvoip';
+  $view->name = 'content_voipnow';
   $view->description = 'Emulates the Drupal content administration page.';
   $view->tag = 'default';
   $view->base_table = 'node';
-  $view->human_name = 'Content GetVoIP';
+  $view->human_name = 'Content voipnow';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Content GetVoIP';
+  $handler->display->display_options['title'] = 'Content voipnow';
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'administer content';
   $handler->display->display_options['cache']['type'] = 'none';
@@ -1111,7 +1111,7 @@ function vn_misc_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'admin/content-gv';
+  $handler->display->display_options['path'] = 'admin/content-vn';
 
   $views[$view->name] = $view;
   

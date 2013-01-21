@@ -2227,7 +2227,7 @@ function vn_pages_validateForm_provider(&$form, &$form_state) {
   // Calculate the overall average editor's rating.
   $editor_rating_overall = $overall_summ / $overall_count;
   
-  $p_data['erating'] = array(
+  $p_data['ereview'] = array(
       'editor_rating_overall' => $editor_rating_overall, 
       'editor_ratings' => $votes, 
       'pros_and_cons' => $form_state['values']['data_pros_and_cons'],

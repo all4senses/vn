@@ -1354,18 +1354,18 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
           //$vote_keys = array('performance' => PERFORMANCE, 'voice' => VOICE, 'install' => INSTALL, 'use_ease' => USE_EASE, 'durability' => DURABILITY, 'features' => FEATURES, 'price' => PRICE);
           
           $votes = array();
-          $form['ureview'] = array(
+          $form['ereview'] = array(
             '#type' => 'fieldset',
             '#title' => t('Editor\'s Rating for this VoIP Provider'),
             '#weight' => 13,
           );
 
-              $form['ureview']['votes'] = array(
+              $form['ereview']['votes'] = array(
                   '#type' => 'container',
                   '#prefix' => '<div class="rate-caption"><div class="col-2">' . t('Click Stars To Start Reviewing') . '</div><div class="col-3">' . t('Rate it') . '</div></div>',
               );
               foreach ($vote_keys as $vote_key => $vote_title) {
-                $form['ureview']['votes']['rating_' . $vote_key] = array(
+                $form['ereview']['votes']['rating_' . $vote_key] = array(
                   '#type' => 'select',
                   '#options' => $rating_options,
                   '#default_value' => $rating_options[''],
@@ -1375,7 +1375,7 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
               }
 
               $rating_recommend_options = $rating_options = array('100' => 'Yes', '0' => 'No');
-              $form['ureview']['rating_recommend'] = array(
+              $form['ereview']['rating_recommend'] = array(
                   '#type' => 'radios',
                   '#options' => $rating_recommend_options,
                   '#default_value' => FALSE,
@@ -1390,13 +1390,31 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
                       $recommend = $value;
                       continue;
                     }
-                    $form['ureview']['votes']['rating_' . $tag]['#default_value'] = $value;
+                    $form['ereview']['votes']['rating_' . $tag]['#default_value'] = $value;
                   }
                   
 
                   if (isset($recommend)) {
-                    $form['ureview']['rating_recommend']['#default_value'] = $recommend;
+                    $form['ereview']['rating_recommend']['#default_value'] = $recommend;
                   }
+              }
+              
+              
+              $pros_and_cons_descrs = array('The good', 'The bad', 'The bottom line');
+              $form['ereview']['data_pros_and_cons'] = array(
+                '#type' => 'fieldset',
+                '#title' => t('Pros and Cons'),
+                '#collapsible' => TRUE,
+                '#collapsed' => FALSE,
+                '#tree' => TRUE,
+                '#weight' => 6,
+              );
+              foreach($pros_and_cons_descrs as $pros_and_cons_title) {
+                $form['ereview']['data_pros_and_cons'][$pros_and_cons_title] = array(
+                  '#type' => 'textarea',
+                  '#title' => $pros_and_cons_title,
+                  '#default_value' => isset($p_data['ereview']['pros_and_cons'][$pros_and_cons_title]) ? $p_data['ereview']['pros_and_cons'][$pros_and_cons_title] : '',
+                );
               }
               
               

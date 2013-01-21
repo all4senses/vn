@@ -3532,7 +3532,7 @@ function vn_misc_views_pre_render(&$view) {
   dpm($view);
   //$view->result = array();
   foreach ($view->result as $key => $r) {
-    $view->result[$key]->created_year_month = '200606';
+    $view->result[$key]->created_year_month = '2006/06';
   }
   
   //dpm($view->name); dpm($view->current_display);

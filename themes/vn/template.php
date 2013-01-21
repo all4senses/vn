@@ -863,7 +863,7 @@ function vn_preprocess_views_view(&$vars) {
   //$vars['view']->rows = 'xxx';
   $vars['rows'] = 'xxx';
   
-  $vars['rows'] = 'yyy ' . $vars['view']->render();
+  //$vars['rows'] = 'yyy ' . $vars['view']->render();
           
   //exit;
   /*

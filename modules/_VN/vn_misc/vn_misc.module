@@ -3530,6 +3530,7 @@ function vn_misc_votingapi_metadata_alter(&$data) {
 function vn_misc_views_pre_render(&$view) {
   
   dpm($view);
+  $view->result = array();
   
   //dpm($view->name); dpm($view->current_display);
 

@@ -143,29 +143,33 @@
                 </ul>
                 <div id="tabs-1">
                   
-                  <div class="pros-and-cons">
-                    <div>
-                      <span>The good:</span><?php /*dpm($node);*/ echo $node->p_data['ereview']['pros_and_cons']['The good']; ?>
-                    </div>
-                    <div>
-                      <span>The bad:</span><?php echo $node->p_data['ereview']['pros_and_cons']['The bad']; ?>
-                    </div>
-                    <div>
-                      <span>The bottom line:</span><?php echo $node->p_data['ereview']['pros_and_cons']['The bottom line']; ?>
-                    </div>
-
-                  </div>
+                  <?php if (!empty($node->p_data['ereview'])) { ?>
                   
-                  <div class="vn_votes editor">
-                    <?php $editor_overall_rating = number_format($node->p_data['ereview']['editor_rating_overall'] * 0.05, 1); ?>
-                    <?php echo '<div class="caption"><span><span property="v:reviewer">Editor</span>\'s Overall Rating:</span> <span property="v:rating">' , $editor_overall_rating, '</span>' /* render($content['gv_rating_overall'])*/ , '<div class="bottom-clear"></div></div>' , render($node->editor->content['vn_ratings']); ?>
-                    <div class="rate-other">
-                      <?php /*<div class="text"><?php echo '<div class="title">' , t('Date:') , '</div><div property="v:dtreviewed" content="' . date('Y-m-d', $node->created) . '">' , date('F j, Y', $node->created) , '</div>'; ?></div> */?>
-                      <?php /*<div class="text"><?php echo '<div class="title">' , t('Reviewer:') , '</div><div property="v:reviewer">Editor</div>'; ?></div> */?>
-                      <div class="text"><?php echo '<div class="title">' . t('Recommend') . ': </div><div class="data">' . $node->editor->vn_recommend . '</div>'?></div>
-                      <?php echo '<div class="voters editor"><div class="count" property="v:count">' . (!empty($node->vn_voters) ? $node->vn_voters : 1) . '</div></div>';?>
-                    </div>
-                  </div>
+                        <div class="pros-and-cons">
+                          <div>
+                            <span>The good:</span><?php /*dpm($node);*/ echo $node->p_data['ereview']['pros_and_cons']['The good']; ?>
+                          </div>
+                          <div>
+                            <span>The bad:</span><?php echo $node->p_data['ereview']['pros_and_cons']['The bad']; ?>
+                          </div>
+                          <div>
+                            <span>The bottom line:</span><?php echo $node->p_data['ereview']['pros_and_cons']['The bottom line']; ?>
+                          </div>
+
+                        </div>
+
+                        <div class="vn_votes editor">
+                          <?php $editor_overall_rating = number_format($node->p_data['ereview']['editor_rating_overall'] * 0.05, 1); ?>
+                          <?php echo '<div class="caption"><span><span property="v:reviewer">Editor</span>\'s Overall Rating:</span> <span property="v:rating">' , $editor_overall_rating, '</span>' /* render($content['gv_rating_overall'])*/ , '<div class="bottom-clear"></div></div>' , render($node->editor->content['vn_ratings']); ?>
+                          <div class="rate-other">
+                            <?php /*<div class="text"><?php echo '<div class="title">' , t('Date:') , '</div><div property="v:dtreviewed" content="' . date('Y-m-d', $node->created) . '">' , date('F j, Y', $node->created) , '</div>'; ?></div> */?>
+                            <?php /*<div class="text"><?php echo '<div class="title">' , t('Reviewer:') , '</div><div property="v:reviewer">Editor</div>'; ?></div> */?>
+                            <div class="text"><?php echo '<div class="title">' . t('Recommend') . ': </div><div class="data">' . $node->editor->vn_recommend . '</div>'?></div>
+                            <?php echo '<div class="voters editor"><div class="count" property="v:count">' . (!empty($node->vn_voters) ? $node->vn_voters : 1) . '</div></div>';?>
+                          </div>
+                        </div>
+
+                  <?php } ?>
                   
                   
                   <?php echo render($content['body']); ?>

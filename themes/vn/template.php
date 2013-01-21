@@ -859,9 +859,9 @@ function vn_captcha($variables) {
  */
 
 function vn_preprocess_views_view(&$vars) {
-  dpm($vars);
+  //dpm($vars);
   //$vars['view']->rows = 'xxx';
-  $vars['rows'] = 'xxx';
+  //$vars['rows'] = 'xxx';
   
   //$vars['rows'] = 'yyy ' . $vars['view']->render();
           

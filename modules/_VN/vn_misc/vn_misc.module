@@ -3529,6 +3529,8 @@ function vn_misc_votingapi_metadata_alter(&$data) {
 
 function vn_misc_views_pre_render(&$view) {
   
+  dpm($view);
+  
   //dpm($view->name); dpm($view->current_display);
 
   // Add a prefaces for the some views pages.

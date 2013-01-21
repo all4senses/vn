@@ -2455,7 +2455,7 @@ function vn_misc_import_wp_providers() {
       'wp_fields' => $result->wp_fields,
       'p_name' => $result->post_title,
       'field_p_types' => $field_p_types,
-      'field_p_data_quick' => $field_p_data_quick,
+      'field_p_data_quick' => serialize($field_p_data_quick),
       'field_p_data' => serialize(array('wp_fields' => $result->wp_fields, 'info' => array('i_web' => $result->wp_fields['Marketing']['af_link'], 'i_web_display' => $result->post_title)))
     );
     

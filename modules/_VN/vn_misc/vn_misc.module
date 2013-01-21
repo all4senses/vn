@@ -2518,8 +2518,8 @@ function vn_misc_createNode_provider($form_state) {
   );
   
   $node->field_p_quick_data[$node->language][0] = array(
-    'value' => $form_state['values']['field_p_quick_data'],
-    'safe_value' => check_plain($form_state['values']['field_p_quick_data']),
+    'value' => $form_state['values']['field_p_data_quick'],
+    'safe_value' => check_plain($form_state['values']['field_p_data_quick']),
     'format' => 'full_html',
   );
   

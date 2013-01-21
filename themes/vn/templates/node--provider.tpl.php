@@ -201,11 +201,14 @@
             for ($i = 0; $i < 3; $i++) {
               $features_out .= '<div>';
               for ($j = 0; $j < ($rows / 3); $j++) {
-                $features_out .= '<div>' . $features[$features_count++] . '</div>';
-                if ($features_count > $rows) {
+                if (!isset($features[$features_count])) {
                   $features_out .= '</div>';
-                  break 2;
+                  break 2; 
                 }
+                $features_out .= '<div>' . $features[$features_count++] . '</div>';
+//                if ($features_count > $rows) {
+//                 
+//                }
                 
               }
               $features_out .= '</div>';

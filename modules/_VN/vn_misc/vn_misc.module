@@ -2430,27 +2430,39 @@ function vn_misc_import_wp_providers() {
     4 => 2, // News
   );
   
-  foreach ($results as $result) {
+  foreach ($providers as $result) {
+    $quick_stats_plans_keys = array('fe_Residential' => 're', 'fe_Small_Business' => 'smbv', 'fe_Enterprise' => 'bu', 'fe_Mid_Size_Business' => 'bu');
+            
+    $field_p_types = array();
+    foreach ($quick_stats_plans_keys as $quick_stats_plans_key => $map_key) {
+      if(!empty($result->wp_fields['Features'][$quick_stats_plans_key])) {
+        $field_p_types['und'][]['value'] = $map_key;
+      }
+    }
     
     $form_state['values'] = array(
       'title' => $result->post_title,
       'post_date' => $result->post_date,
       'created' => strtotime($result->post_date),
       'changed' => strtotime($result->post_modified),
-      'category' => $category_map[$result->term_taxonomy_id],
-      'url_alias' => date('Y\/m', strtotime($result->post_date)) . '/' . $result->post_name,
+      //'category' => $category_map[$result->term_taxonomy_id],
+      'url_alias' => 'providers/' . $result->post_name,
       'ID' => $result->ID,
+      'wp_fields' => $result->wp_fields,
+      'p_name' => $result->post_title,
+      'field_p_types' => $field_p_types,
     );
     
     $form_state['values']['body']['und'][0]['value'] = $result->post_content;
     
-    if (preg_match('/(.*)<!--more-->(.*)/s', $form_state['values']['body']['und'][0]['value'], $matches)) {
-      //dpm($matches);
-      $form_state['values']['body']['und'][0]['value'] = $matches[1] . /*'<span id="more"></span>' .*/ $matches[2];
-      $form_state['values']['body']['und'][0]['summary'] = $matches[1] . '<p><a href="/' . $form_state['values']['url_alias'] . '#more" class="more-link">Read the rest of this entry »</a></p>';
-      //$body_full_markup = preg_replace('|\[video:.*(http.*)\]|', '<a href="$1"> [Watch a video] </a>', $body_full_markup);
-    }
-    else {
+//    if (preg_match('/(.*)<!--more-->(.*)/s', $form_state['values']['body']['und'][0]['value'], $matches)) {
+//      //dpm($matches);
+//      ////$form_state['values']['body']['und'][0]['value'] = $matches[1] . /*'<span id="more"></span>' .*/ $matches[2];
+//      $form_state['values']['body']['und'][0]['summary'] = $matches[1] . '<p><a href="/' . $form_state['values']['url_alias'] . '#more" class="more-link">Read the rest of this entry »</a></p>';
+//      //$body_full_markup = preg_replace('|\[video:.*(http.*)\]|', '<a href="$1"> [Watch a video] </a>', $body_full_markup);
+//    }
+//    else 
+    {
       $form_state['values']['body']['und'][0]['summary'] = '';
     }
     
@@ -2459,6 +2471,69 @@ function vn_misc_import_wp_providers() {
     vn_misc_createNode_BlogPost($form_state);
     break;
   }
+}
+
+
+/**
+ * Creates a node blog_post.
+ */
+function vn_misc_createNode_provider($form_state) { 
+  
+  global $user;
+  
+  $node = new stdClass();
+  $node->type = 'provider';
+  node_object_prepare($node);
+  
+  $node->date = $form_state['values']['post_date'];
+  $node->created = $form_state['values']['created'];
+  $node->changed = $form_state['values']['changed'];
+  
+          
+  $node->title = $form_state['values']['title'];
+  $node->language = LANGUAGE_NONE;
+  $node->uid = $user->uid;
+  $node->status = 1;
+  $node->promote = 0;
+  $node->sticky = 0;
+  $node->comment = 0;
+  
+  $node->body[$node->language][0]['format'] = 'full_html';
+  $node->body[$node->language][0]['value'] = $form_state['values']['body']['und'][0]['value'];
+  $node->body[$node->language][0]['summary'] = $form_state['values']['body']['und'][0]['summary'];
+  $node->body[$node->language][0]['safe_summary'] = check_plain($form_state['values']['body']['und'][0]['summary']);
+  $node->body[$node->language][0]['safe_value'] = check_plain($form_state['values']['body']['und'][0]['value']);
+  
+  $node->field_p_data[$node->language][0] = array(
+    'value' => serialize(array('wp_fields' => $form_state['values']['wp_fields'], 'info' => array('i_web' => $form_state['values']['wp_fields']['Marketing']['af_link']))),
+    'safe_value' => serialize(array('wp_fields' => $form_state['values']['wp_fields'])),
+    'format' => 'full_html',
+  );
+  
+  $node->field_p_name[$node->language][0] = array(
+    'value' => $form_state['values']['p_name'],
+    'safe_value' => check_plain($form_state['values']['p_name']),
+    'format' => 'full_html',
+  );
+  
+  $node->field_old_id[$node->language][0]['value'] = $form_state['values']['ID'];
+
+  $node->field_p_types = @$form_state['values']['field_p_types'];
+  
+  $node->path = array(
+    'alias' => $form_state['values']['url_alias'],
+    'language' => $node->language,
+    'pathauto' => 0,
+  );
+  
+  //dpm($node);
+  //return;
+  
+  if ($node = node_submit($node)) {
+    node_save($node);
+    drupal_set_message('Saved, Ok!', 'warning');
+  }
+  
 }
 
 
@@ -2503,7 +2578,7 @@ function vn_misc_import_wp_blogPosts() {
     
     if (preg_match('/(.*)<!--more-->(.*)/s', $form_state['values']['body']['und'][0]['value'], $matches)) {
       //dpm($matches);
-      $form_state['values']['body']['und'][0]['value'] = $matches[1] . /*'<span id="more"></span>' .*/ $matches[2];
+      ////$form_state['values']['body']['und'][0]['value'] = $matches[1] . /*'<span id="more"></span>' .*/ $matches[2];
       $form_state['values']['body']['und'][0]['summary'] = $matches[1] . '<p><a href="/' . $form_state['values']['url_alias'] . '#more" class="more-link">Read the rest of this entry »</a></p>';
       //$body_full_markup = preg_replace('|\[video:.*(http.*)\]|', '<a href="$1"> [Watch a video] </a>', $body_full_markup);
     }

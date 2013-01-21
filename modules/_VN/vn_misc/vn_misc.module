@@ -3530,7 +3530,7 @@ function vn_misc_votingapi_metadata_alter(&$data) {
 function vn_misc_views_pre_render(&$view) {
   
   dpm($view);
-  $view->result = array();
+  //$view->result = array();
   foreach ($view->result as $key => $r) {
     $view->result[$key]->created_year_month = '200606';
   }

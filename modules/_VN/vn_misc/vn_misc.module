@@ -2412,7 +2412,7 @@ function vn_misc_import_wp_providers() {
       foreach ($fields as $title => $field) {
         if (isset($field[$postmeta->meta_key])) {
           $meta_group = $title;
-          $providers[$provider->ID]->postmeta[$meta_group][$postmeta->meta_key] = $postmeta->meta_value;
+          $providers[$provider->ID]->wp_fields[$meta_group][$postmeta->meta_key] = $postmeta->meta_value;
         }
       }
       

@@ -2201,6 +2201,41 @@ function vn_pages_validateForm_provider(&$form, &$form_state) {
   $p_data['info'] = $form_state['values']['data_info'];
   //$p_data['quote'] = $form_state['values']['data_quote'];
   
+  
+  
+  //$rating_options = array('performance' => PERFORMANCE, 'voice' => VOICE, 'install' => INSTALL, 'use_ease' => USE_EASE, 'durability' => DURABILITY, 'features' => FEATURES, 'price' => PRICE, 'recommend' => RECOMMEND_PHONE);
+  $rating_options = array('sound' => SOUND, 'install' => INSTALL, 'service' => CUSTOMER, 'rely' => RELY, 'features' => FEATURES, 'money' => PRICE, 'recommend' => RECOMMEND);  
+  
+  // Check if all editor's votes (ratings) fields are set.
+  foreach ($rating_options as $rating_option => $rating_option_title) {
+    if ($form_state['values']['rating_' . $rating_option] === FALSE) {
+      form_set_error($rating_option, t('Please make your choice for "' . $rating_option_title . '"'));
+    }
+  }
+  
+  // Prepare editor votes (ratings) to save in the extra field.
+  $votes = array();
+  $overall_count = 0;
+  $overall_summ = 0;
+  foreach ($rating_options as $vote_key => $vote_title) {
+    if(isset($form_state['values']['rating_' . $vote_key])) {
+      $votes[$vote_key] = $form_state['values']['rating_' . $vote_key];
+      $overall_count++;
+      $overall_summ += $form_state['values']['rating_' . $vote_key];
+    }
+  }
+  // Calculate the overall average editor's rating.
+  $editor_rating_overall = $overall_summ / $overall_count;
+  
+  $p_data['erating'] = array(
+      'editor_rating_overall' => $editor_rating_overall, 
+      'editor_ratings' => $votes, 
+      'pros_and_cons' => $form_state['values']['data_pros_and_cons'],
+  );
+  
+  
+  
+  
   foreach ($form_state['values']['s'] as $service_type_short => $value) {
    
      // Restore an original features field.
@@ -2252,6 +2287,7 @@ function vn_pages_validateForm_provider(&$form, &$form_state) {
     $p_data_quick['i_logo_alt'] = $form_state['values']['field_p_logo']['und'][0]['alt'];
     $p_data_quick['i_logo_title'] = $form_state['values']['field_p_logo']['und'][0]['title'];
   }
+  $p_data_quick['erating'] = $editor_rating_overall;
   
   foreach ($p_data['s'] as $service_type_short => $service) {
     

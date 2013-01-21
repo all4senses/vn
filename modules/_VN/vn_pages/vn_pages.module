@@ -1383,9 +1383,9 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
               );
 
               // Fill saved editor's ratings, if editing...
-              if(arg(1) != 'add' && isset($p_data['editor_ratings'])) {
+              if(arg(1) != 'add' && isset($p_data['ereview']['editor_ratings'])) {
                 
-                  foreach ($p_data['editor_ratings'] as $tag => $value) {
+                  foreach ($p_data['ereview']['editor_ratings'] as $tag => $value) {
                     if ($tag == 'recommend') {
                       $recommend = $value;
                       continue;

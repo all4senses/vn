@@ -48,3 +48,55 @@ $fee_types = serialize(array('mon' => array('Monthly fees', '$'), 'set' => array
 define('SERVICE_TYPES', $service_types);
 define('SERVICE_DESCRIPTIONS', $service_descriptions);
 define('FEE_TYPES', $fee_types);
+
+$wp_fields = serialize(array(
+  'Features' => array(
+    'fe_Call_Waiting' => 'Call Waiting',
+    'fe_911_Service' => '911 Service',
+    'fe_Caller_ID' => 'Caller ID',
+    'fe_Support' => 'Support',
+    'fe_Keep_Your_Number' => 'Keep Your Number',
+    'fe_Voicemail' => 'Voicemail',
+    'fe_Guarantee' => 'Guarantee',
+    'fe_Click_to_Call' => 'Click-to-Call',
+    'fe_IP_PBX_Solution' => 'IP PBX Solution',
+    'fe_Residential' => 'Residential',
+    'fe_Small_Business' => 'Small Business',
+    'fe_Enterprise' => 'Enterprise Business',
+    'fe_PC_to_PC' => 'PC-to-PC',
+    'fe_PC_to_Phone' => 'PC-to-Phone',
+    'fe_International_Calling' => 'International Calling',
+    'fe_Fax_Line' => 'Fax Line',
+    'fe_Call_Return' => 'Call Return',
+    'fe_411_Service' => '411 Service',
+    'fe_Virtual_Phone_Numbers' => 'Virtual Phone Numbers',
+    'fe_Mid_Size_Business' => 'Mid-Size Business',
+    'fe_3_Way_Calling' => '3-Way Calling',
+    'fe_Call_Forwarding' => 'Call Forwarding',
+    'fe_E_mail' => 'E-mail',
+    'fe_Encrypted_Calling' => 'Encrypted Calling',
+    'fe_Free_VoIP' => 'Free',
+    'fe_Instant_Messaging' => 'Instant Messaging',
+    'fe_Toll_Free_Number' => 'Toll-Free Number',
+    'fe_Video_VoIP_VVoIP' => 'Video VoIP (VVoIP)',
+    'fe_VoIP_Gaming' => 'VoIP Gaming',
+  ),
+    
+  'Marketing' => array(
+    'af_javascript' => 'Javascript',
+    'af_banner' => 'Banner',
+    'af_link' => 'Affiliate Link',
+    'af_offer1' => 'Offer 1',
+    'af_offer2' => 'Offer 2',
+    'af_js_banner' => 'JS Banner',
+    'af_js_link' => 'JS Link',
+    'af_js_offer1' => 'JS Offer 1',
+    'af_js_offer2' => 'JS Offer 2',
+  ),
+    
+  'Featured' => array(
+    'pr_featured' => 'Featured',
+  ),
+));
+
+define('WP_FIELDS', $wp_fields);

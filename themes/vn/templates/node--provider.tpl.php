@@ -218,7 +218,7 @@
             }
             
             echo '<div class="title">Quick Stats</div>';
-            echo '<div>' . $quick_stats_out . '<div>' .  $plans . '</div></div>';
+            echo '<div>' . $quick_stats_out . '<div>Plans: ' .  $plans . '</div></div>';
             
             
             echo '<div class="title">List of Features Available on ' , $node->field_p_name['und'][0]['value'], '</div>';

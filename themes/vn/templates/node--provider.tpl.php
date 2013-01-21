@@ -198,6 +198,16 @@
                     
             $quick_stats_out = '';
             $quick_stats_keys = array('fe_911_Service', 'fe_International_Calling', 'fe_Guarantee');
+            
+            $quick_stats_plans_keys = array('fe_Residential', 'fe_Small_Business', 'fe_Enterprise', 'fe_Mid_Size_Business');
+            
+            $plans = '';
+            foreach ($quick_stats_plans_keys as $quick_stats_plans_key) {
+              if(!empty($node->p_data['wp_fields']['Features'][$quick_stats_plans_key])) {
+                $plans .= ($plans ? ', ' : '') . $wp_fields['Features'][$quick_stats_plans_key];
+              }
+            }
+            
             foreach ($quick_stats_keys as $quick_stats_key) {
               if (!empty($node->p_data['wp_fields']['Features'][$quick_stats_key])) {
                 $quick_stats_out .= '<div>' . $wp_fields['Features'][$quick_stats_key] . ': ' . $node->p_data['wp_fields']['Features'][$quick_stats_key] . '</div>';
@@ -208,7 +218,7 @@
             }
             
             echo '<div class="title">Quick Stats</div>';
-            echo '<div>' . $quick_stats_out . '</div>';
+            echo '<div>' . $quick_stats_out . '<div>' .  $plans . '</div></div>';
             
             
             echo '<div class="title">List of Features Available on ' , $node->field_p_name['und'][0]['value'], '</div>';

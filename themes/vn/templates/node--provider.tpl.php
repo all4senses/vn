@@ -200,7 +200,7 @@
             $features_out = '';
             for ($i = 0; $i < 3; $i++) {
               for ($j = 0; $j < ($rows / 3); $j++) {
-                $features_out .= '<div>' . $features[$features_count] . '</div>';
+                $features_out .= '<div>' . $features[$features_count++] . '</div>';
                 if ($features_count > $rows) {
                   break 2;
                 }

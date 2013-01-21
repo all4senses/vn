@@ -1,11 +1,3 @@
-
-<div>test providers</div>
-<?php return; ?>
-
-
-
-
-
 <?php if (!$page): ?>
   <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 <?php endif; ?>
@@ -194,15 +186,15 @@
         <footer>
 
           <?php 
-            if (isset($content['field_topics'])) {
-              $tags = NULL;
-              foreach (element_children($content['field_topics']) as $key) {
-                $tags .= ($tags ? '<div class="delim">|</div>' : '') . l(t($content['field_topics'][$key]['#title']), 'articles/tags/' . str_replace(' ', '-', drupal_strtolower($content['field_topics'][$key]['#title'])));
-              }
-              if ($tags) {
-                echo '<div class="topics"><div class="title">' . t('TAGS:') . '</div>' . $tags . '</div>';
-              }
-            }
+//            if (isset($content['field_topics'])) {
+//              $tags = NULL;
+//              foreach (element_children($content['field_topics']) as $key) {
+//                $tags .= ($tags ? '<div class="delim">|</div>' : '') . l(t($content['field_topics'][$key]['#title']), 'articles/tags/' . str_replace(' ', '-', drupal_strtolower($content['field_topics'][$key]['#title'])));
+//              }
+//              if ($tags) {
+//                echo '<div class="topics"><div class="title">' . t('TAGS:') . '</div>' . $tags . '</div>';
+//              }
+//            }
             //print render($content['field_topics']); 
             //print render($content['links']);
 
@@ -215,10 +207,9 @@
 
   </div> <!-- main-content -->
   
-  <div class="shadow"></div>
+    
   
-  
-  <?php if ($page && isset($content['reviews_entity_view_1']) && $content['reviews_entity_view_1']): ?>
+  <?php /*if ($page && isset($content['reviews_entity_view_1']) && $content['reviews_entity_view_1']): ?>
     <div class="reviews">
       <div class="header">
         <a id="reviews"></a>
@@ -226,14 +217,14 @@
         
         <!-- <div class="button"> -->
           <?php 
-          /*
-            if (isset($node->current_user_has_review)) {
-              echo l(t('Your Review'), $node->current_user_has_review, array('attributes' => array('title' => t('You have already submitted a review for this provider: "' . $node->current_user_has_review_title . '"')))); 
-            }
-            else {
-              echo l(t('Submit Your Review'), 'node/add/review'); 
-            }
-          */
+  
+//            if (isset($node->current_user_has_review)) {
+//              echo l(t('Your Review'), $node->current_user_has_review, array('attributes' => array('title' => t('You have already submitted a review for this provider: "' . $node->current_user_has_review_title . '"')))); 
+//            }
+//            else {
+//              echo l(t('Submit Your Review'), 'node/add/review'); 
+//            }
+
           ?>
         <!--</div> -->
       </div>
@@ -262,7 +253,7 @@
       ?>
       
     </div>
- <?php endif; ?>
+ <?php endif; */ ?>
   
 
 <?php if (!$page): ?>

@@ -184,8 +184,18 @@
       <?php if ($page): ?>
     
         <footer>
-
+          <div class="title">List of Features Available on <?php echo $node->field_p_name['und'][0]['value']; ?></div>
+          
           <?php 
+            $wp_fields = unserialize(WP_FIELDS);
+            
+            foreach ($node->p_data['wp_fields']['Features'] as $key => $feature) {
+              if ($feature) {
+                $features[] = $wp_fields['Features'][$key] . ': ' . $feature;
+              }
+            }
+            dpm($features);
+          
 //            if (isset($content['field_topics'])) {
 //              $tags = NULL;
 //              foreach (element_children($content['field_topics']) as $key) {

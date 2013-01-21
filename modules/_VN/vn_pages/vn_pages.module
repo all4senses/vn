@@ -1273,39 +1273,39 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
                       }
                       
                   
-                  // Move defined via admin panel fields with a taxonomy autocomplete for corresponding Features tags to the corresponding fieldset.
-                  $form['s'][$service_type_key]['field_p_' . $service_type_key . '_features'] = $form['field_p_' . $service_type_key . '_features'];
-                  $form['field_p_' . $service_type_key . '_features']['#access'] = FALSE;
-                  
-                  // Add tags weights editing window for corresponding features.
-                  if ($load_key == 's' && isset($p_data['s'][$service_type_key]['weights_' . $service_type_key . '_features']) && !empty($p_data['s'][$service_type_key]['weights_' . $service_type_key . '_features'])) {
-                    $features_weights = $p_data['s'][$service_type_key]['weights_' . $service_type_key . '_features'];
-                    //$p_data['services']['re']['weights_re_features'];
-                  }
-                  else {
-                    $features_weights = NULL;
-                  }
-                  
-                  if($features_weights) {
-                    
-                      $form['s'][$service_type_key]['weights_' . $service_type_key . '_features'] = array(
-                        '#type' => 'fieldset',
-                        '#title' => t("$service_type_title Features tags weights"),
-                        '#collapsible' => TRUE,
-                        '#collapsed' => TRUE,
-                        '#weight' => $form['s'][$service_type_key]['field_p_' . $service_type_key . '_features']['#weight'] + 1,
-                      );
-
-                            foreach($features_weights as $tid => $term) {
-                              $form['s'][$service_type_key]['weights_' . $service_type_key . '_features'][$tid] = array(
-                                '#type' => 'textfield',
-                                '#size' => 3,
-                                '#title' => t($term['name']),
-                                '#default_value' => $term['weight'],
-                              );
-                            }
-                            
-                  } // End of if($features_weights) {
+//                  // Move defined via admin panel fields with a taxonomy autocomplete for corresponding Features tags to the corresponding fieldset.
+//                  $form['s'][$service_type_key]['field_p_' . $service_type_key . '_features'] = $form['field_p_' . $service_type_key . '_features'];
+//                  $form['field_p_' . $service_type_key . '_features']['#access'] = FALSE;
+//                  
+//                  // Add tags weights editing window for corresponding features.
+//                  if ($load_key == 's' && isset($p_data['s'][$service_type_key]['weights_' . $service_type_key . '_features']) && !empty($p_data['s'][$service_type_key]['weights_' . $service_type_key . '_features'])) {
+//                    $features_weights = $p_data['s'][$service_type_key]['weights_' . $service_type_key . '_features'];
+//                    //$p_data['services']['re']['weights_re_features'];
+//                  }
+//                  else {
+//                    $features_weights = NULL;
+//                  }
+//                  
+//                  if($features_weights) {
+//                    
+//                      $form['s'][$service_type_key]['weights_' . $service_type_key . '_features'] = array(
+//                        '#type' => 'fieldset',
+//                        '#title' => t("$service_type_title Features tags weights"),
+//                        '#collapsible' => TRUE,
+//                        '#collapsed' => TRUE,
+//                        '#weight' => $form['s'][$service_type_key]['field_p_' . $service_type_key . '_features']['#weight'] + 1,
+//                      );
+//
+//                            foreach($features_weights as $tid => $term) {
+//                              $form['s'][$service_type_key]['weights_' . $service_type_key . '_features'][$tid] = array(
+//                                '#type' => 'textfield',
+//                                '#size' => 3,
+//                                '#title' => t($term['name']),
+//                                '#default_value' => $term['weight'],
+//                              );
+//                            }
+//                            
+//                  } // End of if($features_weights) {
                   
               
             } // End of foreach ($service_types as $service_type => $service_type_short) {
@@ -1315,32 +1315,32 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
                   
       $form['field_p_types']['#suffix'] = '<div class="bottom-clear"></div>';
       
-      $form['field_p_erating']['#prefix'] = '<div id="listings">';
-      //$form['field_p_erating_cc']['#suffix'] = '<div class="bottom-clear"></div></div>';
-      $form['field_p_erating_re_ca']['#suffix'] = '<div class="bottom-clear"></div></div>';
+//      $form['field_p_erating']['#prefix'] = '<div id="listings">';
+//      //$form['field_p_erating_cc']['#suffix'] = '<div class="bottom-clear"></div></div>';
+//      $form['field_p_erating_re_ca']['#suffix'] = '<div class="bottom-clear"></div></div>';
        
                   
-      $form['data_quote'] = array(
-        '#type' => 'fieldset',
-        '#title' => t('Quote and Its Author'),
-        '#collapsible' => TRUE,
-        '#collapsed' => TRUE,
-        '#tree' => TRUE,
-        '#weight' => 12,
-      );
-            $form['data_quote']['q_text'] = array(
-              '#type' => 'textarea',
-              //'#type' => 'text_format',
-              //'#format' => 'full_html',
-                
-              '#title' => t('Quote text'),
-              '#default_value' => isset($p_data['quote']['q_text']) ? $p_data['quote']['q_text'] : '',
-            );
-            $form['data_quote']['q_author'] = array(
-              '#type' => 'textfield',
-              '#title' => t('Quote author'),
-              '#default_value' => isset($p_data['quote']['q_author']) ? $p_data['quote']['q_author'] : '',
-            );
+//      $form['data_quote'] = array(
+//        '#type' => 'fieldset',
+//        '#title' => t('Quote and Its Author'),
+//        '#collapsible' => TRUE,
+//        '#collapsed' => TRUE,
+//        '#tree' => TRUE,
+//        '#weight' => 12,
+//      );
+//            $form['data_quote']['q_text'] = array(
+//              '#type' => 'textarea',
+//              //'#type' => 'text_format',
+//              //'#format' => 'full_html',
+//                
+//              '#title' => t('Quote text'),
+//              '#default_value' => isset($p_data['quote']['q_text']) ? $p_data['quote']['q_text'] : '',
+//            );
+//            $form['data_quote']['q_author'] = array(
+//              '#type' => 'textfield',
+//              '#title' => t('Quote author'),
+//              '#default_value' => isset($p_data['quote']['q_author']) ? $p_data['quote']['q_author'] : '',
+//            );
       
             
       
@@ -2102,7 +2102,7 @@ function vn_pages_validateForm_provider(&$form, &$form_state) {
   
   $p_data['wp_fields'] = $form_state['values']['wp_fields'];
   $p_data['info'] = $form_state['values']['data_info'];
-  $p_data['quote'] = $form_state['values']['data_quote'];
+  //$p_data['quote'] = $form_state['values']['data_quote'];
   
   foreach ($form_state['values']['s'] as $service_type_short => $value) {
    

@@ -769,8 +769,8 @@ function vn_preprocess_views_view_rss(&$vars) {
 }
 
 
-function vn_preprocess_views_view_archive_block(&$vars) {
-  dpm('xxx');
+function vn_preprocess_views_view_archive(&$vars) {
+  //dpm('xxx');
   exit;
   //dpm($vars['view']);
 }

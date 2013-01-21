@@ -189,12 +189,30 @@
           <?php 
             $wp_fields = unserialize(WP_FIELDS);
             
+//            911 Service:	Included
+//            International Calling:	Yes
+//            Guarantee:	30-day money back
+//            Plans:	Residential, Business
+                    
+            $quick_stats_out = '';
+            $quick_stats_keys = array('fe_911_Service', 'fe_International_Calling', 'fe_Guarantee');
+            foreach ($quick_stats_keys as $quick_stats_key) {
+              if (!empty($node->p_data['wp_fields']['Features'][$quick_stats_key])) {
+                $quick_stats_out .= '<div>' . $wp_fields['Features'][$quick_stats_key] . ': ' . $node->p_data['wp_fields']['Features'][$quick_stats_key] . '</div>';
+              }
+              else {
+                $quick_stats_out .= '<div>' . $wp_fields['Features'][$quick_stats_key] . ': No</div>'; 
+              }
+            }
+            
+            echo '<div>' . $quick_stats_out . '</div>';
+                    
             foreach ($node->p_data['wp_fields']['Features'] as $key => $feature) {
               if ($feature) {
                 $features[] = $wp_fields['Features'][$key] . ': ' . $feature;
               }
             }
-            dpm($features);
+            //dpm($features);
             $rows = count($features);
             $features_count = 0;
             $features_out = '';
@@ -206,15 +224,13 @@
                   break 2; 
                 }
                 $features_out .= '<div>' . $features[$features_count++] . '</div>';
-//                if ($features_count > $rows) {
-//                 
-//                }
-                
               }
               $features_out .= '</div>';
             }
             
             echo $features_out;
+            
+            
           
 //            if (isset($content['field_topics'])) {
 //              $tags = NULL;

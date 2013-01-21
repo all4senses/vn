@@ -184,10 +184,12 @@
       <?php if ($page): ?>
     
         <footer>
-          <div class="title">List of Features Available on <?php echo $node->field_p_name['und'][0]['value']; ?></div>
+          
           
           <?php 
             $wp_fields = unserialize(WP_FIELDS);
+            
+            
             
 //            911 Service:	Included
 //            International Calling:	Yes
@@ -205,8 +207,12 @@
               }
             }
             
+            echo '<div class="title">Quick Stats</div>';
             echo '<div>' . $quick_stats_out . '</div>';
-                    
+            
+            
+            echo '<div class="title">List of Features Available on ' , $node->field_p_name['und'][0]['value'], '</div>';
+            
             foreach ($node->p_data['wp_fields']['Features'] as $key => $feature) {
               if ($feature) {
                 $features[] = $wp_fields['Features'][$key] . ': ' . $feature;

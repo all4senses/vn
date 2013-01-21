@@ -779,6 +779,13 @@ function vn_preprocess_views_view_archive_block(&$vars) {
 /**
 * Default theme function for all RSS rows.
 */
+function vn_preprocess_views_view_row(&$vars) {
+  exit('xxxxxx');  
+}
+
+/**
+* Default theme function for all RSS rows.
+*/
 function vn_preprocess_views_view_row_rss(&$vars) {
   
   $node = $vars['view']->style_plugin->row_plugin->nodes[$vars['row']->nid];

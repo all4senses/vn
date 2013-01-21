@@ -770,8 +770,8 @@ function vn_preprocess_views_view_rss(&$vars) {
 
 
 function vn_preprocess_views_view_archive_block(&$vars) {
-  
-  dpm($vars['view']);
+  dpm('xxx');
+  //dpm($vars['view']);
 }
 
 
@@ -802,18 +802,20 @@ function vn_preprocess_views_view_row_rss(&$vars) {
 /**
  * Display the simple view of rows one after another
  */
-/*
+
 function vn_preprocess_views_view_unformatted(&$vars) {
-  
+
+  dpm('yyy');
+  /*
   if( ($vars['view']->name == 'blog' || $vars['view']->name == 'news') && $vars['view']->current_display == 'page') {
     $vars['theme_hook_suggestions'][] = 'views-view-unformatted__blog__page';
     $vars['theme_hook_suggestion'] = 'views-view-unformatted__blog__page';
     dpm($vars);
   }
-  
+  */
   
 }
-*/
+
 
 
 /**

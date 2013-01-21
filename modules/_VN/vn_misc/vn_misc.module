@@ -2382,8 +2382,9 @@ function vn_misc_import_wp_providers() {
       $fields[$title][$field['key']] = $field['title'];
     }
   }
-  dpm($fields);
-  dpm(serialize($fields));
+  
+  //dpm($fields);
+  //dpm(serialize($fields));
   
   $query = db_select('voip_posts', 'vp')
         ->fields('vp', array('ID', 'post_content', 'post_title', 'post_name', 'post_parent', 'post_date', 'post_modified'));

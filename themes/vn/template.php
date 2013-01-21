@@ -769,6 +769,12 @@ function vn_preprocess_views_view_rss(&$vars) {
 }
 
 
+function vn_preprocess_views_view_archive_block(&$vars) {
+  
+  dpm($vars['view']);
+}
+
+
 /**
 * Default theme function for all RSS rows.
 */

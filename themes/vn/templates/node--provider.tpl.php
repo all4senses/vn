@@ -158,7 +158,7 @@
                   
                   <div class="vn_votes editor">
                     <?php $editor_overall_rating = number_format($node->p_data['ereview']['editor_rating_overall'] * 0.05, 1); ?>
-                    <?php echo '<div class="caption"><span><span property="v:reviewer">Editor</span>\'s Overall Rating:</span> <span property="v:rating">' , $editor_overall_rating, '</span>' /* render($content['gv_rating_overall'])*/ , '<div class="bottom-clear"></div></div>' , render($node->editor->content['gv_ratings']); ?>
+                    <?php echo '<div class="caption"><span><span property="v:reviewer">Editor</span>\'s Overall Rating:</span> <span property="v:rating">' , $editor_overall_rating, '</span>' /* render($content['gv_rating_overall'])*/ , '<div class="bottom-clear"></div></div>' , render($node->editor->content['vn_ratings']); ?>
                     <div class="rate-other">
                       <?php /*<div class="text"><?php echo '<div class="title">' , t('Date:') , '</div><div property="v:dtreviewed" content="' . date('Y-m-d', $node->created) . '">' , date('F j, Y', $node->created) , '</div>'; ?></div> */?>
                       <?php /*<div class="text"><?php echo '<div class="title">' , t('Reviewer:') , '</div><div property="v:reviewer">Editor</div>'; ?></div> */?>

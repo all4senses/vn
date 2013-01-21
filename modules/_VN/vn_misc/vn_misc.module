@@ -2434,11 +2434,15 @@ function vn_misc_import_wp_providers() {
     $quick_stats_plans_keys = array('fe_Residential' => 're', 'fe_Small_Business' => 'smbv', 'fe_Enterprise' => 'bu', 'fe_Mid_Size_Business' => 'bu');
             
     $field_p_types = array();
+    $field_p_types_temp = array();
     foreach ($quick_stats_plans_keys as $quick_stats_plans_key => $map_key) {
-      if(!empty($result->wp_fields['Features'][$quick_stats_plans_key])) {
+      if(!empty($result->wp_fields['Features'][$quick_stats_plans_key]) && !in_array($map_key, $field_p_types_temp)) {
         $field_p_types['und'][]['value'] = $map_key;
+        $field_p_types_temp[] = $map_key;
       }
     }
+    
+    $field_p_data_quick = array('name' => $result->post_title, 'i_web' => $result->wp_fields['Marketing']['af_link']);
     
     $form_state['values'] = array(
       'title' => $result->post_title,
@@ -2451,6 +2455,8 @@ function vn_misc_import_wp_providers() {
       'wp_fields' => $result->wp_fields,
       'p_name' => $result->post_title,
       'field_p_types' => $field_p_types,
+      'field_p_data_quick' => $field_p_data_quick,
+      'field_p_data' => serialize(array('wp_fields' => $result->wp_fields, 'info' => array('i_web' => $result->wp_fields['Marketing']['af_link'], 'i_web_display' => $result->post_title)))
     );
     
     $form_state['values']['body']['und'][0]['value'] = $result->post_content;
@@ -2504,9 +2510,16 @@ function vn_misc_createNode_provider($form_state) {
   $node->body[$node->language][0]['safe_summary'] = check_plain($form_state['values']['body']['und'][0]['summary']);
   $node->body[$node->language][0]['safe_value'] = check_plain($form_state['values']['body']['und'][0]['value']);
   
+  
   $node->field_p_data[$node->language][0] = array(
-    'value' => serialize(array('wp_fields' => $form_state['values']['wp_fields'], 'info' => array('i_web' => $form_state['values']['wp_fields']['Marketing']['af_link']))),
-    'safe_value' => serialize(array('wp_fields' => $form_state['values']['wp_fields'])),
+    'value' => $form_state['values']['field_p_data'],
+    'safe_value' => check_plain($form_state['values']['field_p_data']),
+    'format' => 'full_html',
+  );
+  
+  $node->field_p_quick_data[$node->language][0] = array(
+    'value' => $form_state['values']['field_p_quick_data'],
+    'safe_value' => check_plain($form_state['values']['field_p_quick_data']),
     'format' => 'full_html',
   );
   

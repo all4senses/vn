@@ -850,9 +850,11 @@ function vn_captcha($variables) {
 /**
  * Preprocess the primary theme implementation for a view.
  */
-/*
+
 function vn_preprocess_views_view(&$vars) {
   
+  exit;
+  /*
   // I set title for preface (at vn_misc_views_pre_render(&$view)) instead of a view itself.
 //  if ($vars['view']->current_display == 'page_by_tag') {
 //    if (!$vars['title']) {
@@ -868,9 +870,9 @@ function vn_preprocess_views_view(&$vars) {
      $function($vars);
     }
   }
-  
+*/  
 }
-*/
+
 
 
 /**

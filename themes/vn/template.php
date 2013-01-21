@@ -860,7 +860,8 @@ function vn_captcha($variables) {
 
 function vn_preprocess_views_view(&$vars) {
   dpm($vars);
-  $vars['view']->rows = 'xxx';
+  //$vars['view']->rows = 'xxx';
+  $vars['rows'] = 'xxx';
   //exit;
   /*
   // I set title for preface (at vn_misc_views_pre_render(&$view)) instead of a view itself.

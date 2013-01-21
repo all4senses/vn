@@ -1379,7 +1379,7 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
                   '#type' => 'radios',
                   '#options' => $rating_recommend_options,
                   '#default_value' => FALSE,
-                  '#prefix' => '<div class="label left">' . RECOMMEND_PHONE . '</div>',
+                  '#prefix' => '<div class="label left">' . RECOMMEND . '</div>',
               );
 
               // Fill saved editor's ratings, if editing...

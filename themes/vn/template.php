@@ -771,6 +771,7 @@ function vn_preprocess_views_view_rss(&$vars) {
 
 function vn_preprocess_views_view_archive_block(&$vars) {
   dpm('xxx');
+  exit;
   //dpm($vars['view']);
 }
 
@@ -804,7 +805,7 @@ function vn_preprocess_views_view_row_rss(&$vars) {
  */
 
 function vn_preprocess_views_view_unformatted(&$vars) {
-
+exit;
   dpm('yyy');
   /*
   if( ($vars['view']->name == 'blog' || $vars['view']->name == 'news') && $vars['view']->current_display == 'page') {

@@ -4128,7 +4128,7 @@ function vn_misc_elementValidate_email($element, &$form_state) {
  * Forms API validation function for url.
  */
 function vn_misc_elementValidate_url($element, &$form_state) {
-  if (!valid_url($element['#value'])) {
+  if (!empty($element['#value']) && !valid_url($element['#value'])) {
     form_error($element, t('Please enter a valid url address.'));
   }
 //  if (empty($element['#value'])) {

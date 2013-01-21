@@ -2201,19 +2201,21 @@ function vn_pages_validateForm_provider(&$form, &$form_state) {
     // Collect used services keys.
     $used_service_type_keys[] = vn_misc_refineServiceTypeKey($used_type['value']);
   }
-  foreach ($p_fees_save as $key => $value) {
-    // If it is a service key and it's  not used.
-    if (!in_array($key, $used_service_type_keys)) {
-      unset($p_fees_save[$key], $p_data_quick[$key]);
-    }
-  }
   
-  // Save collected FEES data from temporary fields to a excessive field for using it from views
-  form_set_value($form['field_p_fees_save'], array('und' => array(0 => array('value' => serialize($p_fees_save)))), $form_state);
-  // Reset a helper session var with all fees.
-  if (isset($_SESSION['all_fees'])) {
-    unset($_SESSION['all_fees']);
-  }
+  
+//  foreach ($p_fees_save as $key => $value) {
+//    // If it is a service key and it's  not used.
+//    if (!in_array($key, $used_service_type_keys)) {
+//      unset($p_fees_save[$key], $p_data_quick[$key]);
+//    }
+//  }
+//  
+//  // Save collected FEES data from temporary fields to a excessive field for using it from views
+//  form_set_value($form['field_p_fees_save'], array('und' => array(0 => array('value' => serialize($p_fees_save)))), $form_state);
+//  // Reset a helper session var with all fees.
+//  if (isset($_SESSION['all_fees'])) {
+//    unset($_SESSION['all_fees']);
+//  }
 
   form_set_value($form['field_p_data_quick'], array('und' => array(0 => array('value' => serialize($p_data_quick)))), $form_state);
 //  //Reset a helper session var with all quick data.

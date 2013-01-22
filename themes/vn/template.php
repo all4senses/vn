@@ -867,7 +867,7 @@ function vn_preprocess_views_view(&$vars) {
   
   $out = '';
   foreach ($vars['view']->result as $item) {
-    $url = preg_replace('/(.*)ive(.*)/', '$1xxx$2', $item->url);
+    $url = preg_replace('/^(.*)(....)(..)$/', '$1$2/$3', $item->url);
     $out .= '<li>' . l($item->link, $url) . '</li>';
   }
   $out = '<div class="item-list"><ul class="views-summary">' . $out . '</ul></div>';

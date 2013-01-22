@@ -895,6 +895,9 @@ function vn_pages_buildHome($name, $data) {
     $out .= render($seo_welcome_node_view);
 //  }
   
+     $block_data = array('module' => 'views', 'delta' => 'blog-block');
+     $out .= vn_blocks_getBlockThemed($block_data);
+  
   
   // Content of a home page saved in db as a var.
   // $out .= theme($name, array('data' => $data));

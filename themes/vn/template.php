@@ -870,6 +870,7 @@ function vn_preprocess_views_view(&$vars) {
     $out .= '<li>' . l($item->link . ' xxx', $item->url) . '</li>';
   }
   $out = '<div class="item-list"><ul class="views-summary">' . $out . '</ul></div>';
+  $vars['rows'] = $out;
   
   //exit;
   /*

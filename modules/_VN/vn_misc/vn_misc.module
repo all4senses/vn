@@ -2385,7 +2385,7 @@ function vn_misc_import_wp_features() {
     }
   }
   
-  //dpm($fields);
+  dpm($fields);
   //dpm(serialize($fields));
   
   $query = db_select('voip_posts', 'vp')

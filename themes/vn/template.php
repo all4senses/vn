@@ -867,12 +867,13 @@ function vn_preprocess_views_view(&$vars) {
   
   $out = '';
   foreach ($vars['view']->result as $item) {
-    $out .= '<li>' . l($item->link . ' xxx', $item->url) . '</li>';
+    $url = preg_replace('/(.*)ive(.*)/', '$1xxx$2', $item->url);
+    $out .= '<li>' . l($item->link, $url) . '</li>';
   }
   $out = '<div class="item-list"><ul class="views-summary">' . $out . '</ul></div>';
   $vars['rows'] = $out;
   
-  //exit;
+
   /*
   // I set title for preface (at vn_misc_views_pre_render(&$view)) instead of a view itself.
 //  if ($vars['view']->current_display == 'page_by_tag') {

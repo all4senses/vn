@@ -3522,12 +3522,13 @@ function vn_misc_votingapi_metadata_alter(&$data) {
 }
 
 
-function vn_misc_views_post_render(&$view, &$output, &$cache) {
-  dpm($view);
-  dpm($output);
-  $view->result[0]->link = 'xxx';
-  //$view->render();
-}
+//function vn_misc_views_post_render(&$view, &$output, &$cache) {
+//  dpm($view);
+//  dpm($output);
+//  $view->result[0]->link = 'xxx';
+//  //$view->render();
+//}
+
 /**
  * Implements hook_views_pre_render().
  */

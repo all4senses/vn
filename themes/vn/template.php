@@ -865,7 +865,7 @@ function vn_preprocess_views_view(&$vars) {
   
   //$vars['rows'] = 'yyy ' . $vars['view']->render();
   
-  //if ($vars['view']->current_display == 'block_blog_summary') {
+  if ($vars['view']->current_display == 'block_blog_summary') {
     $out = '';
     foreach ($vars['view']->result as $item) {
       $url = preg_replace('/^(.*)(....)(..)$/', '$1$2/$3', $item->url);
@@ -874,7 +874,7 @@ function vn_preprocess_views_view(&$vars) {
     }
     $out = '<div class="item-list"><ul class="views-summary">' . $out . '</ul></div>';
     $vars['rows'] = $out;
-  //}
+  }
 
   /*
   // I set title for preface (at vn_misc_views_pre_render(&$view)) instead of a view itself.

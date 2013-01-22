@@ -864,7 +864,13 @@ function vn_preprocess_views_view(&$vars) {
   //$vars['rows'] = 'xxx';
   
   //$vars['rows'] = 'yyy ' . $vars['view']->render();
-          
+  
+  $out = '';
+  foreach ($vars['view']->result as $item) {
+    $out .= '<li>' . l($item->link . ' xxx', $item->url) . '</li>';
+  }
+  $out = '<div class="item-list"><ul class="views-summary">' . $out . '</ul></div>';
+  
   //exit;
   /*
   // I set title for preface (at vn_misc_views_pre_render(&$view)) instead of a view itself.

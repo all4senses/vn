@@ -2366,7 +2366,9 @@ function vn_misc_testPage() {
   
   //vn_misc_import_wp_providers();
   
-  vn_misc_import_wp_features();
+  //vn_misc_import_wp_features();
+  
+  vn_misc_import_wp_equipment();
   
   return $out . '<br>End of Test';
 }

@@ -2662,7 +2662,7 @@ function vn_misc_import_wp_providers() {
     $field_p_types_temp = array();
     $bu = FALSE;
     foreach ($quick_stats_plans_keys as $quick_stats_plans_key => $map_key) {
-      if(!empty($result->wp_fields['Features'][$quick_stats_plans_key]) && !in_array($map_key, $field_p_types_temp)) {
+      if(!empty($result->wp_fields['Features'][$quick_stats_plans_key]) && $result->wp_fields['Features'][$quick_stats_plans_key] == 'Yes' && !in_array($map_key, $field_p_types_temp)) {
         $field_p_types['und'][]['value'] = $map_key;
         $field_p_types_temp[] = $map_key;
         if (in_array($quick_stats_plans_key, $quick_stats_plans_bu_keys) && !$bu) {

@@ -2364,11 +2364,11 @@ function vn_misc_testPage() {
 
   //vn_misc_import_wp_blogPosts();
   
-  //vn_misc_import_wp_providers();
+  vn_misc_import_wp_providers();
   
   //vn_misc_import_wp_features();
   
-  vn_misc_import_wp_equipment();
+  //vn_misc_import_wp_equipment();
   
   return $out . '<br>End of Test';
 }
@@ -2655,14 +2655,21 @@ function vn_misc_import_wp_providers() {
 //  );
   
   foreach ($providers as $result) {
-    $quick_stats_plans_keys = array('fe_Residential' => 're', 'fe_Small_Business' => 'smbv', 'fe_Enterprise' => 'bu', 'fe_Mid_Size_Business' => 'bu');
+    $quick_stats_plans_keys = array('fe_Residential' => 're', 'fe_Small_Business' => 'smbv', 'fe_Enterprise' => 'eb', 'fe_Mid_Size_Business' => 'mb');
+    $quick_stats_plans_bu_keys = array('fe_Small_Business', 'fe_Enterprise', 'fe_Mid_Size_Business');
             
     $field_p_types = array();
     $field_p_types_temp = array();
+    $bu = FALSE;
     foreach ($quick_stats_plans_keys as $quick_stats_plans_key => $map_key) {
       if(!empty($result->wp_fields['Features'][$quick_stats_plans_key]) && !in_array($map_key, $field_p_types_temp)) {
         $field_p_types['und'][]['value'] = $map_key;
         $field_p_types_temp[] = $map_key;
+        if (in_array($quick_stats_plans_key, $quick_stats_plans_bu_keys) && !$bu) {
+          $field_p_types['und'][]['value'] = 'bu';
+          $field_p_types_temp[] = 'bu';
+          $bu = TRUE;
+        }
       }
     }
     

@@ -2739,6 +2739,8 @@ function vn_misc_import_wp_providers() {
       'field_p_features' => $field_p_features,
     );
     
+    dpm($form_state);
+    
     $form_state['values']['body']['und'][0]['value'] = $result->post_content;
     
 //    if (preg_match('/(.*)<!--more-->(.*)/s', $form_state['values']['body']['und'][0]['value'], $matches)) {

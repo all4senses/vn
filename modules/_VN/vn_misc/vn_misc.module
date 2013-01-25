@@ -2607,7 +2607,7 @@ function vn_misc_import_wp_providers() {
     }
   }
   
-  //dpm($fields);
+  dpm($fields);
   //dpm(serialize($fields));
   
   $query = db_select('voip_posts', 'vp')
@@ -2705,7 +2705,7 @@ function vn_misc_import_wp_providers() {
     
     
     // Add only one node.
-    vn_misc_createNode_provider($form_state);
+    //vn_misc_createNode_provider($form_state);
     break;
   }
 }

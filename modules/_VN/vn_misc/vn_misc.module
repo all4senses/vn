@@ -2364,11 +2364,20 @@ function vn_misc_testPage() {
 
   //vn_misc_import_wp_blogPosts();
   
-  vn_misc_import_wp_providers();
+  //vn_misc_import_wp_providers();
   
   //vn_misc_import_wp_features();
   
   //vn_misc_import_wp_equipment();
+  
+  
+  $view = views_get_view('archive');
+
+  dpm($view);
+  
+  //$view->preview($display_id, $args);
+  
+  
   
   return $out . '<br>End of Test';
 }

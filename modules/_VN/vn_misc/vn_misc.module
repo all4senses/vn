@@ -2654,6 +2654,43 @@ function vn_misc_import_wp_providers() {
 //    4 => 2, // News
 //  );
   
+  $query = db_select('taxonomy_term_data', 'td')
+      ->fields('td', array('tid', 'name'));
+
+  $query->condition('td.vid', 4); // 4 - Provider features
+
+  $taxonomy_features = $query->execute()->fetchAllAssoc('name'); 
+
+  dpm($taxonomy_features);
+
+  $map_wp_fields_to_taxonomy_features = array(
+    '3-Way Calling' => 'fe_3_Way_Calling',
+    '411 Service' => 'fe_411_Service',
+    '911 Service' => 'fe_911_Service',
+    'Call Forwarding' => 'fe_Call_Forwarding',
+    'Call Return' => 'fe_Call_Return',
+    'Call Waiting' => 'fe_Call_Waiting',
+    'Caller ID' => 'fe_Caller_ID',
+    'Click-to-Call' => 'fe_Click_to_Call',
+    'E-mail' => 'fe_E_mail',
+    'Encrypted Calling' => 'fe_Encrypted_Calling',
+    'Fax over IP (FoIP)' => 'fe_Fax_Line',
+    'Free VoIP' => 'fe_Free_VoIP',
+    'Instant Messaging' => 'fe_Instant_Messaging',
+    'International Calling' => 'fe_International_Calling',
+    'IP PBX' => 'fe_IP_PBX_Solution',
+    'Keep Your Number' => 'fe_Keep_Your_Number',
+    'PC-to-PC' => 'fe_PC_to_PC',
+    'PC-to-Phone' => 'fe_PC_to_Phone',
+    'Toll-Free Number' => 'fe_Toll_Free_Number',
+    'Video VoIP (VVoIP)' => 'fe_Video_VoIP_VVoIP',
+    'Virtual Phone Numbers' => 'fe_Virtual_Phone_Numbers',
+    'Voicemail' => 'fe_Voicemail',
+    'VoIP Gaming' => 'fe_VoIP_Gaming',
+  );
+
+    
+  
   foreach ($providers as $result) {
     $quick_stats_plans_keys = array('fe_Residential' => 're', 'fe_Small_Business' => 'smbv', 'fe_Enterprise' => 'eb', 'fe_Mid_Size_Business' => 'mb');
     $quick_stats_plans_bu_keys = array('fe_Small_Business', 'fe_Enterprise', 'fe_Mid_Size_Business');
@@ -2677,16 +2714,11 @@ function vn_misc_import_wp_providers() {
     
   
     
-    
-    
-    $query = db_select('taxonomy_term_data', 'td')
-        ->fields('td', array('tid', 'name'));
-  
-    $query->condition('td.vid', 4); // 4 - Provider features
-    
-    $results = $query->execute()->fetchAllAssoc('name'); 
-    
-    dpm($results);
+    foreach ($map_wp_fields_to_taxonomy_features as $term_title => $field_key) {
+      if (!empty($result->wp_fields['Features'][$field_key]) && $result->wp_fields['Features'][$field_key] != 'No' && $result->wp_fields['Features'][$field_key] != 'N/A' && $result->wp_fields['Features'][$field_key] != 'Unknown') {
+        $field_p_features['und'][]['tid'] = $taxonomy_features[$term_title]->tid;
+      }
+    }
   
   
     
@@ -2703,7 +2735,8 @@ function vn_misc_import_wp_providers() {
       'field_p_types' => $field_p_types,
       'field_p_data_quick' => serialize($field_p_data_quick),
       'field_p_data' => serialize(array('wp_fields' => $result->wp_fields, 'info' => array('i_web' => $result->wp_fields['Marketing']['af_link'], 'i_web_display' => $result->post_title))),
-      'featured' => (isset($result->wp_fields['Featured']['pr_featured']) &&  $result->wp_fields['Featured']['pr_featured'] == 'on') ? 1 : 0,
+      'field_featured' => (isset($result->wp_fields['Featured']['pr_featured']) &&  $result->wp_fields['Featured']['pr_featured'] == 'on') ? 1 : 0,
+      'field_p_features' => $field_p_features,
     );
     
     $form_state['values']['body']['und'][0]['value'] = $result->post_content;
@@ -2778,8 +2811,10 @@ function vn_misc_createNode_provider($form_state) {
   
   $node->field_old_id[$node->language][0]['value'] = $form_state['values']['ID'];
   
-  $node->field_featured[$node->language][0]['value'] = $form_state['values']['featured'];
+  $node->field_featured[$node->language][0]['value'] = $form_state['values']['field_featured'];
 
+  $node->field_p_features = @$form_state['values']['field_p_features'];
+  
   $node->field_p_types = @$form_state['values']['field_p_types'];
   
   $node->path = array(

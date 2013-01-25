@@ -2675,6 +2675,21 @@ function vn_misc_import_wp_providers() {
     
     $field_p_data_quick = array('name' => $result->post_title, 'i_web' => $result->wp_fields['Marketing']['af_link']);
     
+  
+    
+    
+    
+    $query = db_select('taxonomy_term_data', 'td')
+        ->fields('td', array('tid', 'name'));
+  
+    $query->condition('td.vid', 4); // 4 - Provider features
+    
+    $results = $query->execute()->fetchAllAssoc('name'); 
+    
+    dpm($results);
+  
+  
+    
     $form_state['values'] = array(
       'title' => $result->post_title,
       'post_date' => $result->post_date,
@@ -2687,7 +2702,8 @@ function vn_misc_import_wp_providers() {
       'p_name' => $result->post_title,
       'field_p_types' => $field_p_types,
       'field_p_data_quick' => serialize($field_p_data_quick),
-      'field_p_data' => serialize(array('wp_fields' => $result->wp_fields, 'info' => array('i_web' => $result->wp_fields['Marketing']['af_link'], 'i_web_display' => $result->post_title)))
+      'field_p_data' => serialize(array('wp_fields' => $result->wp_fields, 'info' => array('i_web' => $result->wp_fields['Marketing']['af_link'], 'i_web_display' => $result->post_title))),
+      'featured' => (isset($result->wp_fields['Featured']['pr_featured']) &&  $result->wp_fields['Featured']['pr_featured'] == 'on') ? 1 : 0,
     );
     
     $form_state['values']['body']['und'][0]['value'] = $result->post_content;
@@ -2761,6 +2777,8 @@ function vn_misc_createNode_provider($form_state) {
   );
   
   $node->field_old_id[$node->language][0]['value'] = $form_state['values']['ID'];
+  
+  $node->field_featured[$node->language][0]['value'] = $form_state['values']['featured'];
 
   $node->field_p_types = @$form_state['values']['field_p_types'];
   

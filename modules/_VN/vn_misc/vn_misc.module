@@ -2375,7 +2375,9 @@ function vn_misc_testPage() {
 
   dpm($view);
   
-  //$view->preview($display_id, $args);
+  $vew_out = $view->preview('block_blog_summary'/*, $args*/);
+  dpm($vew_out);
+  dpm($view);
   
   
   

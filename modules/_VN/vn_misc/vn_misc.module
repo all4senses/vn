@@ -2394,10 +2394,10 @@ function vn_misc_testPage() {
   
   
   
-  $view = views_get_view('blog');
-//  $args = array('2008', '04');
-  $view->preview('block_blog_posts_for_month'/*, $args*/);
-  dpm($view);
+//  $view = views_get_view('blog');
+////  $args = array('2008', '04');
+//  $view->preview('block_blog_posts_for_month'/*, $args*/);
+//  dpm($view);
   
 //  $view = views_get_view('blog');
 //  $args = array('2008', '04');

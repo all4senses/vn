@@ -239,7 +239,7 @@ function vn_misc_flush_caches() {
     foreach ($view->result as $item) {
       $url = preg_replace('/^(.*)(....)(..)$/', '$1$2/$3', $item->url);
       $url = str_replace('http://voipnow.org/', '', $url);
-      $blog_summary .= '<li><a href="' . $url . '">' . $item->link . '</a></li>';
+      $blog_summary .= '<li><a href="/' . $url . '">' . $item->link . '</a></li>';
     }
 
     variable_set('vn_blog_summary', $blog_summary);

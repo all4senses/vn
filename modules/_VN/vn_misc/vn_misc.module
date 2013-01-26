@@ -2400,7 +2400,7 @@ function vn_misc_testPage() {
 //  dpm($view);
   
   
-  $v = views_embed_view('blog', 'block_blog_posts_for_month', '2008', '04');
+  $v = views_embed_view('blog', 'block_blog_posts_for_month', '2008+04');
   
   dpm($v);
   

@@ -2383,6 +2383,7 @@ function vn_misc_testPage() {
   $out_x = '';
   foreach ($view->result as $item) {
     $url = preg_replace('/^(.*)(....)(..)$/', '$1$2/$3', $item->url);
+    $url = str_replace('http://voipnow.org/', '', $url);
     //$out .= '<li>' . l($item->link, $url) . '</li>';
     $out_x .= '<li><a href="' . $url . '">' . $item->link . '</a></li>';
   }

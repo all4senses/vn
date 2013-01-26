@@ -127,7 +127,10 @@ function vn_blocks_get_blogArchive() {
 //  }
 //  dpm($out_x);
   
-  return cache_get('vn_blog_summary');;
+  $out = 'xxx';
+  $out .= cache_get('vn_blog_summary');
+  
+  return $out;
 }
 
 /**

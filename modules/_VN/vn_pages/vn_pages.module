@@ -57,7 +57,15 @@ function vn_pages_menu() {
  */
 function vn_pages_getBlogArchivePage($url) {
   dpm($url);
-  return 'xxx';
+  
+  $out = 'xxx';
+  
+  $view = views_get_view('blog');
+//  $args = array('2008', '04');
+  $out .= $view->preview('block_blog_posts_for_month'/*, $args*/);
+  dpm($view);
+  
+  return $out;
 }
 
 

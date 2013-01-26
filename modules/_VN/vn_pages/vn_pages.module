@@ -84,7 +84,7 @@ function vn_pages_getBlogArchivePage($url) {
   
   foreach ($results as $result) {
     $n = node_load($result->nid);
-    $out .= node_view($n, 'teaser');
+    $out .= render(node_view($n, 'teaser'));
   }
   
   

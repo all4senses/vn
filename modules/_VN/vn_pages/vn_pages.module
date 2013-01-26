@@ -236,7 +236,7 @@ function vn_misc_flush_caches() {
   $num_votes = $countQuery->execute()->fetchField();
   variable_set('vn_allReviewsAmount', $num_votes + 100);
   
-  
+  // Reset blog archive block content.
   $view = views_get_view('archive');
   $view->preview('block_blog_summary');
   $blog_summary = '';
@@ -247,9 +247,9 @@ function vn_misc_flush_caches() {
       $blog_summary .= '<li><a href="' . $url . '">' . $item->link . '</a></li>';
     }
 
-    dpm($blog_summary);
     variable_set('vn_blog_summary', $blog_summary);
   }
+  
 }
 
 

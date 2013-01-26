@@ -769,8 +769,11 @@ function vn_preprocess_views_view_rss(&$vars) {
 }
 
 
+/**
+* Default theme function for all Archive.
+*/
 function vn_preprocess_views_view_archive(&$vars) {
-  //dpm('xxx');
+  dpr('xxxxzzzz');
   exit;
   //dpm($vars['view']);
 }
@@ -780,7 +783,8 @@ function vn_preprocess_views_view_archive(&$vars) {
 * Default theme function for all RSS rows.
 */
 function vn_preprocess_views_view_row(&$vars) {
-  exit('xxxxxx');  
+  dpm('xxxxxx');
+  exit;  
 }
 
 /**
@@ -812,8 +816,9 @@ function vn_preprocess_views_view_row_rss(&$vars) {
  */
 
 function vn_preprocess_views_view_unformatted(&$vars) {
+  dpr('yyy');
 exit;
-  dpm('yyy');
+  
   /*
   if( ($vars['view']->name == 'blog' || $vars['view']->name == 'news') && $vars['view']->current_display == 'page') {
     $vars['theme_hook_suggestions'][] = 'views-view-unformatted__blog__page';

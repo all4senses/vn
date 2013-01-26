@@ -73,7 +73,7 @@ function vn_pages_getBlogArchivePage($url) {
   $query = db_select('node', 'n')->extend('pagerDefault')->limit($pages_per_page);
   
   $query->fields('n', array('nid'));
-  $query->condition('n.type', 'blog_post');
+  //$query->condition('n.type', 'blog_post');
   $query->condition('n.status', 1);
   $query->orderBy('n.created', 'DESC');
 //  if ($limit) {

@@ -64,7 +64,7 @@ function vn_pages_getBlogArchivePage($url) {
   dpm($view);
 //  $args = array('2008', '04');
   //$o = $view->preview('block_blog_posts_for_month'/*, $args*/);
-  $o = $view->render('block_blog_posts_for_month');
+  $o = $view->render('block_blog_month2');
   dpm($o);
   //dpm($view);
   

@@ -248,6 +248,7 @@ function vn_misc_flush_caches() {
     }
 
     dpm($blog_summary);
+    cache_set('vn_blog_summary', $blog_summary);
   }
 }
 

@@ -116,25 +116,18 @@ function vn_blocks_block_save($delta = '', $edit = array()) {
  * Returns a block blog archive list months.
  */
 function vn_blocks_get_blogArchive() {
-  $view = views_get_view('archive');
-
-  //dpm($view);
   
-  //$vew_out = 
-  $view->preview('block_blog_summary');
-  //dpm($vew_out);
-  dpm($view);
+//  $view = views_get_view('archive');
+//  $view->preview('block_blog_summary');
+//  $out_x = '';
+//  foreach ($view->result as $item) {
+//    $url = preg_replace('/^(.*)(....)(..)$/', '$1$2/$3', $item->url);
+//    $url = str_replace('http://voipnow.org/', '', $url);
+//    $out_x .= '<li><a href="' . $url . '">' . $item->link . '</a></li>';
+//  }
+//  dpm($out_x);
   
-  $out_x = '';
-  foreach ($view->result as $item) {
-    $url = preg_replace('/^(.*)(....)(..)$/', '$1$2/$3', $item->url);
-    $url = str_replace('http://voipnow.org/', '', $url);
-    $out_x .= '<li><a href="' . $url . '">' . $item->link . '</a></li>';
-  }
-  
-  dpm($out_x);
-  
-  return 'xxxxx';
+  return cache_get('vn_blog_summary');;
 }
 
 /**

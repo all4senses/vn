@@ -2373,13 +2373,21 @@ function vn_misc_testPage() {
   
   $view = views_get_view('archive');
 
+  //dpm($view);
+  
+  //$vew_out = 
+  $view->preview('block_blog_summary'/*, $args*/);
+  //dpm($vew_out);
   dpm($view);
   
-  $vew_out = $view->preview('block_blog_summary'/*, $args*/);
-  dpm($vew_out);
-  dpm($view);
+  $out_x = '';
+  foreach ($view->result as $item) {
+    $url = preg_replace('/^(.*)(....)(..)$/', '$1$2/$3', $item->url);
+    //$out .= '<li>' . l($item->link, $url) . '</li>';
+    $out_x .= '<li><a href="' . $url . '">' . $item->link . '</a></li>';
+  }
   
-  
+  dpm($out_x);
   
   return $out . '<br>End of Test';
 }

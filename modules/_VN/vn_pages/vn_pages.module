@@ -58,7 +58,7 @@ function vn_pages_menu() {
 function vn_pages_getBlogArchivePage($url) {
   dpm($url);
   
-  $out = 'xxx';
+  $out = '';
   
 //  $view = views_get_view('blog');
 //  dpm($view);
@@ -70,13 +70,26 @@ function vn_pages_getBlogArchivePage($url) {
   
 
   preg_match('/^.*(....)\/(..)$/', $url, $matches);
-  dpm($matches);
+  //dpm($matches);
+  $start_date = strtotime($matches[1] . '-' . $matches[2] . '-01');
+  if ($matches[2] == 12) {
+    $end_date = strtotime(($matches[1] + 1) . '-' . 1 . '-01');
+  }
+  else {
+    $end_date = strtotime($matches[1] . '-' . ($matches[2] + 1) . '-01');
+  }
+  
+  
   $pages_per_page = 1;
   $query = db_select('node', 'n')->extend('pagerDefault')->limit($pages_per_page);
   
   $query->fields('n', array('nid'));
   //$query->condition('n.type', 'blog_post');
   $query->condition('n.status', 1);
+  
+  $query->condition('n.created', $start_date, '>=');
+  $query->condition('n.created', $end_date, '<');
+  
   $query->orderBy('n.created', 'DESC');
 //  if ($limit) {
 //    $query->range(0, $limit);

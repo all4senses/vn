@@ -2399,7 +2399,8 @@ function vn_misc_testPage() {
   //dpm($view);
   
   //$vew_out = 
-  $view->preview('block_blog_posts_for_month'/*, $args*/);
+  $args = array('2008', '04');
+  $view->preview('block_blog_posts_for_month', $args);
   //dpm($vew_out);
   dpm($view);
   

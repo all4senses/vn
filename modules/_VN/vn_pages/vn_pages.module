@@ -87,7 +87,7 @@ function vn_pages_getBlogArchivePage($url) {
     $out .= render(node_view($n, 'teaser'));
   }
   
-  
+  $out .= theme('pager');
   
   return $out;
 }

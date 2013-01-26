@@ -128,7 +128,7 @@ function vn_blocks_get_blogArchive() {
 //  dpm($out_x);
   
   $out = 'xxx';
-  $out .= cache_get('vn_blog_summary');
+  $out .= variable_get('vn_blog_summary');
   
   return $out;
 }

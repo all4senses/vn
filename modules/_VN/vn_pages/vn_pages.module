@@ -59,6 +59,7 @@ function vn_pages_getBlogArchivePage($url) {
     
   $preface_node = vn_misc_getPrefaceByKey('blog_archive_for_month_page');
   $preface_node->title_no_link = TRUE;
+  $preface_node->title .= ' ' . $url;
   $preface_node_view = node_view($preface_node, 'full');
 
   $out = render($preface_node_view);

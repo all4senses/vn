@@ -2394,15 +2394,19 @@ function vn_misc_testPage() {
   
   
   
+  $view = views_get_view('blog');
+//  $args = array('2008', '04');
+  $view->preview('block_blog_posts_for_month'/*, $args*/);
+  dpm($view);
+  
 //  $view = views_get_view('blog');
 //  $args = array('2008', '04');
 //  $view->preview('block_blog_posts_for_month', $args);
 //  dpm($view);
   
   
-  $v = views_embed_view('blog', 'block_blog_posts_for_month', '2008+04');
-  
-  dpm($v);
+//  $v = views_embed_view('blog', 'block_blog_posts_for_month', '2008+04');
+//  dpm($v);
   
 //  $out_x = '';
 //  foreach ($view->result as $item) {

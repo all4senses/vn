@@ -32,7 +32,7 @@ function vn_pages_menu() {
   // Blog archive urls.
   $view = views_get_view('archive');
   $view->preview('block_blog_summary'/*, $args*/);
-  
+  dpm($view);
   foreach ($view->result as $item) {
     $url = preg_replace('/^(.*)(....)(..)$/', '$1$2/$3', $item->url);
     $url = str_replace('http://voipnow.org/', '', $url);
@@ -58,7 +58,7 @@ function vn_pages_menu() {
 function vn_pages_getBlogArchivePage($url) {
   dpm($url);
   
-  $out = '';
+  $out = 'xxx';
   
 //  $view = views_get_view('blog');
 //  dpm($view);

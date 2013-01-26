@@ -90,7 +90,6 @@ function vn_pages_getBlogArchivePage($url) {
 
   $results = $query->execute();
 
-  $out = '';
   foreach ($results as $result) {
     $n = node_load($result->nid);
     $out .= render(node_view($n, 'teaser'));

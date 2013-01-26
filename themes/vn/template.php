@@ -816,8 +816,8 @@ function vn_preprocess_views_view_row_rss(&$vars) {
  */
 
 function vn_preprocess_views_view_unformatted(&$vars) {
-  dpr('yyy');
-exit;
+//  dpr('yyy');
+//exit;
   
   /*
   if( ($vars['view']->name == 'blog' || $vars['view']->name == 'news') && $vars['view']->current_display == 'page') {

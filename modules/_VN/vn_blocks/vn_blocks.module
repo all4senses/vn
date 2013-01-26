@@ -27,6 +27,10 @@ function vn_blocks_block_info() {
     'info' => t('Header links'),
     'cache' => DRUPAL_CACHE_GLOBAL,
   );
+  $blocks['blog_archive'] = array(
+    'info' => 'Blog archive',
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
   
   
   $blocks['request_quote_v6'] = array(
@@ -57,6 +61,11 @@ function vn_blocks_block_view($delta = '') {
     case 'header_links':
       $block['subject'] = t('Header links');
       $block['content'] = vn_blocks_get_headerLinks();
+      break; 
+    
+    case 'blog_archive':
+      $block['subject'] = 'Blog archive';
+      $block['content'] = vn_blocks_get_blogArchive();
       break; 
     
     case 'request_quote_v6':
@@ -103,7 +112,30 @@ function vn_blocks_block_save($delta = '', $edit = array()) {
   
 }
 
+/**
+ * Returns a block blog archive list months.
+ */
+function vn_blocks_get_blogArchive() {
+  $view = views_get_view('archive');
 
+  //dpm($view);
+  
+  //$vew_out = 
+  $view->preview('block_blog_summary');
+  //dpm($vew_out);
+  dpm($view);
+  
+  $out_x = '';
+  foreach ($view->result as $item) {
+    $url = preg_replace('/^(.*)(....)(..)$/', '$1$2/$3', $item->url);
+    $url = str_replace('http://voipnow.org/', '', $url);
+    $out_x .= '<li><a href="' . $url . '">' . $item->link . '</a></li>';
+  }
+  
+  dpm($out_x);
+  
+  return 'xxxxx';
+}
 
 /**
  * Returns an ad block by its name.

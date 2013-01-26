@@ -2371,24 +2371,23 @@ function vn_misc_testPage() {
   //vn_misc_import_wp_equipment();
   
   
-//  $view = views_get_view('archive');
-//
-//  //dpm($view);
-//  
-//  //$vew_out = 
-//  $view->preview('block_blog_summary'/*, $args*/);
-//  //dpm($vew_out);
-//  dpm($view);
-//  
-//  $out_x = '';
-//  foreach ($view->result as $item) {
-//    $url = preg_replace('/^(.*)(....)(..)$/', '$1$2/$3', $item->url);
-//    $url = str_replace('http://voipnow.org/', '', $url);
-//    //$out .= '<li>' . l($item->link, $url) . '</li>';
-//    $out_x .= '<li><a href="' . $url . '">' . $item->link . '</a></li>';
-//  }
-//  
-//  dpm($out_x);
+  $view = views_get_view('archive');
+
+  //dpm($view);
+  
+  //$vew_out = 
+  $view->preview('block_blog_summary');
+  //dpm($vew_out);
+  dpm($view);
+  
+  $out_x = '';
+  foreach ($view->result as $item) {
+    $url = preg_replace('/^(.*)(....)(..)$/', '$1$2/$3', $item->url);
+    $url = str_replace('http://voipnow.org/', '', $url);
+    $out_x .= '<li><a href="' . $url . '">' . $item->link . '</a></li>';
+  }
+  
+  dpm($out_x);
   
   
   

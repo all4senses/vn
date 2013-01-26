@@ -869,7 +869,7 @@ function vn_preprocess_views_view(&$vars) {
     $out = '';
     foreach ($vars['view']->result as $item) {
       $url = preg_replace('/^(.*)(....)(..)$/', '$1$2/$3', $item->url);
-      //$url = str_replace('voipnow.org', 'test.voipnow.org', $url);
+      $url = str_replace('voipnow.org', 'test.voipnow.org', $url);
       //$out .= '<li>' . l($item->link, $url) . '</li>';
       $out .= '<li><a href="' . $url . '">' . $item->link . '</a></li>';
     }

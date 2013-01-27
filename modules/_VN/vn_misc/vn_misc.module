@@ -3905,9 +3905,9 @@ function vn_misc_views_pre_render(&$view) {
 //    case 'view-sitemap-page': 
 //   
 //    case 'view-taxonomy_term-page_by_tag':
-      
-      $do_attach_preface = TRUE;
-      break;
+//      
+//      $do_attach_preface = TRUE;
+//      break;
     
       
       

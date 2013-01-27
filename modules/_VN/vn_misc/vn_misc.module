@@ -4025,6 +4025,8 @@ function vn_misc_views_pre_render(&$view) {
    
     if ($view->current_display == 'term-page') {
       
+      dpm($view); 
+      
       global $current_tag_title;
       $current_tag_title = $preface_node->title . ' "' . htmlspecialchars_decode($view->build_info['substitutions']['%1']) . '"';
       

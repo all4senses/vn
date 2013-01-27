@@ -48,6 +48,29 @@
       
       echo 'xxx';
       
+      $vocabularies = array(
+        'VoIP Equipment: ' => array('vid' => 5, 'url' => 'equipment'),
+        'VoIP Features: ' => array('vid' => 4, 'url' => 'features'),
+        'VoIP Protocols: ' => array('vid' => 6, 'url' => 'protocols'),
+      );
+      
+      foreach ($vocabularies as $v_title => $v_data) {
+        $query = db_select('taxonomy_term_data', 'td');
+        $query->fields('td', array('tid', 'name'));
+        $query->condition('td.vid', $v_data['vid']);
+        $terms = $query->execute();
+        
+        $out = '';
+        foreach ($terms as $term) {
+          $out .= ($out ? ', ' : '') .  l($term->name, 'taxonomy/term/' . $term->tid);
+        }
+        $out = l($v_title, $v_data['url'], array('attributes' => array('class' => 'title'))) . $out;
+        
+        echo '<div class="types-block">' . $out . '</div>';
+      }
+      
+      
+      
       
       
       

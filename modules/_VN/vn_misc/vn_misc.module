@@ -3879,27 +3879,31 @@ function vn_misc_views_pre_render(&$view) {
 
   // Add a prefaces for the some views pages.
   $key = 'view-' . $view->name . '-' . $view->current_display;
+  
+  dpm($key);
+  
   $do_attach_preface = FALSE;
   
   switch($key) {
-    case 'view-providers-page_p_bu': 
-      // Business Providers listing page.
-    case 'view-providers-page_p_re': 
-      // Residential Providers listing page.
-    case 'view-reviews-page_all_reviews': 
-      // Residential Providers listing page.
-      
-    case 'view-blog-page': 
-    case 'view-blog-page_by_tag':
-      
-    case 'view-articles-page': 
-    case 'view-articles-page_by_tag':
     
-    case 'view-news-page': 
-    case 'view-news-page_by_tag':
-      
-    case 'view-sitemap-page': 
-   
+//    case 'view-providers-page_p_bu': 
+//      // Business Providers listing page.
+//    case 'view-providers-page_p_re': 
+//      // Residential Providers listing page.
+//    case 'view-reviews-page_all_reviews': 
+//      // Residential Providers listing page.
+//      
+//    case 'view-blog-page': 
+//    case 'view-blog-page_by_tag':
+//      
+//    case 'view-articles-page': 
+//    case 'view-articles-page_by_tag':
+//    
+//    case 'view-news-page': 
+//    case 'view-news-page_by_tag':
+//      
+//    case 'view-sitemap-page': 
+//   
     case 'view-taxonomy_term-page_by_tag':
       
       $do_attach_preface = TRUE;
@@ -3908,36 +3912,36 @@ function vn_misc_views_pre_render(&$view) {
     
     case 'view-reviews-block_all_reviews':
       
-      $providers = array('' => t('- All Providers -'));
-      vn_misc_getProviders($providers, 'all_including_others_from_reviews');
-
-      if (isset($_GET['provider']) && isset($providers[$_GET['provider']])) {
-        $provider_isset = TRUE;
-      }
-      else {
-        $provider_isset = FALSE;
-      }
-      $url = '';
-      foreach ($_GET as $key => $value) {
-        if ($key == 'q' || $key == 'provider') {
-          continue;
-        }
-        $url .= '&' . $key . '=' . urlencode($value);
-      }
-
-      $select_providers['all-reviews-select-providers'] = array(
-          '#type' => 'select',
-          '#title' => t('Choose a Provider'),
-          '#options' => $providers,
-          '#default_value' => $provider_isset ? $providers[$_GET['provider']] : $providers[''],
-          '#value' => $provider_isset ? $providers[$_GET['provider']] : $providers[''],
-          ////'#default_value' => 'VoIPo',
-          ////'#value' => 'VoIPo',
-          '#attributes' => array('id' => 'select_provider',  'onChange' => "top.location.href='http://voipnow.org/" . $_GET['q'] . "?provider=' + encodeURIComponent(document.getElementById('select_provider').options[document.getElementById('select_provider').selectedIndex].value) + '$url'"),
-
-      ); 
-      
-      $view->attachment_before = render($select_providers);
+//      $providers = array('' => t('- All Providers -'));
+//      vn_misc_getProviders($providers, 'all_including_others_from_reviews');
+//
+//      if (isset($_GET['provider']) && isset($providers[$_GET['provider']])) {
+//        $provider_isset = TRUE;
+//      }
+//      else {
+//        $provider_isset = FALSE;
+//      }
+//      $url = '';
+//      foreach ($_GET as $key => $value) {
+//        if ($key == 'q' || $key == 'provider') {
+//          continue;
+//        }
+//        $url .= '&' . $key . '=' . urlencode($value);
+//      }
+//
+//      $select_providers['all-reviews-select-providers'] = array(
+//          '#type' => 'select',
+//          '#title' => t('Choose a Provider'),
+//          '#options' => $providers,
+//          '#default_value' => $provider_isset ? $providers[$_GET['provider']] : $providers[''],
+//          '#value' => $provider_isset ? $providers[$_GET['provider']] : $providers[''],
+//          ////'#default_value' => 'VoIPo',
+//          ////'#value' => 'VoIPo',
+//          '#attributes' => array('id' => 'select_provider',  'onChange' => "top.location.href='http://voipnow.org/" . $_GET['q'] . "?provider=' + encodeURIComponent(document.getElementById('select_provider').options[document.getElementById('select_provider').selectedIndex].value) + '$url'"),
+//
+//      ); 
+//      
+//      $view->attachment_before = render($select_providers);
       
       break;
       
@@ -3947,43 +3951,43 @@ function vn_misc_views_pre_render(&$view) {
     case 'view-reviews-block_all_reviews_re':
     case 'view-reviews-block_all_reviews_ca':
       
-      $providers = array('' => t('- All Providers -'));
-      $p_key = $key;
-      $r_p_types = array('view-reviews-block_all_reviews_bu' => array('business', 'Business'), 
-                         'view-reviews-block_all_reviews_re' => array('residential', 'Residential'),
-                         'view-reviews-block_all_reviews_ca' => array(array('re_ca', 'bu_ca'), '') //'Canadian'
-                        );
-      vn_misc_getProviders($providers, 'all_by_service_type', $r_p_types[$p_key][0]);
-
-      
-      if (isset($_GET['provider']) && isset($providers[$_GET['provider']])) {
-        $provider_isset = TRUE;
-      }
-      else {
-        $provider_isset = FALSE;
-      }
-      $url = '';
-      foreach ($_GET as $key => $value) {
-        if ($key == 'q' || $key == 'provider') {
-          continue;
-        }
-        $url .= '&' . $key . '=' . urlencode($value);
-      }
-
-     
-      $select_providers['all-reviews-select-providers'] = array(
-          '#type' => 'select',
-          '#title' => t('Choose a ' . $r_p_types[$p_key][1] .' Provider'),
-          '#options' => $providers,
-          '#default_value' => $provider_isset ? $providers[$_GET['provider']] : $providers[''],
-          '#value' => $provider_isset ? $providers[$_GET['provider']] : $providers[''],
-          ////'#default_value' => 'VoIPo',
-          ////'#value' => 'VoIPo',
-          '#attributes' => array('id' => 'select_provider',  'onChange' => "top.location.href='http://voipnow.org/" . $_GET['q'] . "?provider=' + encodeURIComponent(document.getElementById('select_provider').options[document.getElementById('select_provider').selectedIndex].value) + '$url'"),
-
-      ); 
-      
-      $view->attachment_before = render($select_providers);
+//      $providers = array('' => t('- All Providers -'));
+//      $p_key = $key;
+//      $r_p_types = array('view-reviews-block_all_reviews_bu' => array('business', 'Business'), 
+//                         'view-reviews-block_all_reviews_re' => array('residential', 'Residential'),
+//                         'view-reviews-block_all_reviews_ca' => array(array('re_ca', 'bu_ca'), '') //'Canadian'
+//                        );
+//      vn_misc_getProviders($providers, 'all_by_service_type', $r_p_types[$p_key][0]);
+//
+//      
+//      if (isset($_GET['provider']) && isset($providers[$_GET['provider']])) {
+//        $provider_isset = TRUE;
+//      }
+//      else {
+//        $provider_isset = FALSE;
+//      }
+//      $url = '';
+//      foreach ($_GET as $key => $value) {
+//        if ($key == 'q' || $key == 'provider') {
+//          continue;
+//        }
+//        $url .= '&' . $key . '=' . urlencode($value);
+//      }
+//
+//     
+//      $select_providers['all-reviews-select-providers'] = array(
+//          '#type' => 'select',
+//          '#title' => t('Choose a ' . $r_p_types[$p_key][1] .' Provider'),
+//          '#options' => $providers,
+//          '#default_value' => $provider_isset ? $providers[$_GET['provider']] : $providers[''],
+//          '#value' => $provider_isset ? $providers[$_GET['provider']] : $providers[''],
+//          ////'#default_value' => 'VoIPo',
+//          ////'#value' => 'VoIPo',
+//          '#attributes' => array('id' => 'select_provider',  'onChange' => "top.location.href='http://voipnow.org/" . $_GET['q'] . "?provider=' + encodeURIComponent(document.getElementById('select_provider').options[document.getElementById('select_provider').selectedIndex].value) + '$url'"),
+//
+//      ); 
+//      
+//      $view->attachment_before = render($select_providers);
       
       break;
       
@@ -3994,50 +3998,50 @@ function vn_misc_views_pre_render(&$view) {
    
     if ($view->current_display == 'page_by_tag') {
       
-      global $current_tag_title;
-      $current_tag_title = $preface_node->title . ' "' . htmlspecialchars_decode($view->build_info['substitutions']['%1']) . '"';
-      
-      // add metatag title for the specific term, if it's set in the Metatags block and not equal to defaults.
-      if (isset($term->metatags['title']['value']) && $term->metatags['title']['value']) {
-        $metatag_title = token_replace($term->metatags['title']['value']);
-        vn_misc_addMetatag('title', $metatag_title);
-        // Set the title (not only a metatag title) as well.
-        $preface_node->title = htmlspecialchars_decode($metatag_title);
-        $view->build_info['title'] = $preface_node->title;
-      }
-      else {
-        //$preface_node->title = $view->get_title();//$view->build_info['title'];
-        $preface_node->title .= ' "' . htmlspecialchars_decode($view->build_info['substitutions']['%1']) . '"';
-        $view->build_info['title'] = $preface_node->title;
-      }
-      
-      // add metatags for the specific term.
-      if (isset($term->metatags['keywords']['value']) && $term->metatags['keywords']['value']) {
-        vn_misc_addMetatag('keywords', $term->metatags['keywords']['value']);
-      }
-      else {
-        vn_misc_addMetatag('keywords', $term->name);
-      }
-      
-      if (isset($term->description) && $term->description) {
-        vn_misc_addMetatag('description', $term->description);
-      }
-      else {
-        
-        $query = db_select('taxonomy_index', 'ti');
-        $query->join('node', 'n', "n.nid = ti.nid"); 
-        $query->join('field_revision_field_a_teaser', 'tf', "tf.entity_type = 'node' AND tf.entity_id = ti.nid"); 
-        $query->fields('tf', array('field_a_teaser_value'))
-              ->orderBy('n.created', 'DESC')
-              ->condition('n.type', array('article', 'blog_post', 'news_post'), 'IN')
-              ->condition('ti.tid', $term->tid); 
-        $node_a_teaser = $query->execute()->fetchField(); 
-
-        if ($node_a_teaser) {
-          vn_misc_addMetatag('description', $preface_node->title . '. ' . drupal_substr(rtrim(strip_tags($node_a_teaser), 'Read More'), 0, 150));
-        }
-      } // End of else of if (isset($term->description) && $term->description) {
-      
+//      global $current_tag_title;
+//      $current_tag_title = $preface_node->title . ' "' . htmlspecialchars_decode($view->build_info['substitutions']['%1']) . '"';
+//      
+//      // add metatag title for the specific term, if it's set in the Metatags block and not equal to defaults.
+//      if (isset($term->metatags['title']['value']) && $term->metatags['title']['value']) {
+//        $metatag_title = token_replace($term->metatags['title']['value']);
+//        vn_misc_addMetatag('title', $metatag_title);
+//        // Set the title (not only a metatag title) as well.
+//        $preface_node->title = htmlspecialchars_decode($metatag_title);
+//        $view->build_info['title'] = $preface_node->title;
+//      }
+//      else {
+//        //$preface_node->title = $view->get_title();//$view->build_info['title'];
+//        $preface_node->title .= ' "' . htmlspecialchars_decode($view->build_info['substitutions']['%1']) . '"';
+//        $view->build_info['title'] = $preface_node->title;
+//      }
+//      
+//      // add metatags for the specific term.
+//      if (isset($term->metatags['keywords']['value']) && $term->metatags['keywords']['value']) {
+//        vn_misc_addMetatag('keywords', $term->metatags['keywords']['value']);
+//      }
+//      else {
+//        vn_misc_addMetatag('keywords', $term->name);
+//      }
+//      
+//      if (isset($term->description) && $term->description) {
+//        vn_misc_addMetatag('description', $term->description);
+//      }
+//      else {
+//        
+//        $query = db_select('taxonomy_index', 'ti');
+//        $query->join('node', 'n', "n.nid = ti.nid"); 
+//        $query->join('field_revision_field_a_teaser', 'tf', "tf.entity_type = 'node' AND tf.entity_id = ti.nid"); 
+//        $query->fields('tf', array('field_a_teaser_value'))
+//              ->orderBy('n.created', 'DESC')
+//              ->condition('n.type', array('article', 'blog_post', 'news_post'), 'IN')
+//              ->condition('ti.tid', $term->tid); 
+//        $node_a_teaser = $query->execute()->fetchField(); 
+//
+//        if ($node_a_teaser) {
+//          vn_misc_addMetatag('description', $preface_node->title . '. ' . drupal_substr(rtrim(strip_tags($node_a_teaser), 'Read More'), 0, 150));
+//        }
+//      } // End of else of if (isset($term->description) && $term->description) {
+//      
       
     } // End of if ($view->current_display == 'page_by_tag') {
     else {

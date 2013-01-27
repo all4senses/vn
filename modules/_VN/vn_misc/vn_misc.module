@@ -4024,7 +4024,7 @@ function vn_misc_views_pre_render(&$view) {
   
   if ($do_attach_preface && $preface_node = vn_misc_getPrefaceByKey($key)) {
    
-    if ($view->current_display == 'term-page') {
+    if ($view->name . '-' . $view->current_display == 'taxonomy_term-page') {
       
       dpm('cccc');
       dpm($view->build_info); 

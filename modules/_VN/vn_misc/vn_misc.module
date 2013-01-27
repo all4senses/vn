@@ -3869,7 +3869,7 @@ function vn_misc_votingapi_metadata_alter(&$data) {
  */
 function vn_misc_views_pre_render(&$view) {
   
-  dpm($view);
+//  dpm($view);
 //  //$view->result = array();
 //  foreach ($view->result as $key => $r) {
 //    $view->result[$key]->created_year_month = '2006/06';
@@ -3915,8 +3915,6 @@ function vn_misc_views_pre_render(&$view) {
       
       $args = arg();
       $term = taxonomy_term_load($args[2]);
-      //dpm($args);
-      //dpm($term);
       
       if ($term->vocabulary_machine_name == 'categories') {
         switch ($term->name) {
@@ -3926,7 +3924,6 @@ function vn_misc_views_pre_render(&$view) {
             //$key = 'view-taxonomy_term-page_category-news';
             $key = 'view-taxonomy_term-page_category';
             $do_attach_preface = TRUE;
-            dpm($key);
             break;
         }
       }
@@ -4025,9 +4022,6 @@ function vn_misc_views_pre_render(&$view) {
   if ($do_attach_preface && $preface_node = vn_misc_getPrefaceByKey($key)) {
    
     if ($view->name . '-' . $view->current_display == 'taxonomy_term-page') {
-      
-      dpm('cccc');
-      dpm($view->build_info); 
       
       global $current_tag_title;
       $current_tag_title = $preface_node->title . ' "' . htmlspecialchars_decode($view->build_info['substitutions']['%1']) . '"';

@@ -3904,10 +3904,23 @@ function vn_misc_views_pre_render(&$view) {
 //      
 //    case 'view-sitemap-page': 
 //   
-    case 'view-taxonomy_term-page_by_tag':
+//    case 'view-taxonomy_term-page_by_tag':
       
       $do_attach_preface = TRUE;
       break;
+    
+      
+      
+    case 'view-taxonomy_term-page':
+      
+      $args = arg();
+      $term = taxonomy_term_load($args[2]);
+      dpm($args);
+      dpm($term);
+      
+      $do_attach_preface = TRUE;
+      break;
+    
     
     
     case 'view-reviews-block_all_reviews':

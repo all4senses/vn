@@ -3926,6 +3926,7 @@ function vn_misc_views_pre_render(&$view) {
             //$key = 'view-taxonomy_term-page_category-news';
             $key = 'view-taxonomy_term-page_category';
             $do_attach_preface = TRUE;
+            dpm($key);
             break;
         }
       }
@@ -4025,6 +4026,7 @@ function vn_misc_views_pre_render(&$view) {
    
     if ($view->current_display == 'term-page') {
       
+      dpm('cccc');
       dpm($view->build_info); 
       
       global $current_tag_title;

@@ -3880,7 +3880,7 @@ function vn_misc_views_pre_render(&$view) {
   // Add a prefaces for the some views pages.
   $key = 'view-' . $view->name . '-' . $view->current_display;
   
-  //dpm($key);
+  dpm($key);
   
   $do_attach_preface = FALSE;
   
@@ -3915,7 +3915,7 @@ function vn_misc_views_pre_render(&$view) {
       
       $args = arg();
       $term = taxonomy_term_load($args[2]);
-      
+      dpm($term);
       if ($term->vocabulary_machine_name == 'categories') {
         switch ($term->name) {
          case 'Features':

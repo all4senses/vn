@@ -3928,14 +3928,10 @@ function vn_misc_views_pre_render(&$view) {
         }
       }
       elseif ($term->vocabulary_machine_name == 'features') {
-            $key = 'view-taxonomy_term-page_features';
-            $do_attach_preface = TRUE;
-            break;
-        }
+        $key = 'view-taxonomy_term-page_features';
+        $do_attach_preface = TRUE;
+        break;
       }
-      
-      
-      
       
       break;
     

@@ -33,10 +33,7 @@
       // Hide links now so that we can render them later.
       hide($content['links']);
       
-      if (@$node->field_display_type['und'][0]['value'] != 1) {
-        hide($content['field_preface_bottom']);
-      }
-
+      hide($content['field_preface_bottom']);
       echo render($content);
       
       
@@ -62,15 +59,32 @@
         foreach ($terms as $term) {
           $out .= ($out ? ', ' : '') .  l($term->name, 'taxonomy/term/' . $term->tid);
         }
-        $out = l($v_title, $v_data['url'], array('attributes' => array('class' => 'title'))) . $out;
         
-        echo '<div class="types-block">' . $out . '</div>';
+        echo '<div class="types-block">' . l($v_title, $v_data['url'], array('attributes' => array('class' => 'title'))) . $out . '</div>';
       }
       
       
+      $service_types = array(
+        'Business VoIP' => 'usage/business',
+        'Enterprise VoIP' => 'usage/enterprise', 
+        'Midsize Business VoIP' => 'usage/midsize-business', 
+        'Residential VoIP' => 'usage/residential', 
+        'Small Business VoIP' => 'usage/small-business',
+      );
+      $out = '';
+      foreach ($service_types as $s_title => $s_url) {
+        $out .= ($out ? ', ' : '') .  l($s_title, $s_url);
+      }
+      
+      echo '<div class="types-block">' . l('VoIP Usage: ', 'usage', array('attributes' => array('class' => 'title'))) . $out . '</div>';
+      
+      echo '<div class="notice">Not sure which type of VoIP you\'re looking for? Try browsing our list of featured VoIP providers below...</div>';
       
       
-      
+      if (@$node->field_display_type['und'][0]['value'] == 1) {
+        render($content['field_preface_bottom']);
+      }
+            
       
       //------------------------------------------------------------------------------------
       

@@ -33,7 +33,6 @@
       // Hide links now so that we can render them later.
       hide($content['links']);
       
-      dpm($content);
       hide($content['field_preface_bottom']);
       echo render($content);
       

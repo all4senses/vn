@@ -651,13 +651,20 @@ function vn_preprocess_node(&$variables) {
     elseif($variables['node']->type == 'webform') {
       $variables['theme_hook_suggestions'][] = 'node__admin_page';
     }
-    // Speed test page have its own template
-    elseif($variables['node']->type == 'preface' && @$variables['node']->field_preface_key['und'][0]['value'] == 'voip-speed-test') {
-      $variables['theme_hook_suggestions'][] = 'node__preface__voip_speed_test';
-    }
-    // Custom 404 page.
-    elseif($variables['node']->type == 'preface' && @$variables['node']->field_preface_key['und'][0]['value'] == 'page-not-found') {
-      $variables['theme_hook_suggestions'][] = 'node__preface__page404';
+    
+    elseif($variables['node']->type == 'preface') {
+      // Speed test page have its own template
+      if (@$variables['node']->field_preface_key['und'][0]['value'] == 'voip-speed-test') {
+        $variables['theme_hook_suggestions'][] = 'node__preface__voip_speed_test';
+      }
+      // Custom 404 page.
+      elseif(@$variables['node']->field_preface_key['und'][0]['value'] == 'page-not-found') {
+        $variables['theme_hook_suggestions'][] = 'node__preface__page404';
+      }
+      // Types of providers page.
+      elseif(@$variables['node']->field_preface_key['und'][0]['value'] == 'providers_types_n_features_n_etc') {
+        $variables['theme_hook_suggestions'][] = 'node__preface__types';
+      }
     }
     
   }

@@ -3880,7 +3880,7 @@ function vn_misc_views_pre_render(&$view) {
   // Add a prefaces for the some views pages.
   $key = 'view-' . $view->name . '-' . $view->current_display;
   
-  dpm($key);
+  //dpm($key);
   
   $do_attach_preface = FALSE;
   
@@ -3915,8 +3915,8 @@ function vn_misc_views_pre_render(&$view) {
       
       $args = arg();
       $term = taxonomy_term_load($args[2]);
-      dpm($args);
-      dpm($term);
+      //dpm($args);
+      //dpm($term);
       
       if ($term->vocabulary_machine_name == 'categories') {
         switch ($term->name) {
@@ -4025,7 +4025,7 @@ function vn_misc_views_pre_render(&$view) {
    
     if ($view->current_display == 'term-page') {
       
-      dpm($view); 
+      dpm($view->build_info); 
       
       global $current_tag_title;
       $current_tag_title = $preface_node->title . ' "' . htmlspecialchars_decode($view->build_info['substitutions']['%1']) . '"';

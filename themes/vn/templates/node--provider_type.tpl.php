@@ -58,7 +58,8 @@
           $display_name = 'block_providers_by_type';
           $view = views_get_view($view_name);
 
-          $viewsFilterOptions_p_type = array('id' => 'field_p_types_value', 'value' => array('smbv' => 'smbv'));
+          //$viewsFilterOptions_p_type = array('id' => 'field_p_types_value', 'value' => array('smbv' => 'smbv'));
+          $viewsFilterOptions_p_type = array('id' => 'field_p_types_value', 'value' => array('ifa' => 'ifa'));
           $view->add_item($display_name, 'filter', 'field_data_field_p_types', 'field_p_types_value', $viewsFilterOptions_p_type);
 
           $results = $view->preview($display_name);

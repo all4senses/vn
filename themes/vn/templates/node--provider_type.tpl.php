@@ -35,7 +35,7 @@
       
       echo render($content);
       
-      echo 'xxx';
+
       
       
       
@@ -58,8 +58,8 @@
           $display_name = 'block_providers_by_type';
           $view = views_get_view($view_name);
 
-          //$viewsFilterOptions_nodeNid = array('id' => 'field_ref_phone_target_id', 'value' => array('value' => $node->nid));
-          //$view->add_item($display_name, 'filter', 'field_data_field_ref_phone', 'field_ref_phone_target_id', $viewsFilterOptions_nodeNid);
+          $viewsFilterOptions_p_type = array('id' => 'field_p_types_value', 'value' => array('smbv' => 'smbv'));
+          $view->add_item($display_name, 'filter', 'field_data_field_p_types', 'field_p_types_value', $viewsFilterOptions_p_type);
 
           $results = $view->preview($display_name);
           if ($view->result) {

@@ -37,6 +37,42 @@
       
       echo 'xxx';
       
+      
+      
+      /*
+      
+        // Filter criterion: Content: Service Type (field_p_types)
+      
+        $handler->display->display_options['filters']['field_p_types_value']['id'] = 'field_p_types_value';
+        $handler->display->display_options['filters']['field_p_types_value']['table'] = 'field_data_field_p_types';
+        $handler->display->display_options['filters']['field_p_types_value']['field'] = 'field_p_types_value';
+        $handler->display->display_options['filters']['field_p_types_value']['value'] = array(
+          'smbv' => 'smbv',
+        );
+      
+      */
+      
+      
+          // Get providers by a type.
+          $view_name = 'providers'; 
+          $display_name = 'block_providers_by_type';
+          $view = views_get_view($view_name);
+
+          //$viewsFilterOptions_nodeNid = array('id' => 'field_ref_phone_target_id', 'value' => array('value' => $node->nid));
+          //$view->add_item($display_name, 'filter', 'field_data_field_ref_phone', 'field_ref_phone_target_id', $viewsFilterOptions_nodeNid);
+
+          $results = $view->preview($display_name);
+          if ($view->result) {
+            dpm($results);
+          }
+          else {
+            echo '<br/>no providers';
+          }
+
+      
+      
+      
+      
       //------------------------------------------------------------------------------------
       
       

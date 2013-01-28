@@ -56,8 +56,6 @@
       if (empty($node->field_p_types['und'][0]['value'])) {
         // Usage page
         // Show all provider types and subtypes.
-        echo 'Usage page';
-        // Show providers by a type.
         $view_name = 'providers'; 
         $display_name = 'block_provider_types_all';
         $view = views_get_view($view_name);
@@ -70,7 +68,6 @@
       elseif ($node->field_p_types['und'][0]['value'] == 'bu') {
         // Busines VoIP page.
         // Show all Business subtypes.
-        echo 'Businesssssss';
         $view_name = 'providers'; 
         $display_name = 'block_provider_types_bu';
         $view = views_get_view($view_name);

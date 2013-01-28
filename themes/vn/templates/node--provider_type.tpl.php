@@ -63,7 +63,7 @@
 
           $results = $view->preview($display_name);
           if ($view->result) {
-            dpm($results);
+            echo $results;
           }
           else {
             echo '<br/>no providers';

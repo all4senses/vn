@@ -64,7 +64,9 @@
 
           $results = $view->preview($display_name);
           if ($view->result) {
-            echo $results;
+            module_load_include('inc', 'vn_misc', 'inc/constants');
+            $service_types = unserialize($service_types);
+            echo '<div class="title">All VoIP Providers that Offer ' . $service_types[$node->field_p_types['und'][0]['value']] . ' VoIP Services</div>' . $results;
           }
           else {
             echo '<br/>no providers';

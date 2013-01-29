@@ -81,6 +81,7 @@ function vn_pages_getBlogArchivePage($url) {
   //$query->condition('n.type', 'blog_post');
   $query->condition('n.status', 1);
   
+  $query->condition('n.type', 'blog_post');
   $query->condition('n.created', $start_date, '>=');
   $query->condition('n.created', $end_date, '<');
   

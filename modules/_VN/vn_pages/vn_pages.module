@@ -74,7 +74,7 @@ function vn_pages_getBlogArchivePage($url) {
   $out = render($preface_node_view);
   
   
-  $pages_per_page = 1;
+  $pages_per_page = 10;
   $query = db_select('node', 'n')->extend('pagerDefault')->limit($pages_per_page);
   
   $query->fields('n', array('nid'));

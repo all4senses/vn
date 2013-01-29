@@ -225,8 +225,8 @@
           <?php 
           
           
-          dpm($node->p_data);
-          if (!empty($node->p_data['wp_fields']['Features'])) {
+          
+          
             
             
             $wp_fields = unserialize(WP_FIELDS);
@@ -256,42 +256,43 @@
                 $quick_stats_out .= '<div>' . $wp_fields['Features'][$quick_stats_key] . ': No</div>'; 
               }
             }
-            
-            
-            
-            
               
-                echo '<div class="title">Quick Stats</div>';
-                echo '<div>' . $quick_stats_out . '<div>Plans: ' .  $plans . '</div></div>';
+                
+            foreach ($node->p_data['wp_fields']['Features'] as $key => $feature) {
+              if ($feature) {
+                $features[] = $wp_fields['Features'][$key] . ': ' . $feature;
+              }
+            }
+
+            if (!empty($features)) {
+
+              echo '<div class="title">Quick Stats</div>';
+              echo '<div>' . $quick_stats_out . '<div>Plans: ' .  $plans . '</div></div>';
 
 
-                echo '<div class="title">List of Features Available on ' , $node->field_p_name['und'][0]['value'], '</div>';
+              echo '<div class="title">List of Features Available on ' , $node->field_p_name['und'][0]['value'], '</div>';
 
-                foreach ($node->p_data['wp_fields']['Features'] as $key => $feature) {
-                  if ($feature) {
-                    $features[] = $wp_fields['Features'][$key] . ': ' . $feature;
+
+              //dpm($features);
+              $rows = count($features);
+              $features_count = 0;
+              $features_out = '';
+              for ($i = 0; $i < 3; $i++) {
+                $features_out .= '<div>';
+                for ($j = 0; $j < ($rows / 3); $j++) {
+                  if (!isset($features[$features_count])) {
+                    $features_out .= '</div>';
+                    break 2; 
                   }
+                  $features_out .= '<div>' . $features[$features_count++] . '</div>';
                 }
-                //dpm($features);
-                $rows = count($features);
-                $features_count = 0;
-                $features_out = '';
-                for ($i = 0; $i < 3; $i++) {
-                  $features_out .= '<div>';
-                  for ($j = 0; $j < ($rows / 3); $j++) {
-                    if (!isset($features[$features_count])) {
-                      $features_out .= '</div>';
-                      break 2; 
-                    }
-                    $features_out .= '<div>' . $features[$features_count++] . '</div>';
-                  }
-                  $features_out .= '</div>';
-                }
+                $features_out .= '</div>';
+              }
 
-                echo $features_out;
+              echo $features_out;
 
             }
-          
+
             
             
 //            if (isset($content['field_topics'])) {

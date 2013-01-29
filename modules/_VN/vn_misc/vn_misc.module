@@ -2852,7 +2852,7 @@ function vn_misc_import_wp_blogPosts() {
   
   $query->condition('vp.post_status', 'publish');
   $query->condition('vp.post_type', 'post');
-  $query->condition('tr.term_taxonomy_id', 3); // 3 - Features, 4 - News
+  $query->condition('tr.term_taxonomy_id', 4); // 3 - Features, 4 - News
   
   $query->orderBy('ID');
   //$query->range(0, 20);

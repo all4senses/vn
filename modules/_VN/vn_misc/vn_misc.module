@@ -2366,9 +2366,9 @@ function vn_misc_testPage() {
   //vn_misc_import_wp_features();
   //vn_misc_import_wp_equipment();
   
-  //vn_misc_import_wp_blogPosts();
+  vn_misc_import_wp_blogPosts();
   
-  vn_misc_import_wp_providers();
+  //vn_misc_import_wp_providers();
 
   
   return $out . '<br>End of Test';
@@ -2721,13 +2721,8 @@ function vn_misc_import_wp_providers() {
     }
   
   
-    if(!isset($result->wp_fields) || !isset($result->wp_fields['Marketing']['af_link'])) {
-      if (!isset($result->wp_fields['Marketing']['af_link'])) {
-        dpm('no af_link');
-      }
-      if (!isset($result->wp_fields)) {
-        dpm('no wp_fields');
-      }
+    if (!isset($result->wp_fields)) {
+      dpm('no wp_fields');
       dpm($result);
     }
     

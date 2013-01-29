@@ -223,9 +223,13 @@
           
           
           <?php 
+          
+          
+          dpm($node->p_data);
+          if (!empty($node->p_data['wp_fields']['Features'])) {
+            
+            
             $wp_fields = unserialize(WP_FIELDS);
-            
-            
             
 //            911 Service:	Included
 //            International Calling:	Yes
@@ -255,7 +259,7 @@
             
             
             
-            if (!empty($node->p_data['wp_fields']['Features'])) {
+            
               
                 echo '<div class="title">Quick Stats</div>';
                 echo '<div>' . $quick_stats_out . '<div>Plans: ' .  $plans . '</div></div>';

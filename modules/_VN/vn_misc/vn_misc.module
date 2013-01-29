@@ -2360,64 +2360,16 @@ function vn_misc_getYoutubeVideoThumb($video_id) {
  * Test page function for url /test.
  */
 function vn_misc_testPage() {
+  
   $out = '<div>Start test...</div>';
 
-  //vn_misc_import_wp_blogPosts();
-  
-  //vn_misc_import_wp_providers();
-  
   //vn_misc_import_wp_features();
-  
   //vn_misc_import_wp_equipment();
   
+  //vn_misc_import_wp_blogPosts();
   
-  $view = views_get_view('archive');
+  vn_misc_import_wp_providers();
 
-  //dpm($view);
-  
-  //$vew_out = 
-  $view->preview('block_blog_summary');
-  //dpm($vew_out);
-  dpm($view);
-  
-  $out_x = '';
-  foreach ($view->result as $item) {
-    $url = preg_replace('/^(.*)(....)(..)$/', '$1$2/$3', $item->url);
-    $url = str_replace('http://voipnow.org/', '', $url);
-    $out_x .= '<li><a href="' . $url . '">' . $item->link . '</a></li>';
-  }
-  
-  dpm($out_x);
-  
-  
-  
-  
-  
-//  $view = views_get_view('blog');
-////  $args = array('2008', '04');
-//  $view->preview('block_blog_posts_for_month'/*, $args*/);
-//  dpm($view);
-  
-//  $view = views_get_view('blog');
-//  $args = array('2008', '04');
-//  $view->preview('block_blog_posts_for_month', $args);
-//  dpm($view);
-  
-  
-//  $v = views_embed_view('blog', 'block_blog_posts_for_month', '2008+04');
-//  dpm($v);
-  
-//  $out_x = '';
-//  foreach ($view->result as $item) {
-//    $url = preg_replace('/^(.*)(....)(..)$/', '$1$2/$3', $item->url);
-//    $url = str_replace('http://voipnow.org/', '', $url);
-//    //$out .= '<li>' . l($item->link, $url) . '</li>';
-//    $out_x .= '<li><a href="' . $url . '">' . $item->link . '</a></li>';
-//  }
-//  
-//  dpm($out_x);
-  
-  
   
   return $out . '<br>End of Test';
 }
@@ -2656,7 +2608,7 @@ function vn_misc_import_wp_providers() {
     }
   }
   
-  dpm($fields);
+  //dpm($fields);
   //dpm(serialize($fields));
   
   $query = db_select('voip_posts', 'vp')
@@ -2694,7 +2646,7 @@ function vn_misc_import_wp_providers() {
     
   }
   
-  dpm($providers);
+  //dpm($providers);
   
   //return;
   
@@ -2710,7 +2662,7 @@ function vn_misc_import_wp_providers() {
 
   $taxonomy_features = $query->execute()->fetchAllAssoc('name'); 
 
-  dpm($taxonomy_features);
+  //dpm($taxonomy_features);
 
   $map_wp_fields_to_taxonomy_features = array(
     '3-Way Calling' => 'fe_3_Way_Calling',
@@ -2788,7 +2740,7 @@ function vn_misc_import_wp_providers() {
       'field_p_features' => $field_p_features,
     );
     
-    dpm($form_state);
+    //dpm($form_state);
     
     $form_state['values']['body']['und'][0]['value'] = $result->post_content;
     
@@ -2806,7 +2758,7 @@ function vn_misc_import_wp_providers() {
     
     // Add only one node.
     vn_misc_createNode_provider($form_state);
-    break;
+    //break;
   }
 }
 

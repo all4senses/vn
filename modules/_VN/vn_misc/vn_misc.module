@@ -2892,7 +2892,7 @@ function vn_misc_import_wp_blogPosts() {
     
     // Add only one node.
     vn_misc_createNode_BlogPost($form_state);
-    break;
+    //break;
   }
 }
 

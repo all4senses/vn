@@ -149,7 +149,7 @@
                 </ul>
                 <div id="tabs-1">
                   
-                  <?php if (!empty($node->p_data['ereview'])) { ?>
+                  <?php if (!empty($node->p_data['ereview']['editor_rating_overall'])) { ?>
                   
                         <div class="pros-and-cons">
                           <div>

@@ -3887,6 +3887,16 @@ function vn_misc_views_pre_render(&$view) {
         $do_attach_preface = TRUE;
         break;
       }
+      elseif ($term->vocabulary_machine_name == 'equipment') {
+        $key = 'view-taxonomy_term-page_equipment';
+        $do_attach_preface = TRUE;
+        break;
+      }
+      elseif ($term->vocabulary_machine_name == 'protocols') {
+        $key = 'view-taxonomy_term-page_protocols';
+        $do_attach_preface = TRUE;
+        break;
+      }
       
       break;
     
@@ -3978,8 +3988,60 @@ function vn_misc_views_pre_render(&$view) {
   
   if ($do_attach_preface && $preface_node = vn_misc_getPrefaceByKey($key)) {
    
+     if ($key == 'view-taxonomy_term-page_equipment' || $key == 'view-taxonomy_term-page_protocols') {
+      
+      global $current_tag_title;
+      $current_tag_title = $preface_node->title . ' "' . htmlspecialchars_decode($view->build_info['substitutions']['%1']) . '"';
+      
+      // add metatag title for the specific term, if it's set in the Metatags block and not equal to defaults.
+      if (isset($term->metatags['title']['value']) && $term->metatags['title']['value']) {
+        $metatag_title = token_replace($term->metatags['title']['value']);
+        vn_misc_addMetatag('title', $metatag_title);
+        // Set the title (not only a metatag title) as well.
+        $preface_node->title = htmlspecialchars_decode($metatag_title);
+      }
+      else {
+        $preface_node->title = $current_tag_title; //$view->get_title();//$view->build_info['title'];
+        //$preface_node->title .= ' "' . htmlspecialchars_decode($view->build_info['substitutions']['%1']) . '"';
+        ////$preface_node->title .= htmlspecialchars_decode($view->build_info['substitutions']['%1']);
+      }
+      $view->build_info['title'] = $preface_node->title;
+      
+      // add metatags for the specific term.
+      if (isset($term->metatags['keywords']['value']) && $term->metatags['keywords']['value']) {
+        vn_misc_addMetatag('keywords', $term->metatags['keywords']['value']);
+      }
+      else {
+        vn_misc_addMetatag('keywords', $term->name);
+      }
+      
+      if (isset($term->description) && $term->description) {
+        vn_misc_addMetatag('description', $term->description);
+        
+        $preface_node->body['und'][0]['value'] = $term->description;
+        $preface_node->body['und'][0]['safe_value'] = $term->description;
+      }
+      else {
+        /*
+        $query = db_select('taxonomy_index', 'ti');
+        $query->join('node', 'n', "n.nid = ti.nid"); 
+        $query->join('field_revision_field_a_teaser', 'tf', "tf.entity_type = 'node' AND tf.entity_id = ti.nid"); 
+        $query->fields('tf', array('field_a_teaser_value'))
+              ->orderBy('n.created', 'DESC')
+              ->condition('n.type', array('article', 'blog_post', 'news_post'), 'IN')
+              ->condition('ti.tid', $term->tid); 
+        $node_a_teaser = $query->execute()->fetchField(); 
+
+        if ($node_a_teaser) {
+          vn_misc_addMetatag('description', $preface_node->title . '. ' . drupal_substr(rtrim(strip_tags($node_a_teaser), 'Read More'), 0, 150));
+        }
+        */
+      } // End of else of if (isset($term->description) && $term->description) {r
+      
+      
+    } 
     //if ($view->name . '-' . $view->current_display == 'taxonomy_term-page') {
-    if ($key == 'view-taxonomy_term-page_features') {
+    elseif ($key == 'view-taxonomy_term-page_features') {
       
       global $current_tag_title;
       //$current_tag_title = $preface_node->title . ' "' . htmlspecialchars_decode($view->build_info['substitutions']['%1']) . '"';
@@ -4031,7 +4093,7 @@ function vn_misc_views_pre_render(&$view) {
       } // End of else of if (isset($term->description) && $term->description) {r
       
       
-    } // End of if ($view->current_display == 'page_by_tag') {
+    } 
     //elseif ($view->name . '-' . $view->current_display == 'taxonomy_term-page') {
     elseif ($key == 'view-taxonomy_term-page_category') {
       
@@ -4129,7 +4191,7 @@ function vn_misc_views_pre_render(&$view) {
       } // End of else of if (isset($term->description) && $term->description) {r
       */
       
-    } // End of if ($view->current_display == 'page_by_tag') {
+    } 
     else {
       // Change the title of the view (main page title actually)
       if (isset($preface_node->metatags['title']['value'])) {

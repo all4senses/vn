@@ -285,6 +285,7 @@ function vn_blocks_getBlockThemed_noCache($block_data){
   // No caching version.
   
   $block = module_invoke($block_data['module'], 'block_view', $block_data['delta']);
+  dpm($block);
   if ($block) {
     if (isset($block_data['subject'])) {
       $block['subject'] = $block_data['subject'];

@@ -156,7 +156,7 @@
                 {
                 //dpm('0000011111');
                 //echo $extra_data['teaser_block'];
-                echo $extra_data['teaser_block'];
+                echo $extra_data['teaser'];
               }
             }
             else {

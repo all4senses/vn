@@ -143,18 +143,22 @@
               // Show an other teaser on the home page.
               $extra_data = unserialize($node->field_extra_data['und'][0]['value']);
               if (isset($extra_data['teaser_home'])) {
+                dpm('00000');
                 echo $extra_data['teaser_home'];
               }
               else {
+                dpm('0000011111');
                 echo $extra_data['teaser_block'];
               }
             }
             else {
               // TODO: Temporary check. Should be removed after all articles resave.
               if (isset($node->field_a_teaser['und'][0]['value']) && $node->field_a_teaser['und'][0]['value']) {
+                dpm('11111');
                 echo $node->field_a_teaser['und'][0]['value'];
               }
               else {
+                dpm('2222');
                 $teaser_data = vn_misc_getArticleTeaserData('all', $content['body'][0]['#markup'], $node->nid);
                 echo $teaser_data['teaser'];
               }

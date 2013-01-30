@@ -966,7 +966,7 @@ function vn_pages_access($type = null) {
 /**
  * Prepare data for output it via theme function
  */
-function vn_pages_buildHome($name, $data) {
+function vn_pages_buildHome($name, $data  = NULL) {
   $out = '';
     
   $seo_welcome_node = vn_misc_getPrefaceByKey('front');

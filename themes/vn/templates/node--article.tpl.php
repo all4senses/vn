@@ -142,11 +142,18 @@
             if ($paths_with_latest_article) {
               // Show an other teaser on the home page.
               $extra_data = unserialize($node->field_extra_data['und'][0]['value']);
-              if (isset($extra_data['teaser_home'])) {
-                dpm('00000');
-                echo $extra_data['teaser_home'];
+              
+              if(empty($extra_data['teaser'])) {
+                $extra_data = vn_misc_getArticleTeaserData('all', $content['body'][0]['#markup'], $node->nid);
               }
-              else {
+              
+              
+//              if (isset($extra_data['teaser_home'])) {
+//                dpm('00000');
+//                echo $extra_data['teaser_home'];
+//              }
+//              else 
+                {
                 dpm('0000011111');
                 echo $extra_data['teaser_block'];
               }

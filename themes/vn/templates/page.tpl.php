@@ -1,18 +1,6 @@
-<div id="bshadow">
-    
-  <?php
-  /*
-  <div id="skip-link">
-    <a href="#main-content" class="element-invisible element-focusable"><?php print t('Skip to main content'); ?></a>
-    <?php if ($main_menu): ?>
-      <a href="#navigation" class="element-invisible element-focusable"><?php print t('Skip to navigation'); ?></a>
-    <?php endif; ?>
-  </div>
-  */
-  ?>
+<div id="c-top">
 
-  
-  <header id="header" role="banner" class="clearfix">
+    <header id="header" role="banner" class="clearfix">
 
     <nav id="navigation" role="navigation" class="clearfix">
       <div id="header-menu-back"></div>
@@ -44,6 +32,25 @@
 
     <?php ////if ($breadcrumb): print $breadcrumb; endif;?>
   </header> <!-- /#header -->
+
+</div>
+
+
+
+
+    
+  <?php
+  /*
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable"><?php print t('Skip to main content'); ?></a>
+    <?php if ($main_menu): ?>
+      <a href="#navigation" class="element-invisible element-focusable"><?php print t('Skip to navigation'); ?></a>
+    <?php endif; ?>
+  </div>
+  */
+  ?>
+
+  
 
   
   <?php if ($page['highlighted']): ?>
@@ -142,8 +149,7 @@
 
   </div> <!-- /#all-content -->
 
-  </div> <!-- <div id="bshadow"> -->
-
+  
 
   
   <footer id="footer" role="contentinfo" class="clearfix">

@@ -9,14 +9,8 @@ body.one-sidebar.sidebar-second #main {background: white; padding: 5px 10px 10px
 
 a, a:focus{ -webkit-appearance: none; outline: none;}
 
-#bshadow{margin: auto; position: relative; width: 1120px;}
-/*
-#bshadow #bs1{background: url("images/bshadow.png") no-repeat scroll -4px 0 transparent; height: 700px; left: 3px; position: absolute; top: 130px; width: 7px;}
-#bshadow #bs2{background: url("images/bshadow.png") no-repeat scroll -8px 0 transparent; height: 700px; position: absolute; right: 3px; top: 130px; width: 7px;}
-*/
-#bshadow #bs1{background: url("images/bshadow.png") no-repeat -4px -20px; height: 700px; left: 7px; position: absolute; top: 130px; width: 3px;}
-#bshadow #bs2{background: url("images/bshadow.png") no-repeat -32px -20px; height: 700px; position: absolute; right: 7px; top: 130px; width: 3px;}
-
+.c-top{}
+.header{margin: auto; position: relative; width: 1100px;}
 
 
 /* Make captiona narrower */
@@ -1814,9 +1808,6 @@ body.sidebar-second #sidebar-second {background: #F3F3F3; float: right; margin-r
 
 
 /* Experimental - with the image as a background */
-/* image with shadows */
-#bshadow #bs1,
-#bshadow #bs2{background: none;}
 /*
 #all-content, #highlighted {background: url("images/main-back.png") repeat-y scroll 0 0 transparent; margin: auto; padding: 0; width: 1110px;}
 body.one-sidebar.sidebar-second #main {background: none; margin-left: 10px;}

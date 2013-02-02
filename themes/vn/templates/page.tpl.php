@@ -7,12 +7,9 @@
       
       <div id="logo-block">
         <a href="<?php print $front_page; ?>" title="<?php print 'VoIP Now Home'; ?>" id="logo">
-          <img src="<?php print 'http://voipnow.org/sites/all/themes/vn_/css/images/voipnow-logo.png'; ?>" alt="VoIP Now" title="<?php print t('VoIP Now Home'); ?>" />
+          <img src="<?php print 'http://voipnow.org/sites/all/themes/vn/css/images/vn-logo-top.png'; ?>" alt="VoIP Now" title="<?php print t('VoIP Now Home'); ?>" />
         </a>
-        <div class="descr">
-          <div class="title">2013 VOIP GUIDE</div>
-          <div class="subtitle">SERVICE PROVIDER REVIEWS</div><div class="stars"><img src="/sites/all/themes/vn_/css/images/sprite-0.png" alt="Provider Reviews From Consumers" title="VoIP Reviews"/></div>
-        </div>
+        
       </div>
       
       <?php 

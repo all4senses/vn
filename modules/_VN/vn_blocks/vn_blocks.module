@@ -155,7 +155,7 @@ function vn_blocks_get_socialLinks() {
 //  else 
     {
     $menu = menu_build_tree('menu-social-links');
-    $out = theme('vn_misc_submenuSimple', array('submenu' => array('below' => $menu)));
+    $out = '<div>Connect with us on the following social media platforms</div>' . theme('vn_misc_submenuSimple', array('submenu' => array('below' => $menu)));
     
     cache_set($cid, $out, 'cache', strtotime('+31 day'));
   } 

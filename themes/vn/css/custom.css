@@ -1322,6 +1322,7 @@ body.quote-page.v33 .messages{width: 890px; margin: auto; position: relative;}
 
 
 /*Same but without a line (from shadow) below the highlight region */
+#all-content-wrapper{overflow: hidden;}
 #all-content{background: white; margin: auto; padding: 0 0 0 0; width: 1100px; box-shadow: 0px 10px 60px #DDDDDD, 0 0px 47px #f3f3f3; margin-bottom: 40px;}
 #highlighted{background: white; margin: auto; padding: 0 0 0/*10px*/ 0; width: 1100px; box-shadow: 0 0 0px #DDDDDD, 0 20px 7px #000000;}
 

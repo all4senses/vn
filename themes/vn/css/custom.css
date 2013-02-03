@@ -1740,13 +1740,17 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 #block-vn-blocks-ad-speedtest-page .content{padding: 0;}
 #block-vn-blocks-ad-speedtest-page a{padding: 0;}
 
-/* Newsletters subscribe */
-#block-vn-blocks-newsletters-subscribe{border: 1px solid #7ACEE9;}
-#block-vn-blocks-newsletters-subscribe h3{background: url("/sites/all/themes/vn/css/images/qv3-upper-back.png") repeat scroll 0 -20px lightBlue;}
-#block-vn-blocks-newsletters-subscribe .content{padding: 10px 0 0 10px;}
-#block-vn-blocks-newsletters-subscribe .content .title{color: gray; font-size: 13px; margin-bottom: 7px;}
-#block-vn-blocks-newsletters-subscribe .content .form-item-email{/*width: 150px; */float: left; margin: 0;}
-#block-vn-blocks-newsletters-subscribe .content .form-item-email #edit-email{width: 155px; height: 24px; padding: 2px 0 1px 4px; background: lightgray; border: none; color: white;}
-#block-vn-blocks-newsletters-subscribe .content .form-actions{margin: 0;}
-#block-vn-blocks-newsletters-subscribe .content .form-actions input{background: url("/sites/all/themes/vn/css/images/newsletterSignupButton.png") no-repeat; border: none; text-indent: -9999px; width: 60px; height: 30px; cursor: pointer;}
-
+/* Send a massage and Newsletters subscribe */
+#block-vn_blocks-send_msg_n_subscribe {overflow: hidden; width: 280px;}
+#block-vn_blocks-send_msg_n_subscribe #edit-name {overflow: hidden;}
+#block-vn_blocks-send_msg_n_subscribe .form-item-fname {width: 135px; float: left; margin: 0;}
+#block-vn_blocks-send_msg_n_subscribe .form-item-lname {width: 135px; float: right; margin: 0;}
+#block-vn_blocks-send_msg_n_subscribe input {width: 99%;}
+#block-vn_blocks-send_msg_n_subscribe .form-item-email {margin: 7px 0 10px;}
+#block-vn_blocks-send_msg_n_subscribe #edit-m-and-s {width: 200px;float: left;}
+#block-vn_blocks-send_msg_n_subscribe .form-item-message {margin: 2px 0 0 0;}
+#block-vn_blocks-send_msg_n_subscribe #edit-message {height: 70px;}
+#block-vn_blocks-send_msg_n_subscribe .form-item-subscribe {font-size: 12px; color: gray;}
+#block-vn_blocks-send_msg_n_subscribe #edit-subscribe {width: auto;}
+#block-vn_blocks-send_msg_n_subscribe #edit-actions--2 {float: right; margin: 0; width: 70px; height: 110px;}
+#block-vn_blocks-send_msg_n_subscribe #edit-submit--2 {height: 100%; width: 100%;}

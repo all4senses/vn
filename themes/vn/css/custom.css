@@ -1754,3 +1754,5 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 #block-vn_blocks-send_msg_n_subscribe #edit-subscribe {width: auto;}
 #block-vn_blocks-send_msg_n_subscribe #edit-actions--2 {float: right; margin: 0; width: 70px; height: 110px;}
 #block-vn_blocks-send_msg_n_subscribe #edit-submit--2 {height: 100%; width: 100%;}
+
+#block-vn_blocks-social_links{float: left; margin-right: 100px;}

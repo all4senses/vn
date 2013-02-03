@@ -1741,7 +1741,7 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 #block-vn-blocks-ad-speedtest-page a{padding: 0;}
 
 /* Send a massage and Newsletters subscribe */
-#block-vn_blocks-send_msg_n_subscribe {overflow: hidden; width: 280px;}
+#block-vn_blocks-send_msg_n_subscribe {overflow: hidden; width: 280px; float: left; margin-right: 100px;}
 #block-vn_blocks-send_msg_n_subscribe #edit-name {overflow: hidden;}
 #block-vn_blocks-send_msg_n_subscribe .form-item-fname {width: 135px; float: left; margin: 0;}
 #block-vn_blocks-send_msg_n_subscribe .form-item-lname {width: 135px; float: right; margin: 0;}

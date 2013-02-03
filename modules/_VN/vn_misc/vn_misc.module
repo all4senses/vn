@@ -4888,8 +4888,12 @@ function vn_misc_validate_email($element, &$form_state) {
  * @return $form
  *   Return nothing.
  */
-function vn_misc_newsletterSubscribe_form_validate(&$form, &$form_state) {
+function vn_misc_sendMessageAndNewsletterSubscribe_form_validate(&$form, &$form_state) {
 
+  return;
+  
+  
+  
   //drupal_set_message('In Validate!', 'warning');
   //dpm($form_state['values']);
   //dpm($form);
@@ -4944,7 +4948,12 @@ function vn_misc_newsletterSubscribe_form_validate(&$form, &$form_state) {
  * @return $form
  *   Return nothing.
  */
-function vn_misc_newsletterSubscribe_form_submit(&$form, &$form_state) {
+function vn_misc_sendMessageAndNewsletterSubscribe_form_submit(&$form, &$form_state) {
+  
+  return;
+  
+  
+  
   
   $verification_code = md5(time());
   db_insert('vn_emails_subscribed')

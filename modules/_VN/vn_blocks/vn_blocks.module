@@ -155,7 +155,7 @@ function vn_blocks_get_socialLinks() {
 //  else 
     {
     $menu = menu_build_tree('menu-social-links');
-    $out = '<div>Connect with us on the following social media platforms</div>' . theme('vn_misc_submenuSimple', array('submenu' => array('below' => $menu)));
+    $out = '<div>Connect with us on the following social media platforms</div>' . theme('vn_misc_submenuSimple_twoColumns', array('submenu' => array('below' => $menu)));
     
     cache_set($cid, $out, 'cache', strtotime('+31 day'));
   } 
@@ -178,7 +178,7 @@ function vn_blocks_get_footerLinks() {
 //  else 
     {
     $menu = menu_build_tree('menu-footer-links');
-    $out = theme('vn_misc_submenuSimple', array('submenu' => array('below' => $menu)/*, 'class' => 'menu', 'delimiter' => '<li> | </li>'*/)); // . '<div class="c">В© 2012 voipnow.org | All Rights Reserved</div>';
+    $out = theme('vn_misc_submenuSimple_twoColumns', array('submenu' => array('below' => $menu)/*, 'class' => 'menu', 'delimiter' => '<li> | </li>'*/)); // . '<div class="c">В© 2012 voipnow.org | All Rights Reserved</div>';
     
     cache_set($cid, $out, 'cache', strtotime('+31 day'));
   } 

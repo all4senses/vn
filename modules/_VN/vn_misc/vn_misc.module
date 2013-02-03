@@ -3290,6 +3290,9 @@ function vn_misc_theme($existing, $type, $theme, $path) {
     'vn_misc_submenuSimple' => array(
       'variables' => array('vars' => null),
     ),
+    'vn_misc_submenuSimple_twoColumns' => array(
+      'variables' => array('vars' => null),
+    ),
     'vn_misc_headerLinks' => array(
       'variables' => array('vars' => null),
     ),

@@ -56,7 +56,7 @@
     </section>
   <?php endif; ?>
   
-  
+  <div id="all-content-wrapper">
   <div id="all-content" class="clearfix">
       
       
@@ -144,8 +144,9 @@
         </aside>  <!-- /#sidebar-second -->
       <?php endif; ?>
 
+        
   </div> <!-- /#all-content -->
-
+</div>
   
 
   

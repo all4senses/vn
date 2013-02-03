@@ -15,16 +15,16 @@ module_load_include('inc', 'vn_blocks', 'inc/constants');
 function vn_blocks_block_info() {
   
   $blocks['main_menu_om_blog'] = array(
-    'info' => t('OM Blog'),
+    'info' => 'OM Blog',
     'cache' => DRUPAL_CACHE_GLOBAL,
   );
   
   $blocks['footer_menu'] = array(
-    'info' => t('Footer menu'),
+    'info' => 'Footer menu',
     'cache' => DRUPAL_CACHE_GLOBAL,
   );
   $blocks['header_links'] = array(
-    'info' => t('Header links'),
+    'info' => 'Header links',
     'cache' => DRUPAL_CACHE_GLOBAL,
   );
   $blocks['blog_archive'] = array(
@@ -34,10 +34,14 @@ function vn_blocks_block_info() {
   
   
   $blocks['request_quote_v6'] = array(
-    'info' => t('Request a quote block v6 (sidebar 2 steps)'),
+    'info' => 'Request a quote block v6 (sidebar 2 steps)',
     'cache' => DRUPAL_CACHE_GLOBAL,
   ); 
   
+  $blocks['send_msg_n_subscribe'] = array(
+    'info' => 'Send a message and Newsletter Sign Up',
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
       
   return $blocks;
 }
@@ -50,16 +54,16 @@ function vn_blocks_block_view($delta = '') {
   $block = array();
   switch ($delta) {      
     case 'main_menu_om_blog':
-      $block['subject'] = t('OM Blog');
+      $block['subject'] = 'OM Blog';
       $block['content'] = vn_blocks_get_omMenuBlock_byTitle('Blog', 'vn_blocks_get_omMenuBlock_Blog');
       break;
     
     case 'footer_menu':
-      $block['subject'] = t('Footer menu');
+      $block['subject'] = 'Footer menu';
       $block['content'] = vn_blocks_get_footerMenu();
       break; 
     case 'header_links':
-      $block['subject'] = t('Header links');
+      $block['subject'] = 'Header links';
       $block['content'] = vn_blocks_get_headerLinks();
       break; 
     
@@ -69,10 +73,14 @@ function vn_blocks_block_view($delta = '') {
       break; 
     
     case 'request_quote_v6':
-      $block['subject'] = t('Request a quote block v6 (for a side bar 2 steps)');
+      $block['subject'] = 'Request a quote block v6 (for a side bar 2 steps)';
       $block['content'] = vn_blocks_get_requestQuote_block_v6();
       break;
     
+    case 'send_msg_n_subscribe':
+      $block['subject'] = 'Send a message and Newsletter Sign Up';
+      $block['content'] = drupal_get_form('vn_misc_sendMessageAndNewsletterSubscribe_form');
+      break;
     
   }
 

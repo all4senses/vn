@@ -19,12 +19,12 @@ function vn_blocks_block_info() {
     'cache' => DRUPAL_CACHE_GLOBAL,
   );
   
-  $blocks['footer_menu'] = array(
-    'info' => 'Footer menu',
+  $blocks['footer_links'] = array(
+    'info' => 'Footer links',
     'cache' => DRUPAL_CACHE_GLOBAL,
   );
-  $blocks['header_links'] = array(
-    'info' => 'Header links',
+  $blocks['social_links'] = array(
+    'info' => 'Social links',
     'cache' => DRUPAL_CACHE_GLOBAL,
   );
   $blocks['blog_archive'] = array(
@@ -58,13 +58,13 @@ function vn_blocks_block_view($delta = '') {
       $block['content'] = vn_blocks_get_omMenuBlock_byTitle('Blog', 'vn_blocks_get_omMenuBlock_Blog');
       break;
     
-    case 'footer_menu':
-      $block['subject'] = 'Footer menu';
-      $block['content'] = vn_blocks_get_footerMenu();
+    case 'footer_links':
+      $block['subject'] = 'Footer links';
+      $block['content'] = vn_blocks_get_footerLinks();
       break; 
-    case 'header_links':
-      $block['subject'] = 'Header links';
-      $block['content'] = vn_blocks_get_headerLinks();
+    case 'social_links':
+      $block['subject'] = 'Social links';
+      $block['content'] = vn_blocks_get_socialLinks();
       break; 
     
     case 'blog_archive':
@@ -143,49 +143,45 @@ function vn_blocks_getAdBlock($ad_name) {
 
 
 /**
- * Returns a themed Header links block.
+ * Returns a themed Social links block.
  */
-function vn_blocks_get_headerLinks() {
+function vn_blocks_get_socialLinks() {
   
-  $cid = 'vn_cached_headerLinks';
-  $cache = cache_get($cid, 'cache');
-
-  if ($cache && !empty($cache->data) && $cache->expire > time()) {
-    $out = $cache->data;
-  }
-  else {
-    $menu = menu_build_tree('menu-header-links');
-    $out = theme('vn_misc_headerLinks', array('submenu' => array('below' => $menu)));
+  $cid = 'vn_cached_socialLinks';
+//  $cache = cache_get($cid, 'cache');
+//  if ($cache && !empty($cache->data) && $cache->expire > time()) {
+//    $out = $cache->data;
+//  }
+//  else 
+    {
+    $menu = menu_build_tree('menu-social-links');
+    $out = theme('vn_misc_socialLinks', array('submenu' => array('below' => $menu)));
     
     cache_set($cid, $out, 'cache', strtotime('+31 day'));
   } 
   
-//  $menu = menu_build_tree('menu-header-links');
-//  $out = theme('vn_misc_headerLinks', array('submenu' => array('below' => $menu)));
   return $out;
 }
 
 
 /**
- * Returns a themed Footer menu.
+ * Returns a themed Footer links.
  */
-function vn_blocks_get_footerMenu() {
+function vn_blocks_get_footerLinks() {
   
-  $cid = 'vn_footer_menu';
-  $cache = cache_get($cid, 'cache');
-
-  if ($cache && !empty($cache->data) && $cache->expire > time()) {
-    $out = $cache->data;
-  }
-  else {
-    $menu = menu_build_tree('menu-footer-menu');
+  $cid = 'vn_footer_links';
+//  $cache = cache_get($cid, 'cache');
+//
+//  if ($cache && !empty($cache->data) && $cache->expire > time()) {
+//    $out = $cache->data;
+//  }
+//  else 
+    {
+    $menu = menu_build_tree('menu-footer-links');
     $out = theme('vn_misc_submenuSimple', array('submenu' => array('below' => $menu), 'class' => 'menu', 'delimiter' => '<li> | </li>')); // . '<div class="c">В© 2012 voipnow.org | All Rights Reserved</div>';
     
     cache_set($cid, $out, 'cache', strtotime('+31 day'));
   } 
-  
-  //$menu = menu_build_tree('menu-footer-menu');
-  //$out = theme('vn_misc_submenuSimple', array('submenu' => array('below' => $menu), 'class' => 'menu', 'delimiter' => '<li> | </li>')); // . '<div class="c">В© 2012 voipnow.org | All Rights Reserved</div>';
   
   return $out;
 }

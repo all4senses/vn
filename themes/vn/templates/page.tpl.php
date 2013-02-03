@@ -155,16 +155,12 @@
 
       <div id="in-touch"></div>
 
-      <?php echo render($page['footer']); ?>
-      <div class="c">Copyright © 2004-2013 VoIP Now.org</div>
-
-
-    
-      <?php
-
+      <?php 
+        echo render($page['footer']);
         echo '<div id="block-vn-blocks-follow-links"><div class="follow-us">Follow Us</div>', vn_blocks_get_headerLinks(), '</div>';
-        ?>
-          
+      ?>
+      
+      <div class="c">Copyright © 2004-2013 VoIP Now.org</div>
     </div>
   </footer> <!-- /#footer -->
 

@@ -4811,36 +4811,51 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form($form, &$form_state) {
   
   global $user;
   
+  /*
   $form['title'] = array(
     //'#markup' => '<div class="title">Sign up to receive weekly updates</div>',
     '#markup' => '<div class="title">Stay informed - <br>Sign up for our newsletter.</div>',
-      
   );
+  */
   
   $form['name'] = array(
     '#type' => 'container',
   );
-  $form['name']['fname'] = array(
-    '#type' => 'textfield',
-    '#required' => TRUE,
-    '#attributes' => array('title' => 'First name'),
-  );
-  $form['name']['lname'] = array(
-    '#type' => 'textfield',
-    '#required' => TRUE,
-    '#attributes' => array('title' => 'Last name'),
-  );
+    $form['name']['fname'] = array(
+      '#type' => 'textfield',
+      '#required' => TRUE,
+      '#attributes' => array('title' => 'First name *'),
+    );
+    $form['name']['lname'] = array(
+      '#type' => 'textfield',
+      //'#required' => TRUE,
+      '#attributes' => array('title' => 'Last name'),
+    );
   
   $form['email'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
-    '#attributes' => array('title' => 'Email'),
+    '#attributes' => array('title' => 'Email *'),
   );
+  
+  $form['m_and_s'] = array(
+    '#type' => 'container',
+  );
+    $form['m_and_s']['message'] = array(
+      '#type' => 'textfield',
+      '#required' => TRUE,
+      '#attributes' => array('title' => 'Message *'),
+    );
+    $form['m_and_s']['subscribe'] = array(
+      '#type' => 'checkbox',
+      '#value' => FALSE,
+      '#title' => 'Sign me up for the newsletter',
+    );
   
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
     '#type' => 'submit',
-    '#value' => t('Sign Up'),
+    '#value' => 'Send',
   ); 
   
   

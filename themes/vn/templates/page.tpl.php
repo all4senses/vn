@@ -152,32 +152,24 @@
   
   <footer id="footer" role="contentinfo" class="clearfix">
     <div id="footer-inside">
-      
-    <?php echo render($page['footer']); ?>
-    <div class="c">© 2013 voipnow.org | All Rights Reserved</div>
-    
+
+      <div id="in-touch"></div>
+
+      <?php echo render($page['footer']); ?>
+      <div class="c">Copyright © 2004-2013 VoIP Now.org</div>
+
 
     
-    <?php
+      <?php
       
       
-      if (1/*$user->uid*/) {
+
         echo '<div id="block-vn-blocks-follow-links"><div class="follow-us">Follow Us</div>', vn_blocks_get_headerLinks(), '</div>';
         ?>
           <!--<div id="lock-n-rss">-->
             <div id="sitelock"><a href="#" onclick="window.open('https://www.sitelock.com/verify.php?site=voipnow.org','SiteLock','width=600,height=600,left=160,top=170');" ><img alt="website security" title="SiteLock"  src="//shield.sitelock.com/shield/voipnow.org"/></a></div>
             <!--<a id="valid-rss" href="http://appc.w3.org/check.cgi?url=http%3A//voipnow.org/rss.xml"><img src="http://voipnow.org/sites/all/themes/vn_/css/images/valid-rss-rogers.png" alt="[Valid RSS]" title="Validate my RSS feed" /></a> -->
           <!--</div>-->
-        <?php
-          
-      }
-      else { 
-        ?>
-          <div id="sitelock"><a href="#" onclick="window.open('https://www.sitelock.com/verify.php?site=voipnow.org','SiteLock','width=600,height=600,left=160,top=170');" ><img alt="website security" title="SiteLock"  src="//shield.sitelock.com/shield/voipnow.org"/></a></div>
-          <a id="valid-rss" href="http://appc.w3.org/check.cgi?url=http%3A//voipnow.org/rss.xml"><img src="http://voipnow.org/sites/all/themes/vn_/css/images/valid-rss-rogers.png" alt="[Valid RSS]" title="Validate my RSS feed" /></a>
-        <?php
-      }
-    ?>
           
     </div>
   </footer> <!-- /#footer -->

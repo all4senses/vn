@@ -161,15 +161,9 @@
 
     
       <?php
-      
-      
 
         echo '<div id="block-vn-blocks-follow-links"><div class="follow-us">Follow Us</div>', vn_blocks_get_headerLinks(), '</div>';
         ?>
-          <!--<div id="lock-n-rss">-->
-            <div id="sitelock"><a href="#" onclick="window.open('https://www.sitelock.com/verify.php?site=voipnow.org','SiteLock','width=600,height=600,left=160,top=170');" ><img alt="website security" title="SiteLock"  src="//shield.sitelock.com/shield/voipnow.org"/></a></div>
-            <!--<a id="valid-rss" href="http://appc.w3.org/check.cgi?url=http%3A//voipnow.org/rss.xml"><img src="http://voipnow.org/sites/all/themes/vn_/css/images/valid-rss-rogers.png" alt="[Valid RSS]" title="Validate my RSS feed" /></a> -->
-          <!--</div>-->
           
     </div>
   </footer> <!-- /#footer -->

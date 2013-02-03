@@ -150,6 +150,8 @@
 
   
   <footer id="footer" role="contentinfo" class="clearfix">
+    <div id="footer-inside">
+      
     <?php echo render($page['footer']); ?>
     <div class="c">© 2013 voipnow.org | All Rights Reserved</div>
     
@@ -175,6 +177,7 @@
         <?php
       }
     ?>
-    
+          
+    </div>
   </footer> <!-- /#footer -->
 

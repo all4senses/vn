@@ -529,7 +529,7 @@ body.sidebar-second #sidebar-second{float: right; margin-right: 18px; padding: 1
 /* New style blocks */
 
 #all-content{background: white; box-shadow: 0 0 0px #DDD,0 20px 7px black;}
-body.one-sidebar.sidebar-second #sidebar-second{background: none; padding: 10px 0 0 0; width: 350px; margin: 0;}
+body.one-sidebar.sidebar-second #sidebar-second{background: none; padding: 10px 0 0 0; width: 320px; margin: 0;}
 .sidebar .top-line{display: none; background: none; height: 0; margin: 0;}
 
 .sidebar .block{border: 1px solid #fbd8ba;}
@@ -1328,7 +1328,7 @@ body.quote-page.v33 .messages{width: 890px; margin: auto; position: relative;}
 #highlighted{background: white; margin: auto; padding: 0 0 0/*10px*/ 0; width: 1100px; box-shadow: 0 0 0px #DDDDDD, 0 20px 7px #000000;}
 
 
-body.one-sidebar.sidebar-second #main {background: none repeat scroll 0 0 white; padding: 5px 10px 10px 10px; margin-left: 6px; width: 720px;}
+body.one-sidebar.sidebar-second #main {background: none repeat scroll 0 0 white; padding: 5px 10px 10px 10px; margin-left: 6px; width: 750px;}
 
 /* Old sidebar style*/
 

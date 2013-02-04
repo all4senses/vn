@@ -1753,7 +1753,7 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 #block-vn_blocks-send_msg_n_subscribe .form-item-subscribe {font-size: 12px; color: gray;}
 #block-vn_blocks-send_msg_n_subscribe #edit-subscribe {width: auto;}
 #block-vn_blocks-send_msg_n_subscribe #edit-actions--2 {float: right; margin: 0; width: 70px; height: 95px;}
-#block-vn_blocks-send_msg_n_subscribe #edit-submit--2 {height: 100%; width: 100%; background: url("images/send-msg-btn.png") no-repeat scroll 0 0 transparent;}
+#block-vn_blocks-send_msg_n_subscribe #edit-submit--2 {height: 100px; width: 100%; background: url("images/send-msg-btn.png") no-repeat scroll -3px 0 transparent; border: none; text-indent: -999px;}
 
 #block-vn_blocks-social_links{position: absolute; top: 110px; left: 540px;}
 #block-vn_blocks-social_links .title {font-size: 13px; width: 220px; line-height: 18px; margin-bottom: 15px; color: #aaaaaa;}

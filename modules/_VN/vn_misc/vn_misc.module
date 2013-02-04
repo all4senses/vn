@@ -3501,8 +3501,9 @@ function theme_vn_misc_submenuSimple_twoColumns($vars) {
   $level = isset($vars['level']) ? $vars['level'] : 0;
   $class = isset($vars['class']) ? $vars['class'] : 'om-links';
   $delimiter = isset($vars['delimiter']) ? $vars['delimiter'] : '';
-  $out = '<ul class="vn ' . $class . ' lvl-' . $level . '">';
+  $out = '<ul class="vn ' . $class . ' lvl-' . $level . '"><div class="col-1">';
   $count = 0;
+  $amount = count($vars['submenu']['below']);
   foreach ($vars['submenu']['below'] as $submenu) {
     if (is_object($submenu)) {
       $submenu = (array) $submenu;
@@ -3510,6 +3511,11 @@ function theme_vn_misc_submenuSimple_twoColumns($vars) {
     if (isset($submenu['link']['hidden']) && $submenu['link']['hidden']) {
       continue;
     }
+    
+    if ($count > $amount/2) {
+      $out .= '</div><div class="col-2">';
+    }
+    
     $out .= ($count ? $delimiter : '') . '<li>';
     if($level) {
       for ($i = 0; $i < $level; $i++ ) {
@@ -3534,7 +3540,7 @@ function theme_vn_misc_submenuSimple_twoColumns($vars) {
     }
     $count++;
   }
-  $out .= '</ul>';
+  $out .= '</div></ul>';
   return $out;
 }
 

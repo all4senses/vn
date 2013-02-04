@@ -3293,7 +3293,7 @@ function vn_misc_theme($existing, $type, $theme, $path) {
     'vn_misc_submenuSimple_twoColumns' => array(
       'variables' => array('vars' => null),
     ),
-    'vn_misc_headerLinks' => array(
+    'vn_misc_socialLinks' => array(
       'variables' => array('vars' => null),
     ),
     // Fivestar REPLACING theme functions.
@@ -3422,23 +3422,31 @@ function theme_vn_misc_tagadelicWeighted_acceptPredefinedTermsPaths(array $vars)
 /**
  * Simple theming of nested submenu.
  */
-function theme_vn_misc_headerLinks($vars) {
+function theme_vn_misc_socialLinks($vars) {
   if(empty($vars['submenu']['below'])) {
     return NULL;
   }
 
   $class = isset($vars['class']) ? $vars['class'] : 'header-links';
   $delimiter = isset($vars['delimiter']) ? $vars['delimiter'] : '';
-  $out = '<ul class="' . $class . '">';
+  $out = '<div class="' . $class . '"><div class="col-1">';
   $count = 0;
+  $amount = count($vars['submenu']['below']);
+  $second = FALSE;
   foreach ($vars['submenu']['below'] as $submenu) {
     if (isset($submenu['link']['hidden']) && $submenu['link']['hidden']) {
       continue;
     }
-    $out .= ($count ? $delimiter : '') . '<li>' . l(t($submenu['link']['link_title']), $submenu['link']['href'], array('attributes' => array('class' => array($submenu['link']['link_title']), 'title' => $submenu['link']['options']['attributes']['title'], 'target' => '_blank' ))) . '</li>';
+    
+    if (!$second && $count > ($amount - 1)/2) {
+      $out .= '</div><div class="col-2">';
+      $second = TRUE;
+    }
+    
+    $out .= ($count ? $delimiter : '') . '<div>' . l(t($submenu['link']['link_title']), $submenu['link']['href'], array('attributes' => array('class' => array($submenu['link']['link_title']), 'title' => $submenu['link']['options']['attributes']['title'], 'target' => '_blank' ))) . '</div>';
     $count++;
   }
-  $out .= '</ul>';
+  $out .= '</div></div>';
   return $out;
 }
 

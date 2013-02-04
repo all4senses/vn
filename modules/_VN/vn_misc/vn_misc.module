@@ -3501,7 +3501,8 @@ function theme_vn_misc_submenuSimple_twoColumns($vars) {
   $level = isset($vars['level']) ? $vars['level'] : 0;
   $class = isset($vars['class']) ? $vars['class'] : 'om-links';
   $delimiter = isset($vars['delimiter']) ? $vars['delimiter'] : '';
-  $out = '<ul class="vn ' . $class . ' lvl-' . $level . '"><div class="col-1">';
+  //$out = '<ul class="vn ' . $class . ' lvl-' . $level . '"><div class="col-1">';
+  $out = '<div class="vn ' . $class . ' lvl-' . $level . '"><div class="col-1">';
   $count = 0;
   $amount = count($vars['submenu']['below']);
   $second = FALSE;
@@ -3518,7 +3519,8 @@ function theme_vn_misc_submenuSimple_twoColumns($vars) {
       $second = TRUE;
     }
     
-    $out .= ($count ? $delimiter : '') . '<li>';
+    //$out .= ($count ? $delimiter : '') . '<li>';
+    $out .= ($count ? $delimiter : '') . '<div>';
     if($level) {
       for ($i = 0; $i < $level; $i++ ) {
         $out .= '--';
@@ -3535,14 +3537,17 @@ function theme_vn_misc_submenuSimple_twoColumns($vars) {
     else {
       $out .= l($title, $submenu['link']['href']);
     }
-    $out .= '</li>';
+    //$out .= '</li>';
+    $out .= '</div>';
     if (!empty($submenu['below'])) {
       // Recursion call.
-      $out .= '<li>' . theme('vn_misc_submenuSimple', array('submenu' => $submenu, 'level' => ($level + 1), 'class' => $class, 'delimiter' => $delimiter )) . '</li>';
+      //$out .= '<li>' . theme('vn_misc_submenuSimple', array('submenu' => $submenu, 'level' => ($level + 1), 'class' => $class, 'delimiter' => $delimiter )) . '</li>';
+      $out .= '<div>' . theme('vn_misc_submenuSimple', array('submenu' => $submenu, 'level' => ($level + 1), 'class' => $class, 'delimiter' => $delimiter )) . '</div>';
     }
     $count++;
   }
-  $out .= '</div></ul>';
+  //$out .= '</div></ul>';
+  $out .= '</div></div>';
   return $out;
 }
 

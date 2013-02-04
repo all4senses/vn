@@ -40,7 +40,8 @@
           <span class="submitted">
             <?php 
             
-              $created_str = date('F d, Y \a\t g:ia', $node->created);
+              //$created_str = date('F d, Y \a\t g:ia', $node->created);
+              $created_str = date('m.d.Y', $node->created);
               $created_rdf = preg_replace('|(.*)content=\"(.*)\"\s(.*)|', '$2', $date); //date('Y-m-d\TH:i:s', $node->created); 
               
               $paths_with_latest_article = FALSE;
@@ -77,12 +78,13 @@
                   }
                   
                   $submitted = '<span property="dc:date dc:created" content="' . $created_rdf . '" datatype="xsd:dateTime" rel="sioc:has_creator">' .
-                                  'By' . ':' .
+                                  'By ' .
                                   //'<a href="' . $author_url . '" title="View user profile." class="username" lang="' . $language->language . '" xml:lang="' . $language->language . '" about="' . $author_url . '" typeof="sioc:UserAccount" property="foaf:name">' .
                           
                                   (!$extra_data['guest_author'] ? '<a href="' . $author_url . '" title="' . $author_title . '" class="username" lang="' . $language->language . '" xml:lang="' . $language->language . '" about="' . $author_url . '" typeof="sioc:UserAccount" property="foaf:name">' . $author_name . '</a>' . $gplus_profile : '<span class="guest-author">' . $author_name . '</span>') .
                           
-                                  ($node->type == 'article' ? '' : '<span class="delim">|</span>' . $created_str) .
+                                  //($node->type == 'article' ? '' : '<span class="delim">|</span>' . $created_str) .
+                                  ', posted on ' . $created_str .
                           
                                '</span>';
                   

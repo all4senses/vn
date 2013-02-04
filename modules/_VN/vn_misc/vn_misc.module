@@ -3513,7 +3513,7 @@ function theme_vn_misc_submenuSimple_twoColumns($vars) {
       continue;
     }
     
-    if (!$second && $count > $amount/2) {
+    if (!$second && $count > ($amount - 1)/2) {
       $out .= '</div><div class="col-2">';
       $second = TRUE;
     }

@@ -1759,10 +1759,11 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 .header-links{overflow: hidden;}
 .header-links .col-1, .header-links .col-2{width: 200px;}
 .header-links .col-1{float: left;}
+.header-links .col-2 {float: right;}
 .header-links a{margin: 0 30px 5px 0;}
 .header-links .Facebook {background: url("images/social.png") no-repeat 0 0 transparent; width: 97px; height: 30px; display: block; text-indent: -999px; margin-bottom: 5px;}
 .header-links .Twitter {background: url("images/social.png") no-repeat 0 0 transparent; width: 97px; height: 30px; display: block; text-indent: -999px; margin-bottom: 5px;}
-.header-links .Google {background: url("images/social.png") no-repeat 0 0 transparent; width: 97px; height: 30px; display: block; text-indent: -999px; margin-bottom: 5px;}
+.header-links .GooglePlus {background: url("images/social.png") no-repeat 0 0 transparent; width: 97px; height: 30px; display: block; text-indent: -999px; margin-bottom: 5px;}
 .header-links .LinkedIn {background: url("images/social.png") no-repeat 0 0 transparent; width: 97px; height: 30px; display: block; text-indent: -999px; margin-bottom: 5px;}
 .header-links .YouTube {background: url("images/social.png") no-repeat 0 0 transparent; width: 97px; height: 30px; display: block; text-indent: -999px; margin-bottom: 5px;}
 .header-links .RSS {background: url("images/social.png") no-repeat 0 0 transparent; width: 97px; height: 30px; display: block; text-indent: -999px; margin-bottom: 5px;}

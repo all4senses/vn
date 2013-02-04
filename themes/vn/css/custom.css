@@ -1766,3 +1766,11 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 .social-links .LinkedIn {background: url("images/social.png") no-repeat -110px 0 transparent;}
 .social-links .YouTube {background: url("images/social.png") no-repeat -110px -48px transparent;}
 .social-links .RSS {background: url("images/social.png") no-repeat -110px -96px transparent;}
+
+
+#block-vn_blocks-footer_links .title{font-size: 13px; width: 220px; line-height: 14px; margin-bottom: 15px; color: #aaaaaa;}
+#block-vn_blocks-footer_links {position: absolute; left: 800px;}
+#block-vn_blocks-footer_links .vn {position: relative;}
+#block-vn_blocks-footer_links .col-2 {position: absolute; top: 0; left: 150px; width: 200px;}
+#block-vn_blocks-footer_links a {color: #aaaaaa; font-size: 13px;}
+#block-vn_blocks-footer_links a:hover {color: white;}

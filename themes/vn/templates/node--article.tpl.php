@@ -204,6 +204,8 @@
 
                       <?php $url = 'http://voipnow.org'. url('node/' . $node->nid); ?>
 
+                      <?  /*
+                        
                       <div class="others">
                         <!-- ADDTHIS BUTTON BEGIN -->
                         <script type="text/javascript">
@@ -233,7 +235,7 @@
 
                       </div>
                       
-                      
+                      */?>
                       
 
                       <div class="main">

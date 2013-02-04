@@ -63,7 +63,7 @@
                 $authorExtendedData = vn_misc_loadUserExtendedData($node->uid);
                 $author_name = $authorExtendedData->realname;
               }
-            dpm($authorExtendedData);
+
               if ($page) {
                 
                 if ($node->uid) {

@@ -1741,7 +1741,7 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 #block-vn-blocks-ad-speedtest-page a{padding: 0;}
 
 /* Send a massage and Newsletters subscribe */
-#block-vn_blocks-send_msg_n_subscribe {overflow: hidden; width: 280px; float: left; margin-right: 100px;}
+#block-vn_blocks-send_msg_n_subscribe {overflow: hidden; width: 280px; float: left; margin-top: 40px;}
 #block-vn_blocks-send_msg_n_subscribe #edit-name {overflow: hidden;}
 #block-vn_blocks-send_msg_n_subscribe .form-item-fname {width: 135px; float: left; margin: 0;}
 #block-vn_blocks-send_msg_n_subscribe .form-item-lname {width: 135px; float: right; margin: 0;}
@@ -1755,7 +1755,7 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 #block-vn_blocks-send_msg_n_subscribe #edit-actions--2 {float: right; margin: 0; width: 70px; height: 95px;}
 #block-vn_blocks-send_msg_n_subscribe #edit-submit--2 {height: 100%; width: 100%;}
 
-#block-vn_blocks-social_links{position: absolute; top: 70px; left: 540px;}
+#block-vn_blocks-social_links{position: absolute; top: 110px; left: 540px;}
 #block-vn_blocks-social_links .title {font-size: 13px; width: 220px; line-height: 18px; margin-bottom: 15px; color: #aaaaaa;}
 .social-links {position: relative;}
 .social-links .col-2 {position: absolute; left: 115px; top: 0;}
@@ -1768,7 +1768,7 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 .social-links .RSS {background: url("images/social.png") no-repeat -110px -96px transparent;}
 
 
-#block-vn_blocks-footer_links {position: absolute; left: 915px;}
+#block-vn_blocks-footer_links {position: absolute; left: 915px; top: 110px;}
 #block-vn_blocks-footer_links .title a{font-size: 13px; color: white; position: relative; top: -10px;}
 #block-vn_blocks-footer_links .vn {position: relative;}
 #block-vn_blocks-footer_links .col-2 {position: absolute; top: 0; left: 150px; width: 120px;}

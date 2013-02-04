@@ -3504,6 +3504,7 @@ function theme_vn_misc_submenuSimple_twoColumns($vars) {
   $out = '<ul class="vn ' . $class . ' lvl-' . $level . '"><div class="col-1">';
   $count = 0;
   $amount = count($vars['submenu']['below']);
+  $second = FALSE;
   foreach ($vars['submenu']['below'] as $submenu) {
     if (is_object($submenu)) {
       $submenu = (array) $submenu;
@@ -3512,8 +3513,9 @@ function theme_vn_misc_submenuSimple_twoColumns($vars) {
       continue;
     }
     
-    if ($count > $amount/2) {
+    if (!$second && $count > $amount/2) {
       $out .= '</div><div class="col-2">';
+      $second = TRUE;
     }
     
     $out .= ($count ? $delimiter : '') . '<li>';

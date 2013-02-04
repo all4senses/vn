@@ -3427,7 +3427,7 @@ function theme_vn_misc_socialLinks($vars) {
     return NULL;
   }
 
-  $class = isset($vars['class']) ? $vars['class'] : 'header-links';
+  $class = isset($vars['class']) ? $vars['class'] : 'social-links';
   $delimiter = isset($vars['delimiter']) ? $vars['delimiter'] : '';
   $out = '<div class="' . $class . '"><div class="col-1">';
   $count = 0;

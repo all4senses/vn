@@ -32,7 +32,8 @@
           
           
            <?php if ($page): ?>
-              <div class="logo-share">
+          
+              <div class="images">
                 <?php
                 
                   //dpm($content);
@@ -46,67 +47,7 @@
                     echo render($title_prefix), '<h2', $title_attributes,'>', $node->field_p_name['und'][0]['value'] /*$content['field_p_name'][0]['#markup']*/, '</h2>', render($title_suffix);
                   }
                   $url = 'http://voipnow.org'. url('node/' . $node->nid);
-                ?>
-                
-                <div class="share main">
                   
-                  <div id="facebook-b">
-                    <div id="fb-root"></div>
-                    <div id="fb">
-                      <script>(function(d, s, id) {
-                        var js, fjs = d.getElementsByTagName(s)[0];
-                        if (d.getElementById(id)) return;
-                        js = d.createElement(s); js.id = id;
-                        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=138241656284512";
-                        fjs.parentNode.insertBefore(js, fjs);
-                      }(document, 'script', 'facebook-jssdk'));</script>
-                      <div class="fb-like" data-href="<?php echo $url?>" data-send="false" data-layout="button_count" data-width="80" data-show-faces="false"></div>
-                    </div>
-                  </div>
-
-                  <div id="gplus-b">
-                    <script type="text/javascript">
-                      (function() {
-                        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-                        po.src = 'https://apis.google.com/js/plusone.js';
-                        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-                      })();
-                    </script>
-                    <g:plusone size="medium" href="<?php echo $url?>"></g:plusone>
-                  </div>
-
-                  <div id="linkedin-b">
-                    <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
-                    <script type="IN/Share" data-url="<?php echo $url?>" data-counter="right" data-showzero="true"></script>
-                  </div>
-
-                  <div id="twitter-b">
-                    <a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo $url?>">Tweet</a>
-                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-                  </div>
-                  
-                </div> <!-- main share buttons -->
-                
-              </div> <!-- <div class="logo share">-->
-                
-              <div class="basic-info" rel="v:itemreviewed">
-                <div typeof="Organization">
-                  <div class="caption"><?php echo t('!p Corporate Info:', array('!p' => '<span property="v:itemreviewed">' . $node->field_p_name['und'][0]['value'] /*$content['field_p_name'][0]['#markup']*/ . '</span>')); ?></div>
-                  <div><?php echo '<span class="title">' . t('Headquarters') . ':</span><span property="v:address">' . @$node->p_data['info']['i_heads'] . '</span>'; ?></div>
-                  <div><?php echo '<span class="title">' . t('Founded In') . ':</span>' . @$node->p_data['info']['i_founded']; ?></div>
-                  <div><?php echo '<span class="title">' . t('Service Availability') . ':</span>' . @$node->p_data['info']['i_availability']; ?></div>
-                  <div>
-                    <?php 
-                      if (!$node->p_data['info']['i_web_hide'] && !empty($node->p_data['info']['i_web'])) {
-                        echo '<span class="title">' . t('Website') . ':</span>' . l( (isset($node->p_data['info']['i_web_display']) && $node->p_data['info']['i_web_display']) ? $node->p_data['info']['i_web_display'] : str_replace(array('http://', 'https://'), '', $node->p_data['info']['i_web']), $node->p_data['info']['i_web'], array('attributes' => array('rel' => 'v:url', 'target' => '_blank'))); 
-                      }
-                    ?>
-                  </div>
-                </div>
-              </div>
-             
-              <div class="image">
-                <?php
                   if (isset($content['field_p_image'][0]['#item']['uri'])) {
                     echo '<div><a href="' , $node->p_data['info']['i_web'] , '" target="_blank">' , theme('image_style', array( 'path' =>  $content['field_p_image'][0]['#item']['uri'], 'style_name' => 'image_provider_page', 'alt' =>  $content['field_p_image'][0]['#item']['alt'], 'title' =>  $content['field_p_image'][0]['#item']['title'])) , '</a></div>', 
                          '<div class="site">' , l('Visit ' . $node->field_p_name['und'][0]['value'] /*$content['field_p_name'][0]['#markup']*/, $node->p_data['info']['i_web'], array('external' => TRUE, 'attributes' => array('target' => '_blank'))) , '</div>';
@@ -115,28 +56,41 @@
                 
               </div>
           
-              
-              <div class="bottom-clear"></div>
+          
+              <div id="pros_and_cons">
+                    <?php if (!empty($node->p_data['ereview']['editor_rating_overall'])) { ?>
+                  
+                        <div class="pros-and-cons">
+                            <?php 
+                            if (!empty($node->p_data['ereview']['pros_and_cons']['Advantages'])) {
+                              echo '<div class="title">Advantages</div><div>' . $node->p_data['ereview']['pros_and_cons']['Advantages'] . '</div>'; 
+                            }
+                            if (!empty($node->p_data['ereview']['pros_and_cons']['Disadvantages'])) {
+                              echo '<div class="title">Disadvantages</div><div>' . $node->p_data['ereview']['pros_and_cons']['Disadvantages'] . '</div>';
+                            }
+                            if (!empty($node->p_data['ereview']['pros_and_cons']['Verdict'])) {
+                              echo '<div class="title">Verdict</div><div>' . $node->p_data['ereview']['pros_and_cons']['Verdict'] . '</div>';
+                            }
+                            ?>
+                        </div>
 
-              <?php if (isset($content['vn_ratings']) && $content['vn_ratings']): ?>
+                      <?php /*
+                        <div class="vn_votes editor">
+                          <?php $editor_overall_rating = number_format($node->p_data['ereview']['editor_rating_overall'] * 0.05, 1); ?>
+                          <?php echo '<div class="caption"><span><span property="v:reviewer">Editor</span>\'s Overall Rating:</span> <span property="v:rating">' , $editor_overall_rating, '</span>' , '<div class="bottom-clear"></div></div>' , render($node->editor->content['vn_ratings']); ?>
+                          <div class="rate-other">
+                            <div class="text"><?php echo '<div class="title">' . t('Recommend') . ': </div><div class="data">' . $node->editor->vn_recommend . '</div>'?></div>
+                            <?php echo '<div class="voters editor"><div class="count" property="v:count">' . (!empty($node->vn_voters) ? $node->vn_voters : 1) . '</div></div>';?>
+                          </div>
+                        </div>
+                        */
+                      ?>
 
-                  <div class="vn_votes"><?php echo '<div class="caption">' . t('Overall Consumer Ratings') . '</div>' . render($content['vn_ratings']); ?></div>
-                  <div class="overall"> 
-                    <div class="text">
-                      <?php echo '<a id="write-review" href="/voip-provider-submit-user-review?id=' . $node->nid . '"><img src="/sites/default/files/writeareview.png" /></a><div class="voters"><div class="title">' . 'Number of Reviews' . ':</div><div class="count" property="v:count"><a href="#reviews">' . $node->vn_voters . '</a></div></div>'; ?>
-                      <?php //echo render($content['vn_recommend']); ?>
-                      <?php echo '<div class="recommend"><div class="title">' . t('Would recommend') . ': </div><div class="data">' . $node->vn_recommend . '% of Users' . '</div></div>'; ?>
-                      <div class="overall title"><?php $node->field_p_name['und'][0]['value'] /*$content['field_p_name'][0]['#markup']*/ . ' ' . t('Overall Rated:'); ?></div>
-                    </div>
-                    <div class="star-big">
-                      <?php echo /*render($content['vn_rating_overall'])*/ '<div class="count" content="' . $node->vn_rating_overall . '" property="v:rating">' . $node->vn_rating_overall . '</div>' . '<div class="descr">' . t('Out of 5 stars') . '</div>'; ?>
-                    </div>
-                  </div>
+                  <?php } ?>
               
-              <?php endif; // end of if ($page && isset($content['vn_ratings']) && $content['vn_ratings']): ?>
-              
+              </div>
+          
               <div class="bottom-clear"></div>
-              
               
                       
               <div class="data tabs">
@@ -149,33 +103,6 @@
                 </ul>
                 <div id="tabs-1">
                   
-                  <?php if (!empty($node->p_data['ereview']['editor_rating_overall'])) { ?>
-                  
-                        <div class="pros-and-cons">
-                          <div>
-                            <span>The good:</span><?php /*dpm($node);*/ echo $node->p_data['ereview']['pros_and_cons']['The good']; ?>
-                          </div>
-                          <div>
-                            <span>The bad:</span><?php echo $node->p_data['ereview']['pros_and_cons']['The bad']; ?>
-                          </div>
-                          <div>
-                            <span>The bottom line:</span><?php echo $node->p_data['ereview']['pros_and_cons']['The bottom line']; ?>
-                          </div>
-
-                        </div>
-
-                        <div class="vn_votes editor">
-                          <?php $editor_overall_rating = number_format($node->p_data['ereview']['editor_rating_overall'] * 0.05, 1); ?>
-                          <?php echo '<div class="caption"><span><span property="v:reviewer">Editor</span>\'s Overall Rating:</span> <span property="v:rating">' , $editor_overall_rating, '</span>' /* render($content['gv_rating_overall'])*/ , '<div class="bottom-clear"></div></div>' , render($node->editor->content['vn_ratings']); ?>
-                          <div class="rate-other">
-                            <?php /*<div class="text"><?php echo '<div class="title">' , t('Date:') , '</div><div property="v:dtreviewed" content="' . date('Y-m-d', $node->created) . '">' , date('F j, Y', $node->created) , '</div>'; ?></div> */?>
-                            <?php /*<div class="text"><?php echo '<div class="title">' , t('Reviewer:') , '</div><div property="v:reviewer">Editor</div>'; ?></div> */?>
-                            <div class="text"><?php echo '<div class="title">' . t('Recommend') . ': </div><div class="data">' . $node->editor->vn_recommend . '</div>'?></div>
-                            <?php echo '<div class="voters editor"><div class="count" property="v:count">' . (!empty($node->vn_voters) ? $node->vn_voters : 1) . '</div></div>';?>
-                          </div>
-                        </div>
-
-                  <?php } ?>
                   
                   
                   <?php echo render($content['body']); ?>

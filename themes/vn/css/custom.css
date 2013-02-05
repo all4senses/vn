@@ -1775,3 +1775,5 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 #block-vn_blocks-footer_links .col-2 {position: absolute; top: 0; left: 150px; width: 120px;}
 #block-vn_blocks-footer_links a {color: #aaaaaa; font-size: 13px;}
 #block-vn_blocks-footer_links a:hover {color: white; text-decoration: underline;}
+
+.node-type-provider .images{float: left;}

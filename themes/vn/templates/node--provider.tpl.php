@@ -95,18 +95,87 @@
                       
               <div class="data tabs">
                 
+                <?php 
+                              
+                      $wp_fields = unserialize(WP_FIELDS);
+
+          //            911 Service:	Included
+          //            International Calling:	Yes
+          //            Guarantee:	30-day money back
+          //            Plans:	Residential, Business
+
+                      $quick_stats_out = '';
+                      $quick_stats_keys = array('fe_911_Service', 'fe_International_Calling', 'fe_Guarantee');
+
+                      $quick_stats_plans_keys = array('fe_Residential', 'fe_Small_Business', 'fe_Enterprise', 'fe_Mid_Size_Business');
+
+                      $plans = '';
+                      foreach ($quick_stats_plans_keys as $quick_stats_plans_key) {
+                        if(!empty($node->p_data['wp_fields']['Features'][$quick_stats_plans_key])) {
+                          $plans .= ($plans ? ', ' : '') . $wp_fields['Features'][$quick_stats_plans_key];
+                        }
+                      }
+
+                      foreach ($quick_stats_keys as $quick_stats_key) {
+                        if (!empty($node->p_data['wp_fields']['Features'][$quick_stats_key])) {
+                          $quick_stats_out .= '<div>' . $wp_fields['Features'][$quick_stats_key] . ': ' . $node->p_data['wp_fields']['Features'][$quick_stats_key] . '</div>';
+                        }
+                        else {
+                          $quick_stats_out .= '<div>' . $wp_fields['Features'][$quick_stats_key] . ': No</div>'; 
+                        }
+                      }
+
+
+                      foreach ($node->p_data['wp_fields']['Features'] as $key => $feature) {
+                        if ($feature) {
+                          $features[] = $wp_fields['Features'][$key] . ': ' . $feature;
+                        }
+                      }
+
+                      if (!empty($features)) {
+
+                        //dpm($features);
+                        $rows = count($features);
+                        $features_count = 0;
+                        $features_out = '';
+                        for ($i = 0; $i < 3; $i++) {
+                          $features_out .= '<div>';
+                          for ($j = 0; $j < ($rows / 3); $j++) {
+                            if (!isset($features[$features_count])) {
+                              $features_out .= '</div>';
+                              break 2; 
+                            }
+                            $features_out .= '<div>' . $features[$features_count++] . '</div>';
+                          }
+                          $features_out .= '</div>';
+                        }
+
+                        echo $features_out;
+
+                      }
+
+                ?>
+                
+                
                 <ul>
-                  <li><a href="#tabs-1"><?php echo t('!p Rundown', array('!p' => isset($node->field_p_name['und'][0]['value'] /*$content['field_p_name'][0]['#markup']*/) ? /*'<span property="v:itemreviewed">' .*/ $node->field_p_name['und'][0]['value'] /*$content['field_p_name'][0]['#markup']*/ /*. '</span>'*/ : t(' Provider') )); ?></a></li>
+                  <li><a href="#tabs-1"><?php echo 'Review'; ?></a></li>
                   <?php 
-                  
+                    if (!empty($features)) {
+                      echo '<li><a href="#tabs-2">Quick Stats</a></li>
+                            <li><a href="#tabs-3">List Features</a></li>';
+                    }
                   ?>
                 </ul>
                 <div id="tabs-1">
-                  
-                  
-                  
                   <?php echo render($content['body']); ?>
                 </div>
+                <?php 
+                    if (!empty($features)) {
+                      echo '<div id="tabs-2"><div>', $quick_stats_out, '<div>Plans: ',  $plans, '</div></div></div>',
+                           '<div id="tabs-3"><div class="title">List of Features Available on ' , $node->field_p_name['und'][0]['value'], '</div>', $features_out, '</div>';
+                    }
+                ?>
+                
                 
                 
               </div> <?php // End of <div class="data tabs"> ?>
@@ -151,75 +220,6 @@
           
           <?php 
           
-          
-          
-          
-            
-            
-            $wp_fields = unserialize(WP_FIELDS);
-            
-//            911 Service:	Included
-//            International Calling:	Yes
-//            Guarantee:	30-day money back
-//            Plans:	Residential, Business
-                    
-            $quick_stats_out = '';
-            $quick_stats_keys = array('fe_911_Service', 'fe_International_Calling', 'fe_Guarantee');
-            
-            $quick_stats_plans_keys = array('fe_Residential', 'fe_Small_Business', 'fe_Enterprise', 'fe_Mid_Size_Business');
-            
-            $plans = '';
-            foreach ($quick_stats_plans_keys as $quick_stats_plans_key) {
-              if(!empty($node->p_data['wp_fields']['Features'][$quick_stats_plans_key])) {
-                $plans .= ($plans ? ', ' : '') . $wp_fields['Features'][$quick_stats_plans_key];
-              }
-            }
-            
-            foreach ($quick_stats_keys as $quick_stats_key) {
-              if (!empty($node->p_data['wp_fields']['Features'][$quick_stats_key])) {
-                $quick_stats_out .= '<div>' . $wp_fields['Features'][$quick_stats_key] . ': ' . $node->p_data['wp_fields']['Features'][$quick_stats_key] . '</div>';
-              }
-              else {
-                $quick_stats_out .= '<div>' . $wp_fields['Features'][$quick_stats_key] . ': No</div>'; 
-              }
-            }
-              
-                
-            foreach ($node->p_data['wp_fields']['Features'] as $key => $feature) {
-              if ($feature) {
-                $features[] = $wp_fields['Features'][$key] . ': ' . $feature;
-              }
-            }
-
-            if (!empty($features)) {
-
-              echo '<div class="title">Quick Stats</div>';
-              echo '<div>' . $quick_stats_out . '<div>Plans: ' .  $plans . '</div></div>';
-
-
-              echo '<div class="title">List of Features Available on ' , $node->field_p_name['und'][0]['value'], '</div>';
-
-
-              //dpm($features);
-              $rows = count($features);
-              $features_count = 0;
-              $features_out = '';
-              for ($i = 0; $i < 3; $i++) {
-                $features_out .= '<div>';
-                for ($j = 0; $j < ($rows / 3); $j++) {
-                  if (!isset($features[$features_count])) {
-                    $features_out .= '</div>';
-                    break 2; 
-                  }
-                  $features_out .= '<div>' . $features[$features_count++] . '</div>';
-                }
-                $features_out .= '</div>';
-              }
-
-              echo $features_out;
-
-            }
-
             
             
 //            if (isset($content['field_topics'])) {

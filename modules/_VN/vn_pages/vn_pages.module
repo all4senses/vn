@@ -1487,7 +1487,8 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
               }
               
               
-              $pros_and_cons_descrs = array('The good', 'The bad', 'The bottom line');
+              //$pros_and_cons_descrs = array('The good', 'The bad', 'The bottom line');
+              $pros_and_cons_descrs = array('Advantages', 'Disadvantages', 'Verdict');
               $form['ereview']['data_pros_and_cons'] = array(
                 '#type' => 'fieldset',
                 '#title' => t('Pros and Cons'),

@@ -150,8 +150,6 @@
                           $features_out .= '</div>';
                         }
 
-                        echo $features_out;
-
                       }
 
                 ?>

@@ -533,14 +533,17 @@ body.sidebar-second #sidebar-second{float: right; margin-right: 18px; padding: 1
 body.one-sidebar.sidebar-second #sidebar-second{background: none; padding: 10px 0 0 0; width: 290px; margin: 0;}
 .sidebar .top-line{display: none; background: none; height: 0; margin: 0;}
 
-.sidebar .block{border: 1px solid #fbd8ba;}
+.sidebar .block{padding: 0 5px 0 0;}
 
 .sidebar #block-views-articles-block-1 .content,
-.sidebar .block .content{padding-top: 5px;}
+.sidebar .block .content{padding: 5px 5px 0 0;}
 
-.sidebar .block-title{background: #fbd8ba; border-radius: 5px 5px 0 0; padding: 10px;}
+.sidebar .block-title{padding: 10px 5px 3px 0; border-bottom: 3px solid lightgray; color: gray;}
 
-.sidebar .block .content .views-row a{color: #777; font-size: 12px; /*padding: 4px 10px;*/ display: block; border-bottom: 1px dotted lightgray; width: 205px; margin: 0 0 0 5px;}
+.sidebar .block .content .views-row a{color: #777; font-size: 12px; display: block; width: 205px; margin: 0 0 0 5px;}
+
+#block-views-blog-block-latest-news .views-row {border-bottom: 1px solid lightgray;}
+#block-views-blog-block-latest-news .date-icon{height: 60px; float: left; text-align: center; margin: 0 10px 0 0; color: #004068; font-weight: bold; width: 40px;}
 
 
 .sidebar .block .content .view-display-id-block_with_thumbs .views-row,
@@ -791,7 +794,7 @@ form .counter.exceeded{color: red;}
 .node-type-provider .ui-tabs .ui-tabs-panel{border: 1px solid lightgray;}
 
 .node-type-provider .ui-state-default.ui-tabs-selected, .node-type-provider .ui-state-default.ui-tabs-selected.ui-state-hover{background: none; border: 1px solid lightgray;}
-.node-type-provider .ui-state-default{background: #f3fbf8; border: none;}
+.node-type-provider .ui-state-default{background: #f3fbf8; border: none; font-size: 14px;}
 .node-type-provider .ui-state-default.ui-state-hover{background: #f3fbf8; border: 1px solif lightgray;}
 
 .node-type-provider .ui-state-default a {color: gray; font-weight: 600;}

@@ -790,7 +790,7 @@ form .counter.exceeded{color: red;}
 .node-type-provider .ui-widget-header{border: none; background: none;}
 .node-type-provider .ui-tabs .ui-tabs-panel{border: 1px solid gray;}
 
-.node-type-provider .ui-state-default, .node-type-provider .ui-state-default.ui-tabs-selected{background: none; border: 1px solif gray;}
+.node-type-provider .ui-state-default, .node-type-provider .ui-state-default.ui-state-hover{background: none; border: 1px solif gray;}
 .node-type-provider .ui-state-default{background: #f3fbf8;}
 .node-type-provider .ui-state-default.ui-state-hover{background: #f3fbf8; border: 1px solif gray;}
 

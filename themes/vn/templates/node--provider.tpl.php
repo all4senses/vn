@@ -63,13 +63,13 @@
                         <div class="pros-and-cons">
                             <?php 
                             if (!empty($node->p_data['ereview']['pros_and_cons']['Advantages'])) {
-                              echo '<div class="title">Advantages</div><div>' . $node->p_data['ereview']['pros_and_cons']['Advantages'] . '</div>'; 
+                              echo '<div class="title">Advantages</div><div class="text">' . $node->p_data['ereview']['pros_and_cons']['Advantages'] . '</div>'; 
                             }
                             if (!empty($node->p_data['ereview']['pros_and_cons']['Disadvantages'])) {
-                              echo '<div class="title">Disadvantages</div><div>' . $node->p_data['ereview']['pros_and_cons']['Disadvantages'] . '</div>';
+                              echo '<div class="title">Disadvantages</div><div class="text">' . $node->p_data['ereview']['pros_and_cons']['Disadvantages'] . '</div>';
                             }
                             if (!empty($node->p_data['ereview']['pros_and_cons']['Verdict'])) {
-                              echo '<div class="title">Verdict</div><div>' . $node->p_data['ereview']['pros_and_cons']['Verdict'] . '</div>';
+                              echo '<div class="title">Verdict</div><div class="text">' . $node->p_data['ereview']['pros_and_cons']['Verdict'] . '</div>';
                             }
                             ?>
                         </div>

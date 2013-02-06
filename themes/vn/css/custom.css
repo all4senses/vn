@@ -757,12 +757,18 @@ form .counter.exceeded{color: red;}
 
 
 /* Provider page*/
+
+.node-type-provider .images{float: left;}
+
+.pros-and-cons .title {font-weight: bold;}
+.pros-and-cons .text {font-size: 12px; margin-bottom: 5px;}
+
+
 .node-type-provider #main .main-content h1{color: gray; font-size: 18px; font-weight: bold; line-height: 25px; margin: 0; width: 803px; background: url("images/p-title-back.png") no-repeat 0 0 transparent; height: 60px; position: relative; left: -45px; text-indent: 50px; padding: 7px 0 0 0;}
 
 
 .node-type-provider #main .main-content{padding: 0;}
 .node-type-provider #main .main-content .content{border:none; margin-top: 0; padding: 20px 20px;}
-
 
 .node-type-provider .logo-share{float: left; width: 180px;}
 .node-type-provider .image{float: right; overflow: hidden; text-align: center;}
@@ -793,6 +799,10 @@ form .counter.exceeded{color: red;}
 
 .data.tabs .block-1{float: left; width: 250px;}
 .data.tabs .price .title{font-size: 15px; font-weight: normal; margin: 0 10px 0 0; float: left;}
+
+
+
+
 
 /* First tab style */
 .data.tabs #tabs-1{font-size: 12px;}
@@ -1552,146 +1562,6 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 
 
 
-/* Phones */
-
-.page-node.node-type-phone #main .main-content{border: 1px solid lightgray; padding: 0 15px 10px; clear: both;}
-
-.page-node.node-type-phone #main .node-phone-review .main-content{padding: 0;}
-
-.page-node #main .main-content .node-phone-review .content{margin: 0; padding: 5px 10px 10px 10px; border: 0;}
-
-
-.phone.photo{float: left;}
-
-.field-name-field-phone-type .form-type-checkbox{float: left; margin-right: 10px;}
-.specs{font-size: 16px;}
-.specs tr {height: 30px;}
-.specs td.title{width: 300px; font-weight: bold; color: gray;}
-
-.pros-and-cons{margin-left: 280px;}
-.pros-and-cons div{margin-bottom: 10px; font-size: 14px;}
-.pros-and-cons div span{color: #BD2A2A; margin-right: 5px; font-weight: bold;}
-
-/* Phone add/edit review */
-
-.node-type-phone .data.tabs div, .node-type-phone .data.tabs div p{font-size: 15px;}
-
-.node-phone_review-form #edit-about-you .form-item-field-r-fname-temp{float: none;}
-
-.page-node.node-type-phone-review #main .main-content{padding: 10px 10px 20px 10px; margin-bottom: 15px;}
-.node-type-phone-review #main .main-content .content{margin: auto; padding: 20px 0 10px 0; width: 800px;}
-.node-type-phone-review .vn_votes .rate-other{border-bottom: 1px solid gray; background: #E9E9E9;}
-
-.vn_votes.users_overall .rate-other,
-.vn_votes.editor .rate-other,
-.node-phone-review .vn_votes .rate-other{border: 1px solid gray; border-top: none; background: #E9E9E9;}
-
-.vn_votes.users_overall .rate-other .text .title,
-.vn_votes.editor .rate-other .text .title,
-.node-phone-review .vn_votes .rate-other .text .title, 
-.node-type-phone-review .vn_votes .rate-other .text .title {float: left; margin-right: 10px; padding-left: 10px;}
-
-.vn_votes.users_overall,
-.vn_votes.editor,
-.node-phone-review .vn_votes,
-.node-type-phone-review .vn_votes{margin: 0; font-size: 15px;}
-
-.vn_votes.users_overall .data,
-.vn_votes.editor .data, 
-.node-phone-review .vn_votes .data, 
-.node-type-phone-review .vn_votes .data{border-bottom: none; border-top: none;}
-
-.vn_votes.users_overall .text .data,
-.vn_votes.editor .text .data,
-.node-phone-review .vn_votes .text .data{border: none;}
-
-.vn_votes.users_overall{margin: 0 40px 30px 0; border-bottom: 1px solid gray;}
-.vn_votes.editor{margin: 0 30px 0 0;}
-
-.vn_votes .caption span span{margin-right: 0;}
-
-.node-type-phone .vn_votes.users_overall{margin: 0 40px 30px 18px;}
-.node-type-phone .overall{position: relative; font-size: 15px;}
-.node-type-phone .overall .text{float: left; width: 200px; margin-top: 90px;}
-.node-type-phone .overall .voters{margin-bottom: 5px;}
-.node-type-phone .overall .text .title{float: left; margin-right: 10px; font-weight: bold;}
-.node-type-phone .data.tabs div .star-big{float: right; width: 140px; background: url("images/star-big.png") no-repeat; height: 150px; margin: 60px 20px 0 0; position: relative;}
-.node-type-phone .data.tabs div .star-big .count{font-size: 35px; font-weight: bold; left: 39px; position: absolute; top: 30px;}
-.node-type-phone .data.tabs div .star-big .descr{font-size: 12px; font-weight: bold; left: 35px; line-height: 13px; position: absolute; text-align: center; top: 73px; width: 60px;}
-
-.voters.editor{display: none;}
-
-
-
-/* Phone views */
-#block-views-phones-block-recent-phones{clear: both;}
-.view-phones .views-row{width: 153px; height: 185px; float: left; text-align: center; overflow: hidden; margin-right: 10px;}
-.view-phones .views-row.views-row-last{margin-right: 0;}
-.page-node #main .view-phones .main-content{padding: 0; border: none;}
-.page-node #main .view-phones .main-content .content{border-top: none; margin: 0; padding: 0;}
-.view-phones .phone{float: none;}
-.view-phones .phone.photo{margin: 0;}
-.view-phones .rating{width: 115px; margin: auto;}
-.view-phones .fivestar{float: left;}
-.view-phones .count{font-size: 12px; position: relative; top: -5px;}
-#main .block-views .view-phones h3{margin: 0; font-size: 13px; padding: 0; line-height: 17px;}
-#block-views-phones-block-recent-phones{margin-bottom: 0;}
-
-
-
-.node-type-phone .main-content .ui-widget-content a{color: #478AFD;}
-.node-type-phone .main-content .ui-widget-content .node-phone-review a{color: white;}
-
-
-.node-type-phone .main-content .ui-widget-content a:hover{text-decoration: underline;}
-
-.node-type-phone .main-content .ui-widget-content a.a-tab{color: gray;}
-.node-type-phone .main-content .ui-widget-content a.a-tab:hover{text-decoration: none;}
-
-#vn-pages-addphonereview-form{position: relative;}
-
-.review-userblock{margin: 10px 0 30px 0px;}
-
-.node-type-phone .data.tabs div .review-userblock .caption{margin-bottom: 25px; font-size: 16px;}
-
-.review-userblock .form-item-name{float: left; width: 350px;}
-.review-userblock .form-item-email{width: 350px; float: right; margin-right: 5px;}
-
-.review-userblock input{width: 100%; color: gray;}
-
-#edit-ureview{clear: both;}
-
-.node-type-phone .vn-edit-review-page .rate-caption{margin-left: 140px;}
-.node-type-phone .vn-edit-review-page #edit-votes{margin-left: 0; float: left; width: 350px;}
-
-.node-type-phone .vn-edit-review-page .rate-caption .col-2{margin-right: 30px; font-size: 11px;}
-.node-type-phone .vn-edit-review-page .rate-caption .col-3{top: -3px; position: relative; font-size: 11px;}
-.node-type-phone .vn-edit-review-page #edit-votes .choice {left: 290px;}
-
-.node-type-phone .vn-edit-review-page #edit-votes .vote .form-item{left: 160px;}
-.node-type-phone .vn-edit-review-page #edit-votes .choice{left: 290px;}
-
-.node-type-phone .vn-edit-review-page #edit-ureview .text-format-wrapper{left: 405px; margin: 0; position: absolute; top: 125px; width: 355px;}
-
-.recommend-block{position: absolute; top: 330px; width: 450px;}
-.node-type-phone .vn-edit-review-page #edit-ureview .recommend-block .label.left{margin: 0 8px 0 0;}
-.node-type-phone .vn-edit-review-page #edit-rating-recommend div{width: 50px;}
-
-.node-type-phone textarea{color: gray;}
-
-.node-type-phone #user-reviews #edit-submit{left: 520px; position: absolute; top: 325px;}
-
-.node-type-phone .captcha{left: 405px; margin: 0; padding: 0 0 0 10px; position: absolute; top: 255px; width: 342px;}
-.node-type-phone .vn-edit-review-page .captcha legend{font-size: 14px;}
-.node-type-phone .vn-edit-review-page .captcha .fieldset-wrapper{margin: 0;}
-.node-type-phone .vn-edit-review-page .captcha .fieldset-wrapper .fieldset-description{display: none;}
-.node-type-phone .vn-edit-review-page .captcha .fieldset-wrapper img{float: left; position: relative; top: -5px;}
-.node-type-phone .vn-edit-review-page .captcha .fieldset-wrapper .form-item-captcha-response{margin: 0;}
-.node-type-phone .vn-edit-review-page .captcha #edit-captcha-response{margin: 3px 10px 0 0; width: 70px;}
-.node-type-phone .vn-edit-review-page .captcha .fieldset-wrapper .form-item-captcha-response .description{font-size: 12px; line-height: 15px; width: 335px;}
-
-
-
 .ui-tabs #user-reviews.ui-tabs-panel{padding: 15px 10px 10px 10px;}
 
 /* Advertising blocks */
@@ -1776,4 +1646,3 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 #block-vn_blocks-footer_links a {color: #aaaaaa; font-size: 13px;}
 #block-vn_blocks-footer_links a:hover {color: white; text-decoration: underline;}
 
-.node-type-provider .images{float: left;}

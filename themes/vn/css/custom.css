@@ -764,6 +764,8 @@ form .counter.exceeded{color: red;}
 .node-type-provider .images .logo{margin: 40px auto; width: 200px; }
 .node-type-provider .images .image{margin: auto; width: 200px;}
 
+.node-type-provider .site {text-align: center;}
+
 .pros-and-cons{margin: 0 0 0 315px;}
 .pros-and-cons .title {font-weight: bold;}
 .pros-and-cons .text {font-size: 12px; margin-bottom: 10px; border-bottom: 1px solid lightgray;}

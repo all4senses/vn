@@ -758,15 +758,15 @@ form .counter.exceeded{color: red;}
 
 /* Provider page*/
 
+
+
+.node-type-provider .images{float: left; width: 310px;}
+.node-type-provider .images .logo{margin: 40px auto; width: 200px; }
+.node-type-provider .images .image{margin: auto; width: 200px;}
+
 .pros-and-cons{margin: 0 0 0 315px;}
-
-.node-type-provider .images{float: left;}
-.node-type-provider .images .logo{}
-.node-type-provider .images .image{}
-
-
 .pros-and-cons .title {font-weight: bold;}
-.pros-and-cons .text {font-size: 12px; margin-bottom: 5px;}
+.pros-and-cons .text {font-size: 12px; margin-bottom: 10px; border-bottom: 1px solid lightgray;}
 
 
 .node-type-provider #main .main-content h1{color: gray; font-size: 18px; font-weight: bold; line-height: 25px; margin: 0; width: 803px; background: url("images/p-title-back.png") no-repeat 0 0 transparent; height: 60px; position: relative; left: -45px; text-indent: 50px; padding: 7px 0 0 0;}

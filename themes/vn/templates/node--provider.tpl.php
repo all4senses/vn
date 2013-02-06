@@ -57,7 +57,7 @@
               </div>
           
           
-              <div id="pros_and_cons">
+
                     <?php if (!empty($node->p_data['ereview']['editor_rating_overall'])) { ?>
                   
                         <div class="pros-and-cons">
@@ -88,7 +88,7 @@
 
                   <?php } ?>
               
-              </div>
+
           
               <div class="bottom-clear"></div>
               

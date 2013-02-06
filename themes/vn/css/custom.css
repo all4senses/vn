@@ -796,8 +796,8 @@ form .counter.exceeded{color: red;}
 
 .node-type-provider .ui-state-default a {color: gray; font-weight: 600;}
 
-.node-type-provider #tabs-3 {font-size: 14px;}
-.node-type-provider #tabs-3 span.title{color: gray; font-weight: bold;}
+.node-type-provider #tabs-2, .node-type-provider #tabs-3 {font-size: 14px; color: gray;}
+.node-type-provider #tabs-2 span.title, .node-type-provider #tabs-3 span.title{font-weight: bold;}
 
 
 .data.tabs{clear: both; margin-bottom: 10px; margin-top: 30px;}

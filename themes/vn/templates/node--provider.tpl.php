@@ -121,7 +121,7 @@
                           $quick_stats_out .= '<div>' . $wp_fields['Features'][$quick_stats_key] . ': ' . $node->p_data['wp_fields']['Features'][$quick_stats_key] . '</div>';
                         }
                         else {
-                          $quick_stats_out .= '<div>' . $wp_fields['Features'][$quick_stats_key] . ': No</div>'; 
+                          $quick_stats_out .= '<div><span class="title">' . $wp_fields['Features'][$quick_stats_key] . ':</span> No</div>'; 
                         }
                       }
 

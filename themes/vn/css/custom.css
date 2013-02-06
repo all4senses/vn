@@ -757,7 +757,7 @@ form .counter.exceeded{color: red;}
 
 
 /* Provider page*/
-.node-type-provider #main .main-content h1{color: gray; font-size: 18px; font-weight: bold; line-height: 25px; margin: 0 0 20px; width: 803px; background: url("images/p-title-back.png") no-repeat 0 0 transparent; height: 70px; position: relative; left: -45px; text-indent: 50px; padding: 7px 0 0 0;}
+.node-type-provider #main .main-content h1{color: gray; font-size: 18px; font-weight: bold; line-height: 25px; margin: 0; width: 803px; background: url("images/p-title-back.png") no-repeat 0 0 transparent; height: 60px; position: relative; left: -45px; text-indent: 50px; padding: 7px 0 0 0;}
 
 
 .node-type-provider #main .main-content{padding: 0;}

@@ -788,11 +788,14 @@ form .counter.exceeded{color: red;}
 
 .node-type-provider .ui-widget-content{border: none;}
 .node-type-provider .ui-widget-header{border: none; background: none;}
-.node-type-provider .ui-tabs .ui-tabs-panel{border: 1px solid gray;}
+.node-type-provider .ui-tabs .ui-tabs-panel{border: 1px solid lightgray;}
 
-.node-type-provider .ui-state-default.ui-tabs-selected, .node-type-provider .ui-state-default.ui-tabs-selected.ui-state-hover{background: none; border: 1px solid gray;}
+.node-type-provider .ui-state-default.ui-tabs-selected, .node-type-provider .ui-state-default.ui-tabs-selected.ui-state-hover{background: none; border: 1px solid lightgray;}
 .node-type-provider .ui-state-default{background: #f3fbf8; border: none;}
-.node-type-provider .ui-state-default.ui-state-hover{background: #f3fbf8; border: 1px solif gray;}
+.node-type-provider .ui-state-default.ui-state-hover{background: #f3fbf8; border: 1px solif lightgray;}
+
+.node-type-provider .ui-state-default a {color: gray; font-weight: 600;}
+
 
 .data.tabs{clear: both; margin-bottom: 10px; margin-top: 30px;}
 .data.tabs #tabs-1, .data.tabs #tabs-2{font-size: 15px;}

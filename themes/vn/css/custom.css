@@ -783,11 +783,8 @@ form .counter.exceeded{color: red;}
 .basic-info{float: left; margin-left: 40px; width: 300px; font-size: 15px;}
 .basic-info .title{margin-right: 10px; font-weight: bold;}
 
-.node-type-provider #main .share{border: medium none; height: 50px; margin: 20px 0; padding: 0; position: relative;}
-.node-type-provider #facebook-b{position: absolute;}
-.node-type-provider #gplus-b{position: absolute; left: 110px;}
-.node-type-provider #linkedin-b{position: absolute; top: 30px;}
-.node-type-provider #twitter-b{position: absolute; left: 110px; top: 30px;}
+
+.node-type-provider .field-name-body h3 {font-weight: bold; border-bottom: 2px solid lightgray; margin-bottom: 5px;}
 
 
 .data.tabs{clear: both; margin-bottom: 10px; margin-top: 30px;}
@@ -805,6 +802,11 @@ form .counter.exceeded{color: red;}
 .data.tabs .block-1{float: left; width: 250px;}
 .data.tabs .price .title{font-size: 15px; font-weight: normal; margin: 0 10px 0 0; float: left;}
 
+.node-type-provider #main .share{border: medium none; height: 50px; margin: 20px 0; padding: 0; position: relative;}
+.node-type-provider #facebook-b{position: absolute;}
+.node-type-provider #gplus-b{position: absolute; left: 110px;}
+.node-type-provider #linkedin-b{position: absolute; top: 30px;}
+.node-type-provider #twitter-b{position: absolute; left: 110px; top: 30px;}
 
 
 

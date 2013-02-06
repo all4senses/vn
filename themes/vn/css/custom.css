@@ -758,7 +758,12 @@ form .counter.exceeded{color: red;}
 
 /* Provider page*/
 
+.pros-and-cons{margin: 0 0 0 315px;}
+
 .node-type-provider .images{float: left;}
+.node-type-provider .images .logo{}
+.node-type-provider .images .image{}
+
 
 .pros-and-cons .title {font-weight: bold;}
 .pros-and-cons .text {font-size: 12px; margin-bottom: 5px;}
@@ -768,7 +773,7 @@ form .counter.exceeded{color: red;}
 
 
 .node-type-provider #main .main-content{padding: 0;}
-.node-type-provider #main .main-content .content{border:none; margin-top: 0; padding: 20px 20px;}
+.node-type-provider #main .main-content .content{border:none; margin-top: 0; padding: 0;}
 
 .node-type-provider .logo-share{float: left; width: 180px;}
 .node-type-provider .image{float: right; overflow: hidden; text-align: center;}

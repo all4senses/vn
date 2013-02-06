@@ -169,7 +169,7 @@
                 </div>
                 <?php 
                     if (!empty($features)) {
-                      echo '<div id="tabs-2"><div>', $quick_stats_out, '<div>Plans: ',  $plans, '</div></div></div>',
+                      echo '<div id="tabs-2"><div>', $quick_stats_out, '<div><span class="title">Plans:</span> ',  $plans, '</div></div></div>',
                            //'<div id="tabs-3"><div class="title">List of Features Available on ' , $node->field_p_name['und'][0]['value'], '</div>', $features_out, '</div>';
                            '<div id="tabs-3">', $features_out, '</div>';
                     }

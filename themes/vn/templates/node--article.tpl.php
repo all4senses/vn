@@ -115,7 +115,8 @@
 
               if (!empty($node->body['und'][0]['summary'])) {
                 //dpm('field_a_teaser is not empty');
-                echo l('Read more »', 'node/' . $node->nid, array('attributes' => array('class' => array('more')))) . strip_tags($node->body['und'][0]['summary']);
+                //echo l('Read more »', 'node/' . $node->nid, array('attributes' => array('class' => array('more')))) . strip_tags($node->body['und'][0]['summary']);
+                echo l('Read more »', 'node/' . $node->nid, array('attributes' => array('class' => array('more')))) . $node->body['und'][0]['summary'];
               }
               else 
                 {

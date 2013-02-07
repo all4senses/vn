@@ -95,8 +95,8 @@
 
 
 
-      <div class="content <?php echo ($page ? 'page' : 'teaser'); ?>"<?php print $content_attributes; ?>>
-        <?php
+      <div class="content <?php echo ($page ? 'page' : 'teaser'); ?>"<?php print $content_attributes; ?>><?php
+      
           // Hide comments, tags, and links now so that we can render them later.
           hide($content['comments']);
           hide($content['links']);
@@ -136,8 +136,7 @@
           }
           
           echo render($content);
-        ?>
-      </div>
+        ?></div>
 
 
 
@@ -146,9 +145,9 @@
       <footer>
 
         <?php 
-          echo '<span class="submitted">', $created_str, '</span>';
+          echo '<div class="links">' . l($content['field_categories'][0]['#title'], $content['field_categories'][0]['#href']). '<span class="delim">|</span><span class="submitted">', $created_str, '</span><span class="delim">|</span>' . l('Comments (0)', 'node/' . $node->nid) . '</div>';
           //dpm($node);
-          //dpm($content);
+          dpm($content);
           
         ?>
         

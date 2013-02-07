@@ -535,7 +535,8 @@ body.one-sidebar.sidebar-second #sidebar-second{background: none; padding: 10px 
 .sidebar #block-views-articles-block-1 .content,
 .sidebar .block .content{padding: 5px 5px 0 0;}
 
-.sidebar .block-title{padding: 10px 5px 3px 0; border-bottom: 3px solid lightgray; color: gray;}
+.front #main .block-views h2.block-title, .sidebar .block-title{padding: 10px 5px 3px 0; border-bottom: 3px solid lightgray; color: gray;}
+.front #main .block-views h2.block-title{margin-bottom: 20px;}
 
 .sidebar .block .content .views-row a{color: #777; font-size: 12px; display: block; width: 205px; margin: 0 0 0 5px;}
 

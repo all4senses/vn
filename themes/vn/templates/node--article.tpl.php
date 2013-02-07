@@ -146,24 +146,28 @@
       <footer>
 
         <?php 
-          echo '<div class="links">' . l($content['field_categories'][0]['#title'], $content['field_categories'][0]['#href']). '<span class="delim">|</span><span class="submitted">', $created_str, '</span><span class="delim">|</span>' . l('Comments (0)', 'node/' . $node->nid) . '</div>';
-          echo render($content['comments']);
+        
+         if (!$page) {
+            echo '<div class="links">' . l($content['field_categories'][0]['#title'], $content['field_categories'][0]['#href']). '<span class="delim">|</span><span class="submitted">', $created_str, '</span><span class="delim">|</span>' . l('Comments (0)', 'node/' . $node->nid) . '</div>';
+         }
+         else {
+          //echo render($content['comments']);
           //dpm($node);
           //dpm($content);
           
         ?>
         
         
-        <div class="share">
+              <div class="share">
 
-          <?php $url = 'http://voipnow.org'. url('node/' . $node->nid); ?>
+                <?php $url = 'http://voipnow.org'. url('node/' . $node->nid); ?>
 
-          <div class="main">
-            <?php echo vn_blocks_getSocialiteButtons($url, $title); ?>
-          </div> <!-- main share buttons -->
+                <div class="main">
+                  <?php echo vn_blocks_getSocialiteButtons($url, $title); ?>
+                </div> <!-- main share buttons -->
 
-        </div>
-
+              </div>
+      <?php } ?>
       </footer>
     
     
@@ -181,7 +185,7 @@
   <?php endif; ?>
   
     
-  <?php //print render($content['comments']); ?>
+  <?php print render($content['comments']); ?>
 
 <?php if (!$page): ?>
   <!-- </div> --> <!-- /.inside -->

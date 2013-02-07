@@ -1022,10 +1022,10 @@ function vn_misc_getArticleTeaserData($target, $body_full_markup, $nid, $charact
   
   if (!$characters_num) {
     if ($main_image_html) {
-      $characters_num = 350;
+      $characters_num = 450;
     }
     else {
-      $characters_num = 350;
+      $characters_num = 450;
     }
   }
   

@@ -353,8 +353,7 @@ h1.preface,
 h2.preface
 {color: #CCAF84; font-size: 18px; font-weight: bold; line-height: 18px; margin: 0; padding: 0 0 5px 0;}
 
-.front #main .node h2{color: black; margin: 0; padding: 0; font-size: 18px; font-weight: bold;}
-.front #main .node h2 a{}
+
 
 
 
@@ -1039,7 +1038,10 @@ h1.preface,
 /* Articles teasers */
 .node-teaser{margin-bottom: 0;}
 .node-teaser h2{display: block; overflow: hidden;}
-.node-teaser h2 a{color: #004286; font-size: 18px; line-height: 22px; font-weight: bold; margin: 0; border: medium none; padding: 0;}    
+.node-teaser h2 a, .node-teaser h3 a{color: #004286; font-size: 18px; line-height: 22px; font-weight: bold; margin: 0; border: medium none; padding: 0;}
+
+.front #main .node h2, .front #main .node h3{color: black; margin: 0; padding: 0; font-size: 18px; font-weight: bold;}
+.front #main .node h2 a, .front #main .node h3 a{}
 
 #main .node-teaser .submitted{display: block; font-size: 12px; margin: 2px 0; padding-bottom: 5px;}
 

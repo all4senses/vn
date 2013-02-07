@@ -100,6 +100,7 @@
           // Hide comments, tags, and links now so that we can render them later.
           hide($content['comments']);
           hide($content['links']);
+          hide($content['field_categories']);
           
           
           //dpm($content);

@@ -145,15 +145,20 @@
     
       <footer>
 
+        <?php 
+          echo '<span class="submitted">', $created_str, '</span>';
+          dpm($node);
+          dpm($content);
+          
+        ?>
+        
+        
         <div class="share">
 
           <?php $url = 'http://voipnow.org'. url('node/' . $node->nid); ?>
 
-
           <div class="main">
-
-          <?php echo vn_blocks_getSocialiteButtons($url, $title); ?>
-
+            <?php echo vn_blocks_getSocialiteButtons($url, $title); ?>
           </div> <!-- main share buttons -->
 
         </div>

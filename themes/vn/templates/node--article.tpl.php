@@ -149,9 +149,10 @@
         
          if (!$page) {
             echo '<div class="links">' . l($content['field_categories'][0]['#title'], $content['field_categories'][0]['#href']). '<span class="delim">|</span><span class="submitted">', $created_str, '</span><span class="delim">|</span>' . l('Comments (0)', 'node/' . $node->nid) . '</div>';
+            //echo render($content['comments']);
          }
          else {
-          //echo render($content['comments']);
+          
           //dpm($node);
           //dpm($content);
           

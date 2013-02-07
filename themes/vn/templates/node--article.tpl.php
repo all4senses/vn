@@ -15,8 +15,6 @@
       <?php endif; ?>
 
           <?php 
-          dpm($_GET);
-          dpm($_SERVER);
           if ($page): ?>
           <h1 
           <?php elseif($_GET['q'] == 'home'): ?>

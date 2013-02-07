@@ -108,6 +108,9 @@
           
           if (!$page) {
             
+            dpm($node);
+            dpm($content);
+            
               hide($content['body']);
 
 //              if (!empty($node->field_a_teaser['und'][0]['value'])) {

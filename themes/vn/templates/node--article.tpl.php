@@ -117,7 +117,7 @@
               else {
                 //dpm('field_a_teaser IS empty');
                 $teaser_data = vn_misc_getArticleTeaserData('all', $content['body'][0]['#markup'], $node->nid);
-                echo $teaser_data['teaser'];
+                echo l('Read more »', 'node/' . $node->nid, array('attributes' => array('class' => array('more')))) . $teaser_data['teaser'];
               }
             
             
@@ -149,7 +149,7 @@
           echo '<div class="links">' . l($content['field_categories'][0]['#title'], $content['field_categories'][0]['#href']). '<span class="delim">|</span><span class="submitted">', $created_str, '</span><span class="delim">|</span>' . l('Comments (0)', 'node/' . $node->nid) . '</div>';
           echo render($content['comments']);
           //dpm($node);
-          dpm($content);
+          //dpm($content);
           
         ?>
         

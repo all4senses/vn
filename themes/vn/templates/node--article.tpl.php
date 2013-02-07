@@ -108,16 +108,16 @@
           
           if (!$page) {
             
-            dpm($node);
-            dpm($content);
+            //dpm($node);
+            //dpm($content);
             
               hide($content['body']);
 
-//              if (!empty($node->field_a_teaser['und'][0]['value'])) {
-//                //dpm('field_a_teaser is not empty');
-//                echo $node->field_a_teaser['und'][0]['value'];
-//              }
-//              else 
+              if (!empty($node->body['und'][0]['summary'])) {
+                //dpm('field_a_teaser is not empty');
+                echo l('Read more »', 'node/' . $node->nid, array('attributes' => array('class' => array('more')))) . $node->body['und'][0]['summary'];
+              }
+              else 
                 {
                 //dpm('field_a_teaser IS empty');
                 $teaser_data = vn_misc_getArticleTeaserData('all', $content['body'][0]['#markup'], $node->nid);

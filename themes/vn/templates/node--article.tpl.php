@@ -110,11 +110,11 @@
               hide($content['body']);
 
               if (!empty($node->field_a_teaser['und'][0]['value'])) {
-                dpm('field_a_teaser is not empty');
+                //dpm('field_a_teaser is not empty');
                 echo $node->field_a_teaser['und'][0]['value'];
               }
               else {
-                dpm('field_a_teaser IS empty');
+                //dpm('field_a_teaser IS empty');
                 $teaser_data = vn_misc_getArticleTeaserData('all', $content['body'][0]['#markup'], $node->nid);
                 echo $teaser_data['teaser'];
               }
@@ -147,8 +147,8 @@
 
         <?php 
           echo '<span class="submitted">', $created_str, '</span>';
-          dpm($node);
-          dpm($content);
+          //dpm($node);
+          //dpm($content);
           
         ?>
         

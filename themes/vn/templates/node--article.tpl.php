@@ -14,13 +14,16 @@
         <header>
       <?php endif; ?>
 
-          <?php if ($page): ?>
+          <?php 
+          dpm($_GET);
+          dpm($_SERVER);
+          if ($page): ?>
           <h1 
           <?php else: ?>
-          <h2 
+          <h3 
           <?php endif; ?>
               
-            <?php print ' ' . /*$title_attributes*/ /*preg_replace('/datatype=".*"/', '', $title_attributes);*/ preg_replace('/datatype=""/', '', $title_attributes); if (!$node->status) {echo ' class="not-published"';} ?>>
+            <?php print ' ' /*. $title_attributes*/ /*preg_replace('/datatype=".*"/', '', $title_attributes);*/ /*preg_replace('/datatype=""/', '', $title_attributes)*/; if (!$node->status) {echo ' class="not-published"';} ?>>
             
             <?php if (!isset($node->title_no_link) && !$page): ?>
               <a href="<?php print $node_url; ?>">
@@ -33,7 +36,7 @@
           <?php if ($page): ?>
           </h1>
           <?php else: ?>
-          </h2>
+          </h3>
           <?php endif; ?> 
 
 
@@ -163,7 +166,7 @@
             }
             else {
               // TODO: Temporary check. Should be removed after all articles resave.
-              if (isset($node->field_a_teaser['und'][0]['value']) && $node->field_a_teaser['und'][0]['value']) {
+              if (!empty($node->field_a_teaser['und'][0]['value'])) {
                 //dpm('11111');
                 echo $node->field_a_teaser['und'][0]['value'];
               }

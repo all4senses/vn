@@ -353,14 +353,14 @@ h1.preface,
 h2.preface
 {color: #CCAF84; font-size: 18px; font-weight: bold; line-height: 18px; margin: 0; padding: 0 0 5px 0;}
 
-.front #main .node h2{color: black; margin: 0; padding: 10px; font-size: 18px; font-weight: bold;}
-.front #main .node h2 a{color: #275FA6;}
+.front #main .node h2{color: black; margin: 0; padding: 0; font-size: 18px; font-weight: bold;}
+.front #main .node h2 a{}
 
 
 
 .front #main .block .content{padding: 0; font-size: 13px;}
 
-.front #main .node .content{padding: 10px; font-size: 13px;}
+.front #main .node .content{font-size: 13px;}
 
 .front p{line-height: 25px; color: #777777;}
 
@@ -745,12 +745,14 @@ form .counter.exceeded{color: red;}
 #main .view-taxonomy-term .views-row,
 #main .view-articles .views-row,
 #main .view-news .views-row,
-#main .view-blog .views-row{border: 1px solid lightgray; height: 198px; padding: 5px 10px; margin-bottom: 12px; overflow: hidden; width: 382px;}
+#main .view-blog .views-row
+/*{border: 1px solid lightgray; height: 198px; padding: 5px 10px; margin-bottom: 12px; overflow: hidden; width: 382px;}*/
+{border-bottom: 1px solid lightgray; padding: 5px 0; margin-bottom: 12px; width: 100%;}
 
 #main .view-taxonomy-term .views-row-odd,
 #main .view-articles .views-row-odd,
 #main .view-news .views-row-odd,
-#main .view-blog .views-row-odd{float: left; margin-right: 10px;}
+#main .view-blog .views-row-odd{/*float: left; margin-right: 10px;*/}
 
 #main .view-taxonomy-term h2,
 #main .view-articles h2,
@@ -1037,9 +1039,9 @@ h1.preface,
 /* Articles teasers */
 .node-teaser{margin-bottom: 0;}
 .node-teaser h2{display: block; overflow: hidden;}
-.node-teaser h2 a{color: #478AFD; font-size: 18px; line-height: 22px; font-weight: bold; margin: 0; border: medium none; padding: 0 10px 0 0;}    
+.node-teaser h2 a{color: #004286; font-size: 18px; line-height: 22px; font-weight: bold; margin: 0; border: medium none; padding: 0;}    
 
-#main .node-teaser .submitted{border-bottom: 1px dotted lightgray; display: block; font-size: 12px; margin: 2px 0; padding-bottom: 5px;}
+#main .node-teaser .submitted{display: block; font-size: 12px; margin: 2px 0; padding-bottom: 5px;}
 
 .content.teaser{font-size: 14px; margin: 5px 0 5px 0; text-align: left; /*-webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto;*/}
 

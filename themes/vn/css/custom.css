@@ -359,7 +359,8 @@ h2.preface
 
 .front #main .block .content{padding: 0; font-size: 13px;}
 
-.front #main .node .content{font-size: 13px; overflow: hidden;}
+.front #main .node .content, .front .content.teaser p{font-size: 13px; overflow: hidden; line-height: 19px; color: black;}
+
 
 .front p{line-height: 25px; color: #777777;}
 

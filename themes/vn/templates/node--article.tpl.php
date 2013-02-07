@@ -188,7 +188,11 @@
   <?php endif; ?>
   
     
-  <?php print render($content['comments']); ?>
+  <?php 
+    if ($page) {
+      echo '<a id="comments"></a>' .  render($content['comments']); 
+    }
+  ?>
 
 <?php if (!$page): ?>
   <!-- </div> --> <!-- /.inside -->

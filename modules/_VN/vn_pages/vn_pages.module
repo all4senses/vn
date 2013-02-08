@@ -978,6 +978,10 @@ function vn_pages_buildHome($name = NULL, $data  = NULL) {
 //  if (!$user->uid) {
     $out .= render($seo_welcome_node_view);
 //  }
+    
+     // Get block for Featured Providers.
+     $block_data = array('module' => 'views', 'delta' => 'providers-block_chart_featured_providers');
+     $out .= vn_blocks_getBlockThemed($block_data);
   
      $block_data = array('module' => 'views', 'delta' => 'blog-block_home_blog_teasers');
      $out .= vn_blocks_getBlockThemed($block_data);

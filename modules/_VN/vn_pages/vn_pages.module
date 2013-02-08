@@ -1257,6 +1257,11 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
               '#title' => t('Hide Web Site'),
               '#default_value' => isset($p_data['info']['i_web_hide']) ? $p_data['info']['i_web_hide'] : 0,
             );
+            $form['data_info']['best_deal'] = array(
+              '#type' => 'textfield',
+              '#title' => t('Hide Web Site'),
+              '#default_value' => isset($p_data['info']['best_deal']) ? $p_data['info']['best_deal'] : '',
+            );
             
 //            $form['data_info']['i_email'] = array(
 //              '#type' => 'textfield',
@@ -2384,7 +2389,7 @@ function vn_pages_validateForm_provider(&$form, &$form_state) {
   if (!empty($form_state['values']['wp_fields']['Marketing']['af_offer2'])) {
     $p_data_quick['offers'][] = $form_state['values']['wp_fields']['Marketing']['af_offer2'];
   }
-  
+  $p_data_quick['best_deal'] = $p_data['info']['best_deal'];
   
   
   // Define all provider's

@@ -2283,7 +2283,7 @@ function vn_pages_submitForm_saveDraft(&$form, &$form_state) {
  */
 function vn_pages_validateForm_provider(&$form, &$form_state) {
    
-  dpm($form_state);
+  //dpm($form_state);
   
   //dpm($form_state['values']['wp_fields']);
   
@@ -2322,7 +2322,6 @@ function vn_pages_validateForm_provider(&$form, &$form_state) {
       'editor_ratings' => $votes, 
       'pros_and_cons' => $form_state['values']['data_pros_and_cons'],
   );
-  
   
   
   
@@ -2386,39 +2385,50 @@ function vn_pages_validateForm_provider(&$form, &$form_state) {
     $p_data_quick['offers'][] = $form_state['values']['wp_fields']['Marketing']['af_offer2'];
   }
   
+  
+  
+  // Define all provider's
+  foreach ($form_state['values']['field_p_types']['und'] as $field_p_type) {
+    $provider_types[] = $field_p_type['value'];
+  }
+    
   foreach ($p_data['s'] as $service_type_short => $service) {
     
-    // Save collected Features and FEES data from temporary fields to a excessive field for using it from views
-    $p_data_quick[$service_type_short]['plan'] = isset($service['pti']) ? $service['pti'] : '';
-    
-    // YouTube video ID
-    if (isset($service['vr-y']) && $service['vr-y']) {
-      // Allow to enter direct YouTube url and then parse it to save just a video ID.
-      if (preg_match('|^.*v=(.*)&.*$|', $service['vr-y'], $matches)) {
-        $p_data_quick[$service_type_short]['vr-y'] = $matches[1];
-        // Replace url with id to save in this field... so the next edit session a user will see a video id, not url
-        $p_data['s'][$service_type_short]['vr-y'] = $matches[1];
-      }
-      else {
-        $p_data_quick[$service_type_short]['vr-y'] = $service['vr-y'];
-      }
-    }
-    
-    $p_data_quick[$service_type_short]['fees'] = array(
-      'back' => isset($service['mbg']) ? $service['mbg'] : '',
-      'monthly' => isset($service['fees']['mon']) ? $service['fees']['mon'] : '',
-      'setup' => isset($service['fees']['set']) ? $service['fees']['set'] : '',
-    );
-    
-    if (isset($service['weights_' . $service_type_short . '_features'])) {
-      $count = 0;
-      foreach ($service['weights_' . $service_type_short . '_features'] as $term_id => $term_data) {
-        $p_data_quick[$service_type_short]['feat'][$term_id] = $term_data['name'];
-        if ($count++ > 1) {
-          break;
+        if (!in_array($service_type_short, $provider_types)) {
+          continue;
         }
-      }
-    } // End of if (isset($service['weights_' . $service_type_short . 're_features'])) {
+                
+        // Save collected Features and FEES data from temporary fields to a excessive field for using it from views
+        $p_data_quick[$service_type_short]['plan'] = isset($service['pti']) ? $service['pti'] : '';
+
+        // YouTube video ID
+        if (isset($service['vr-y']) && $service['vr-y']) {
+          // Allow to enter direct YouTube url and then parse it to save just a video ID.
+          if (preg_match('|^.*v=(.*)&.*$|', $service['vr-y'], $matches)) {
+            $p_data_quick[$service_type_short]['vr-y'] = $matches[1];
+            // Replace url with id to save in this field... so the next edit session a user will see a video id, not url
+            $p_data['s'][$service_type_short]['vr-y'] = $matches[1];
+          }
+          else {
+            $p_data_quick[$service_type_short]['vr-y'] = $service['vr-y'];
+          }
+        }
+
+        $p_data_quick[$service_type_short]['fees'] = array(
+          'back' => isset($service['mbg']) ? $service['mbg'] : '',
+          'monthly' => isset($service['fees']['mon']) ? $service['fees']['mon'] : '',
+          'setup' => isset($service['fees']['set']) ? $service['fees']['set'] : '',
+        );
+
+        if (isset($service['weights_' . $service_type_short . '_features'])) {
+          $count = 0;
+          foreach ($service['weights_' . $service_type_short . '_features'] as $term_id => $term_data) {
+            $p_data_quick[$service_type_short]['feat'][$term_id] = $term_data['name'];
+            if ($count++ > 1) {
+              break;
+            }
+          }
+        } // End of if (isset($service['weights_' . $service_type_short . 're_features'])) {
     
   } // foreach ($p_data['s'] as $service_type_short => $service) {
   

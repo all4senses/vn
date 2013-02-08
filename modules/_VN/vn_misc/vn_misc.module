@@ -4400,14 +4400,14 @@ function vn_misc_getProviderQuickData($target, $data) {
       $out = '';
       
       //dpm($all_data_quick[$data['data']->nid]);
-      if (isset($all_data_quick[$data['data']->nid]['i_web']) && $all_data_quick[$data['data']->nid]['i_web']) {
+      if (!empty($all_data_quick[$data['data']->nid]['i_web'])) {
         $link = $all_data_quick[$data['data']->nid]['i_web'];
       }
       else {
         $link = url('node/' . $data['data']->nid);
       }
       
-      if (isset($all_data_quick[$data['data']->nid]['i_logo_uri'])) {
+      if (!empty($all_data_quick[$data['data']->nid]['i_logo_uri'])) {
         
         if ($target == 'logo_chart') {
           //$image = theme('image_style', array( 'path' =>  $all_data_quick[$data['data']->nid]['i_logo_uri'], 'style_name' => 'logo_provider_chart_main', 'alt' =>  $all_data_quick[$data['data']->nid]['i_logo_alt'], 'title' =>  $all_data_quick[$data['data']->nid]['i_logo_title']));
@@ -4428,8 +4428,11 @@ function vn_misc_getProviderQuickData($target, $data) {
         
       }
       else {
-        if (isset($all_data_quick[$data['data']->nid]['name'])) {
+        if (!empty($all_data_quick[$data['data']->nid]['name'])) {
           $out = '<a href="' . $link . '" target="_blank">' . $all_data_quick[$data['data']->nid]['name'] . '</a>';
+        }
+        else {
+          $out = '<a href="' . $link . '" target="_blank">' . $data['data']->node_title . '</a>';
         }
       }
           

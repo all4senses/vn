@@ -4484,6 +4484,22 @@ function vn_misc_getProviderQuickData($target, $data) {
 
       
       
+      
+    case 'erating':
+    
+      $all_data_quick = vn_misc_getProvidersDataQuick();
+      $out = '';
+      
+      if (!empty($all_data_quick[$data['data']->nid]['erating'])) {
+        $out = theme('vn_misc_fivestar_static', array('rating' => $all_data_quick[$data['data']->nid]['erating'], 'stars' => 5, 'tag' => 'overall', 'widget' => array('name' => 'stars', 'css' => 'stars.css')));
+      }
+      
+      $out = '<div class="link">' . l('Read review', 'node/' . $data['data']->nid) . '</div>';
+      
+      return $out;
+      
+      
+      
     
     case 'rating':
     

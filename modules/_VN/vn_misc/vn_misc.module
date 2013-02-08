@@ -4390,7 +4390,16 @@ function vn_misc_getProviderQuickData($target, $data) {
   
   switch($target) {
     
-    
+    case 'best_deal':
+      
+      //dpm($data); 
+      $all_data_quick = vn_misc_getProvidersDataQuick();
+      //dpm($all_data_quick);
+      
+      return !empty($all_data_quick[$data['data']->nid]['best_deal']) ? $all_data_quick[$data['data']->nid]['best_deal'] : '';
+      
+      
+      
     case 'logo_chart':
     case 'logo_article':
     case 'logo_chart_iframe':
@@ -4435,6 +4444,8 @@ function vn_misc_getProviderQuickData($target, $data) {
           $out = '<a href="' . $link . '" target="_blank">' . $data['data']->node_title . '</a>';
         }
       }
+      
+      $out .= l('Visit website', 'node/' . $data['data']->nid);
           
       return $out;
       

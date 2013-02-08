@@ -2285,6 +2285,8 @@ function vn_pages_validateForm_provider(&$form, &$form_state) {
    
   //dpm($form_state);
   
+  dpm($form_state['values']['wp_fields']);
+  
   $p_data['wp_fields'] = $form_state['values']['wp_fields'];
   $p_data['info'] = $form_state['values']['data_info'];
   //$p_data['quote'] = $form_state['values']['data_quote'];

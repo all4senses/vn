@@ -1298,7 +1298,7 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
               
                 foreach ($wp_group as $wp_key => $wp_title) {
                   $form['wp_fields'][$wp_group_title][$wp_key] = array(
-                      '#type' => 'textfield',
+                      '#type' => ($wp_group_title == 'Marketing' ? 'textarea' : 'textfield'),
                       '#title' => $wp_title,
                       '#default_value' => isset($p_data['wp_fields'][$wp_group_title][$wp_key]) ? $p_data['wp_fields'][$wp_group_title][$wp_key] : '',
                     );

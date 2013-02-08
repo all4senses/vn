@@ -4392,12 +4392,25 @@ function vn_misc_getProviderQuickData($target, $data) {
     
     case 'best_deal':
       
-      //dpm($data); 
       $all_data_quick = vn_misc_getProvidersDataQuick();
-      //dpm($all_data_quick);
       
       return !empty($all_data_quick[$data['data']->nid]['best_deal']) ? $all_data_quick[$data['data']->nid]['best_deal'] : '';
       
+      
+     
+    case 'offers':
+      
+      $all_data_quick = vn_misc_getProvidersDataQuick();
+      
+      $out = '';
+      if (!empty($all_data_quick[$data['data']->nid]['offers'])) {
+        foreach ($all_data_quick[$data['data']->nid]['offers'] as $offer) {
+          $out .= '<div class="offer">' . $offer . '</div>';
+        }
+      }
+      
+      return $out;
+     
       
       
     case 'logo_chart':

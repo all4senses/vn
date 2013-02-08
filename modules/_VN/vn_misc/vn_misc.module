@@ -4445,7 +4445,7 @@ function vn_misc_getProviderQuickData($target, $data) {
         }
       }
       
-      $out .= '<div class="link">' . l('Visit website', 'node/' . $data['data']->nid) . '</div>';
+      $out .= '<a href="' . $link . '" target="_blank">Visit website</a>';
           
       return $out;
       

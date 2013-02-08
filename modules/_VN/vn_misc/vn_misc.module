@@ -4396,6 +4396,7 @@ function vn_misc_getProviderQuickData($target, $data) {
     case 'logo_chart_iframe':
     
       $all_data_quick = vn_misc_getProvidersDataQuick();
+      dpm($all_data_quick);
       $out = '';
       
       //dpm($all_data_quick[$data['data']->nid]);

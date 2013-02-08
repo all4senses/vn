@@ -1225,41 +1225,41 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
       );
             $form['data_info']['i_heads'] = array(
               '#type' => 'textfield',
-              '#title' => t('Headquarters'),
+              '#title' => 'Headquarters',
               '#default_value' => isset($p_data['info']['i_heads']) ? $p_data['info']['i_heads'] : '',
             );
             $form['data_info']['i_founded'] = array(
               '#type' => 'textfield',
-              '#title' => t('Founded In'),
+              '#title' => 'Founded In',
               '#default_value' => isset($p_data['info']['i_founded']) ? $p_data['info']['i_founded'] : '',
             );
             $form['data_info']['i_availability'] = array(
               '#type' => 'textfield',
-              '#title' => t('Service Availability'),
+              '#title' => 'Service Availability',
               '#default_value' => isset($p_data['info']['i_availability']) ? $p_data['info']['i_availability'] : '',
             );
             $form['data_info']['i_web'] = array(
               '#type' => 'textfield',
-              '#title' => t('Web Site'),
-              '#description' => t('Please, use a format "http://example.com" strictly!'),
+              '#title' => 'Web Site',
+              '#description' => 'Please, use a format "http://example.com" strictly!',
               '#default_value' => isset($p_data['info']['i_web']) ? $p_data['info']['i_web'] : '',
               '#element_validate' => array('vn_misc_elementValidate_url'),
             );
             $form['data_info']['i_web_display'] = array(
               '#type' => 'textfield',
-              '#title' => t('Display Website as'),
-              '#description' => t('If empty, Web Site field content will be used, without http(s)://'),
+              '#title' => 'Display Website as',
+              '#description' => 'If empty, Web Site field content will be used, without http(s)://',
               '#default_value' => isset($p_data['info']['i_web_display']) ? $p_data['info']['i_web_display'] : '',
               //'#element_validate' => array('vn_misc_elementValidate_url'),
             );
             $form['data_info']['i_web_hide'] = array(
               '#type' => 'checkbox',
-              '#title' => t('Hide Web Site'),
+              '#title' => 'Hide Web Site',
               '#default_value' => isset($p_data['info']['i_web_hide']) ? $p_data['info']['i_web_hide'] : 0,
             );
             $form['data_info']['best_deal'] = array(
               '#type' => 'textfield',
-              '#title' => t('Hide Web Site'),
+              '#title' => 'Best Deal',
               '#default_value' => isset($p_data['info']['best_deal']) ? $p_data['info']['best_deal'] : '',
             );
             

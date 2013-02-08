@@ -1048,6 +1048,7 @@ h1.preface,
 
 #main .node-teaser .submitted{font-size: 12px; margin: 2px 0; padding-bottom: 5px;}
 #main .node-teaser .links{float: left;}
+#main footer .links{float: left;}
 #main .node-teaser .share{float: right;}
 
 .content.teaser{font-size: 14px; margin: 5px 0 5px 0; text-align: left; /*-webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto;*/}

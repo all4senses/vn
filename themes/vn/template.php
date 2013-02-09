@@ -19,6 +19,7 @@ function vn_preprocess_user_profile(&$profile) {
 function vn_link($variables) {
   
   if (strpos($variables['path'], '://') && !strpos($variables['path'], 'ttp://voipnow.org')) {
+    dpm($variables['options']['attributes']['rel']);
     if (empty($variables['options']['attributes']['rel'])) {
       $variables['options']['attributes']['rel'] = 'nofollow';
     }

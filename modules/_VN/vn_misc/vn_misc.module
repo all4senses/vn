@@ -2430,11 +2430,12 @@ function vn_misc_testPage() {
       ->condition('nid', $node_nid)
       ->execute();
     
-    break;
+    //break;
+    
   }
 
   
-  //vn_misc_createComment_FromOldWPblog();
+  
   
   return $out . '<br>End of Test';
 }

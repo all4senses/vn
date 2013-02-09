@@ -2378,7 +2378,10 @@ function vn_misc_testPage() {
     ->condition('c.comment_approved', 1)
     ->condition('c.comment_approved', 'spam', '!=');
   $comments = $query->execute();
+  
+  $count = 0;
   foreach ($comments as $comment) {
+    $count++;
     dpm($comment);
     
     $query = db_select('field_data_field_old_id', 'oi');
@@ -2390,7 +2393,8 @@ function vn_misc_testPage() {
     
     dpm($node);
   }
-      
+  
+  dpm('count = ' . $count);
   
   
   //vn_misc_createComment_FromOldWPblog();

@@ -3,16 +3,12 @@
   <header>
     <?php print $picture ?>
     
-    <!--
-    <?php //print render($title_prefix); ?>
-    <h3<?php //print $title_attributes; ?>><?php //print $title ?></h3>
-    <?php //print render($title_suffix); ?>
-    -->
-    <span class="submitted"><?php print $author; ?> - <?php print $created; ?></span>
-
-    <?php if ($new): ?>
-      <span class="new"><?php print $new ?></span>
-    <?php endif; ?>
+    <?php /*
+    <?php print render($title_prefix); ?>
+    <h3<?php print $title_attributes; ?>><?php print $title ?></h3>
+    <?php print render($title_suffix); ?>
+    */?>
+    <div class="submitted"><?php print '<div class="author"><span class="name">' . $author . '<span><span class="says">says,</span></div><div class="date">' . $created . '</div>'; ?></div>
   </header>
 
   <div class="content"<?php print $content_attributes; ?>>

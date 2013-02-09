@@ -1018,8 +1018,8 @@ function vn_preprocess_comment(&$variables) {
   $variables['comment']   = $comment;
   $variables['node']      = $node;
   $variables['author']    = $comment->name; //theme('username', array('account' => $comment));
-  $variables['created']   = 'xxx';//format_date($comment->created);
-  $variables['changed']   = format_date($comment->changed);
+  $variables['created']   = date('m.d.Y \a\t g:ia', $comment->created);//format_date($comment->created);
+  $variables['changed']   = date('m.d.Y \a\t g:ia', $comment->changed); //format_date($comment->changed);
 
   $variables['new']       = !empty($comment->new) ? t('new') : '';
   $variables['picture']   = theme_get_setting('toggle_comment_user_picture') ? theme('user_picture', array('account' => $comment)) : '';

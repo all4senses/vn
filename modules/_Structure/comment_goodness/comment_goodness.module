@@ -73,18 +73,12 @@ function comment_goodness_form_node_type_form_alter(&$form, $form_state) {
  *
  */
 function comment_goodness_query_comment_filter_alter(QueryAlterableInterface $query){
-  dpm('xxxxx');
-  
   if (($node = $query->getMetaData('node')) && (get_class($query) == 'PagerDefault')) {
-    dpm($node);
     // Get the configured default sort ordering for this node type.
     $sort = variable_get('comment_default_sorting_' . $node->type, comment_goodness_OLDER_FIRST);
-    //$sort = 2;
-    dpm($sort);
     // The default ordering is ASC (older on top). If the configured sorting is
     // newer on top, change the ordering to DESC.
     if ($sort == comment_goodness_NEWER_FIRST) {
-      dpm('newer');
       $orderby = &$query->getOrderBy();
       $expressions = &$query->getExpressions();
       // Sorting for threaded comments.
@@ -94,10 +88,6 @@ function comment_goodness_query_comment_filter_alter(QueryAlterableInterface $qu
         unset($orderby['torder']);
         // Simply order by the thread field.
         $orderby['c.thread'] = 'DESC';
-        
-        $query->orderBy('c.thread', 'DESC');
-        
-        
       }
       // Sorting for flat comments.
       else {
@@ -107,8 +97,6 @@ function comment_goodness_query_comment_filter_alter(QueryAlterableInterface $qu
         }
         $orderby['c.created'] = $direction;
         $orderby['c.cid'] = $direction;
-        
-        $query->orderBy('c.cid', 'DESC');
       }
     }
   }

@@ -2377,25 +2377,65 @@ function vn_misc_testPage() {
     ->fields('c')
     ->condition('c.comment_approved', 1)
     ->condition('c.comment_approved', 'spam', '!=');
-  $comments = $query->execute();
+  $wp_comments = $query->execute();
+  
+  
+  foreach ($wp_comments as $wp_comment) {
+    dpm($wp_comment);
+   
+    $query = db_select('field_data_field_old_id', 'oi');
+    $query->leftJoin('node', 'n', 'n.nid = oi.entity_id');
+    $query->condition('oi.field_old_id_value', $wp_comment->comment_post_ID);
+    $query->fields('n', array('nid'));
+    $node_nid = $query->execute()->fetchField();
+    
+    
+    $comment = new stdClass();
+    
+    $comment->nid = $node_nid; // nid of a node you want to attach a comment to
+    $comment->cid = 0; // leave it as is
+    $comment->pid = 0; // parent comment id, 0 if none 
+    $comment->uid = 0; // user's id, who left the comment
+    $comment->mail = $wp_comment->comment_author_email; // user's email
+    $comment->name = $wp_comment->comment_author  ; // If user is authenticated you can omit this field, it will be auto-populated, if the user is anonymous and you want to name him somehow, input his name here
+    $comment->thread = '01/'; // OPTIONAL. If you need comments to be threaded you can fill this value. Otherwise omit it.
+    $comment->hostname = $wp_comment->comment_author_IP; // OPTIONAL. You can log poster's ip here
+    $comment->is_anonymous = 1; // leave it as is
+    $comment->homepage = $wp_comment->comment_author_url; // you can add homepage URL here
+    $comment->status = COMMENT_PUBLISHED; // We auto-publish this comment
+    $comment->language = LANGUAGE_NONE; // The same as for a node
+    //$comment->subject = 'Comment subject'; 
+    $comment->comment_body[$comment->language][0]['value'] = $wp_comment->comment_content; // Everything here is pretty much like with a node
+    $comment->comment_body[$comment->language][0]['format'] = 'filtered_html'; 
+
+    comment_submit($comment); // saving a comment
+  
+    $comment->created = strtotime($wp_comment->comment_date); // OPTIONAL. You can set any time you want here. Useful for backdated comments creation.
+    $comment->changed = $comment->created;
+
+    dpm($comment);
+    
+    //vn_misc_comment_save($comment);
+    
+    break;
+  }
+
+  
+  
+  
+  
   
   $count = 0;
   foreach ($comments as $comment) {
-    $count++;
+
     //dpm($comment);
     
     $query = db_select('field_data_field_old_id', 'oi');
     $query->leftJoin('node', 'n', 'n.nid = oi.entity_id');
-    
     $query->condition('oi.field_old_id_value', $comment->comment_post_ID);
-    $query->fields('n', array('type', 'nid'));
-    $node = $query->execute()->fetchObject();
+    $query->fields('n', array('nid'));
+    $node_nid = $query->execute()->fetchField();
     
-    //dpm($node);
-    
-    if ($node->type != 'blog_post') {
-      dpm('---------------> ' . $node->type);
-    }
   }
   
   dpm('count = ' . $count);

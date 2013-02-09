@@ -44,9 +44,9 @@
       
       
       $vocabularies = array(
-        'VoIP Equipment: ' => array('vid' => 5, 'url' => 'equipment'),
-        'VoIP Features: ' => array('vid' => 4, 'url' => 'features'),
-        'VoIP Protocols: ' => array('vid' => 6, 'url' => 'protocols'),
+        'VoIP Equipment' => array('vid' => 5, 'url' => 'equipment'),
+        'VoIP Features' => array('vid' => 4, 'url' => 'features'),
+        'VoIP Protocols' => array('vid' => 6, 'url' => 'protocols'),
       );
       
       foreach ($vocabularies as $v_title => $v_data) {
@@ -60,7 +60,7 @@
           $out .= ($out ? ', ' : '') .  l($term->name, 'taxonomy/term/' . $term->tid);
         }
         
-        echo '<div class="types-block">' . '<div class="title">' . l($v_title, $v_data['url'], array('attributes' => array('class' => 'title'))) . '</div>' . $out . '</div>';
+        echo '<div class="types-block ' . $v_title . '">' . '<div class="title">' . l($v_title, $v_data['url']) . '</div><div class="content">' . $out . '</div></div>';
       }
       
       

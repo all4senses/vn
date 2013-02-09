@@ -2404,7 +2404,7 @@ function vn_misc_testPage() {
     $comment->homepage = $wp_comment->comment_author_url; // you can add homepage URL here
     $comment->status = COMMENT_PUBLISHED; // We auto-publish this comment
     $comment->language = LANGUAGE_NONE; // The same as for a node
-    //$comment->subject = 'Comment subject'; 
+    $comment->subject = ''; 
     $comment->comment_body[$comment->language][0]['value'] = $wp_comment->comment_content; // Everything here is pretty much like with a node
     $comment->comment_body[$comment->language][0]['format'] = 'filtered_html'; 
 

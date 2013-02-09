@@ -2380,6 +2380,15 @@ function vn_misc_testPage() {
   $comments = $query->execute();
   foreach ($comments as $comment) {
     dpm($comment);
+    
+    $query = db_select('field_data_field_old_id', 'oi');
+    $query->leftJoin('node', 'n', 'n.nid = oi.entity_id');
+    
+    $query->condition('oi.field_old_id_value', $comment->comment_post_ID);
+    $query->fields('n', array('type', 'nid'));
+    $node = $query->execute()->fetchObject();
+    
+    dpm($node);
   }
       
   

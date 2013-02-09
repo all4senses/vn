@@ -16,7 +16,7 @@
     
   <?php if ($content['comments'] && $node->type != 'forum'): ?>
     <?php print render($title_prefix); ?>
-    <h2 class="title"><?php print t('Comments'); ?></h2>
+    <h2 class="title"><?php print 'Responses to "' . $node->title . '"'; ?></h2>
     <?php print render($title_suffix); ?>
   <?php endif; ?>
     

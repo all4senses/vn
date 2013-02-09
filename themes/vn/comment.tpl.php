@@ -8,7 +8,7 @@
     <h3<?php print $title_attributes; ?>><?php print $title ?></h3>
     <?php print render($title_suffix); ?>
     */?>
-    <div class="submitted"><?php print '<div class="author"><span class="name">' . $author . '<span><span class="says">says,</span></div><div class="date">' . $created . '</div>'; ?></div>
+    <div class="submitted"><?php print '<div class="author"><span class="name">' . $author . '<span><span class="says"> says,</span></div><div class="date">' . $created . '</div>'; ?></div>
   </header>
 
   <div class="content"<?php print $content_attributes; ?>>

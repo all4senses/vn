@@ -339,14 +339,7 @@ body.not-admin #om-menu-main-om-menu li.om-leaf.leaf-write-review{background: no
 .block-views .view-id-providers .more-link{position: absolute; right: 0; top: 10px;}
 .block-views .view-id-providers .more-link a{color: #478AFD; font-size: 12px; font-weight: bold;}
 
-#main h2,
-.front #main .block-views h2,
-#block-views-phones-block-recent-phones h3, #block-views-phones-block-popular-phones h3,
-#block-views-providers-block h3, #block-views-providers-block-1 h3,
-#block-views-providers-block h2, #block-views-providers-block-1 h2,
-#block-views-providers-block h2, #block-views-providers-block_1 h2,
-#block-views-providers-block-p-bu-ca-page h3, #block-views-providers-block-p-re-ca-page h3
-{color: #CCAF84; font-size: 18px; font-weight: bold; line-height: 18px; margin: 0; padding: 10px 0 5px 0;}
+h2, h3{color: gray; font-size: 18px; font-weight: bold; line-height: 18px; margin: 0; padding: 10px 0 5px 0;}
 
 
 .page-node.page-node-77 #main .main-content h1,
@@ -1010,7 +1003,7 @@ h2.rcaption a, h3.rcaption a, /*.node-review*/ h3.rcaption a:hover{color: white;
 .front h1, .attachment-before h1{line-height: 18px; color: black; font-size: 18px; font-weight: bold; margin: 0; border: medium none; padding: 0 10px 0 5px;}
 
 h1.preface,
-.front h1 {margin-top: 5px; color: #CCAF84; padding: 0;}
+.front h1 {margin-top: 5px; color: gray; padding: 0;}
 
 .page-node-287 .content.page p,
 .page-node-288 .content.page p,

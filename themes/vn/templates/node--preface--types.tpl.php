@@ -60,7 +60,7 @@
           $out .= ($out ? ', ' : '') .  l($term->name, 'taxonomy/term/' . $term->tid);
         }
         
-        echo '<div class="types-block">' . l($v_title, $v_data['url'], array('attributes' => array('class' => 'title'))) . $out . '</div>';
+        echo '<div class="types-block">' . '<div class="title">' . l($v_title, $v_data['url'], array('attributes' => array('class' => 'title'))) . '</div>' . $out . '</div>';
       }
       
       

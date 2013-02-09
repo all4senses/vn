@@ -2373,8 +2373,18 @@ function vn_misc_testPage() {
   //vn_misc_import_wp_providers();
 
   
-  vn_misc_createComment_FromOldWPblog();
+  $query = db_select('voip_comments', 'c')
+    ->fields('c')
+    ->condition('c.comment_approved', 1)
+    ->condition('c.comment_approved', 'spam', '!=');
+  $comments = $query->execute();
+  foreach ($comments as $comment) {
+    dpm($comment);
+  }
+      
   
+  
+  //vn_misc_createComment_FromOldWPblog();
   
   return $out . '<br>End of Test';
 }

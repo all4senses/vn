@@ -1017,7 +1017,7 @@ function vn_preprocess_comment(&$variables) {
   $node = $variables['elements']['#node'];
   $variables['comment']   = $comment;
   $variables['node']      = $node;
-  $variables['author']    = theme('username', array('account' => $comment));
+  $variables['author']    = $comment->name; //theme('username', array('account' => $comment));
   $variables['created']   = 'xxx';//format_date($comment->created);
   $variables['changed']   = format_date($comment->changed);
 

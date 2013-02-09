@@ -2445,7 +2445,7 @@ function vn_misc_comment_save($comment) {
       
       $query = db_select('node', 'n')
         ->fields('n', array('type'))
-        ->condition('nid', $source);
+        ->condition('nid', $comment->nid);
       $node = $query->execute()->fetchObject();
               
       $comment->node_type = 'comment_node_' . $node->type;

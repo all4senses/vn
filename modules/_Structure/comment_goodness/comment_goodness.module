@@ -79,7 +79,7 @@ function comment_goodness_query_comment_filter_alter(QueryAlterableInterface $qu
     dpm($node);
     // Get the configured default sort ordering for this node type.
     $sort = variable_get('comment_default_sorting_' . $node->type, comment_goodness_OLDER_FIRST);
-    $sort = 2;
+    //$sort = 2;
     dpm($sort);
     // The default ordering is ASC (older on top). If the configured sorting is
     // newer on top, change the ordering to DESC.

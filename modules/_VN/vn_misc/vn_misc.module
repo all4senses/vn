@@ -2381,7 +2381,8 @@ function vn_misc_testPage() {
   
   
   foreach ($wp_comments as $wp_comment) {
-    dpm($wp_comment);
+    
+    //dpm($wp_comment);
    
     $query = db_select('field_data_field_old_id', 'oi');
     $query->leftJoin('node', 'n', 'n.nid = oi.entity_id');

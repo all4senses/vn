@@ -94,6 +94,10 @@ function comment_goodness_query_comment_filter_alter(QueryAlterableInterface $qu
         unset($orderby['torder']);
         // Simply order by the thread field.
         $orderby['c.thread'] = 'DESC';
+        
+        $query->orderBy('torder', 'ASC');
+        
+        
       }
       // Sorting for flat comments.
       else {
@@ -103,6 +107,8 @@ function comment_goodness_query_comment_filter_alter(QueryAlterableInterface $qu
         }
         $orderby['c.created'] = $direction;
         $orderby['c.cid'] = $direction;
+        
+        $query->orderBy('c.cid', 'DESC');
       }
     }
   }

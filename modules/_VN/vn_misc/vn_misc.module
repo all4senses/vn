@@ -2417,6 +2417,13 @@ function vn_misc_testPage() {
     
     vn_misc_comment_save($comment);
     
+    $result = db_update('node')
+      ->fields(array(
+        'comment' => 1,
+      ))
+      ->condition('nid', $node_nid)
+      ->execute();
+    
     break;
   }
 

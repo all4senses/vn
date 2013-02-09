@@ -19,17 +19,21 @@ function vn_preprocess_user_profile(&$profile) {
 function vn_link($variables) {
   
   if (strpos($variables['path'], '://') && !strpos($variables['path'], 'ttp://voipnow.org')) {
-    dpm($variables['options']['attributes']['rel']);
+    //dpm($variables['options']['attributes']['rel']);
     if (empty($variables['options']['attributes']['rel'])) {
       $variables['options']['attributes']['rel'] = 'nofollow';
     }
     else {
       if(is_array($variables['options']['attributes']['rel'])) {
-        $variables['options']['attributes']['rel'][] = 'nofollow';
+        $rels = '';
+        foreach($variables['options']['attributes']['rel'] as $rel) {
+          $rels .= ($rels ? ' ' : '') . $rel;
+        }
+        $variables['options']['attributes']['rel'] = $rels;
       }
-      else {
-        $variables['options']['attributes']['rel'] .= ' nofollow';
-      }
+
+      $variables['options']['attributes']['rel'] .= ' nofollow';
+
     }
   }
   return '<a href="' . check_plain(url($variables['path'], $variables['options'])) . '"' . drupal_attributes($variables['options']['attributes']) . '>' . ($variables['options']['html'] ? $variables['text'] : check_plain($variables['text'])) . '</a>';

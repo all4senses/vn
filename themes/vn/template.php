@@ -1013,6 +1013,7 @@ function vn_preprocess_html(&$vars) {
  */
 function vn_preprocess_comment(&$variables) {
   $comment = $variables['elements']['#comment'];
+  dpm($comment);
   $node = $variables['elements']['#node'];
   $variables['comment']   = $comment;
   $variables['node']      = $node;

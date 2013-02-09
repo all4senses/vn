@@ -74,8 +74,9 @@ function comment_goodness_form_node_type_form_alter(&$form, $form_state) {
  */
 function comment_goodness_query_comment_filter_alter(QueryAlterableInterface $query){
   dpm('xxxxx');
-  dpm($node);
+  
   if (($node = $query->getMetaData('node')) && (get_class($query) == 'PagerDefault')) {
+    dpm($node);
     // Get the configured default sort ordering for this node type.
     $sort = variable_get('comment_default_sorting_' . $node->type, comment_goodness_OLDER_FIRST);
     $sort = 2;

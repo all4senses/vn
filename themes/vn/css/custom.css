@@ -30,6 +30,9 @@ ul{list-style: none;}
 
 ul li p{margin-bottom: 0;}
 
+/* Fix some ugly ol negative margins on some blog posts */
+ol {padding-left: 3em;}
+
 .field-name-body ul{list-style-type: disc;}
 
 .delim{margin: 0 5px 0 5px;}

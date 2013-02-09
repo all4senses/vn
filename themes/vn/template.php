@@ -24,13 +24,13 @@ function vn_link($variables) {
       $variables['options']['attributes']['rel'] = 'nofollow';
     }
     else {
-      if(is_array($variables['options']['attributes']['rel'])) {
-        $rels = '';
-        foreach($variables['options']['attributes']['rel'] as $rel) {
-          $rels .= ($rels ? ' ' : '') . $rel;
-        }
-        $variables['options']['attributes']['rel'] = $rels;
-      }
+//      if(is_array($variables['options']['attributes']['rel'])) {
+//        $rels = '';
+//        foreach($variables['options']['attributes']['rel'] as $rel) {
+//          $rels .= ($rels ? ' ' : '') . $rel;
+//        }
+//        $variables['options']['attributes']['rel'] = $rels;
+//      }
 
       $variables['options']['attributes']['rel'] .= ' nofollow';
 

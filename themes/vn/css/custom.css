@@ -1,4 +1,4 @@
-.comment {overflow: hidden;}
+
 
 /* Three columns layout */
 body.two-sidebars #sidebar-first {float: left; margin: 0 0 0 -857px; padding: 0; width: 180px;}
@@ -700,12 +700,16 @@ form .counter.exceeded{color: red;}
 .page-node #main .main-content .block-views .content{border: none;}
 
 /* Comments */
+.comment {overflow: hidden; margin: 0;}
 .page-node #main #comments{margin: 50px 0 0 0;}
 #comments h2 {color: gray; font-size: 16px; border-bottom: 1px solid lightgray; margin-bottom: 20px;}
 .page-node #main .comment .submitted {font-size: 17px; overflow: hidden; padding: 3px 15px; color: gray; background: #f3f8fb; border-bottom: 3px solid lightgray;}
 .comment .author {float: left;}
 .comment .name {font-size: 20px; font-weight: bold;}
 .comment .date {float: right;}
+.comment p {margin-bottom: 10px;}
+.comment .content {padding: 15px 15px;}
+
 
 
 

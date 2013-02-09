@@ -27,15 +27,17 @@ function vn_link($variables) {
       if(is_array($variables['options']['attributes']['rel'])) {
         $rels = '';
         foreach($variables['options']['attributes']['rel'] as $rel) {
-          if ($rel == 'nofollow') {
-            continue;
-          }
+//          if ($rel == 'nofollow') {
+//            continue;
+//          }
           $rels .= ($rels ? ' ' : '') . $rel;
         }
         $variables['options']['attributes']['rel'] = $rels;
       }
 
-      $variables['options']['attributes']['rel'] .= ' nofollow';
+      if (strpos($variables['options']['attributes']['rel'], 'nofollow') === FALSE) {
+        $variables['options']['attributes']['rel'] .= ' nofollow';
+      }
 
     }
   }

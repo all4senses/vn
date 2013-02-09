@@ -76,7 +76,7 @@
         $out .= ($out ? ', ' : '') .  l($s_title, $s_url);
       }
       
-      echo '<div class="types-block">' . l('VoIP Usage: ', 'usage', array('attributes' => array('class' => 'title'))) . $out . '</div>';
+      echo '<div class="types-block ' . $v_title . '">' . '<div class="title">' . l('VoIP Usage: ', 'usage') . '</div><div class="content">' . $out . '</div></div>';
       
       echo '<div class="notice">Not sure which type of VoIP you\'re looking for? Try browsing our list of featured VoIP providers below...</div>';
       

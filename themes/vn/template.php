@@ -19,19 +19,18 @@ function vn_preprocess_user_profile(&$profile) {
 function vn_link($variables) {
   
   if (strpos($variables['path'], '://') && !strpos($variables['path'], 'ttp://voipnow.org')) {
-    //dpm($variables['options']['attributes']['rel']);
-    dpm($variables);
+    
     if (empty($variables['options']['attributes']['rel'])) {
       $variables['options']['attributes']['rel'] = 'nofollow';
     }
     else {
-//      if(is_array($variables['options']['attributes']['rel'])) {
-//        $rels = '';
-//        foreach($variables['options']['attributes']['rel'] as $rel) {
-//          $rels .= ($rels ? ' ' : '') . $rel;
-//        }
-//        $variables['options']['attributes']['rel'] = $rels;
-//      }
+      if(is_array($variables['options']['attributes']['rel'])) {
+        $rels = '';
+        foreach($variables['options']['attributes']['rel'] as $rel) {
+          $rels .= ($rels ? ' ' : '') . $rel;
+        }
+        $variables['options']['attributes']['rel'] = $rels;
+      }
 
       $variables['options']['attributes']['rel'] .= ' nofollow';
 

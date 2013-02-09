@@ -24,7 +24,12 @@ function vn_link($variables) {
       $variables['options']['attributes']['rel'] = 'nofollow';
     }
     else {
-      $variables['options']['attributes']['rel'] .= ' nofollow';
+      if(is_array($variables['options']['attributes']['rel'])) {
+        $variables['options']['attributes']['rel'][] = 'nofollow';
+      }
+      else {
+        $variables['options']['attributes']['rel'] .= ' nofollow';
+      }
     }
   }
   return '<a href="' . check_plain(url($variables['path'], $variables['options'])) . '"' . drupal_attributes($variables['options']['attributes']) . '>' . ($variables['options']['html'] ? $variables['text'] : check_plain($variables['text'])) . '</a>';

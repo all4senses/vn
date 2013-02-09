@@ -2415,7 +2415,7 @@ function vn_misc_testPage() {
 
     dpm($comment);
     
-    //vn_misc_comment_save($comment);
+    vn_misc_comment_save($comment);
     
     break;
   }

@@ -5314,7 +5314,7 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form_validate(&$form, &$form_
   }
   
   // Check if submitted email was submitted previously.
-  if ($form_state['values']['email']) {
+  if ($form_state['values']['email'] && !empty($form_state['values']['subscribe'])) {
     $query = db_select('vn_emails_subscribed', 'e')  
           ->fields('e', array('email'));
     $query->condition('e.email', $form_state['values']['email']);

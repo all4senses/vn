@@ -5241,7 +5241,7 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form($form, &$form_state) {
     );
     $form['m_and_s']['subscribe'] = array(
       '#type' => 'checkbox',
-      '#value' => FALSE,
+      '#default_value' => FALSE,
       '#title' => 'Sign me up for the newsletter',
     );
   
@@ -5274,7 +5274,7 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form($form, &$form_state) {
 function vn_misc_sendMessageAndNewsletterSubscribe_form_validate(&$form, &$form_state) {
   
   //drupal_set_message('In Validate!', 'warning');
-  //dpm($form_state['values']);
+  dpm($form_state['values']);
   //dpm($form);
     
   global $user;

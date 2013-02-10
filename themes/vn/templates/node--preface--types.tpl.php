@@ -60,8 +60,6 @@
         
         $amount = $countQuery->execute()->fetchField();
   
-        dpm('amount = ' . $amount);
-        
         //$out = '';
         $out = '<div class="col-1">';
         $count = 0;
@@ -95,10 +93,29 @@
         'Residential VoIP' => 'usage/residential', 
         'Small Business VoIP' => 'usage/small-business',
       );
-      $out = '';
+      
+      $amount = count($service_types);
+      $out = '<div class="col-1">';
+      $count = 0;
+      $second = NULL;
+      $third = NULL;
       foreach ($service_types as $s_title => $s_url) {
-        $out .= ($out ? ', ' : '') .  l($s_title, $s_url);
+        
+        if (!$second && $count > ($amount - 1)/3) {
+          $out .= '</div><div class="col-2">';
+          $second = TRUE;
+        }
+        if (!$third && $count > (($amount)/3) * 2) {
+          $out .= '</div><div class="col-3">';
+          $third = TRUE;
+        }
+          
+        //$out .= ($out ? ', ' : '') .  l($s_title, $s_url);
+        $out .= '<div class="link">' .  l($s_title, $s_url) . '</div>';
+        
+        $count++;
       }
+      $out .= '</div>';
       
       echo '<div class="types-block ' . $v_title . '">' . '<div class="title">' . l('VoIP Usage: ', 'usage') . '</div><div class="content">' . $out . '</div></div>';
       

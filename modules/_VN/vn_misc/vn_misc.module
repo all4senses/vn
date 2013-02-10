@@ -5185,6 +5185,16 @@ function vn_blocks_getAddThisButtonsLike() {
 
 
 /**
+ * Element Validate for email.
+ */
+function vn_misc_validate_email($element, &$form_state) {
+   if (!preg_match('/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/', $element['#value'])) {
+     form_error($element, 'Wrong email format!');
+   }
+}
+
+
+/**
  * Implements hook_form().
  *
  * @return $form
@@ -5256,35 +5266,25 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form($form, &$form_state) {
 
 
 /**
- * Element Validate for email.
- */
-function vn_misc_validate_email($element, &$form_state) {
-   if (!preg_match('/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/', $element['#value'])) {
-     form_error($element, 'Wrong email format!');
-   }
-}
-
-
-/**
  * Implements hook_form_validate().
  *
  * @return $form
  *   Return nothing.
  */
 function vn_misc_sendMessageAndNewsletterSubscribe_form_validate(&$form, &$form_state) {
-
-  return;
-  
-  
   
   //drupal_set_message('In Validate!', 'warning');
-  //dpm($form_state['values']);
+  dpm($form_state['values']);
   //dpm($form);
     
   global $user;
   
   // Clear hints, if any.
-  $fields_to_clear_hints = array('email' => array('hint' => @$form['email']['#attributes']['title']));
+  $fields_to_clear_hints = array('email' => array('hint' => @$form['email']['#attributes']['title']), 
+                                 'fname' => array('hint' => @$form['name']['fname']['#attributes']['title']),
+                                 'lname' => array('hint' => @$form['name']['lname']['#attributes']['title']),
+                                 'message' => array('hint' => @$form['m_and_s']['message']['#attributes']['title']),
+                            );
   foreach ($fields_to_clear_hints as $fname => $fdata) {
    
     if ($form_state['values'][$fname] == $fdata['hint']) {
@@ -5332,11 +5332,7 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form_validate(&$form, &$form_
  *   Return nothing.
  */
 function vn_misc_sendMessageAndNewsletterSubscribe_form_submit(&$form, &$form_state) {
-  
-  return;
-  
-  
-  
+ 
   
   $verification_code = md5(time());
   db_insert('vn_emails_subscribed')

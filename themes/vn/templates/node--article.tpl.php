@@ -127,21 +127,39 @@
             
             
           }
+          else {
           
-          $keyword_metatag_name = ($node->type == 'news_post') ? 'news_keywords' : 'keywords';
-          
-          if (isset($content['metatags']['keywords'])) {
-            hide($content['metatags']['keywords']);
+            $keyword_metatag_name = ($node->type == 'news_post') ? 'news_keywords' : 'keywords';
+
+            if (isset($content['metatags']['keywords'])) {
+              hide($content['metatags']['keywords']);
+            }
+
+            if (isset($content['metatags']['keywords']['#attached']['drupal_add_html_head'][0][0]['#value']) && $content['metatags']['keywords']['#attached']['drupal_add_html_head'][0][0]['#value']) {
+              vn_misc_addMetatag($keyword_metatag_name, $content['metatags']['keywords']['#attached']['drupal_add_html_head'][0][0]['#value']);
+            }
+            elseif (@$content['field_topics']) {
+              vn_misc_pushTagsToMetatags($keyword_metatag_name, $content['field_topics']);
+            }
+            
+            echo render($content);
+            
+            
+            echo '<div class="links">' . l($content['field_categories'][0]['#title'], $content['field_categories'][0]['#href']) . '</div>';
+            
+            ?>
+            <div class="share">
+
+                <?php $url = 'http://voipnow.org'. url('node/' . $node->nid); ?>
+
+                <div class="main">
+                  <?php echo vn_blocks_getSocialiteButtons($url, $title); ?>
+                </div> <!-- main share buttons -->
+
+              </div>
+        <?php
           }
           
-          if (isset($content['metatags']['keywords']['#attached']['drupal_add_html_head'][0][0]['#value']) && $content['metatags']['keywords']['#attached']['drupal_add_html_head'][0][0]['#value']) {
-            vn_misc_addMetatag($keyword_metatag_name, $content['metatags']['keywords']['#attached']['drupal_add_html_head'][0][0]['#value']);
-          }
-          elseif (@$content['field_topics']) {
-            vn_misc_pushTagsToMetatags($keyword_metatag_name, $content['field_topics']);
-          }
-          
-          echo render($content);
         ?></div>
 
 
@@ -162,13 +180,13 @@
            
            <?php
             //echo '<footer>';
-            echo '<div class="links">' . l($content['field_categories'][0]['#title'], $content['field_categories'][0]['#href']) . '</div>';
+            ////echo '<div class="links">' . l($content['field_categories'][0]['#title'], $content['field_categories'][0]['#href']) . '</div>';
           //dpm($node);
           //dpm($content);
           
         ?>
         
-        
+          <?php /*
               <div class="share">
 
                 <?php $url = 'http://voipnow.org'. url('node/' . $node->nid); ?>
@@ -178,6 +196,11 @@
                 </div> <!-- main share buttons -->
 
               </div>
+    
+              */ 
+          ?>
+    
+    
         <?php //echo '</footer>' ?>
       <footer></footer>
       <?php } ?>

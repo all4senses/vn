@@ -53,7 +53,14 @@
         $query = db_select('taxonomy_term_data', 'td');
         $query->fields('td', array('tid', 'name'));
         $query->condition('td.vid', $v_data['vid']);
+        
+        $countQuery = $query->countQuery();
+        
         $terms = $query->execute();
+        
+        $num_terms = $countQuery->execute()->fetchField();
+  
+        dpm('num_terms = ' . $num_terms);
         
         $out = '';
         foreach ($terms as $term) {

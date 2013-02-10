@@ -5324,6 +5324,10 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form_validate(&$form, &$form_
         if ($email) {
           form_set_error('email', 'Email ' . $form_state['values']['email'] . ' has been submitted already!');
         }
+        
+        if ($form_state['values']['message'] && !$form_state['values']['fname']) {
+          form_set_error('fname', 'You have to enter a First Name, if you want to send a message.');
+        }
       }
       else {
         // Check the rest of fields if not just subscribe.

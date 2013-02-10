@@ -58,14 +58,24 @@
         
         $terms = $query->execute();
         
-        $num_terms = $countQuery->execute()->fetchField();
+        $amount = $countQuery->execute()->fetchField();
   
-        dpm('num_terms = ' . $num_terms);
+        dpm('amount = ' . $amount);
         
-        $out = '';
+        //$out = '';
+        $out = '<div class="col-1">';
+        $count = 0;
+        $second = NULL;
+        $third = NULL;
         foreach ($terms as $term) {
-          $out .= ($out ? ', ' : '') .  l($term->name, 'taxonomy/term/' . $term->tid);
+          //$out .= ($out ? ', ' : '') .  l($term->name, 'taxonomy/term/' . $term->tid);
+          if (!$second && $count > ($amount - 1)/2) {
+            $out .= '</div><div class="col-2">';
+            $second = TRUE;
+          }
+          $out .= '<div class="link">' .  l($term->name, 'taxonomy/term/' . $term->tid) . '</div>';
         }
+        $out .= '</div>';
         
         echo '<div class="types-block ' . $v_title . '">' . '<div class="title">' . l($v_title, $v_data['url']) . '</div><div class="content">' . $out . '</div></div>';
       }

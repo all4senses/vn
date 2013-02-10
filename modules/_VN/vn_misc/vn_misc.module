@@ -5216,7 +5216,7 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form($form, &$form_state) {
   );
     $form['name']['fname'] = array(
       '#type' => 'textfield',
-      '#required' => TRUE,
+      //'#required' => TRUE,
       '#attributes' => array('title' => 'First name *'),
     );
     $form['name']['lname'] = array(
@@ -5236,7 +5236,7 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form($form, &$form_state) {
   );
     $form['m_and_s']['message'] = array(
       '#type' => 'textarea',
-      '#required' => TRUE,
+      //'#required' => TRUE,
       '#attributes' => array('title' => 'Message *'),
     );
     $form['m_and_s']['subscribe'] = array(
@@ -5282,9 +5282,9 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form_validate(&$form, &$form_
   
   // Clear hints, if any.
   $fields_to_clear_hints = array('email' => array('title' => 'Email', 'hint' => @$form['email']['#attributes']['title'], 'required' => TRUE),
-                                 'fname' => array('title' => 'First Name', 'hint' => @$form['name']['fname']['#attributes']['title'], 'required' => TRUE),
+                                 'fname' => array('title' => 'First Name', 'hint' => @$form['name']['fname']['#attributes']['title'], 'required' => FALSE),
                                  'lname' => array('title' => 'Last Name', 'hint' => @$form['name']['lname']['#attributes']['title'], 'required' => FALSE),
-                                 'message' => array('title' => 'Message', 'hint' => @$form['m_and_s']['message']['#attributes']['title'], 'required' => TRUE),
+                                 'message' => array('title' => 'Message', 'hint' => @$form['m_and_s']['message']['#attributes']['title'], 'required' => FALSE),
                             );
   
   foreach ($fields_to_clear_hints as $fname => $fdata) {
@@ -5302,7 +5302,7 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form_validate(&$form, &$form_
       $form_state['values'][$fname] = NULL;
       
       if ($fdata['required']) {
-        form_set_error($fname, t('Please fill the field "' . $fdata['title'] . '"'));
+        form_set_error($fname, 'Please fill the field "' . $fdata['title'] . '"');
       }
       
     }
@@ -5314,15 +5314,28 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form_validate(&$form, &$form_
   }
   
   // Check if submitted email was submitted previously.
-  if ($form_state['values']['email'] && !empty($form_state['values']['subscribe'])) {
-    $query = db_select('vn_emails_subscribed', 'e')  
-          ->fields('e', array('email'));
-    $query->condition('e.email', $form_state['values']['email']);
-    $email = $query->execute()->fetchField();
-    if ($email) {
-      form_set_error('email', 'Email ' . $form_state['values']['email'] . ' has been submitted already!');
-    }
+  if ($form_state['values']['email']) {
+    
+      if(!empty($form_state['values']['subscribe'])) {
+        $query = db_select('vn_emails_subscribed', 'e')  
+              ->fields('e', array('email'));
+        $query->condition('e.email', $form_state['values']['email']);
+        $email = $query->execute()->fetchField();
+        if ($email) {
+          form_set_error('email', 'Email ' . $form_state['values']['email'] . ' has been submitted already!');
+        }
+      }
+      else {
+        // Check the rest of fields if not just subscribe.
+        if (!$form_state['values']['fname']) {
+          form_set_error('fname', 'You have to enter a First Name, if don\'t want to just subscribe to newsletters');
+        }
+        if (!$form_state['values']['message']) {
+          form_set_error('message', 'You have to enter a Message, if don\'t want to just subscribe to newsletters');
+        }
+      }
   }
+  
   
 }
 

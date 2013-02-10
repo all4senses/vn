@@ -1692,11 +1692,11 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 
 .types-block.VoIP.Equipment {margin-top: 5px;}
 
-.types-block .title a {display: block; background: #f8f8f8; padding: 5px 10px; border-top: 2px solid #7aabd6; border-bottom: 1px solid lightgray; color: #004286; font-size: 18px; font-weight: bold;}
-.types-block.VoIP.Equipment .title a {background: url("images/types-icons.png") no-repeat 0 0 #F8F8F8;}
-.types-block.VoIP.Features .title a {background: url("images/types-icons.png") no-repeat 0 0 #F8F8F8;}
-.types-block.VoIP.Protocols .title a {background: url("images/types-icons.png") no-repeat 0 0 #F8F8F8;}
-.types-block.usage .title a {background: url("images/types-icons.png") no-repeat 0 0 #F8F8F8;}
+.types-block .title a {display: block; padding: 5px 10px 5px 38px; border-top: 2px solid #7aabd6; border-bottom: 1px solid lightgray; color: #004286; font-size: 18px; font-weight: bold;}
+.types-block.VoIP.Equipment .title a {background: url("images/types-icons.png") no-repeat 14px 11px #F8F8F8;}
+.types-block.VoIP.Features .title a {background: url("images/types-icons.png") no-repeat 11px -31px #F8F8F8;}
+.types-block.VoIP.Protocols .title a {background: url("images/types-icons.png") no-repeat 5px -69px #F8F8F8;}
+.types-block.usage .title a {background: url("images/types-icons.png") no-repeat 14px -112px #F8F8F8;}
 
 .types-block .content {padding: 15px 20px 20px 40px; border-bottom: 1px solid lightgray; overflow: hidden;}
 .notice {margin: 30px 0 20px;}

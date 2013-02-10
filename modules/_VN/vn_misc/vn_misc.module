@@ -3310,6 +3310,7 @@ VoIP Now Team
     
     
     
+    
     case 'new_review_admin_notify':
       $message['subject'] = t('New Provider review for "!provider" has been submitted', array('!provider' => $params['provider_name']));
       $message['body'][] = t('Dear administrator!
@@ -3339,6 +3340,29 @@ Please, don\'t forget to log in to access this page.
 Best wishes,
 Get VoIP team
 ', array('!pending_reviews' => 'http://voipnow.org/admin/content/approve-phone-reviews', '!phone' => $params['phone_name']));
+      
+      break;
+    
+    
+    
+    case 'user_message':
+      $message['subject'] = 'New User message from VN block';
+      $message['body'][] = 
+'First name: ' . $params['fname'] . '
+
+Last name: ' . $params['lname'] . '
+
+Email: ' . $params['email'] . '
+
+Subscribed: ' . $params['subscribed'] . '  
+
+
+Message: ' . $params['message'] . '
+
+
+Best Wishes,
+Your VoIP Now Team
+';
       
       break;
     
@@ -3443,6 +3467,18 @@ function vn_misc_sendMessage($tag, $data = NULL) {
       drupal_mail('vn_misc', 'email_verification', $data['email'], $language, $params, 'voipnow.org <contact@voipnow.org>');
       
       break;
+    
+  case 'user_message':
+      
+      global $language;
+      $params['message'] = $data['message'];
+      $params['fname'] = $data['fname'];
+      $params['lname'] = $data['lname'];
+      $params['subscribed'] = $data['subscribed'];
+      drupal_mail('vn_misc', 'user_message', 'all4senses@gmail.com', $language, $params, 'voipnow.org <contact@voipnow.org>');
+      
+      break;
+    
   }
 }
 
@@ -5372,6 +5408,8 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form_submit(&$form, &$form_st
     drupal_set_message('Thank you for subscribing to our newsletter.');
   }
   
+  
+  
   if (!empty($form_state['values']['message'])) {
     db_insert('vn_user_messages')
       ->fields(array(
@@ -5384,7 +5422,7 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form_submit(&$form, &$form_st
       ))
       ->execute();
 
-    //vn_misc_sendMessage('email_verification', array('verification_code' => $verification_code . '=' . urlencode($form_state['values']['email']), 'email' => $form_state['values']['email']));
+    vn_misc_sendMessage('user_message', array('fname' => $form_state['values']['fname'], 'lname' => $form_state['values']['lname'], 'email' => $form_state['values']['email'], 'message' => $form_state['values']['message'], 'subscribed' => ($form_state['values']['subscribe'] ? 'Yes' : 'No') ));
 
     drupal_set_message('Your message has been submitted. We will review it as soon as possibly!');
   }

@@ -44,9 +44,9 @@
       
       
       $vocabularies = array(
-        'VoIP Equipment' => array('vid' => 5, 'url' => 'equipment'),
-        'VoIP Features' => array('vid' => 4, 'url' => 'features'),
-        'VoIP Protocols' => array('vid' => 6, 'url' => 'protocols'),
+        'VoIP Equipment' => array('vid' => 5, 'url' => 'equipment', 'banner' => '/f/img/eqipment-banner.jpg'),
+        'VoIP Features' => array('vid' => 4, 'url' => 'features', 'banner' => '/f/img/eqipment-banner.jpg'),
+        'VoIP Protocols' => array('vid' => 6, 'url' => 'protocols', 'banner' => '/f/img/eqipment-banner.jpg'),
       );
       
       foreach ($vocabularies as $v_title => $v_data) {
@@ -80,7 +80,7 @@
           
           $count++;
         }
-        $out .= '</div>';
+        $out .= '</div><img src="' . $v_data['banner'] . '" />';
         
         echo '<div class="types-block ' . $v_title . '">' . '<div class="title">' . l($v_title, $v_data['url']) . '</div><div class="content">' . $out . '</div></div>';
       }

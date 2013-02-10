@@ -16,31 +16,31 @@ function vn_blocks_block_info() {
   
   $blocks['main_menu_om_blog'] = array(
     'info' => 'OM Blog',
-    'cache' => DRUPAL_CACHE_GLOBAL,
+    'cache' => DRUPAL_NO_CACHE,
   );
   
   $blocks['footer_links'] = array(
     'info' => 'Footer links',
-    'cache' => DRUPAL_CACHE_GLOBAL,
+    'cache' => DRUPAL_NO_CACHE,
   );
   $blocks['social_links'] = array(
     'info' => 'Social links',
-    'cache' => DRUPAL_CACHE_GLOBAL,
+    'cache' => DRUPAL_NO_CACHE,
   );
   $blocks['blog_archive'] = array(
     'info' => 'Blog archive',
-    'cache' => DRUPAL_CACHE_GLOBAL,
+    'cache' => DRUPAL_NO_CACHE,
   );
   
   
   $blocks['request_quote_v6'] = array(
     'info' => 'Request a quote block v6 (sidebar 2 steps)',
-    'cache' => DRUPAL_CACHE_GLOBAL,
+    'cache' => DRUPAL_NO_CACHE,
   ); 
   
   $blocks['send_msg_n_subscribe'] = array(
     'info' => 'Send a message and Newsletter Sign Up',
-    'cache' => DRUPAL_CACHE_GLOBAL,
+    'cache' => DRUPAL_NO_CACHE,
   );
       
   return $blocks;

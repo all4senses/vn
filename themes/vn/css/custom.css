@@ -341,12 +341,8 @@ body.not-admin #om-menu-main-om-menu li.om-leaf.leaf-write-review{background: no
 
 h2, h3{color: gray; font-size: 18px; font-weight: bold; line-height: 18px; margin: 0 0 5px 0; padding: 10px 0 5px 0;}
 
-
-.page-node.page-node-77 #main .main-content h1,
-.page-node.page-node-90 #main .main-content h1,
 h1.preface,
-h2.preface
-{color: #CCAF84; font-size: 18px; font-weight: bold; line-height: 18px; margin: 0; padding: 0 0 5px 0;}
+h2.preface{font-size: 18px; font-weight: bold; line-height: 18px; margin: 0; padding: 0 0 5px 0;}
 
 
 
@@ -1033,11 +1029,9 @@ h1.preface,
 .front .content.page.preface{padding: 5px 0 0 0;}
 
 
-.page-node.page-node-77 #main .main-content .content p,
-.page-node.page-node-90 #main .main-content .content p,
 .preface p,
 .field-name-field-preface-b-body p
-{color: #777777; margin-bottom: 0px; line-height: 17px;}
+{color: #777777; margin-bottom: 0px; line-height: 20px;}
 
 .field-name-field-preface-b-body p{margin-bottom: 7px;}
 
@@ -1679,3 +1673,7 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 .notice {margin: 30px 0 20px;}
 .types-block .col-1, .types-block .col-2, .types-block .col-3 {float: left; width: 170px;}
  
+
+.view-taxonomy-lists .views-row {overflow: hidden; margin-bottom: 10px;}
+.view-taxonomy-lists p {margin-bottom: 0;}
+.view-taxonomy-lists .views-more-link {float: right; font-size: 14px;}

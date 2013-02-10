@@ -5275,7 +5275,7 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form_validate(&$form, &$form_
   
   //drupal_set_message('In Validate!', 'warning');
   dpm($form_state['values']);
-  //dpm($form);
+  dpm($form);
     
   global $user;
   

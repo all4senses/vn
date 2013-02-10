@@ -365,7 +365,7 @@ h2.preface
 
 /* Ratings */
 #main .view-providers .fivestar{float: left; position: relative; top: 3px;}
-#main .view-providers table .fivestar{float: none; position: static;}
+#main .view-providers table .fivestar{float: none; position: static; margin: auto; width: 75px;}
 
 div.fivestar-widget-static .star{width: 15px; background: url("images/sprite-2.png") no-repeat scroll 0 0 transparent;}
 div.fivestar-widget-static .star span.on{background: url("images/sprite-2.png") no-repeat scroll 0 -32px transparent;}
@@ -404,7 +404,7 @@ div.fivestar-widget-static .star span.on{background: url("images/sprite-2.png") 
 
 th.views-field-field-p-logo{width: 140px; padding-left: 7px;}
 
-#all-content .view-providers td.views-field-php, #all-content .view-providers td.active.views-field-php{text-align: center; padding-left: 2px;}
+#all-content .view-providers td.views-field-php, #all-content .view-providers td.active.views-field-php{text-align: center; padding: 10px 0 10px 2px;}
 
 th.views-field-php{width: 150px;}
 

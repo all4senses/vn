@@ -3474,6 +3474,7 @@ function vn_misc_sendMessage($tag, $data = NULL) {
       $params['message'] = $data['message'];
       $params['fname'] = $data['fname'];
       $params['lname'] = $data['lname'];
+      $params['email'] = $data['email'];
       $params['subscribed'] = $data['subscribed'];
       drupal_mail('vn_misc', 'user_message', 'all4senses@gmail.com', $language, $params, 'voipnow.org <contact@voipnow.org>');
       

@@ -70,9 +70,13 @@
         foreach ($terms as $term) {
           
           //$out .= ($out ? ', ' : '') .  l($term->name, 'taxonomy/term/' . $term->tid);
-          if (!$second && $count > ($amount - 1)/2) {
+          if (!$second && $count > ($amount - 1)/3) {
             $out .= '</div><div class="col-2">';
             $second = TRUE;
+          }
+          if (!$third && $count > (($amount - 1)/3) * 2) {
+            $out .= '</div><div class="col-3">';
+            $third = TRUE;
           }
           $out .= '<div class="link">' .  l($term->name, 'taxonomy/term/' . $term->tid) . '</div>';
           

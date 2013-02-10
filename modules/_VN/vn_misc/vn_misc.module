@@ -5359,6 +5359,8 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form_submit(&$form, &$form_st
     db_insert('vn_emails_subscribed')
       ->fields(array(
         'email'=> $form_state['values']['email'],
+        'fname'=> $form_state['values']['fname'],
+        'lname'=> $form_state['values']['lname'],
         'ip' => $user->hostname,
         'timestamp'=> time(),
         'code' => $verification_code,

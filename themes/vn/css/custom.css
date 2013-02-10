@@ -364,7 +364,8 @@ h2.preface
 
 
 /* Ratings */
-#main .view-providers/*.block*/ .fivestar{float: left; position: relative; top: 3px;}
+#main .view-providers .fivestar{float: left; position: relative; top: 3px;}
+#main .view-providers table .fivestar{float: none; position: static;}
 
 div.fivestar-widget-static .star{width: 15px; background: url("images/sprite-2.png") no-repeat scroll 0 0 transparent;}
 div.fivestar-widget-static .star span.on{background: url("images/sprite-2.png") no-repeat scroll 0 -32px transparent;}
@@ -405,9 +406,12 @@ th.views-field-field-p-logo{width: 140px; padding-left: 7px;}
 
 #all-content .view-providers td.views-field-php, #all-content .view-providers td.active.views-field-php{text-align: left; padding-left: 2px;}
 
-th.views-field-php{width: 220px;}
+th.views-field-php{width: 150px;}
 
-th.views-field-php-1{width: 50px;}
+th.views-field-php-1{width: 150px;}
+th.views-field-php-2 {width: 110px;}
+
+.offer {text-align: left; font-size: 13px; font-weight: normal;}
 
 /* Correct a bit layout for separate admin pages with providers as blocks */
 .node-type-admin-page th.views-field-php-1{width: 110px;}

@@ -4771,7 +4771,7 @@ function vn_misc_getProviderQuickData($target, $data) {
         $out = theme('vn_misc_fivestar_static', array('rating' => $all_data_quick[$data['data']->nid]['erating'], 'stars' => 5, 'tag' => 'overall', 'widget' => array('name' => 'stars', 'css' => 'stars.css')));
       }
       
-      $out .= '<div class="link">' . l('Read review', 'node/' . $data['data']->nid) . '</div>';
+      $out .= '<div class="link">' . l('Read review »', 'node/' . $data['data']->nid) . '</div>';
       
       return $out;
       

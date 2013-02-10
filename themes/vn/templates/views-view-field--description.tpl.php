@@ -22,4 +22,4 @@
  * the view is modified.
  */
 ?>
-<?php print $output . ' xxx'; ?>
+<?php print htmlspecialchars_decode($output)  . ' xxx'; ?>

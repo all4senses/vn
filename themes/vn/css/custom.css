@@ -59,7 +59,7 @@ form#user-login, form#user-login input{text-align: center;}
 .form-item .description{color: gray; font-size: 12px;}
 
 /* Fields hints */
-input.blur,
+input.blur, textarea.blur,
 .ui-state-default.blur, .ui-widget-content .ui-state-default.blur, .ui-widget-header .ui-state-default.blur{color: lightgray;}
 
 

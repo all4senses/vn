@@ -5281,10 +5281,10 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form_validate(&$form, &$form_
   
   
   // Clear hints, if any.
-  $fields_to_clear_hints = array('email' => array('hint' => @$form['email']['#attributes']['title']), 
-                                 'fname' => array('hint' => @$form['name']['fname']['#attributes']['title']),
-                                 'lname' => array('hint' => @$form['name']['lname']['#attributes']['title']),
-                                 'message' => array('hint' => @$form['m_and_s']['message']['#attributes']['title']),
+  $fields_to_clear_hints = array('email' => array('hint' => @$form['email']['#attributes']['title'], 'requited' => TRUE),
+                                 'fname' => array('hint' => @$form['name']['fname']['#attributes']['title'], 'requited' => TRUE),
+                                 'lname' => array('hint' => @$form['name']['lname']['#attributes']['title'], 'requited' => FALSE),
+                                 'message' => array('hint' => @$form['m_and_s']['message']['#attributes']['title'], 'requited' => TRUE),
                             );
   
   foreach ($fields_to_clear_hints as $fname => $fdata) {
@@ -5301,7 +5301,7 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form_validate(&$form, &$form_
       // Just in case on more.
       $form_state['values'][$fname] = NULL;
       
-      if (isset($form[$fname]['#required']) && $form[$fname]['#required']) {
+      if ($fdata['required']) {
         form_set_error($fname, t('Please fill the field "' . $fname . '"'));
       }
       

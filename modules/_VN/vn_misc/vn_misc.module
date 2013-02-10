@@ -5279,12 +5279,14 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form_validate(&$form, &$form_
     
   global $user;
   
+  
   // Clear hints, if any.
   $fields_to_clear_hints = array('email' => array('hint' => @$form['email']['#attributes']['title']), 
                                  'fname' => array('hint' => @$form['name']['fname']['#attributes']['title']),
                                  'lname' => array('hint' => @$form['name']['lname']['#attributes']['title']),
                                  'message' => array('hint' => @$form['m_and_s']['message']['#attributes']['title']),
                             );
+  
   foreach ($fields_to_clear_hints as $fname => $fdata) {
    
     if ($form_state['values'][$fname] == $fdata['hint']) {
@@ -5301,25 +5303,25 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form_validate(&$form, &$form_
       
       if (isset($form[$fname]['#required']) && $form[$fname]['#required']) {
         form_set_error($fname, t('Please fill the field "' . $fname . '"'));
-        return;
       }
       
     }
     elseif ($fname == 'email' && !preg_match('/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/', $form_state['values'][$fname])) {
       form_set_error($fname, 'Wrong email format!');
-      return;
+      $form_state['values']['email'] = NULL;
     }
     
   }
   
   // Check if submitted email was submitted previously.
-  $query = db_select('vn_emails_subscribed', 'e')  
-        ->fields('e', array('email'));
-  $query->condition('e.email', $form_state['values']['email']);
-  $email = $query->execute()->fetchField();
-  if ($email) {
-    form_set_error('email', 'Email ' . $form_state['values']['email'] . ' has been submitted already!');
-    return;
+  if ($form_state['values']['email']) {
+    $query = db_select('vn_emails_subscribed', 'e')  
+          ->fields('e', array('email'));
+    $query->condition('e.email', $form_state['values']['email']);
+    $email = $query->execute()->fetchField();
+    if ($email) {
+      form_set_error('email', 'Email ' . $form_state['values']['email'] . ' has been submitted already!');
+    }
   }
   
 }

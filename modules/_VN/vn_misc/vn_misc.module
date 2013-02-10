@@ -5225,7 +5225,7 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form($form, &$form_state) {
     '#type' => 'container',
   );
     $form['m_and_s']['message'] = array(
-      '#type' => 'textfield',
+      '#type' => 'textarea',
       '#required' => TRUE,
       '#attributes' => array('title' => 'Message *'),
     );

@@ -65,7 +65,7 @@ input.blur, textarea.blur,
 
 
 
-#header, #navigation, #all-content, #footer-inside{width: 1100px; margin: auto;}
+#header, #navigation, #all-content, #footer-inside{width: 1100px; margin: auto; position: relative;}
 
 #header{padding-top: 95px; z-index: 4;}
 
@@ -1626,7 +1626,7 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 #block-vn-blocks-ad-speedtest-page a{padding: 0;}
 
 /* Send a massage and Newsletters subscribe */
-#block-vn_blocks-send_msg_n_subscribe, #block-vn-blocks-send-msg-n-subscribe {overflow: hidden; width: 280px; float: left; margin-top: 40px;}
+#block-vn_blocks-send_msg_n_subscribe, #block-vn-blocks-send-msg-n-subscribe {overflow: hidden; width: 280px; left: 0; position: absolute;}
 #block-vn_blocks-send_msg_n_subscribe #edit-name, #block-vn-blocks-send-msg-n-subscribe #edit-name{overflow: hidden;}
 #block-vn_blocks-send_msg_n_subscribe .form-item-fname, #block-vn-blocks-send-msg-n-subscribe .form-item-fname {width: 135px; float: left; margin: 0;}
 #block-vn_blocks-send_msg_n_subscribe .form-item-lname, #block-vn-blocks-send-msg-n-subscribe .form-item-lname {width: 135px; float: right; margin: 0;}

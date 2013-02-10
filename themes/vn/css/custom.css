@@ -377,7 +377,7 @@ div.fivestar-widget-static .star span.on{background: url("images/sprite-2.png") 
 
 .view-providers table{margin-bottom: 0;}
 
-.view-providers th{background: #c2c2c2; border-right: 1px solid #f4f4f4; color: white; height: 55px; text-align: center; font-size: 12px; font-weight: bold; padding: 0 5px;}
+.view-providers th{background: #f3f8fb; color: #b8b8b8; height: 55px; text-align: center; font-size: 14px; font-weight: bold; padding: 0 5px; text-transform: uppercase;}
 
 
 
@@ -385,8 +385,9 @@ div.fivestar-widget-static .star span.on{background: url("images/sprite-2.png") 
 .view-providers th a{color: white; display: block; font-size: 14px; font-weight: bold;}
 #all-content .view-providers td, #all-content .view-providers td.active{background: transparent; padding: 5px 5px 8px; border-right: 1px solid #f4f4f4; text-align: center;}
 
+.view-providers thead tr{border-bottom: 3px solid lightgray;}
+.view-providers tr{border-bottom: 1px solid lightgray;}
 
-.view-providers tr{background: transparent;}
 .view-providers tr.even{background: #f9f9f9;}
 .view-providers tr.odd{border: none; background: transparent;}
 .view-providers tr.odd.views-row-last,
@@ -398,9 +399,6 @@ div.fivestar-widget-static .star span.on{background: url("images/sprite-2.png") 
 /* Providers directory*/
 
 #block-views-providers-block .inside, #block-views-providers-block_1 .inside{border: none;}
-
-.front .view-providers, .not-front .view-providers .view-content{border: 2px solid #f4f4f4;}
-
 
 th.views-field-field-p-logo{width: 140px; padding-left: 7px;}
 
@@ -538,7 +536,7 @@ body.one-sidebar.sidebar-second #sidebar-second{background: none; padding: 10px 
 
 #block-views-blog-block-latest-news .views-row {border-bottom: 1px solid lightgray;}
 
-#block-views-blog-block-latest-news .date-icon{height: 55px; float: left; text-align: center; margin: 0 10px 0 0; color: #004068; font-weight: bold; width: 40px;}
+#block-views-blog-block-latest-news .date-icon{height: 55px; float: left; text-align: center; margin: 0 10px 0 0; color: #004286; font-weight: bold; width: 40px;}
 .date-icon span {font-size: 25px; font-weight: bold; font-family: arial black; line-height: 25px;}
 .date-icon div div div {font-size: 16px;}
 
@@ -1366,7 +1364,7 @@ body.quote-page.v33 .messages{width: 890px; margin: auto; position: relative;}
 .field-name-body table th{}
 .field-name-body table tr{}
 
-.field-name-body table td, #main .block table td{border: 1px solid lightgray; padding: 5px;}
+.field-name-body table td, #main .block table td{border: none;}
 .field-name-body table.no-border td, #main .block table.no-border td{border: none;}
 
 /* Body content for admin pages */
@@ -1560,36 +1558,6 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 
 .page-get-iframe #all-content .block{margin: 0;}
 
-#block-views-providers-block_p_bu_iframe{width: 588px;}
-
-#block-views-providers-block_p_bu_iframe th.views-field-php{width: 300px;}
-#block-views-providers-block_p_bu_iframe .view-providers th {font-size: 12px; font-weight: normal; padding: 0 2px;}
-
-#all-content #block-views-providers-block_p_bu_iframe .view-providers td.views-field-php {padding: 2px;}
-#block-views-providers-block_p_bu_iframe .feature{font-size: 11px; background: url(/sites/all/themes/vn/css/images/sprite-2.png) no-repeat scroll 0 -1045px transparent;}
-#block-views-providers-block_p_bu_iframe .plan {font-size: 10px;}
-
-#block-views-providers-block_p_bu_iframe td.views-field-php-1{font-size: 14px;}
-#block-views-providers-block_p_bu_iframe td.views-field-php-2{font-size: 14px;}
-
-#block-views-providers-block_p_bu_iframe .views-field .count{font-size: 9px; top: 3px; position: relative; left: 1px;}
-
-#block-views-providers-block_p_bu_iframe td.views-field-php-2,
-#block-views-providers-block_p_bu_iframe td.views-field-php-3{}
-
-#block-views-providers-block_p_bu_iframe th.views-field-php-4{width: 160px; padding: 0 2px;}
-
-
-
-#main #block-views-providers-block_p_bu_iframe.block table td.views-field-php-4{padding: 0 2px;}
-
-#block-views-providers-block_p_bu_iframe td.views-field-php-4 a{font-size: 12px;}
-#block-views-providers-block_p_bu_iframe div.fivestar-widget-static .star{width: 15px;}
-
-#block-views-providers-block_p_bu_iframe th.views-field-php-5{width: 75px; padding: 0;}
-#block-views-providers-block_p_bu_iframe td.views-field-php-5{padding: 0;}
-
-#block-views-providers-block_p_bu_iframe td.views-field-php-5 a{font-size: 10px; font-weight: normal; padding: 8px 3px;}
 
 /* Request quote block in Iframe*/
 .page-get-iframe .sidebar{width: 240px;}

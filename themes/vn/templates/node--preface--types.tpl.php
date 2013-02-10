@@ -74,7 +74,7 @@
             $out .= '</div><div class="col-2">';
             $second = TRUE;
           }
-          if (!$third && $count > (($amount - 1)/3) * 2) {
+          if (!$third && $count > (($amount)/3) * 2) {
             $out .= '</div><div class="col-3">';
             $third = TRUE;
           }

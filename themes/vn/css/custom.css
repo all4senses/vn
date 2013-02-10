@@ -407,7 +407,7 @@ th.views-field-php{width: 150px;}
 th.views-field-php-1{width: 150px;}
 th.views-field-php-2 {width: 110px;}
 
-.views-field-php .link a {background: url("images/visit-site-btn.png") no-repeat 0 0 transparent; text-indent: -999px; color: black; display: block; width: 103px; margin: auto;}
+.views-field-php .link a {background: url("images/visit-site-btn.png") no-repeat 0 0 transparent; text-indent: -999px; color: black; display: block; width: 103px; height: 25px; margin: auto;}
 .views-field-php img {margin: auto; display: block; margin-bottom: 4px;}
 
 .offer {text-align: left; font-size: 13px; font-weight: normal;}
@@ -1675,4 +1675,4 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 
 .view-taxonomy-lists .views-row {overflow: hidden; margin-bottom: 10px;}
 .view-taxonomy-lists p {margin-bottom: 0;}
-.view-taxonomy-lists .views-more-link {float: right; font-size: 14px;}
+.views-more-link {float: right; font-size: 14px;}

@@ -5281,10 +5281,10 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form_validate(&$form, &$form_
   
   
   // Clear hints, if any.
-  $fields_to_clear_hints = array('email' => array('hint' => @$form['email']['#attributes']['title'], 'requited' => TRUE),
-                                 'fname' => array('hint' => @$form['name']['fname']['#attributes']['title'], 'requited' => TRUE),
-                                 'lname' => array('hint' => @$form['name']['lname']['#attributes']['title'], 'requited' => FALSE),
-                                 'message' => array('hint' => @$form['m_and_s']['message']['#attributes']['title'], 'requited' => TRUE),
+  $fields_to_clear_hints = array('email' => array('hint' => @$form['email']['#attributes']['title'], 'required' => TRUE),
+                                 'fname' => array('hint' => @$form['name']['fname']['#attributes']['title'], 'required' => TRUE),
+                                 'lname' => array('hint' => @$form['name']['lname']['#attributes']['title'], 'required' => FALSE),
+                                 'message' => array('hint' => @$form['m_and_s']['message']['#attributes']['title'], 'required' => TRUE),
                             );
   
   foreach ($fields_to_clear_hints as $fname => $fdata) {

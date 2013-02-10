@@ -5247,7 +5247,7 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form($form, &$form_state) {
 
   $form['#attached']['js'] = array(
     // Add hints inside some fields
-    $module_path . '/js/vn_newsletterSubscribe_fieldHints.js',
+    $module_path . '/js/vn_SendMsgNnewsletterSubscr_fieldHints.js',
   );
 
   

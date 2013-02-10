@@ -5335,18 +5335,40 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form_validate(&$form, &$form_
  */
 function vn_misc_sendMessageAndNewsletterSubscribe_form_submit(&$form, &$form_state) {
  
-  
-  $verification_code = md5(time());
-  db_insert('vn_emails_subscribed')
-    ->fields(array(
-      'email'=> $form_state['values']['email'],
-      'timestamp'=> time(),
-      'code' => $verification_code,
-    ))
-    ->execute();
+  global $user;
+  if (!empty($form_state['values']['subscribe'])) {
     
-  //vn_misc_sendMessage('email_verification', array('verification_code' => $verification_code . '=' . urlencode($form_state['values']['email']), 'email' => $form_state['values']['email']));
+    $verification_code = md5(time());
+    db_insert('vn_emails_subscribed')
+      ->fields(array(
+        'email'=> $form_state['values']['email'],
+        'ip' => $user->hostname,
+        'timestamp'=> time(),
+        'code' => $verification_code,
+      ))
+      ->execute();
+
+    //vn_misc_sendMessage('email_verification', array('verification_code' => $verification_code . '=' . urlencode($form_state['values']['email']), 'email' => $form_state['values']['email']));
+
+    drupal_set_message('Thank you for subscribing to our newsletter.');
+  }
   
-  drupal_set_message('Thank you for subscribing to our newsletter.');
+  if (!empty($form_state['values']['message'])) {
+    db_insert('vn_user_messages')
+      ->fields(array(
+        'email'=> $form_state['values']['email'],
+        'ip' => $user->hostname,
+        'timestamp'=> time(),
+        'fname' => $form_state['values']['fname'],
+        'lname' => $form_state['values']['lname'],
+        'message' => $form_state['values']['message'],
+      ))
+      ->execute();
+
+    //vn_misc_sendMessage('email_verification', array('verification_code' => $verification_code . '=' . urlencode($form_state['values']['email']), 'email' => $form_state['values']['email']));
+
+    drupal_set_message('Your message has been submitted. We will review it as soon as possibly!');
+  }
+  
   drupal_goto(ltrim(@$_SERVER['REDIRECT_URL'], '/'), array('query' => array('nocache' => 1)));
 }

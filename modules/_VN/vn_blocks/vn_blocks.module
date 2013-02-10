@@ -78,7 +78,7 @@ function vn_blocks_block_view($delta = '') {
       break;
     
     case 'send_msg_n_subscribe':
-      $block['subject'] = 'Send a message and Newsletter Sign Up';
+      $block['subject'] = '';// 'Send a message and Newsletter Sign Up';
       $block['content'] = drupal_get_form('vn_misc_sendMessageAndNewsletterSubscribe_form');
       break;
     

@@ -65,7 +65,8 @@ input.blur, textarea.blur,
 
 
 
-#header, #navigation, #all-content, #footer-inside{width: 1100px; margin: auto; position: relative;}
+#header, #navigation, #all-content, #footer-inside{width: 1100px; margin: auto;}
+#footer-inside{position: relative;}
 
 #header{padding-top: 95px; z-index: 4;}
 

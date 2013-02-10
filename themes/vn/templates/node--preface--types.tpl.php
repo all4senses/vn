@@ -68,12 +68,15 @@
         $second = NULL;
         $third = NULL;
         foreach ($terms as $term) {
+          
           //$out .= ($out ? ', ' : '') .  l($term->name, 'taxonomy/term/' . $term->tid);
           if (!$second && $count > ($amount - 1)/2) {
             $out .= '</div><div class="col-2">';
             $second = TRUE;
           }
           $out .= '<div class="link">' .  l($term->name, 'taxonomy/term/' . $term->tid) . '</div>';
+          
+          $count++;
         }
         $out .= '</div>';
         

@@ -1677,7 +1677,8 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 
 .types-block .content {padding: 15px 20px 20px 40px; border-bottom: 1px solid lightgray; overflow: hidden;}
 .notice {margin: 30px 0 20px;}
-.types-block .col-1, .types-block .col-2, .types-block .col-3 {float: left; width: 170px;}
+.types-block .col3-1, .types-block .col3-2, .types-block .col3-3 {float: left; width: 170px;}
+.types-block .col4-1, .types-block .col4-2, .types-block .col4-3, .types-block .col4-4 {float: left; width: 120px;}
 
 .view-display-id-block_provider_types_all .views-field-body {margin: 20px 20px 40px 40px;}
 

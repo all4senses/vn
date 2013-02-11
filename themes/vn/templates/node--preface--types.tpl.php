@@ -45,8 +45,8 @@
       
       $vocabularies = array(
         'VoIP Equipment' => array('vid' => 5, 'url' => 'equipment', 'banner' => '/f/img/eqipment-banner.jpg'),
-        'VoIP Features' => array('vid' => 4, 'url' => 'features', 'banner' => '/f/img/eqipment-banner.jpg'),
-        'VoIP Protocols' => array('vid' => 6, 'url' => 'protocols', 'banner' => '/f/img/eqipment-banner.jpg'),
+        'VoIP Features' => array('vid' => 4, 'url' => 'features', 'banner' => NULL),
+        'VoIP Protocols' => array('vid' => 6, 'url' => 'protocols', 'banner' => NULL),
       );
       
       foreach ($vocabularies as $v_title => $v_data) {
@@ -60,27 +60,54 @@
         
         $amount = $countQuery->execute()->fetchField();
   
-        //$out = '';
-        $out = '<div class="col-1">';
-        $count = 0;
-        $second = NULL;
-        $third = NULL;
-        foreach ($terms as $term) {
-          
-          //$out .= ($out ? ', ' : '') .  l($term->name, 'taxonomy/term/' . $term->tid);
-          if (!$second && $count > ($amount - 1)/3) {
-            $out .= '</div><div class="col-2">';
-            $second = TRUE;
-          }
-          if (!$third && $count > (($amount)/3) * 2) {
-            $out .= '</div><div class="col-3">';
-            $third = TRUE;
-          }
-          $out .= '<div class="link">' .  l($term->name, 'taxonomy/term/' . $term->tid) . '</div>';
-          
-          $count++;
+
+        if ($v_data['banner']) {
+            $out = '<div class="col3-1">';
+            $count = 0;
+            $second = NULL;
+            $third = NULL;
+            foreach ($terms as $term) {
+
+              //$out .= ($out ? ', ' : '') .  l($term->name, 'taxonomy/term/' . $term->tid);
+              if (!$second && $count > ($amount - 1)/3) {
+                $out .= '</div><div class="col3-2">';
+                $second = TRUE;
+              }
+              if (!$third && $count > (($amount)/3) * 2) {
+                $out .= '</div><div class="col3-3">';
+                $third = TRUE;
+              }
+              $out .= '<div class="link">' .  l($term->name, 'taxonomy/term/' . $term->tid) . '</div>';
+
+              $count++;
+            }
+            $out .= '</div>' . '<img src="' . $v_data['banner'] . '" />';
         }
-        $out .= '</div><img src="' . $v_data['banner'] . '" />';
+        else {
+            $out = '<div class="col4-1">';
+            $count = 0;
+            $second = NULL;
+            $third = NULL;
+            $fourth = NULL;
+            foreach ($terms as $term) {
+              if (!$second && $count > ($amount - 1)/4) {
+                $out .= '</div><div class="col4-2">';
+                $second = TRUE;
+              }
+              if (!$third && $count > ($amount - 1)/2) {
+                $out .= '</div><div class="col4-3">';
+                $third = TRUE;
+              }
+              if (!$third && $count > (($amount)/4) * 3) {
+                $out .= '</div><div class="col4-4">';
+                $fourth = TRUE;
+              }
+              $out .= '<div class="link">' .  l($term->name, 'taxonomy/term/' . $term->tid) . '</div>';
+
+              $count++;
+            }
+            $out .= '</div>';
+        }
         
         echo '<div class="types-block ' . $v_title . '">' . '<div class="title">' . l($v_title, $v_data['url']) . '</div><div class="content">' . $out . '</div></div>';
       }

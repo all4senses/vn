@@ -98,7 +98,7 @@
                 $out .= '</div><div class="col4-3">';
                 $third = TRUE;
               }
-              if (!$third && $count > (($amount)/4) * 3) {
+              if (!$fourth && $count > (($amount)/4) * 3) {
                 $out .= '</div><div class="col4-4">';
                 $fourth = TRUE;
               }
@@ -122,18 +122,18 @@
       );
       
       $amount = count($service_types);
-      $out = '<div class="col-1">';
+      $out = '<div class="col3-1">';
       $count = 0;
       $second = NULL;
       $third = NULL;
       foreach ($service_types as $s_title => $s_url) {
         
         if (!$second && $count > ($amount - 1)/3) {
-          $out .= '</div><div class="col-2">';
+          $out .= '</div><div class="col3-2">';
           $second = TRUE;
         }
         if (!$third && $count > (($amount)/3) * 2) {
-          $out .= '</div><div class="col-3">';
+          $out .= '</div><div class="col3-3">';
           $third = TRUE;
         }
           

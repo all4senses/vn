@@ -4802,6 +4802,12 @@ function vn_misc_getProviderQuickData($target, $data) {
       
       $all_data_quick = vn_misc_getProvidersDataQuick();
       
+      if (!empty($all_data_quick[$data['data']->nid]['i_web'])) {
+        $link = $all_data_quick[$data['data']->nid]['i_web'];
+      }
+      else {
+        $link = url('node/' . $data['data']->nid);
+      }
       
       $out = '<div class="link"><a href="' . $link . '" target="_blank">Visit website</a></div>';
       $out .= '<a href="' . $link . '" target="_blank">Read Review</a>';

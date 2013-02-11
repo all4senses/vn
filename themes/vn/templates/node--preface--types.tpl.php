@@ -122,19 +122,47 @@
       );
       
       $amount = count($service_types);
-      $out = '<div class="col3-1">';
+      
+//      $out = '<div class="col3-1">';
+//      $count = 0;
+//      $second = NULL;
+//      $third = NULL;
+//      foreach ($service_types as $s_title => $s_url) {
+//        
+//        if (!$second && $count > ($amount - 1)/3) {
+//          $out .= '</div><div class="col3-2">';
+//          $second = TRUE;
+//        }
+//        if (!$third && $count > (($amount)/3) * 2) {
+//          $out .= '</div><div class="col3-3">';
+//          $third = TRUE;
+//        }
+//          
+//        //$out .= ($out ? ', ' : '') .  l($s_title, $s_url);
+//        $out .= '<div class="link">' .  l($s_title, $s_url) . '</div>';
+//        
+//        $count++;
+//      }
+//      $out .= '</div>';
+      
+      $out = '<div class="col4-1">';
       $count = 0;
       $second = NULL;
       $third = NULL;
+      $fourth = NULL;
       foreach ($service_types as $s_title => $s_url) {
         
-        if (!$second && $count > ($amount - 1)/3) {
-          $out .= '</div><div class="col3-2">';
+        if (!$second && $count > ($amount - 1)/4) {
+          $out .= '</div><div class="col4-2">';
           $second = TRUE;
         }
-        if (!$third && $count > (($amount)/3) * 2) {
-          $out .= '</div><div class="col3-3">';
+        if (!$third && $count > ($amount)/2) {
+          $out .= '</div><div class="col4-3">';
           $third = TRUE;
+        }
+        if (!$fourth && $count > (($amount)/4) * 3) {
+          $out .= '</div><div class="col4-4">';
+          $fourth = TRUE;
         }
           
         //$out .= ($out ? ', ' : '') .  l($s_title, $s_url);

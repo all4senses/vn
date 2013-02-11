@@ -780,7 +780,7 @@ form .counter.exceeded{color: red;}
 
 
 .node-type-provider .images{float: left; width: 310px;}
-.node-type-provider .images .logo{margin: 40px auto; width: 200px; }
+.node-type-provider .images .logo{margin: 0 auto 30px auto; width: 200px;}
 .node-type-provider .images .image{margin: auto; width: 200px;}
 
 .node-type-provider .site {text-align: center;}

@@ -4766,6 +4766,49 @@ function vn_misc_getProviderQuickData($target, $data) {
           
       return $out;
       
+    
+      
+      
+    case 'name_n_logo_chart':
+    
+      $all_data_quick = vn_misc_getProvidersDataQuick();
+      $out = '';
+      
+      if (!empty($all_data_quick[$data['data']->nid]['i_web'])) {
+        $link = $all_data_quick[$data['data']->nid]['i_web'];
+      }
+      else {
+        $link = url('node/' . $data['data']->nid);
+      }
+      
+      if (!empty($all_data_quick[$data['data']->nid]['i_logo_uri'])) {
+        
+        $image_style_name = 'logo_provider_chart_main';
+
+        $image = theme('vn_misc_image_style', array('style_name' => $image_style_name, 'path' => $all_data_quick[$data['data']->nid]['i_logo_uri'], 'alt' =>  $all_data_quick[$data['data']->nid]['i_logo_alt'], 'title' =>  $all_data_quick[$data['data']->nid]['i_logo_title'] ));
+        $out = '<a href="' . $link . '" target="_blank">' . $image . '</a>';
+        
+      }
+
+      $out .= '<a href="' . $link . '" target="_blank">' . $all_data_quick[$data['data']->nid]['name'] . '</a>';
+          
+      return $out;
+    
+      
+      
+      
+      
+    case 'review_and_site_links':
+      
+      $all_data_quick = vn_misc_getProvidersDataQuick();
+      
+      
+      $out = '<div class="link"><a href="' . $link . '" target="_blank">Visit website</a></div>';
+      $out .= '<a href="' . $link . '" target="_blank">' . $all_data_quick[$data['data']->nid]['name'] . '</a>';
+      
+      return $out;
+      
+      
       
       
     case 'features':

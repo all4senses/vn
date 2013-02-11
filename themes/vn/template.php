@@ -148,7 +148,7 @@ function vn_pager_previous($variables) {
  */
 function vn_pager($variables) {
   
-  dpm($variables);
+  // Hide a pager on the home page.
   if($_GET['q'] == 'home') {
     return NULL;
   }

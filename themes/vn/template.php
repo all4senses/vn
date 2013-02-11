@@ -148,7 +148,8 @@ function vn_pager_previous($variables) {
  */
 function vn_pager($variables) {
   
-  
+  dpm($_SERVER);
+  dpm($_GET);
   
   
 //  $arg_0 = arg(0);

@@ -1666,7 +1666,7 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 .types-block.VoIP.Equipment {margin-top: 5px;}
 
 .view-display-id-block_provider_types_all .views-field-title a,
-.types-block .title a {display: block; padding: 5px 10px 5px 38px; border-top: 2px solid #7aabd6; border-bottom: 1px solid lightgray; color: #004286; font-size: 18px; font-weight: bold;}
+.types-block .title a {background: #F8F8F8; display: block; padding: 5px 10px 5px 38px; border-top: 2px solid #7aabd6; border-bottom: 1px solid lightgray; color: #004286; font-size: 18px; font-weight: bold;}
 
 
 .types-block.VoIP.Equipment .title a {background: url("images/types-icons.png") no-repeat 14px 11px #F8F8F8;}

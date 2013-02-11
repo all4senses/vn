@@ -1669,6 +1669,7 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 .types-block .title a {background: #F8F8F8; display: block; padding: 5px 10px 5px 38px; border-top: 2px solid #7aabd6; border-bottom: 1px solid lightgray; color: #004286; font-size: 18px; font-weight: bold;}
 
 
+
 .types-block.VoIP.Equipment .title a {background: url("images/types-icons.png") no-repeat 14px 11px #F8F8F8;}
 .types-block.VoIP.Features .title a {background: url("images/types-icons.png") no-repeat 11px -31px #F8F8F8;}
 .types-block.VoIP.Protocols .title a {background: url("images/types-icons.png") no-repeat 5px -69px #F8F8F8;}
@@ -1677,7 +1678,9 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 .types-block .content {padding: 15px 20px 20px 40px; border-bottom: 1px solid lightgray; overflow: hidden;}
 .notice {margin: 30px 0 20px;}
 .types-block .col-1, .types-block .col-2, .types-block .col-3 {float: left; width: 170px;}
- 
+
+.view-display-id-block_provider_types_all .views-field-body {margin: 20px 20px 40px 20px;}
+
 
 .view-taxonomy-lists .views-row, .view-providers .views-row {overflow: hidden; margin-bottom: 10px;}
 .view-taxonomy-lists p {margin-bottom: 0;}

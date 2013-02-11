@@ -4243,7 +4243,9 @@ function vn_misc_views_pre_render(&$view) {
     */
       
       
-    case 'view-taxonomy_term-page':
+    //case 'view-taxonomy_term-page':
+    case 'view-taxonomy_term-page_chart_providers':
+    case 'view-taxonomy_term-page_teasers':
       
       $args = arg();
       $term = taxonomy_term_load($args[2]);

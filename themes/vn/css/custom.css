@@ -413,6 +413,8 @@ th.views-field-php-2 {width: 110px;}
 
 .offer {text-align: left; font-size: 13px; font-weight: normal;}
 
+.view-providers .views-field-body a, .view-providers .views-field-body p {text-align: left; font-size: 13px; margin-bottom: 2px;}
+
 /* Correct a bit layout for separate admin pages with providers as blocks */
 .node-type-admin-page th.views-field-php-1{width: 110px;}
 

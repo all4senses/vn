@@ -1179,7 +1179,7 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
       
     case 'provider_node_form':
       
-      //dpm($form);
+      dpm($form);
 
       
       
@@ -1284,7 +1284,7 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
         
       $form['wp_fields'] = array(
         '#type' => 'fieldset',
-        '#title' => t('WP Fields'),
+        '#title' => 'WP Fields',
         '#collapsible' => TRUE,
         '#collapsed' => TRUE,
         '#tree' => TRUE,
@@ -1453,7 +1453,9 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
           $votes = array();
           $form['ereview'] = array(
             '#type' => 'fieldset',
-            '#title' => t('Editor\'s Rating for this VoIP Provider'),
+            '#title' => 'Editor\'s Rating for this VoIP Provider',
+            '#collapsible' => TRUE,
+            '#collapsed' => TRUE,
             '#weight' => 13,
           );
 

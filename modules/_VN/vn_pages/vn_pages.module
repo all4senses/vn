@@ -1265,7 +1265,8 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
               '#default_value' => isset($p_data['info']['i_web_hide']) ? $p_data['info']['i_web_hide'] : 0,
             );
             $form['data_info']['best_deal'] = array(
-              '#type' => 'textfield',
+              '#type' => 'text_format',
+              '#format' => 'full_html',
               '#title' => 'Best Deal',
               '#default_value' => isset($p_data['info']['best_deal']) ? $p_data['info']['best_deal'] : '',
             );

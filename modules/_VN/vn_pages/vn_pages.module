@@ -1264,13 +1264,32 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
               '#title' => 'Hide Web Site',
               '#default_value' => isset($p_data['info']['i_web_hide']) ? $p_data['info']['i_web_hide'] : 0,
             );
-            $form['data_info']['best_deal'] = array(
-              '#type' => 'text_format',
-              '#format' => 'full_html',
+            $form['data_info']['best_deal_field'] = array(
+              '#type' => 'fieldset',
+              '#collapsible' => TRUE,
+              '#collapsed' => TRUE,
               '#title' => 'Best Deal',
-              '#default_value' => isset($p_data['info']['best_deal']) ? $p_data['info']['best_deal'] : '',
             );
+                $form['data_info']['best_deal_field']['best_deal'] = array(
+                  '#type' => 'text_format',
+                  '#format' => 'full_html',
+                  '#title' => '',
+                  '#default_value' => isset($p_data['info']['best_deal']) ? $p_data['info']['best_deal'] : '',
+                );
             
+            $form['data_info']['offers_field'] = array(
+              '#type' => 'fieldset',
+              '#collapsible' => TRUE,
+              '#collapsed' => TRUE,
+              '#title' => 'Best Deal',
+            );
+                $form['data_info']['offers_field']['offers'] = array(
+                  '#type' => 'text_format',
+                  '#format' => 'full_html',
+                  '#title' => '',
+                  '#default_value' => '',//isset($p_data['info']['best_deal']) ? $p_data['info']['best_deal'] : '',
+                );
+                
 //            $form['data_info']['i_email'] = array(
 //              '#type' => 'textfield',
 //              '#title' => t('Email'),

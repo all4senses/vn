@@ -1224,11 +1224,11 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
       
       $form['data_info'] = array(
         '#type' => 'fieldset',
-        '#title' => t('General Provider Info'),
+        '#title' => 'General Provider Info',
         '#collapsible' => TRUE,
-        '#collapsed' => FALSE,
+        '#collapsed' => TRUE,
         '#tree' => TRUE,
-        '#weight' => 10,
+        '#weight' => 12,
       );
             $form['data_info']['i_heads'] = array(
               '#type' => 'textfield',
@@ -1291,7 +1291,7 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
         '#collapsible' => TRUE,
         '#collapsed' => TRUE,
         '#tree' => TRUE,
-        '#weight' => 11,
+        '#weight' => 13,
       );
       
             foreach ($wp_fields as $wp_group_title => $wp_group) {
@@ -1320,7 +1320,7 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
         '#collapsible' => TRUE,
         '#collapsed' => TRUE,
         '#tree' => TRUE,
-        '#weight' => 12,
+        '#weight' => 14,
       );
             foreach ($service_types as $service_type_key => $service_type_title) {
               
@@ -1459,7 +1459,7 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
             '#title' => 'Editor\'s Rating for this VoIP Provider',
             '#collapsible' => TRUE,
             '#collapsed' => TRUE,
-            '#weight' => 13,
+            '#weight' => 15,
           );
 
               $form['ereview']['votes'] = array(

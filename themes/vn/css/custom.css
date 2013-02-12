@@ -803,6 +803,7 @@ form .counter.exceeded{color: red;}
 
 .view-display-id-block_chart_all_providers table {/*border-top: 1px solid lightgray;*/}
 .view-display-id-block_chart_all_providers thead {display: none;}
+.view-display-id-block_chart_all_providers thead tr{display: none;}
 
 .node-type-provider #main .main-content{padding: 0;}
 .node-type-provider #main .main-content .content{border:none; margin-top: 0; padding: 0;}

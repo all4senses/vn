@@ -803,6 +803,9 @@ form .counter.exceeded{color: red;}
 
 .block-views h2{color: gray; font-size: 18px; font-weight: bold; line-height: 25px; margin: 40px 0 -20px 0; width: 830px; background: url("images/title-back.png") no-repeat 0 0 transparent; height: 60px; position: relative; left: -45px; text-indent: 50px; padding: 7px 0 0 0;}
 
+/* Chart Featured providers */
+#block-views-7b964e59685263608888358d8157d96f .block-title {background: none; margin: 0 0 -30px 0;}
+
 .view-id-providers thead {display: none;}
 .view-id-providers.view-display-id-block_chart_featured_providers thead {display: table-header-group;}
 

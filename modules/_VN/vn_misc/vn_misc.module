@@ -4810,7 +4810,7 @@ function vn_misc_getProviderQuickData($target, $data) {
       }
       
       $out = '<a class="site-link" href="' . $link . '" target="_blank">Visit website</a>';
-      $out .= '<a class="review-link" href="' . $link . '" target="_blank">Read Review</a>';
+      $out .= '<a class="review-link" href="' . url('node/' . $data['data']->nid) . '" target="_blank">Read Review</a>';
       
       return $out;
       

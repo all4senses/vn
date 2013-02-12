@@ -415,6 +415,11 @@ th.views-field-php-2 {width: 110px;}
 
 .view-providers .views-field-body a, .view-providers .views-field-body p {text-align: left; font-size: 13px; margin-bottom: 2px;}
 
+.view-display-id-block_chart_all_providers .site-link {background: url("images/visit-site-btn2.png") no-repeat 0 0 transparent; text-indent: -9999px; color: black; display: block; width: 103px; height: 25px; margin: auto;}
+.view-display-id-block_chart_all_providers .review-link {background: url("images/read-review-btn.png") no-repeat 0 0 transparent; text-indent: -9999px; color: black; display: block; width: 103px; height: 25px; margin: auto;}
+
+
+
 /* Correct a bit layout for separate admin pages with providers as blocks */
 .node-type-admin-page th.views-field-php-1{width: 110px;}
 

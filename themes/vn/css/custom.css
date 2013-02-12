@@ -801,9 +801,8 @@ form .counter.exceeded{color: red;}
 
 .block-views h2{color: gray; font-size: 18px; font-weight: bold; line-height: 25px; margin: 40px 0 0 0; width: 803px; background: url("images/title-back.png") no-repeat 0 0 transparent; height: 60px; position: relative; left: -45px; text-indent: 50px; padding: 7px 0 0 0;}
 
-.view-display-id-block_chart_all_providers table {/*border-top: 1px solid lightgray;*/}
-.view-display-id-block_chart_all_providers thead {display: none;}
-.view-display-id-block_chart_all_providers thead tr{display: none;}
+.view-display-id-block_chart_featured_providers table {/*border-top: 1px solid lightgray;*/}
+.view-display-id-block_chart_featured_providers thead {display: none;}
 
 .node-type-provider #main .main-content{padding: 0;}
 .node-type-provider #main .main-content .content{border:none; margin-top: 0; padding: 0;}

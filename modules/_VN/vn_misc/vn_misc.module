@@ -4370,7 +4370,8 @@ function vn_misc_views_pre_render(&$view) {
      if ($key == 'view-taxonomy_term-page_equipment' || $key == 'view-taxonomy_term-page_protocols') {
       
       global $current_tag_title;
-      $current_tag_title = $preface_node->title . ' "' . htmlspecialchars_decode($view->build_info['substitutions']['%1']) . '"';
+      //$current_tag_title = $preface_node->title . ' "' . htmlspecialchars_decode($view->build_info['substitutions']['%1']) . '"';
+      $current_tag_title = htmlspecialchars_decode($view->build_info['substitutions']['%1']);
       
       // add metatag title for the specific term, if it's set in the Metatags block and not equal to defaults.
       if (isset($term->metatags['title']['value']) && $term->metatags['title']['value']) {

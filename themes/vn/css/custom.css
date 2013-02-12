@@ -804,7 +804,7 @@ form .counter.exceeded{color: red;}
 .view-id-providers table {margin-top: -10px;}
 
 .view-id-providers thead {display: none;}
-.view-id-providers.view-display-id-block_chart_featured_providers thead {display: block;}
+.view-id-providers.view-display-id-block_chart_featured_providers thead {display: table;}
 
 .node-type-provider #main .main-content{padding: 0;}
 .node-type-provider #main .main-content .content{border:none; margin-top: 0; padding: 0;}

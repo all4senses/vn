@@ -1329,7 +1329,8 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
                 '#states' => array(
                                   // Hide the this service section when a corresponding checkbox is disabled.
                                   'invisible' => array(
-                                      ':input[value="' . vn_misc_refineServiceTypeKey_Reverse($service_type_key) . '"]' => array('checked' => FALSE),
+                                      //':input[value="' . vn_misc_refineServiceTypeKey_Reverse($service_type_key) . '"]' => array('checked' => FALSE),
+                                      ':input[value="' . $service_type_key . '"]' => array('checked' => FALSE),
                                 ),
                             ),
               );

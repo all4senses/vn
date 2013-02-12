@@ -801,7 +801,7 @@ form .counter.exceeded{color: red;}
 
 .block-views h2{color: gray; font-size: 18px; font-weight: bold; line-height: 25px; margin: 40px 0 0 0; width: 830px; background: url("images/title-back.png") no-repeat 0 0 transparent; height: 60px; position: relative; left: -45px; text-indent: 50px; padding: 7px 0 0 0;}
 
-.view-id-providers table {/*border-top: 1px solid lightgray;*/}
+.view-id-providers table {margin-top: -10px;}
 .view-id-providers thead {display: none;}
 
 .node-type-provider #main .main-content{padding: 0;}

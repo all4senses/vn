@@ -371,6 +371,7 @@ div.fivestar-widget-static .star span.on{background: url("images/sprite-2.png") 
 #main .feature{background: url("images/sprite-2.png") no-repeat scroll 0 -1042px transparent; font-size: 11px; margin-bottom: 2px; padding-left: 20px; color: #777777;}
 
 
+.view-display-id-page_chart_providers {margin: 0 0 50px 0;}
 
 .view-display-id-page_chart_providers table,
 .view-providers table{margin-bottom: 0;}
@@ -406,11 +407,14 @@ div.fivestar-widget-static .star span.on{background: url("images/sprite-2.png") 
 
 /* Providers directory*/
 
-#block-views-providers-block .inside, #block-views-providers-block_1 .inside{border: none;}
 
 th.views-field-field-p-logo{width: 140px; padding-left: 7px;}
 
-#all-content .view-providers td.views-field-php, #all-content .view-providers td.active.views-field-php{text-align: center; padding: 10px 0 10px 2px;}
+
+#all-content .view-display-id-page_chart_providers td.views-field-php, 
+#all-content .view-display-id-page_chart_providers td.active.views-field-php,
+#all-content .view-providers td.views-field-php, 
+#all-content .view-providers td.active.views-field-php{text-align: center; padding: 10px 0 10px 2px;}
 
 th.views-field-php{width: 150px;}
 
@@ -422,9 +426,15 @@ th.views-field-php-2 {width: 110px;}
 
 .offer, .offer p, .offer a {text-align: left; font-size: 13px; font-weight: normal; margin: 0;}
 
-.view-providers .views-field-body a, .view-providers .views-field-body p {text-align: left; font-size: 13px; margin-bottom: 2px;}
+.view-display-id-page_chart_providers .views-field-body a,
+.view-display-id-page_chart_providers .views-field-body p,
+.view-providers .views-field-body a, 
+.view-providers .views-field-body p {text-align: left; font-size: 13px; margin-bottom: 2px;}
 
+.view-display-id-page_chart_providers .site-link,
 .view-display-id-block_chart_all_providers .site-link {background: url("images/visit-site-btn2.png") no-repeat 0 0 transparent; text-indent: -9999px; color: black; display: block; width: 103px; height: 25px; margin: 0 auto 10px auto;}
+
+.view-display-id-page_chart_providers .review-link,
 .view-display-id-block_chart_all_providers .review-link {background: url("images/read-review-btn.png") no-repeat 0 0 transparent; text-indent: -9999px; color: black; display: block; width: 103px; height: 25px; margin: auto;}
 
 

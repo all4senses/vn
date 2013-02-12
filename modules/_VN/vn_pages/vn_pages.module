@@ -1281,7 +1281,7 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
               '#type' => 'fieldset',
               '#collapsible' => TRUE,
               '#collapsed' => TRUE,
-              '#title' => 'Best Deal',
+              '#title' => 'Popular Offers',
             );
                 $form['data_info']['offers_field']['offers'] = array(
                   '#type' => 'text_format',

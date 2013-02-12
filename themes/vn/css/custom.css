@@ -1316,7 +1316,7 @@ body.quote-page.v33 .messages{width: 890px; margin: auto; position: relative;}
 
 
 .node-type-quote #v33 #requestQuoteFormWrapper #Navigation{right: 42px; bottom: 2px; position: static;}
-.node-type-quote #v33 #requestQuoteFormWrapper #Navigation #next{background: url(/sites/all/themes/vn/css/images/qp-v33-submit-button.png) no-repeat; border: medium none; height: 35px; width: 205px; text-indent: -999px;}
+.node-type-quote #v33 #requestQuoteFormWrapper #Navigation #next{background: url(/sites/all/themes/vn/css/images/qp-v33-submit-button.png) no-repeat; border: medium none; height: 35px; width: 205px; text-indent: -9999px;}
 
 .node-type-quote #v33 #requestQuoteFormWrapper label.error{font-size: 10px; font-weight: normal; left: 10px; padding: 0; bottom: 3px; margin: 0; background: white; width: 210px; overflow: hidden;}
 
@@ -1655,13 +1655,13 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 #block-vn_blocks-send_msg_n_subscribe .form-item-subscribe, #block-vn-blocks-send-msg-n-subscribe .form-item-subscribe {font-size: 12px; color: gray;}
 #block-vn_blocks-send_msg_n_subscribe #edit-subscribe, #block-vn-blocks-send-msg-n-subscribe #edit-subscribe {width: auto;}
 #block-vn_blocks-send_msg_n_subscribe .form-actions, #block-vn-blocks-send-msg-n-subscribe .form-actions {float: right; margin: 0; width: 70px; height: 95px;}
-#block-vn_blocks-send_msg_n_subscribe .form-actions input, #block-vn-blocks-send-msg-n-subscribe .form-actions input {height: 100px; width: 100%; background: url("images/send-msg-btn.png") no-repeat scroll -3px 0 transparent; border: none; text-indent: -999px; cursor: pointer;}
+#block-vn_blocks-send_msg_n_subscribe .form-actions input, #block-vn-blocks-send-msg-n-subscribe .form-actions input {height: 100px; width: 100%; background: url("images/send-msg-btn.png") no-repeat scroll -3px 0 transparent; border: none; text-indent: -9999px; cursor: pointer;}
 
 #block-vn_blocks-social_links{position: absolute; top: 110px; left: 460px;}
 #block-vn_blocks-social_links .title {font-size: 13px; width: 220px; line-height: 18px; margin-bottom: 15px; color: #aaaaaa;}
 .social-links {position: relative;}
 .social-links .col-2 {position: absolute; left: 115px; top: 0;}
-.social-links a{display: block; margin: 0 0 15px 0; text-indent: -999px; width: 97px; height: 30px;}
+.social-links a{display: block; margin: 0 0 15px 0; text-indent: -9999px; width: 97px; height: 30px;}
 .social-links .Facebook {background: url("images/social.png") no-repeat 0 0 transparent;}
 .social-links .Twitter {background: url("images/social.png") no-repeat 0 -48px transparent;}
 .social-links .GooglePlus {background: url("images/social.png") no-repeat 0 -96px transparent;}

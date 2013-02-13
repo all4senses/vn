@@ -818,7 +818,7 @@ form .counter.exceeded{color: red;}
 
 .pros-and-cons{margin: 0 0 0 315px;}
 .pros-and-cons .title {font-weight: bold;}
-.pros-and-cons .text {font-size: 12px; line-height: 18px; margin-bottom: 10px; border-bottom: 1px solid lightgray;}
+.pros-and-cons .text {font-size: 11px; line-height: 17px; margin-bottom: 10px; border-bottom: 1px solid lightgray;}
 
 
 .node-type-provider #main .main-content h1{float: left; color: gray; font-size: 18px; font-weight: bold; line-height: 25px; margin: 0; width: 830px; background: url("images/p-title-back.png") no-repeat 0 0 transparent; height: 60px; position: relative; left: -45px; text-indent: 50px; padding: 7px 0 0 0;}

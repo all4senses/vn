@@ -709,19 +709,22 @@ form .counter.exceeded{color: red;}
 .page-node #main .main-content h1{color: gray; font-weight: 600; font-size: 28px;}
 .page-node #main .main-content h1.not-published{color: red;}
 
+.node-type-blog-post #main .main-content h1 {color: #478AFD; margin: 0;}
+
+
 .node-type-admin-page h1{margin-top: 13px;}
   
-.page-node #main .submitted{font-size: 17px; color: gray;}
+.page-node #main .submitted{font-size: 12px; color: gray;}
 
 .page-node .submitted .delim{font-weight: bold; margin-right: 5px;}
 
 .node-teaser .submitted a{margin: 0 0 0 3px;}
-.page-node .submitted a{margin: 0 0 0 5px; color: gray; font-weight: bold;}
+.page-node .submitted a{margin: 0 0 0 5px; color: gray;}
 
 .gplus{display: inline-block; background: url("images/gplus16.jpg") no-repeat scroll 0 0 transparent; text-indent: -9999px; width: 20px;}
 .page-node .submitted .gplus{background: url("images/gplus16.jpg") no-repeat scroll 0 5px transparent;}
 
-.page-node #main .main-content .content{border-top: 2px solid lightgray; margin-top: 12px; padding-top: 20px;}
+.page-node #main .main-content .content{border-top: 2px solid lightgray; margin-top: 5px; padding-top: 20px;}
 .page-node #main .main-content .block-views .content{border: none;}
 
 /* Comments */
@@ -818,7 +821,7 @@ form .counter.exceeded{color: red;}
 .pros-and-cons .text {font-size: 12px; margin-bottom: 10px; border-bottom: 1px solid lightgray;}
 
 
-.node-type-provider #main .main-content h1{color: gray; font-size: 18px; font-weight: bold; line-height: 25px; margin: 0; width: 830px; background: url("images/p-title-back.png") no-repeat 0 0 transparent; height: 60px; position: relative; left: -45px; text-indent: 50px; padding: 7px 0 0 0;}
+.node-type-provider #main .main-content h1{float: left; color: gray; font-size: 18px; font-weight: bold; line-height: 25px; margin: 0; width: 830px; background: url("images/p-title-back.png") no-repeat 0 0 transparent; height: 60px; position: relative; left: -45px; text-indent: 50px; padding: 7px 0 0 0;}
 
 
 
@@ -834,9 +837,6 @@ form .counter.exceeded{color: red;}
 
 .node-type-provider #main .main-content{padding: 0;}
 .node-type-provider #main .main-content .content{border:none; margin-top: 0; padding: 0;}
-
-
-.node-type-provider h1{float: left;}
 
 .basic-info{float: left; margin-left: 40px; width: 300px; font-size: 15px;}
 .basic-info .title{margin-right: 10px; font-weight: bold;}
@@ -1073,15 +1073,6 @@ h1.preface{color: gray; font-size: 18px; font-weight: bold; line-height: 25px; m
 .field-name-field-preface-b-body p{margin-bottom: 10px; line-height: 20px; font-size: 15px;}
 
 .field-name-field-preface-b-body p{margin-bottom: 7px;}
-
-.page-node.page-node-77 #main .main-content,
-.page-node.page-node-90 #main .main-content{padding: 0 5px 0; border: none;}
-
-
-.page-node.page-node-77 #main .main-content .content,
-.page-node.page-node-90 #main .main-content .content{border: none; margin: 0;}
-
-.page-node-99 h1.preface, .page-node-100 h1.preface, .page-node-101 h1.preface {text-align: center; color: gray;}
 
 
 

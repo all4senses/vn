@@ -1,4 +1,4 @@
-
+body {font-family: Verdana,Arial,sans-serif/*{ffDefault}*/;}
 
 /* Three columns layout */
 body.two-sidebars #sidebar-first {float: left; margin: 0 0 0 -857px; padding: 0; width: 180px;}

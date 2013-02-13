@@ -1527,7 +1527,7 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
         $form['field_featured']['#suffix'] = '</div>';
          
             
-        $form['field_p_listposition_bu']['#prefix'] = '<div id="listings">';
+        $form['field_p_listposition_bu']['#prefix'] = '<div id="listpositions">';
         //$form['field_p_listposition_re']['#suffix'] = '<div class="bottom-clear"></div></div>';
         $form['field_p_listposition']['#suffix'] = '<div class="bottom-clear"></div></div>';
         

@@ -1582,7 +1582,7 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
 
               $form['#attributes']['class'][] = 'vn-edit-review-page';
 
-              dpm($form);
+              //dpm($form);
               
               
       $form['#validate'][] = 'vn_pages_validateForm_provider';

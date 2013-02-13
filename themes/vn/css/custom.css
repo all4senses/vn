@@ -808,7 +808,7 @@ form .counter.exceeded{color: red;}
 
 /* Provider page*/
 
-
+#tabs-1 .field-name-body, #tabs-1 .field-name-body p {font-size: 13px; line-height: 19px;}
 
 .node-type-provider .images{float: left; width: 310px;}
 .node-type-provider .images .logo{margin: 0 auto 30px auto; width: 200px;}
@@ -1048,20 +1048,12 @@ h2.rcaption a, h3.rcaption a, /*.node-review*/ h3.rcaption a:hover{color: white;
 h1.preface{color: gray; font-size: 18px; font-weight: bold; line-height: 25px; margin: 0 0 -20px 0; width: 830px; background: url("images/title-back.png") no-repeat 0 0 transparent; height: 60px; position: relative; left: -45px; text-indent: 50px; padding: 7px 0 0 0;}
 
 
-.page-node-287 .content.page p,
-.page-node-288 .content.page p,
-.page-node-565 .content.page p,
-.page-node-566 .content.page p,
-.page-node-581 .content.page p,
-.page-node-483 .content.page p,
 .front .content.page p{margin-bottom: 0px;}
 
 
 
 
 .content.page.preface,
-.page-node.page-node-77 #main .main-content .content,
-.page-node.page-node-90 #main .main-content .content,
 .front .content.page.preface, 
 .attachment-before .content.page.preface,
 .field-name-field-preface-b-body{font-size: 13px; padding: 5px 0 10px 0;}

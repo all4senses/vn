@@ -1543,8 +1543,10 @@ body.sidebar-second.node-type-quote #main{margin: 0; padding: 0;}
 #edit-field-p-listposition-bu {margin-top: 20px;}
 #edit-s {margin-bottom: 30px;}
 
-#types-n-feat {float: left;}
+#types-n-feat {float: left; margin-left: 45px;}
 #listpositions {float: left;}
+
+label[for="edit-field-p-types-und"] {color: #478AFD;}
 
 
 

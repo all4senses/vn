@@ -44,7 +44,7 @@ Equation for font sizing:
  */
 
 body, p {
-  line-height: 23px; /*20px*/
+  line-height: 22px; /*20px*/
   font-size: 15px;
 }
 

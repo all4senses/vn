@@ -384,10 +384,12 @@ div.fivestar-widget-static .star span.on{background: url("images/sprite-2.png") 
 .view-display-id-page_chart_providers th a,
 .view-providers th a{color: white; display: block; font-size: 14px; font-weight: bold;}
 
+/*
 .view-display-id-page_chart_providers .view-providers td,
 #all-content .view-display-id-page_chart_providers td.active,
 #all-content .view-providers td, 
 #all-content .view-providers td.active{background: transparent; padding: 5px 5px 8px; border-right: 1px solid #f4f4f4; text-align: center;}
+*/
 
 .view-display-id-page_chart_providers thead tr,
 .view-providers thead tr{border-bottom: 3px solid lightgray;}
@@ -410,11 +412,13 @@ div.fivestar-widget-static .star span.on{background: url("images/sprite-2.png") 
 
 th.views-field-field-p-logo{width: 140px; padding-left: 7px;}
 
-
+#all-content /*.view-display-id-page_chart_providers*/ td.views-field-php
+/*
 #all-content .view-display-id-page_chart_providers td.views-field-php, 
 #all-content .view-display-id-page_chart_providers td.active.views-field-php,
 #all-content .view-providers td.views-field-php, 
-#all-content .view-providers td.active.views-field-php{text-align: center; padding: 10px 0 10px 2px;}
+#all-content .view-providers td.active.views-field-php*/
+{text-align: center; padding: 10px 0 10px 2px;}
 
 th.views-field-php{width: 150px;}
 

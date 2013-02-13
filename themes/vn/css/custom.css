@@ -1727,3 +1727,7 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 .view-taxonomy-lists p {margin-bottom: 0;}
 .views-more-link {float: right; font-size: 14px;}
 .views-row p {margin-bottom: 0;}
+
+
+#disqus_thread {margin-top: 30px;}
+

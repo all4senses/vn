@@ -101,6 +101,7 @@
           hide($content['comments']);
           hide($content['links']);
           hide($content['field_categories']);
+          hide($content['disqus']);
           
           
           //dpm($content);
@@ -195,6 +196,7 @@
   <?php 
     if ($page) {
       echo '<a id="comments"></a>' .  render($content['comments']); 
+      echo render($content['disqus']);
     }
   ?>
 

@@ -195,8 +195,7 @@
     
   <?php 
     if ($page) {
-      echo '<a id="comments"></a>' .  render($content['comments']); 
-      echo render($content['disqus']);
+      echo '<a id="comments"></a>', render($content['disqus']), render($content['comments']); 
     }
   ?>
 

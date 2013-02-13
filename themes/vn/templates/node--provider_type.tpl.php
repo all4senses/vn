@@ -93,7 +93,7 @@
           if ($view->result) {
             module_load_include('inc', 'vn_misc', 'inc/constants');
             $service_types = unserialize(SERVICE_TYPES);
-            echo '<h2 class="block-title">All VoIP Providers that Offer ' . $service_types[$node->field_p_types['und'][0]['value']] . ' VoIP Services</h2>' . $results;
+            echo '<div class="block-views"><h2 class="block-title">All VoIP Providers that Offer ' . $service_types[$node->field_p_types['und'][0]['value']] . ' VoIP Services</h2>' . $results . '</div>';
           }
           else {
             echo '<br/>no providers';

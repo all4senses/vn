@@ -43,6 +43,11 @@ Equation for font sizing:
  * 1.GLOBAL
  */
 
+body, p {
+  line-height: 23px; /*20px*/
+  font-size: 15px;
+}
+
 body {
   background: #fff;
   color: #222;
@@ -51,19 +56,13 @@ body {
   font-size: 100%;
   line-height: 1.5;
   */
-  line-height: 20px;
-  font-size: 15px;
-
-  margin: 0;
+   margin: 0;
   padding: 0;
 }
 
 p {
   margin-bottom: 10px;
-  line-height: 20px;
-  font-size: 15px;
 }
-
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: Verdana,Arial,sans-serif/*{ffDefault}*/;

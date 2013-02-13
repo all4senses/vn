@@ -81,7 +81,8 @@
 
           // Show providers by a type.
           $view_name = 'providers'; 
-          $display_name = 'block_providers_by_type';
+          //$display_name = 'block_providers_by_type';
+          $display_name = 'block_chart_all_providers';
           $view = views_get_view($view_name);
 
           //$viewsFilterOptions_p_type = array('id' => 'field_p_types_value', 'value' => array('smbv' => 'smbv'));

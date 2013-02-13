@@ -415,7 +415,7 @@ th.views-field-field-p-logo{width: 140px; padding-left: 7px;}
 #all-content .view-display-id-page_chart_providers td.views-field-php, 
 #all-content .view-display-id-page_chart_providers td.active.views-field-php,
 #all-content .view-providers td.views-field-php, 
-#all-content .view-providers td.active.views-field-php{text-align: center; padding: 10px 0 10px 2px;}
+#all-content .view-providers td.active.views-field-php{text-align: center; padding: 10px/* 0 10px 2px*/;}
 
 th.views-field-php{width: 150px;}
 

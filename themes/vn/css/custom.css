@@ -808,7 +808,7 @@ form .counter.exceeded{color: red;}
 
 /* Provider page*/
 
-#tabs-1 .field-name-body, #tabs-1 .field-name-body p {font-size: 13px; line-height: 19px;}
+/*#tabs-1 .field-name-body, #tabs-1 .field-name-body p {font-size: 13px; line-height: 19px;}*/
 
 .node-type-provider .images{float: left; width: 310px;}
 .node-type-provider .images .logo{margin: 0 auto 30px auto; width: 200px;}

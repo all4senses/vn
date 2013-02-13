@@ -1298,173 +1298,8 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
 //              '#default_value' => isset($p_data['info']['i_email']) ? $p_data['info']['i_email'] : '',
 //            );
       
-      $wp_fields = unserialize(WP_FIELDS);
-      $service_types = unserialize(SERVICE_TYPES);
-      $service_descriptions = unserialize(SERVICE_DESCRIPTIONS);
-      $fee_types = unserialize(FEE_TYPES);
-      $load_key = 's';
-      
-        
-      $form['wp_fields'] = array(
-        '#type' => 'fieldset',
-        '#title' => 'WP Fields',
-        '#collapsible' => TRUE,
-        '#collapsed' => TRUE,
-        '#tree' => TRUE,
-        '#weight' => 14,
-      );
-      
-            foreach ($wp_fields as $wp_group_title => $wp_group) {
-              
-              $form['wp_fields'][$wp_group_title] = array(
-                '#type' => 'fieldset',
-                '#title' => $wp_group_title,
-                '#collapsible' => TRUE,
-                '#collapsed' => TRUE,
-              );
-              
-                foreach ($wp_group as $wp_key => $wp_title) {
-                  $form['wp_fields'][$wp_group_title][$wp_key] = array(
-                      '#type' => ($wp_group_title == 'Marketing' ? 'textarea' : 'textfield'),
-                      '#title' => $wp_title,
-                      '#default_value' => isset($p_data['wp_fields'][$wp_group_title][$wp_key]) ? $p_data['wp_fields'][$wp_group_title][$wp_key] : '',
-                    );
-                }
-            }
-            
-      
-      
-      $form['s'] = array(
-        '#type' => 'fieldset',
-        '#title' => t('Provider services'),
-        '#collapsible' => TRUE,
-        '#collapsed' => TRUE,
-        '#tree' => TRUE,
-        '#weight' => 15,
-      );
-            foreach ($service_types as $service_type_key => $service_type_title) {
-              
-              $form['s'][$service_type_key] = array(
-                '#type' => 'fieldset',
-                '#title' => t("$service_type_title serviсes"),
-                '#collapsible' => TRUE,
-                '#collapsed' => TRUE,
-                '#states' => array(
-                                  // Hide the this service section when a corresponding checkbox is disabled.
-                                  'invisible' => array(
-                                      //':input[value="' . vn_misc_refineServiceTypeKey_Reverse($service_type_key) . '"]' => array('checked' => FALSE),
-                                      ':input[value="' . $service_type_key . '"]' => array('checked' => FALSE),
-                                ),
-                            ),
-              );
-                  
-              
-              
-              
-                  // Descriptions fields
-                  foreach ($service_descriptions as $service_description_key => $service_description_title) {
-                    
-                    $form['s'][$service_type_key][$service_description_key] = array(
-                      '#type' => 'textfield',
-                      '#title' => t($service_description_title),
-                      '#default_value' => isset($p_data['s'][$service_type_key][$service_description_key]) ? $p_data['s'][$service_type_key][$service_description_key] : '',
-                                          //$p_data['s']['re']['pti']
-                    );
-                    
-                  }
-                  
-                  // Fees
-                  $form['s'][$service_type_key]['fees'] = array(
-                    '#type' => 'fieldset',
-                    '#collapsible' => TRUE,
-                    '#collapsed' => FALSE,
-                    '#title' => t("$service_type_title services fees"),
-                  );
-                      foreach ($fee_types as $fee_type_key => $fee_type_data) {
-                        
-                        $form['s'][$service_type_key]['fees'][$fee_type_key] = array(
-                          '#type' => 'textfield',
-                          '#title' => t($fee_type_data[0]),
-                          '#field_prefix' => $fee_type_data[1],
-                          '#default_value' => isset($p_data['s'][$service_type_key]['fees'][$fee_type_key]) ? $p_data['s'][$service_type_key]['fees'][$fee_type_key] : '',
-                                              // $p_data['s']['re']['fees']['mon']
-                        );                    
-                        
-                      }
-                      
-                  
-//                  // Move defined via admin panel fields with a taxonomy autocomplete for corresponding Features tags to the corresponding fieldset.
-//                  $form['s'][$service_type_key]['field_p_' . $service_type_key . '_features'] = $form['field_p_' . $service_type_key . '_features'];
-//                  $form['field_p_' . $service_type_key . '_features']['#access'] = FALSE;
-//                  
-//                  // Add tags weights editing window for corresponding features.
-//                  if ($load_key == 's' && isset($p_data['s'][$service_type_key]['weights_' . $service_type_key . '_features']) && !empty($p_data['s'][$service_type_key]['weights_' . $service_type_key . '_features'])) {
-//                    $features_weights = $p_data['s'][$service_type_key]['weights_' . $service_type_key . '_features'];
-//                    //$p_data['services']['re']['weights_re_features'];
-//                  }
-//                  else {
-//                    $features_weights = NULL;
-//                  }
-//                  
-//                  if($features_weights) {
-//                    
-//                      $form['s'][$service_type_key]['weights_' . $service_type_key . '_features'] = array(
-//                        '#type' => 'fieldset',
-//                        '#title' => t("$service_type_title Features tags weights"),
-//                        '#collapsible' => TRUE,
-//                        '#collapsed' => TRUE,
-//                        '#weight' => $form['s'][$service_type_key]['field_p_' . $service_type_key . '_features']['#weight'] + 1,
-//                      );
-//
-//                            foreach($features_weights as $tid => $term) {
-//                              $form['s'][$service_type_key]['weights_' . $service_type_key . '_features'][$tid] = array(
-//                                '#type' => 'textfield',
-//                                '#size' => 3,
-//                                '#title' => t($term['name']),
-//                                '#default_value' => $term['weight'],
-//                              );
-//                            }
-//                            
-//                  } // End of if($features_weights) {
-                  
-              
-            } // End of foreach ($service_types as $service_type => $service_type_short) {
-      
-            
-              
-                  
-      $form['field_p_types']['#suffix'] = '<div class="bottom-clear"></div>';
-      
-//      $form['field_p_erating']['#prefix'] = '<div id="listings">';
-//      //$form['field_p_erating_cc']['#suffix'] = '<div class="bottom-clear"></div></div>';
-//      $form['field_p_erating_re_ca']['#suffix'] = '<div class="bottom-clear"></div></div>';
-       
-                  
-//      $form['data_quote'] = array(
-//        '#type' => 'fieldset',
-//        '#title' => t('Quote and Its Author'),
-//        '#collapsible' => TRUE,
-//        '#collapsed' => TRUE,
-//        '#tree' => TRUE,
-//        '#weight' => 12,
-//      );
-//            $form['data_quote']['q_text'] = array(
-//              '#type' => 'textarea',
-//              //'#type' => 'text_format',
-//              //'#format' => 'full_html',
-//                
-//              '#title' => t('Quote text'),
-//              '#default_value' => isset($p_data['quote']['q_text']) ? $p_data['quote']['q_text'] : '',
-//            );
-//            $form['data_quote']['q_author'] = array(
-//              '#type' => 'textfield',
-//              '#title' => t('Quote author'),
-//              '#default_value' => isset($p_data['quote']['q_author']) ? $p_data['quote']['q_author'] : '',
-//            );
-      
-            
-      
-      
+                
+                
       
           // Admin Rate and vote group.
           $rating_options = array('' => FALSE, '20' => 'Horrible', '40' => 'Bad', '60' => 'OK', '80' => 'Good', '100' => 'Excellent');
@@ -1539,6 +1374,181 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
                   '#default_value' => isset($p_data['ereview']['pros_and_cons'][$pros_and_cons_title]) ? $p_data['ereview']['pros_and_cons'][$pros_and_cons_title] : '',
                 );
               }
+      
+              
+      
+              
+              
+      $wp_fields = unserialize(WP_FIELDS);
+      
+      $form['wp_fields'] = array(
+        '#type' => 'fieldset',
+        '#title' => 'WP Fields',
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+        '#tree' => TRUE,
+        '#weight' => 14,
+      );
+      
+            foreach ($wp_fields as $wp_group_title => $wp_group) {
+              
+              $form['wp_fields'][$wp_group_title] = array(
+                '#type' => 'fieldset',
+                '#title' => $wp_group_title,
+                '#collapsible' => TRUE,
+                '#collapsed' => TRUE,
+              );
+              
+                foreach ($wp_group as $wp_key => $wp_title) {
+                  $form['wp_fields'][$wp_group_title][$wp_key] = array(
+                      '#type' => ($wp_group_title == 'Marketing' ? 'textarea' : 'textfield'),
+                      '#title' => $wp_title,
+                      '#default_value' => isset($p_data['wp_fields'][$wp_group_title][$wp_key]) ? $p_data['wp_fields'][$wp_group_title][$wp_key] : '',
+                    );
+                }
+            }
+            
+      
+            
+            
+            
+      $service_types = unserialize(SERVICE_TYPES);
+      $service_descriptions = unserialize(SERVICE_DESCRIPTIONS);
+      $fee_types = unserialize(FEE_TYPES);
+      $load_key = 's';
+      
+      
+      $form['s'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Provider services'),
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+        '#tree' => TRUE,
+        '#weight' => 15,
+      );
+            foreach ($service_types as $service_type_key => $service_type_title) {
+              
+              $form['s'][$service_type_key] = array(
+                '#type' => 'fieldset',
+                '#title' => t("$service_type_title serviсes"),
+                '#collapsible' => TRUE,
+                '#collapsed' => TRUE,
+                '#states' => array(
+                                  // Hide the this service section when a corresponding checkbox is disabled.
+                                  'invisible' => array(
+                                      //':input[value="' . vn_misc_refineServiceTypeKey_Reverse($service_type_key) . '"]' => array('checked' => FALSE),
+                                      ':input[value="' . $service_type_key . '"]' => array('checked' => FALSE),
+                                ),
+                            ),
+              );
+                  
+              
+              
+              
+                  // Descriptions fields
+                  foreach ($service_descriptions as $service_description_key => $service_description_title) {
+                    
+                    $form['s'][$service_type_key][$service_description_key] = array(
+                      '#type' => 'textfield',
+                      '#title' => t($service_description_title),
+                      '#default_value' => isset($p_data['s'][$service_type_key][$service_description_key]) ? $p_data['s'][$service_type_key][$service_description_key] : '',
+                                          //$p_data['s']['re']['pti']
+                    );
+                    
+                  }
+                  
+                  // Fees
+                  $form['s'][$service_type_key]['fees'] = array(
+                    '#type' => 'fieldset',
+                    '#collapsible' => TRUE,
+                    '#collapsed' => FALSE,
+                    '#title' => t("$service_type_title services fees"),
+                  );
+                      foreach ($fee_types as $fee_type_key => $fee_type_data) {
+                        
+                        $form['s'][$service_type_key]['fees'][$fee_type_key] = array(
+                          '#type' => 'textfield',
+                          '#title' => t($fee_type_data[0]),
+                          '#field_prefix' => $fee_type_data[1],
+                          '#default_value' => isset($p_data['s'][$service_type_key]['fees'][$fee_type_key]) ? $p_data['s'][$service_type_key]['fees'][$fee_type_key] : '',
+                                              // $p_data['s']['re']['fees']['mon']
+                        );                    
+                        
+                      }
+                      
+                  /*
+                  // Move defined via admin panel fields with a taxonomy autocomplete for corresponding Features tags to the corresponding fieldset.
+                  $form['s'][$service_type_key]['field_p_' . $service_type_key . '_features'] = $form['field_p_' . $service_type_key . '_features'];
+                  $form['field_p_' . $service_type_key . '_features']['#access'] = FALSE;
+                  
+                  // Add tags weights editing window for corresponding features.
+                  if ($load_key == 's' && isset($p_data['s'][$service_type_key]['weights_' . $service_type_key . '_features']) && !empty($p_data['s'][$service_type_key]['weights_' . $service_type_key . '_features'])) {
+                    $features_weights = $p_data['s'][$service_type_key]['weights_' . $service_type_key . '_features'];
+                    //$p_data['services']['re']['weights_re_features'];
+                  }
+                  else {
+                    $features_weights = NULL;
+                  }
+                  
+                  if($features_weights) {
+                    
+                      $form['s'][$service_type_key]['weights_' . $service_type_key . '_features'] = array(
+                        '#type' => 'fieldset',
+                        '#title' => t("$service_type_title Features tags weights"),
+                        '#collapsible' => TRUE,
+                        '#collapsed' => TRUE,
+                        '#weight' => $form['s'][$service_type_key]['field_p_' . $service_type_key . '_features']['#weight'] + 1,
+                      );
+
+                            foreach($features_weights as $tid => $term) {
+                              $form['s'][$service_type_key]['weights_' . $service_type_key . '_features'][$tid] = array(
+                                '#type' => 'textfield',
+                                '#size' => 3,
+                                '#title' => t($term['name']),
+                                '#default_value' => $term['weight'],
+                              );
+                            }
+                            
+                  } // End of if($features_weights) {
+                  */
+              
+            } // End of foreach ($service_types as $service_type => $service_type_short) {
+      
+            
+              
+                  
+      //$form['field_p_types']['#suffix'] = '<div class="bottom-clear"></div>';
+      
+//      $form['field_p_erating']['#prefix'] = '<div id="listings">';
+//      //$form['field_p_erating_cc']['#suffix'] = '<div class="bottom-clear"></div></div>';
+//      $form['field_p_erating_re_ca']['#suffix'] = '<div class="bottom-clear"></div></div>';
+       
+        /*          
+      $form['data_quote'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Quote and Its Author'),
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+        '#tree' => TRUE,
+        '#weight' => 12,
+      );
+            $form['data_quote']['q_text'] = array(
+              '#type' => 'textarea',
+              //'#type' => 'text_format',
+              //'#format' => 'full_html',
+                
+              '#title' => t('Quote text'),
+              '#default_value' => isset($p_data['quote']['q_text']) ? $p_data['quote']['q_text'] : '',
+            );
+            $form['data_quote']['q_author'] = array(
+              '#type' => 'textfield',
+              '#title' => t('Quote author'),
+              '#default_value' => isset($p_data['quote']['q_author']) ? $p_data['quote']['q_author'] : '',
+            );
+          */
+            
+      
+      
               
               
               // Add stars widgets to a Rating block
@@ -1561,7 +1571,7 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
 
               $form['#attributes']['class'][] = 'vn-edit-review-page';
 
-      
+              dpm($form);
               
               
       $form['#validate'][] = 'vn_pages_validateForm_provider';

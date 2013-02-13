@@ -1038,7 +1038,7 @@ h2.rcaption a, h3.rcaption a, /*.node-review*/ h3.rcaption a:hover{color: white;
 .front .node-admin-page p{margin: 0 0 10px;}
 
 /* Other prefaces */
-.front .content.page, .attachment-before .content.page{font-size: 16px; padding: 10px 5px 0; text-align: justify;}
+.front .content.page, .attachment-before .content.page{font-size: 16px; padding: 10px 5px 0;}
 .front .content.page{font-size: 13px; margin-bottom: 5px;}
 
 

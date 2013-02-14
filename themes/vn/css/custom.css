@@ -350,10 +350,9 @@ h2.preface{font-size: 18px; font-weight: bold; line-height: 18px; margin: 0; pad
 
 .front #main .block .content{padding: 0; font-size: 13px;}
 
-.front #main .node .content, .front .content.teaser p{font-size: 13px; overflow: hidden; line-height: 19px; color: black;}
+.front #main .node .content, .content.teaser p{font-size: 13px; overflow: hidden; line-height: 19px; color: black;}
 
 
-.front p{line-height: 25px; color: #777777;}
 
 /* Shadows */
 .shadow{background: url("images/shadow-bottom-right-t.png") no-repeat scroll 105% 2px transparent; height: 15px; margin-bottom: -15px; width: 100%;}
@@ -424,7 +423,7 @@ th.views-field-php-2 {width: 110px;}
 .views-field-php .link a {background: url("images/visit-site-btn.png") no-repeat 0 0 transparent; text-indent: -9999px; color: black; display: block; width: 103px; height: 25px; margin: auto;}
 .views-field-php img {margin: auto; display: block; margin-bottom: 4px;}
 
-.offer, .offer p, .offer a {text-align: left; font-size: 13px; font-weight: normal; margin: 0;}
+.offer, .offer p, .offer a {text-align: left; font-size: 13px; font-weight: normal; margin: 0; line-height: 17px;}
 
 .view-display-id-page_chart_providers .views-field-body a,
 .view-display-id-page_chart_providers .views-field-body p,
@@ -802,7 +801,7 @@ form .counter.exceeded{color: red;}
 #main .view-taxonomy-term h2,
 #main .view-articles h2,
 #main .view-news h2,
-#main .view-blog h2{margin-top: 0; padding: 0;}
+#main .view-blog h2{margin-top: 0; padding: 0; background: none; height: auto; margin: 0;}
 
 
 
@@ -1048,10 +1047,6 @@ h2.rcaption a, h3.rcaption a, /*.node-review*/ h3.rcaption a:hover{color: white;
 h1.preface{color: gray; font-size: 18px; font-weight: bold; line-height: 25px; margin: 0 0 -20px 0; width: 830px; background: url("images/title-back.png") no-repeat 0 0 transparent; height: 60px; position: relative; left: -45px; text-indent: 50px; padding: 7px 0 0 0;}
 
 
-.front .content.page p{margin-bottom: 0px;}
-
-
-
 
 .content.page.preface,
 .front .content.page.preface, 
@@ -1080,13 +1075,15 @@ h1.preface{color: gray; font-size: 18px; font-weight: bold; line-height: 25px; m
 #main .node-teaser .submitted{font-size: 12px; margin: 2px 0; padding-bottom: 5px;}
 
 #main .node-teaser .links, #main footer .links{float: left;}
+#main .node-teaser .links{clear: both;}
+
 #main footer .links a {color: gray;}
 
 #main .node-teaser .share{float: right;}
 
 .content.teaser{font-size: 14px; margin: 5px 0 5px 0; text-align: left; /*-webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto;*/}
 
-.content.teaser .thumb{width: 200px; height: 100px; float: left; margin: 5px 10px 5px 0; text-align: center;}
+.content.teaser .thumb{width: 200px; height: 100px; float: left; margin: 5px 10px 5px 0; text-align: center; overflow: hidden;}
 
 .content.teaser .more{color: #478AFD; font-weight: bold; position: absolute; right: 0; top: 5px;}
 

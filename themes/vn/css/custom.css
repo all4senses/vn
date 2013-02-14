@@ -425,7 +425,8 @@ th.views-field-php-2 {width: 110px;}
 .views-field-php .link a {background: url("images/visit-site-btn.png") no-repeat 0 0 transparent; text-indent: -9999px; color: black; display: block; width: 103px; height: 25px; margin: auto;}
 .views-field-php img {margin: auto; display: block; margin-bottom: 4px;}
 
-.offer, .offer p, .offer a {text-align: left; font-size: 13px; font-weight: normal; margin: 0; line-height: 17px;}
+.offer, .offer p, .offer a {text-align: left; font-size: 12px; line-height: 15px; font-weight: normal; margin: 0;}
+.offer, .offer p{color: black;}
 
 .view-display-id-page_chart_providers .views-field-body a,
 .view-display-id-page_chart_providers .views-field-body p,

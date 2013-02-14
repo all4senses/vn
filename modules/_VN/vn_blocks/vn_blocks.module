@@ -19,6 +19,11 @@ function vn_blocks_block_info() {
     'cache' => DRUPAL_NO_CACHE,
   ); 
   
+  $blocks['main_menu_om_types'] = array(
+    'info' => 'OM VoIP Types',
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  
   $blocks['main_menu_om_blog'] = array(
     'info' => 'OM Blog',
     'cache' => DRUPAL_NO_CACHE,
@@ -64,6 +69,10 @@ function vn_blocks_block_view($delta = '') {
       $block['content'] = vn_blocks_get_omMenuBlock_byTitle('VoIP Providers', 'vn_blocks_get_omMenuBlock_Providers');
       break;
     
+    case 'main_menu_om_types':
+      $block['subject'] = 'OM VoIP Types';
+      $block['content'] = vn_blocks_get_omMenuBlock_byTitle('Types Of VoIP', 'vn_blocks_get_omMenuBlock_Types');
+      break;
     
     case 'main_menu_om_blog':
       $block['subject'] = 'OM Blog';
@@ -220,6 +229,13 @@ function vn_blocks_get_omMenuBlock_byTitle($title, $function) {
  * Returns a themed VoIP Providers block content for MegaMenu.
  */
 function vn_blocks_get_omMenuBlock_Providers($submenu) {
+  return theme('vn_misc_submenuSimple', array('submenu' => $submenu, 'class' => 'block'));
+}
+
+/**
+ * Returns a themed VoIP Types block content for MegaMenu.
+ */
+function vn_blocks_get_omMenuBlock_Types($submenu) {
   return theme('vn_misc_submenuSimple', array('submenu' => $submenu, 'class' => 'block'));
 }
 

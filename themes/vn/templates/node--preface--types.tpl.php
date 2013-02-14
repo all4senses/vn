@@ -172,7 +172,7 @@
       }
       $out .= '</div>';
       
-      echo '<div class="types-block usage">' . '<div class="title">' . l('VoIP Usage: ', 'usage') . '</div><div class="content">' . $out . '</div></div>';
+      echo '<div class="types-block usage">' . '<div class="title">' . l('VoIP Usage', 'usage') . '</div><div class="content">' . $out . '</div></div>';
       
       echo '<div class="notice">Not sure which type of VoIP you\'re looking for? Try browsing our list of featured VoIP providers below...</div>';
       

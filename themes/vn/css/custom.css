@@ -721,12 +721,12 @@ form .counter.exceeded{color: red;}
 .page-node .submitted .delim{font-weight: bold; margin-right: 5px;}
 
 .node-teaser .submitted a{margin: 0 0 0 3px;}
-.page-node .submitted a{margin: 0 0 0 5px; color: gray;}
+.page-node .submitted a{margin: 0 0 0 5px;}
 
 .gplus{display: inline-block; background: url("images/gplus16.jpg") no-repeat scroll 0 0 transparent; text-indent: -9999px; width: 20px;}
 .page-node .submitted .gplus{background: url("images/gplus16.jpg") no-repeat scroll 0 5px transparent;}
 
-.page-node #main .main-content .content{border-top: 2px solid lightgray; margin-top: 5px; padding-top: 20px;}
+.page-node #main .main-content .content{border-top: 1px dotted lightgray; margin-top: 5px; padding-top: 20px;}
 .page-node #main .main-content .block-views .content{border: none;}
 
 /* Comments */

@@ -426,7 +426,7 @@ th.views-field-php-2 {width: 110px;}
 .views-field-php img {margin: auto; display: block; margin-bottom: 4px;}
 
 .offer, .offer p, .offer a {text-align: left; font-size: 12px; line-height: 15px; font-weight: normal; margin: 0;}
-.offer, .offer p{color: black;}
+.offer, .offer p{color: gray;}
 
 .view-display-id-page_chart_providers .views-field-body a,
 .view-display-id-page_chart_providers .views-field-body p,

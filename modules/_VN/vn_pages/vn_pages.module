@@ -2244,15 +2244,15 @@ function vn_pages_validateForm_article(&$form, &$form_state) {
 
   
   if (preg_match('/(.*)<!--more-->(.*)/', $form_state['values']['body']['und'][0]['value'], $matches)) {
-    dpm($matches);
+    //dpm($matches);
     $form_state['values']['body']['und'][0]['summary'] = $matches[1];
     //$body_full_markup = preg_replace('|\[video:.*(http.*)\]|', '<a href="$1"> [Watch a video] </a>', $body_full_markup);
   }
     
-  dpm($form_state['values']);
+  //dpm($form_state['values']['field_teaser_thumbnail']['und'][0]['fid']);
   
   // Define a main image and build a custom teaser.
-  $teaser_data = vn_misc_getArticleTeaserData('all', $form_state['values']['body']['und'][0]['value'], $form_state['values']['nid']);
+  $teaser_data = vn_misc_getArticleTeaserData('all', $form_state['values']['body']['und'][0]['value'], $form_state['values']['nid'], FALSE, FALSE, $form_state['values']['field_teaser_thumbnail']['und'][0]['fid']);
 
   //dpm($form_state['values']);
   

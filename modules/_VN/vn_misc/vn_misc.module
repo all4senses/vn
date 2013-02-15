@@ -941,6 +941,7 @@ function vn_misc_getArticleTeaserData($target, $body_full_markup, $nid, $charact
     $query->condition('fid', $thumbnail_fid);
     $main_image['uri'] = $query->execute()->fetchField();
     $main_image['src'] = vn_misc_getPathFromStreamUri($main_image['uri']);
+    dpm($main_image);
     $found_image = TRUE;
   }
   elseif (preg_match('/<img[^>]+>/i', $body_full_markup, $matches)) {

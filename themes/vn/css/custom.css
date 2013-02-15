@@ -192,12 +192,14 @@ body.not-admin #om-menu-main-om-menu li.om-leaf.leaf-write-review{background: no
 .om-maximenu ul.om-menu li.om-leaf .om-link.link-e{padding: 4px 8px 8px 8px;}
 
 
-.om-maximenu ul.om-menu li.om-leaf a.om-link{padding: 4px 55px 10px; font-size: 15px;}
+.om-maximenu ul.om-menu li.om-leaf a.om-link{padding: 4px 55px 10px; font-size: 15px; color: lightgray;}
 .om-maximenu ul.om-menu li.om-leaf.first a.om-link{padding-left: 20px; border-radius: 5px 0 0 0;}
 .om-maximenu ul.om-menu li.om-leaf:hover om-link, 
 .om-maximenu ul.om-menu li.om-leaf:hover a.om-link{/*background: url("/sites/all/themes/vn/css/images/sprite-0.png") no-repeat -50px -190px; */color: white;}
 
-.om-leaf a:hover {background: url("/sites/all/themes/vn/css/images/main-menu-hover.png") repeat-x 0 6px; height: 28px !important; overflow: hidden; position: relative; left: -2px;}
+#om-menu-main-om-menu li.om-leaf:hover a
+/*.om-leaf a:hover */
+{background: url("/sites/all/themes/vn/css/images/main-menu-hover.png") repeat-x 0 6px; height: 28px !important; overflow: hidden; position: relative; left: -2px;}
 
 
 

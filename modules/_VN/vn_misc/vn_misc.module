@@ -4714,8 +4714,8 @@ function vn_misc_getProviderQuickData($target, $data) {
     case 'coupon_offers':
       
       $all_data_quick = vn_misc_getProvidersDataQuick();
-      dpm('xxx');
-      dpm($all_data_quick[$data['data']->nid]['coupon']);
+      //dpm('xxx');
+      //dpm($all_data_quick[$data['data']->nid]['coupon']);
       if (!empty($all_data_quick[$data['data']->nid]['coupon']['link'])) {
         $link = $all_data_quick[$data['data']->nid]['coupon']['link'];
       }
@@ -4726,7 +4726,7 @@ function vn_misc_getProviderQuickData($target, $data) {
         $link = url('node/' . $data['data']->nid);
       }
       
-      return !empty($all_data_quick[$data['data']->nid]['coupon']['offer']) ? l($all_data_quick[$data['data']->nid]['coupon']['offer'], $link) : '';
+      return !empty($all_data_quick[$data['data']->nid]['coupon']['offers']) ? l($all_data_quick[$data['data']->nid]['coupon']['offers'], $link) : '';
       
     
     case 'best_deal':

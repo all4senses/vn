@@ -192,12 +192,13 @@ body.not-admin #om-menu-main-om-menu li.om-leaf.leaf-write-review{background: no
 .om-maximenu ul.om-menu li.om-leaf .om-link.link-e{padding: 4px 8px 8px 8px;}
 
 
-.om-maximenu ul.om-menu li.om-leaf a.om-link{padding: 4px 55px 10px; font-size: 15px; color: lightgray;}
-.om-maximenu ul.om-menu li.om-leaf.first a.om-link{border-radius: 5px 0 0 0;}
-.om-maximenu ul.om-menu li.om-leaf:hover om-link, 
-.om-maximenu ul.om-menu li.om-leaf:hover a.om-link{/*background: url("/sites/all/themes/vn/css/images/sprite-0.png") no-repeat -50px -190px; */color: white;}
+.om-maximenu ul.om-menu li.om-leaf a.om-link{padding: 4px 50px 10px; font-size: 15px; color: lightgray;}
+/*.om-maximenu ul.om-menu li.om-leaf.first a.om-link{border-radius: 5px 0 0 0;}*/
 
-#om-menu-main-om-menu li.om-leaf:hover a
+.om-maximenu ul.om-menu li.om-leaf:hover om-link, 
+.om-maximenu ul.om-menu li.om-leaf:hover a.om-link{color: white;}
+
+#om-menu-main-om-menu li.om-leaf:hover a.om-link
 /*.om-leaf a:hover */
 {background: url("/sites/all/themes/vn/css/images/main-menu-hover.png") repeat-x 0 6px; height: 28px !important; overflow: hidden; position: relative; left: -2px;}
 
@@ -205,7 +206,9 @@ body.not-admin #om-menu-main-om-menu li.om-leaf.leaf-write-review{background: no
 
 /*Make screen wide width for om submenu block */
 
-.om-maximenu .om-maximenu-content{top: 40px; padding-top: 5px; min-width: 170px; width: 180px; box-shadow: 3px 7px 7px -7px black;}
+.om-maximenu .om-maximenu-content
+{top: 40px; padding-top: 5px; min-width: 170px; box-shadow: 3px 7px 7px -7px black; width: 98%; border: 3px solid gray; position: relative; left: -2px;}
+/*{top: 40px; padding-top: 5px; min-width: 170px; width: 180px; box-shadow: 3px 7px 7px -7px black;}*/
 
 /*.om-maximenu-simple .om-maximenu-middle{background: #478afd; color: white; padding: 10px 15px 0 10px; border-radius: 0 0 8px 8px; box-shadow: 3px 7px 7px -7px #000000; width: auto;}*/
 .om-maximenu-simple .om-maximenu-middle{color: white; padding: 0; box-shadow: 3px 7px 7px -7px #000000;}

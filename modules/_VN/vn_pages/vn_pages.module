@@ -2249,6 +2249,7 @@ function vn_pages_validateForm_article(&$form, &$form_state) {
     //$body_full_markup = preg_replace('|\[video:.*(http.*)\]|', '<a href="$1"> [Watch a video] </a>', $body_full_markup);
   }
     
+  dpm($form_state['values']);
   
   // Define a main image and build a custom teaser.
   $teaser_data = vn_misc_getArticleTeaserData('all', $form_state['values']['body']['und'][0]['value'], $form_state['values']['nid']);

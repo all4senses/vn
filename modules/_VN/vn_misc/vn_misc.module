@@ -4711,13 +4711,29 @@ function vn_misc_getProviderQuickData($target, $data) {
   
   switch($target) {
     
+    case 'coupon_offers':
+      
+      $all_data_quick = vn_misc_getProvidersDataQuick();
+      
+      if (!empty($all_data_quick[$data['data']->nid]['coupon']['link'])) {
+        $link = $all_data_quick[$data['data']->nid]['coupon']['link'];
+      }
+      elseif (!empty($all_data_quick[$data['data']->nid]['i_web'])) {
+        $link = $all_data_quick[$data['data']->nid]['i_web'];
+      }
+      else {
+        $link = url('node/' . $data['data']->nid);
+      }
+      
+      return !empty($all_data_quick[$data['data']->nid]['coupon']['offer']) ? l($all_data_quick[$data['data']->nid]['coupon']['offer'], $link) : '';
+      
+    
     case 'best_deal':
       
       $all_data_quick = vn_misc_getProvidersDataQuick();
       
       return !empty($all_data_quick[$data['data']->nid]['best_deal']) ? $all_data_quick[$data['data']->nid]['best_deal'] : '';
-      
-      
+    
      
     case 'offers':
       

@@ -178,7 +178,7 @@ ul.vn{margin-left: 0px; padding-left: 10px;}
 
 .om-maximenu ul.om-menu li.om-leaf{top: -2px;}
 
-#om-menu-main-om-menu li.om-leaf{position: relative; background: url("images/menu-devisor.jpg") no-repeat scroll right 7px transparent; height: 42px; z-index: 400; /*padding: 0 3px 0 1px;*/ padding: 0 43px 0 38px;}
+#om-menu-main-om-menu li.om-leaf{position: relative; background: url("images/menu-devisor.jpg") no-repeat scroll right 7px transparent; height: 42px; z-index: 400; /*padding: 0 43px 0 38px;*/}
 #om-menu-main-om-menu li.om-leaf.first{padding-left: 0;}
 
 #om-menu-main-om-menu li.om-leaf.leaf-about-us .om-maximenu-middle{width: 120px;}

@@ -197,6 +197,8 @@ body.not-admin #om-menu-main-om-menu li.om-leaf.leaf-write-review{background: no
 .om-maximenu ul.om-menu li.om-leaf:hover om-link, 
 .om-maximenu ul.om-menu li.om-leaf:hover a.om-link{/*background: url("/sites/all/themes/vn/css/images/sprite-0.png") no-repeat -50px -190px; */color: white;}
 
+.om-leaf a:hover {background: url("/sites/all/themes/vn/css/images/main-menu-hover.png") no-repeat 0 0;}
+
 /*Make screen wide width for om submenu block */
 
 .om-maximenu .om-maximenu-content{top: 40px; padding-top: 5px; min-width: 170px; width: 180px; box-shadow: 3px 7px 7px -7px black;}

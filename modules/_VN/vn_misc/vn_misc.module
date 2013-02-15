@@ -4714,19 +4714,19 @@ function vn_misc_getProviderQuickData($target, $data) {
     case 'coupon_offers':
       
       $all_data_quick = vn_misc_getProvidersDataQuick();
-      //dpm('xxx');
-      //dpm($all_data_quick[$data['data']->nid]['coupon']);
       if (!empty($all_data_quick[$data['data']->nid]['coupon']['link'])) {
         $link = $all_data_quick[$data['data']->nid]['coupon']['link'];
       }
       elseif (!empty($all_data_quick[$data['data']->nid]['i_web'])) {
         $link = $all_data_quick[$data['data']->nid]['i_web'];
+        $absolute = TRUE;
       }
       else {
         $link = url('node/' . $data['data']->nid);
+        $absolute = FALSE;
       }
       
-      return !empty($all_data_quick[$data['data']->nid]['coupon']['offers']) ? l($all_data_quick[$data['data']->nid]['coupon']['offers'], $link) : '';
+      return !empty($all_data_quick[$data['data']->nid]['coupon']['offers']) ? l($all_data_quick[$data['data']->nid]['coupon']['offers'], $link, array('absolute' => $absolute)) : '';
       
     
     case 'best_deal':

@@ -124,8 +124,8 @@
               else 
                 {
                 //dpm('field_a_teaser IS empty');
-                if (!empty($node->field_extra_data['und'][0]['value'])) {
-                  $extra_data = unserialize($node->field_extra_data['und'][0]['value']);
+                if (!empty($node->field_a_teaser['und'][0]['value'])) {
+                  $teaser_data['teaser'] = $node->field_a_teaser['und'][0]['value'];
                 }
                 else {
                   $teaser_data = vn_misc_getArticleTeaserData('all', $content['body'][0]['#markup'], $node->nid);

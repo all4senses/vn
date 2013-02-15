@@ -843,15 +843,19 @@ form .counter.exceeded{color: red;}
 
 .block-views h2{color: gray; font-size: 18px; font-weight: bold; line-height: 25px; margin: 40px 0 -10px 0; width: 830px; background: url("images/title-back.png") no-repeat 0 0 transparent; height: 60px; position: relative; left: -45px; text-indent: 50px; padding: 7px 0 0 0;}
 
-/* Chart Featured providers */
+/* Chart Featured providers, Coupons */
 #block-views-providers-block_chart_featured_providers .block-title,
 #block-views-providers-block-chart-coupons .block-title,
 #block-views-7b964e59685263608888358d8157d96f .block-title {background: none; margin: 0 0 5px 0; height: auto; position: static; text-indent: 0;}
 
-.view-id-providers thead {display: none;}
-
 .view-id-providers.view-display-id-block_chart_featured_providers thead,
 #block-views-providers-block-chart-coupons thead{display: table-header-group;}
+
+#block-views-providers-block-chart-coupons td.views-field-php-3, 
+#block-views-providers-block-chart-coupons td.views-field-php-3 a {text-align: left; color: gray; font-weight: normal;}
+
+.view-id-providers thead {display: none;}
+
 
 .node-type-provider #main .main-content{padding: 0;}
 .node-type-provider #main .main-content .content{border:none; margin-top: 0; padding: 0;}

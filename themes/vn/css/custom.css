@@ -1107,6 +1107,7 @@ h1.preface{color: gray; font-size: 18px; font-weight: bold; line-height: 25px; m
 
 
 .content.teaser .thumb{width: 200px; height: 100px; float: left; margin: 5px 10px 5px 0; text-align: center; overflow: hidden;}
+.content.teaser .thumb.field {height: auto;}
 
 .content.teaser .more{color: #478AFD; font-weight: bold; position: absolute; right: 0; top: 5px;}
 

@@ -850,7 +850,8 @@ form .counter.exceeded{color: red;}
 
 .view-id-providers thead {display: none;}
 
-.view-id-providers.view-display-id-block_chart_featured_providers thead {display: table-header-group;}
+.view-id-providers.view-display-id-block_chart_featured_providers thead,
+#block-views-providers-block-chart-coupons thead{display: table-header-group;}
 
 .node-type-provider #main .main-content{padding: 0;}
 .node-type-provider #main .main-content .content{border:none; margin-top: 0; padding: 0;}

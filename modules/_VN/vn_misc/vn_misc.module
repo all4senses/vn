@@ -986,7 +986,10 @@ function vn_misc_getArticleTeaserData($target, $body_full_markup, $nid, $charact
     }
     */
     // Scale only.
-    if ($image_size[0] / $image_size[1] > 1) {
+    if ($thumbnail_fid) {
+      $style_name = 'article_thumbnail_field';
+    }
+    elseif ($image_size[0] / $image_size[1] > 1) {
       $style_name = 'article_thumbnail_h';
       ////$main_image_html = theme('image_style', array( 'path' => $stream_path, 'style_name' => $style_name));
       //$main_image['src_themed'] = image_style_url($style_name, $stream_path);
@@ -1016,7 +1019,7 @@ function vn_misc_getArticleTeaserData($target, $body_full_markup, $nid, $charact
     }
     $main_image['src_themed'] = image_style_url($style_name_share, $stream_path);
     
-    $main_image_html = '<div class="thumb">' . $main_image_html . '</div>';
+    $main_image_html = '<div class="thumb' . ($thumbnail_fid ? ' field' : '') . '">' . $main_image_html . '</div>';
     
     //$main_image_html = theme('image_style', array( 'path' => $stream_path, 'style_name' => 'article_thumbnail'));
     

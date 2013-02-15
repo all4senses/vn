@@ -853,6 +853,7 @@ form .counter.exceeded{color: red;}
 
 #block-views-providers-block-chart-coupons td.views-field-php-3, 
 #block-views-providers-block-chart-coupons td.views-field-php-3 a {text-align: left; color: gray; font-weight: normal;}
+#block-views-providers-block-chart-coupons td.views-field-php-3 a:hover {text-decoration: underline;}
 
 .view-id-providers thead {display: none;}
 

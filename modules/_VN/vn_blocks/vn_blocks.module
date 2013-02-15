@@ -43,8 +43,8 @@ function vn_blocks_block_info() {
   );
   
   
-  $blocks['request_quote_v6'] = array(
-    'info' => 'Request a quote block v6 (sidebar 2 steps)',
+  $blocks['request_quote_v1'] = array(
+    'info' => 'Request a quote block v1 (sidebar 2 steps)',
     'cache' => DRUPAL_NO_CACHE,
   ); 
   
@@ -93,9 +93,9 @@ function vn_blocks_block_view($delta = '') {
       $block['content'] = vn_blocks_get_blogArchive();
       break; 
     
-    case 'request_quote_v6':
-      $block['subject'] = 'Request a quote block v6 (for a side bar 2 steps)';
-      $block['content'] = vn_blocks_get_requestQuote_block_v6();
+    case 'request_quote_v1':
+      $block['subject'] = 'Request a quote block v1 (for a side bar 2 steps)';
+      $block['content'] = vn_blocks_get_requestQuote_block_v1();
       break;
     
     case 'send_msg_n_subscribe':
@@ -392,7 +392,7 @@ function vn_blocks_get_accessToFootprintBanner() {
 /**
  * Block Request a quote with a multistep form v6.
  */
-function vn_blocks_get_requestQuote_block_v6() {
+function vn_blocks_get_requestQuote_block_v1() {
   
   drupal_add_library('system', 'ui.core');
   drupal_add_library('system', 'ui.widget');
@@ -401,7 +401,7 @@ function vn_blocks_get_requestQuote_block_v6() {
   drupal_add_js('sites/all/libraries/jquery.plugins/jquery.hint-with-password.js');
   
   $path_to_custom_js = drupal_get_path('module', 'vn_blocks') . '/js/';
-  drupal_add_js($path_to_custom_js . 'vn_requestquote_v5.js');
+  drupal_add_js($path_to_custom_js . 'vn_requestquote_v1.js');
   
   $path_to_custom_js = 'sites/all/modules/_JS/multipart_form/';
   drupal_add_js($path_to_custom_js . 'jquery.form.js');

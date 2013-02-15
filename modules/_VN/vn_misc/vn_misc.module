@@ -18,14 +18,14 @@
  */
 function vn_misc_menu() {
  
-  /*
+  
   $items['request'] = array(
     'title' => 'Make a request',
     'page callback' => 'vn_misc_makeRequest_ajax',
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   ); 
-  
+  /*
   $items['get-disqus-users'] = array(
     'title' => 'Get new Disqus users',
     'page callback' => 'vn_misc_disqus_getNewUsers',
@@ -70,7 +70,7 @@ function vn_misc_menu() {
     'access callback' => 'vn_misc_userIsAdmin',
     'type' => MENU_NORMAL_ITEM,
   );
-  
+  */
   $items['approve/%/%'] = array(
     'title' => 'Approve content',
     'page callback' => 'vn_misc_approveContent',
@@ -78,7 +78,7 @@ function vn_misc_menu() {
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
-  */
+  
   
   $items['test'] = array(
     'title' => 'Test page',

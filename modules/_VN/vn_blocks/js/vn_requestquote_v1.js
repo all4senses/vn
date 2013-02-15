@@ -1,6 +1,6 @@
 (function ($) {
 
-  Drupal.behaviors.vn_requestquote_block_v5 = {
+  Drupal.behaviors.vn_requestquote_block_v1 = {
     attach: function (context, settings) {
        
         $('input[name="referrer"]').val(document.referrer);

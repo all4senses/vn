@@ -124,7 +124,12 @@
               else 
                 {
                 //dpm('field_a_teaser IS empty');
-                $teaser_data = vn_misc_getArticleTeaserData('all', $content['body'][0]['#markup'], $node->nid);
+                if (!empty($node->field_extra_data['und'][0]['value'])) {
+                  $extra_data = unserialize($node->field_extra_data['und'][0]['value']);
+                }
+                else {
+                  $teaser_data = vn_misc_getArticleTeaserData('all', $content['body'][0]['#markup'], $node->nid);
+                }
                 echo l('Read more »', 'node/' . $node->nid, array('attributes' => array('class' => array('more')))) . $teaser_data['teaser'];
               }
             

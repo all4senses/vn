@@ -178,7 +178,7 @@ ul.vn{margin-left: 0px; padding-left: 10px;}
 
 .om-maximenu ul.om-menu li.om-leaf{top: -2px;}
 
-#om-menu-main-om-menu li.om-leaf{position: relative; background: url("images/menu-devisor.jpg") no-repeat scroll right 7px transparent; height: 40px; z-index: 400; /*padding: 0 3px 0 1px;*/ padding: 0 43px 0 38px;}
+#om-menu-main-om-menu li.om-leaf{position: relative; background: url("images/menu-devisor.jpg") no-repeat scroll right 7px transparent; height: 42px; z-index: 400; /*padding: 0 3px 0 1px;*/ padding: 0 43px 0 38px;}
 #om-menu-main-om-menu li.om-leaf.first{padding-left: 0;}
 
 #om-menu-main-om-menu li.om-leaf.leaf-about-us .om-maximenu-middle{width: 120px;}
@@ -197,7 +197,9 @@ body.not-admin #om-menu-main-om-menu li.om-leaf.leaf-write-review{background: no
 .om-maximenu ul.om-menu li.om-leaf:hover om-link, 
 .om-maximenu ul.om-menu li.om-leaf:hover a.om-link{/*background: url("/sites/all/themes/vn/css/images/sprite-0.png") no-repeat -50px -190px; */color: white;}
 
-.om-leaf a:hover {background: url("/sites/all/themes/vn/css/images/main-menu-hover.png") no-repeat 0 0;}
+.om-leaf a:hover {background: url("/sites/all/themes/vn/css/images/main-menu-hover.png") repeat-x 0 6px; height: 28px !important; overflow: hidden; position: relative; left: -2px;}
+
+
 
 /*Make screen wide width for om submenu block */
 

@@ -927,14 +927,23 @@ function vn_misc_curl_file_from_remote_site_likeBrowser($url, $file_local_abs)
 /**
  * Return trimmed teaser with right size (cleared from images) and with separated a styled image, cutted off from the body.
  */
-function vn_misc_getArticleTeaserData($target, $body_full_markup, $nid, $characters_num = NULL, $only_teaser = FALSE) {
+function vn_misc_getArticleTeaserData($target, $body_full_markup, $nid, $characters_num = NULL, $only_teaser = FALSE, $thumbnail_fid = NULL) {
  
   $main_image_html = NULL;
   $main_image = NULL;
   $matches = NULL;
   $found_image = NULL;
   
-  if (preg_match('/<img[^>]+>/i', $body_full_markup, $matches)) {
+  if ($thumbnail_fid) {
+    // if is used a separate thumbnail image field.
+    $query = db_select('file_managed', 'f')
+      ->fields('f', array('uri'));
+    $query->condition('fid', $thumbnail_fid);
+    $main_image['uri'] = $query->execute()->fetchField();
+    $main_image['src'] = vn_misc_getPathFromStreamUri($main_image['uri']);
+    $found_image = TRUE;
+  }
+  elseif (preg_match('/<img[^>]+>/i', $body_full_markup, $matches)) {
     $found_image = TRUE;
     preg_match_all('/(alt|title|src)="([^"]*)"/i',$matches[0], $matches);
     foreach ($matches[1] as $index => $key) {
@@ -955,8 +964,14 @@ function vn_misc_getArticleTeaserData($target, $body_full_markup, $nid, $charact
   if ($found_image) {
     
     $main_image['src'] = str_replace('%20', ' ', $main_image['src']);
-    $stream_path = vn_misc_getStreamUriFromRelativePath($main_image['src']);
-    $main_image['uri'] = $stream_path;
+    if ($thumbnail_fid) {
+      // if is used a separate thumbnail image field.
+      $stream_path = $main_image['uri'];
+    }
+    else {
+      $stream_path = vn_misc_getStreamUriFromRelativePath($main_image['src']);
+      $main_image['uri'] = $stream_path;
+    }
     
     $image_size = getimagesize(ltrim($main_image['src'], '/'));
 

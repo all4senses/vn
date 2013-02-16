@@ -533,9 +533,10 @@ td.views-field-php-7{font-size: 28px; font-weight: bold; color: orange; font-sty
 body.sidebar-second #sidebar-second{float: right; margin-right: 18px; padding: 18px 0 0; width: 220px;}
 
 .sidebar .top-line{background: url("images/sprite-0.png") no-repeat scroll 0 -2px transparent; height: 5px; margin: 12px 0 10px; width: 100%;}
-.sidebar .block{overflow: hidden; background: white; border-radius: 5px; margin-bottom: 12px; position: relative; padding-bottom: 10px; z-index: 1;}
+.sidebar .block{overflow: hidden; margin: 12px; position: relative; z-index: 1;}
 .sidebar .block-title{margin: 0; padding: 15px 7px 15px 10px; font-size: 16px; font-weight: bold; text-transform: capitalize; line-height: 18px;}
 .sidebar .block li{list-style: none; clear: both;}
+
 
 .block-thumb{float: left; margin: 10px 10px 0 5px; min-height: 60px;}
 
@@ -575,7 +576,7 @@ body.sidebar-second #sidebar-second{float: right; margin-right: 18px; padding: 1
 body.one-sidebar.sidebar-second #sidebar-second{background: none; padding: 10px 0 0 0; width: 290px; margin: 0;}
 .sidebar .top-line{display: none; background: none; height: 0; margin: 0;}
 
-.sidebar .block{padding: 0 5px 0 0;}
+
 
 .sidebar #block-views-articles-block-1 .content,
 .sidebar .block .content{padding: 5px 5px 0 0;}
@@ -1471,8 +1472,9 @@ body.sidebar-second.node-type-quote #main{margin: 0; padding: 0;}
 
 
 /* Request a Quote block V1 */
-#block-vn-blocks-request-quote-v1{border: 1px solid #7ACEE9; padding-bottom: 7px;}
-#block-vn-blocks-request-quote-v1 h3{background: url("/sites/all/themes/vn/css/images/qv3-upper-back.png") repeat scroll 0 -20px lightBlue;}
+#block-vn-blocks-request-quote-v1{}
+#block-vn-blocks-request-quote-v1 h3{}
+#block-vn-blocks-request-quote-v1 .content{background: #f3f3f3;}
 
 
 #highlighted #block-vn-blocks-request-quote-v1 .inside{background: transparent; border: medium none; padding: 0;}

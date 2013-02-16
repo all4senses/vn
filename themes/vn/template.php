@@ -537,7 +537,7 @@ function vn_process_page(&$variables) {
   }
   
 
-  /*
+  
   // Set breadcrumb
   $tags_cloud_pages = array('/articles/tags', '/blog/tags', '/news/tags');
   $not_teasers_types = array('preface', 'admin_page', 'page', 'quote', 'webform');
@@ -553,37 +553,37 @@ function vn_process_page(&$variables) {
     //dpm('teasers node------------');
     switch ($variables['node']->type) {
       case 'provider':
-        $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('VoIP Reviews', 'providers/reviews'), $variables['node']->field_p_name['und'][0]['value'] . ' Reviews')));
+        $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('VoIP Providers', 'providers'), $variables['node']->field_p_name['und'][0]['value'] . ' Review')));
         break;
-      case 'review':
-        if (!empty($variables['node']->field_ref_provider['und'][0]['target_id'])) {
-          $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('VoIP Reviews', 'providers/reviews'), l($variables['node']->field_r_provider_name['und'][0]['value'] . ' Reviews', 'node/' . $variables['node']->field_ref_provider['und'][0]['target_id']), $variables['node']->title )));
-        }
-        else {
-          $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('VoIP Reviews', 'providers/reviews'), $variables['node']->title )));
-        }
-        break;
-      case 'phone':
-        //dpm($variables['node']);
-        $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('VoIP Reviews', 'providers/reviews'), l('VoIP Phone Reviews', 'voip-phone-reviews'), $variables['node']->title )));
-        break;
-      case 'phone_review':
-        //dpm($variables['node']);
-        $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('VoIP Reviews', 'providers/reviews'), l('VoIP Phone Reviews', 'voip-phone-reviews'), l($variables['node']->field_p_name['und'][0]['value'], 'node/' . $variables['node']->field_ref_phone['und'][0]['target_id']), $variables['node']->title )));
-        break;
+//      case 'review':
+//        if (!empty($variables['node']->field_ref_provider['und'][0]['target_id'])) {
+//          $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('VoIP Providers', 'providers'), l($variables['node']->field_r_provider_name['und'][0]['value'] . ' Review', 'node/' . $variables['node']->field_ref_provider['und'][0]['target_id']), $variables['node']->title )));
+//        }
+//        else {
+//          $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('VoIP Providers', 'providers'), $variables['node']->title )));
+//        }
+//        break;
+//      case 'phone':
+//        //dpm($variables['node']);
+//        $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('VoIP Reviews', 'providers/reviews'), l('VoIP Phone Reviews', 'voip-phone-reviews'), $variables['node']->title )));
+//        break;
+//      case 'phone_review':
+//        //dpm($variables['node']);
+//        $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('VoIP Reviews', 'providers/reviews'), l('VoIP Phone Reviews', 'voip-phone-reviews'), l($variables['node']->field_p_name['und'][0]['value'], 'node/' . $variables['node']->field_ref_phone['und'][0]['target_id']), $variables['node']->title )));
+//        break;
       
-      case 'article':
-        $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('VoIP Articles', 'articles'), l('Library', 'about-voip-services'), $variables['node']->title )));
-        break;
+//      case 'article':
+//        $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('VoIP Articles', 'articles'), l('Library', 'about-voip-services'), $variables['node']->title )));
+//        break;
       case 'blog_post':
-        $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('VoIP Articles', 'articles'), l('Blog', 'blog'), $variables['node']->title )));
+        $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('Blog', 'blog'), $variables['node']->title )));
         break;
-      case 'news_post':
-        $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('VoIP Articles', 'articles'), l('News', 'news'), $variables['node']->title )));
-        break;
+//      case 'news_post':
+//        $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('VoIP Articles', 'articles'), l('News', 'news'), $variables['node']->title )));
+//        break;
     }
   }
-
+  /*
   elseif(in_array($_SERVER['REQUEST_URI'], $tags_cloud_pages)) {
     //dpm('Tags cloud page ------------');
     switch ($_SERVER['REQUEST_URI']) {
@@ -598,7 +598,8 @@ function vn_process_page(&$variables) {
         break;
     }
   }
-
+  */
+  /*
   elseif(strpos($_SERVER['REQUEST_URI'], '/tags/') != FALSE) {
     //dpm('Tag page ------------');
     
@@ -620,6 +621,7 @@ function vn_process_page(&$variables) {
     }
 
   }
+  */
   elseif ($breadcrumb = vn_misc_getMenuTrail()) {
     //dpm('Page VIA MENU------------');
     $variables['breadcrumb'] = $breadcrumb;
@@ -645,7 +647,7 @@ function vn_process_page(&$variables) {
     //dpm('Any other NOT node page------------');
     $variables['breadcrumb'] = '';
   }
-  */
+  
   
 }
 

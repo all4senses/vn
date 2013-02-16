@@ -7,7 +7,7 @@
       
       <div id="logo-block">
         <a href="<?php print $front_page; ?>" title="<?php print 'VoIP Now Home'; ?>" id="logo">
-          <img src="<?php echo '/sites/all/themes/vn/css/images/vn-logo-top.png'; ?>" alt="VoIP Now" title="<?php print t('VoIP Now Home'); ?>" />
+          <img src="<?php echo '/sites/all/themes/vn/css/images/vn-logo-top.png'; ?>" alt="VoIP Now" title="<?php print 'VoIP Now Home'; ?>" />
         </a>
         
       </div>

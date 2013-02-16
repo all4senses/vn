@@ -286,22 +286,28 @@ function vn_pages_requestsList_form($form, &$form_state) {
 
   // Show user messages from the site footer.
   if (arg(3) == 'footer-messages') {
-    
-    $query = db_select('vn_user_messages', 'm')
-          ->fields('m');
-    //$query->condition('e.source', NULL);
-    //$email = $query->execute()->fetchField();
+  
+    if (@$_GET['op'] == 'delete' && @$_GET['timestamp']) {
 
-    $results = $query->execute();
+      $result = db_delete('vn_user_messages')
+        ->condition('timestamp', $_GET['timestamp'])
+        ->execute();
 
-    $emails = '<br/><div><strong>User messages from the site footer.</strong></div><br/>';
-    
+      if ($result) {
+        drupal_set_message('The message with a timestamp "' . date('Y-m-d, H:i:s', $_GET['timestamp']) . '" has been deleted.');
+      }
+      else {
+        drupal_set_message('The message with a timestamp "' . date('Y-m-d, H:i:s', $_GET['timestamp']) . '" has not been found in the database.', 'warning');
+      }
 
+      unset($_GET['q'], $_GET['op'], $_GET['timestamp']);
+      drupal_goto($_SERVER['REDIRECT_URL'], array('query' => $_GET));
+    }
 
                   $form['emails'] = array(
                     '#type' => 'markup',
                     '#markup' => '<div class="type">' . l('Quote requests emails only', 'admin/content/requests/emails') . ' - ' . l('Reviews emails', 'admin/content/requests/reviews-emails') . ' - ' . l('Disqus emails', 'admin/content/requests/disqus-emails') . ' - ' . l('Newsletter emails', 'admin/content/requests/newsletter-emails') . '</div>'
-                      . '<br/><div><strong>All Quote Requests data.</strong></div><br/>',
+                      . '<br/><div><strong>User messages from the site footer.</strong></div><br/>',
                   );
 
                   $sort = @$_GET['sort'] ? $_GET['sort'] : 'timestamp';
@@ -345,7 +351,7 @@ function vn_pages_requestsList_form($form, &$form_state) {
 
                   $results = $query
                       ->orderBy($sort, $order)
-                      ->limit(20)
+                      ->limit(1)
                       ->execute();
 
 

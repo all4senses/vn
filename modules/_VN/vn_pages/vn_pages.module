@@ -283,14 +283,129 @@ function vn_pages_requestsList_form($form, &$form_state) {
   
   //$args = arg();
   //dpm($args);
+
+  // Show user messages from the site footer.
+  if (arg(3) == 'footer-messages') {
     
+    $query = db_select('vn_user_messages', 'm')
+          ->fields('m');
+    //$query->condition('e.source', NULL);
+    //$email = $query->execute()->fetchField();
+
+    $results = $query->execute();
+
+    $emails = '<br/><div><strong>User messages from the site footer.</strong></div><br/>';
+    
+
+
+                  $form['emails'] = array(
+                    '#type' => 'markup',
+                    '#markup' => '<div class="type">' . l('Quote requests emails only', 'admin/content/requests/emails') . ' - ' . l('Reviews emails', 'admin/content/requests/reviews-emails') . ' - ' . l('Disqus emails', 'admin/content/requests/disqus-emails') . ' - ' . l('Newsletter emails', 'admin/content/requests/newsletter-emails') . '</div>'
+                      . '<br/><div><strong>All Quote Requests data.</strong></div><br/>',
+                  );
+
+                  $sort = @$_GET['sort'] ? $_GET['sort'] : 'timestamp';
+
+                  $query = '';
+                  foreach ($_GET as $key => $value) {
+                    if ($key != 'q' && $key != 'sort' && $key != 'order') {
+                      $query .= ($query ? '&' : '?') . $key . '=' . $value;
+                    }
+                  }
+
+                  $sort_options = array('timestamp' => 'Date', 'ip' => 'User IP');
+                  $start_url = $_SERVER['REDIRECT_URL'] . $query . ($query ? '&' : '?');
+
+                  $sort_exposed = '';
+                  $order = 'DESC';
+                  foreach($sort_options as $sort_option => $sort_title) {
+                    $order_marker = '';
+                    if ($sort_option == @$_GET['sort']) {
+                      if (!@$_GET['order'] || $_GET['order'] == 'DESC') {
+                        $current_order = 'ASC';
+                        $order = 'ASC';
+                        $order_marker = '&darr;';
+                      }
+                      else {
+                        $current_order = 'DESC';
+                        $order = 'DESC';
+                        $order_marker = '&uarr;';
+                      }
+                    }
+                    else {
+                      $current_order = 'DESC';
+                    }
+                    //$sort_exposed .= ' | <a href="' . $start_url . 'sort=' . $sort_option . '&order=' . $current_order . '">' . $sort_title . $order_marker . '</a>';
+                    $sort_links[$sort_option] = '<a href="' . $start_url . 'sort=' . $sort_option . '&order=' . $current_order . '">' . $sort_title . ' ' . $order_marker . '</a>';
+                  }
+
+
+                  $query = db_select('vn_user_messages', 'm')->extend('PagerDefault');
+                  $query->fields('m');
+
+                  $results = $query
+                      ->orderBy($sort, $order)
+                      ->limit(20)
+                      ->execute();
+
+
+
+                  $form['table_start'] = array(
+                    '#type' => 'markup',
+                    '#markup' => '<table class="views-table quote-requests"><thead><tr>
+                                    <th>Num</th>
+                                    <th>' . $sort_links['timestamp'] . '</th>
+                                    <th class="name">Name</th>
+                                    <th class="email">email</th>
+                                    <th class="message">Message</th>
+                                    <th>' . $sort_links['ip'] . '</th>
+                                    <th>Operations</th>
+                                  </tr></thead><tbody>',
+                  );
+
+                  $tr_class = 'even';
+                  foreach ($results as $key => $result) {
+
+                      $delete_url = $_GET + array('op' => 'delete-ufmessage', 'timestamp' => $result->timestamp);
+                      unset($delete_url['q']);
+
+                      
+                      $form['item_' . ($key + 1) . 'a'] = array(
+                        '#markup' => '<tr class="'. ($tr_class == 'odd' ? $tr_class = 'even' : $tr_class = 'odd') . '">
+                                        <td>' . ($key + 1) . '</td>
+                                        <td>' . date('Y-m-d, H:i:s', $result->timestamp) . '</td>
+                                        <td class="name">' . $result->name . '</td>
+                                        <td class="email">' . $result->email . '</td>
+                                        <td class="message">' . $result->message . '</td>
+                                        <td>' . $result->ip . '</td>
+                                        <td>' . l('Delete', $_GET['q'], array('query' => $delete_url)) . '</td>
+                                      </tr>',
+                      );
+
+                      
+                  }
+
+                  $form['table_close'] = array(
+                    '#type' => 'markup',
+                    '#markup' => '</tbody></table></div>',
+                  );
+
+                  $form['pager'] = array(
+                    '#theme' => 'pager',
+                    //'#weight' => 5,
+                  );
+
+    
+    
+    return $form;
+  }
   // Show newsletter emails
   if (arg(3) == 'newsletter-emails') {
     
     $query = db_select('vn_emails_subscribed', 'e')
           ->fields('e', array('email'));
     //$query->condition('e.source', NULL);
-    $email = $query->execute()->fetchField();
+    //$email = $query->execute()->fetchField();
 
     $results = $query->execute();
 
@@ -310,7 +425,7 @@ function vn_pages_requestsList_form($form, &$form_state) {
 
     $form['emails'] = array(
       '#type' => 'markup',
-      '#markup' => '<div class="type">' . l('All Quote requests data', 'admin/content/requests') . ' - ' . l('Quote requests emails only', 'admin/content/requests/emails') .  ' - ' . l('Reviews emails', 'admin/content/requests/reviews-emails') . ' - ' . l('Disqus emails', 'admin/content/requests/disqus-emails') . '</div><br/>' . $emails,
+      '#markup' => '<div class="type">' . l('All Quote requests data', 'admin/content/requests') . ' - ' . l('Quote requests emails only', 'admin/content/requests/emails') .  ' - ' . l('Reviews emails', 'admin/content/requests/reviews-emails') . ' - ' . l('Disqus emails', 'admin/content/requests/disqus-emails') . ' - ' . l('User messages from footer', 'admin/content/requests/footer-messages') . '</div><br/>' . $emails,
     );
     
     return $form;
@@ -362,7 +477,7 @@ function vn_pages_requestsList_form($form, &$form_state) {
 
     $form['emails'] = array(
       '#type' => 'markup',
-      '#markup' => '<div class="type">' . l('All Quote requests data', 'admin/content/requests') . ' - ' . l('Reviews emails', 'admin/content/requests/reviews-emails') . ' - ' . l('Disqus emails', 'admin/content/requests/disqus-emails') . ' - ' . l('Newsletter emails', 'admin/content/requests/newsletter-emails') . '</div><br/>' . $emails,
+      '#markup' => '<div class="type">' . l('All Quote requests data', 'admin/content/requests') . ' - ' . l('Reviews emails', 'admin/content/requests/reviews-emails') . ' - ' . l('Disqus emails', 'admin/content/requests/disqus-emails') . ' - ' . l('Newsletter emails', 'admin/content/requests/newsletter-emails') . ' - ' . l('User messages from footer', 'admin/content/requests/footer-messages') . '</div><br/>' . $emails,
     );
     
     return $form;
@@ -408,7 +523,7 @@ function vn_pages_requestsList_form($form, &$form_state) {
 
     $form['emails'] = array(
       '#type' => 'markup',
-      '#markup' => '<div class="type">' . l('All Quote requests data', 'admin/content/requests') . ' - ' . l('Quote requests emails only', 'admin/content/requests/emails') . ' - ' . l('Disqus emails', 'admin/content/requests/disqus-emails') . ' - ' . l('Newsletter emails', 'admin/content/requests/newsletter-emails') . '</div><br/>' . $emails,
+      '#markup' => '<div class="type">' . l('All Quote requests data', 'admin/content/requests') . ' - ' . l('Quote requests emails only', 'admin/content/requests/emails') . ' - ' . l('Disqus emails', 'admin/content/requests/disqus-emails') . ' - ' . l('Newsletter emails', 'admin/content/requests/newsletter-emails') . ' - ' . l('User messages from footer', 'admin/content/requests/footer-messages') . '</div><br/>' . $emails,
     );
     
     return $form;
@@ -433,7 +548,7 @@ function vn_pages_requestsList_form($form, &$form_state) {
 
     $form['emails'] = array(
       '#type' => 'markup',
-      '#markup' => '<div class="type">' . l('All Quote requests data', 'admin/content/requests') . ' - ' . l('Quote requests emails only', 'admin/content/requests/emails')  . ' - ' . l('Reviews emails', 'admin/content/requests/reviews-emails') . ' - ' . l('Newsletter emails', 'admin/content/requests/newsletter-emails') . '</div><br/>' . $emails,
+      '#markup' => '<div class="type">' . l('All Quote requests data', 'admin/content/requests') . ' - ' . l('Quote requests emails only', 'admin/content/requests/emails')  . ' - ' . l('Reviews emails', 'admin/content/requests/reviews-emails') . ' - ' . l('Newsletter emails', 'admin/content/requests/newsletter-emails') . ' - ' . l('User messages from footer', 'admin/content/requests/footer-messages') . '</div><br/>' . $emails,
     );
     
     return $form;
@@ -510,7 +625,7 @@ function vn_pages_requestsList_form($form, &$form_state) {
   
   $form['emails'] = array(
     '#type' => 'markup',
-    '#markup' => '<div class="type">' . l('Quote requests emails only', 'admin/content/requests/emails') . ' - ' . l('Reviews emails', 'admin/content/requests/reviews-emails') . ' - ' . l('Disqus emails', 'admin/content/requests/disqus-emails') . ' - ' . l('Newsletter emails', 'admin/content/requests/newsletter-emails') . '</div>'
+    '#markup' => '<div class="type">' . l('Quote requests emails only', 'admin/content/requests/emails') . ' - ' . l('Reviews emails', 'admin/content/requests/reviews-emails') . ' - ' . l('Disqus emails', 'admin/content/requests/disqus-emails') . ' - ' . l('Newsletter emails', 'admin/content/requests/newsletter-emails') . ' - ' . l('User messages from footer', 'admin/content/requests/footer-messages') . '</div>'
       . '<br/><div><strong>All Quote Requests data.</strong></div><br/>',
   );
   

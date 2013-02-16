@@ -418,11 +418,11 @@ function vn_blocks_get_requestQuote_block_v1() {
       <div class="guide"></div>
                             
       <div class="text">
-        <ui>
+        <ul>
           <li>Low Price Assurance</li>
           <li>Personal Service Reps</li>
           <li>Unlimited Calling & Faxing</li>
-        <ul>
+        </ul>
         <div class="guide-text">Free VoIP Guide With Request</div>
       </div>
       <div class="bottom-clear"></div>

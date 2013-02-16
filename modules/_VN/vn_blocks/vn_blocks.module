@@ -516,8 +516,7 @@ function vn_blocks_get_requestQuote_block_v1() {
 
                             <div class="bottom-clear"></div>
                             
-                            <div class="guide">Free VoIP Guide With Request</div>
-           
+          
                             
                             <!--<div id="on_error"></div>-->
 

@@ -403,7 +403,7 @@ function vn_blocks_get_requestQuote_block_v1() {
   $path_to_custom_js = drupal_get_path('module', 'vn_blocks') . '/js/';
   drupal_add_js($path_to_custom_js . 'vn_requestquote_v1.js');
   
-  $path_to_custom_js = 'sites/all/modules/_JS/multipart_form/';
+  $path_to_custom_js = 'sites/all/libraries/jquery.plugins/multipart_form/';
   drupal_add_js($path_to_custom_js . 'jquery.form.js');
   drupal_add_js($path_to_custom_js . 'jquery.validate.js');
   drupal_add_js($path_to_custom_js . 'jquery.form.wizard-min.js');

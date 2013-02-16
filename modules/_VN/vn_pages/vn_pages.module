@@ -310,7 +310,7 @@ function vn_pages_requestsList_form($form, &$form_state) {
 
     $form['emails'] = array(
       '#type' => 'markup',
-      '#markup' => '<div class="type">' . l('All Quote requests data', 'admin/content/quote-requests') . ' - ' . l('Quote requests emails only', 'admin/content/quote-requests/emails') .  ' - ' . l('Reviews emails', 'admin/content/quote-requests/reviews-emails') . ' - ' . l('Disqus emails', 'admin/content/quote-requests/disqus-emails') . '</div><br/>' . $emails,
+      '#markup' => '<div class="type">' . l('All Quote requests data', 'admin/content/requests') . ' - ' . l('Quote requests emails only', 'admin/content/requests/emails') .  ' - ' . l('Reviews emails', 'admin/content/requests/reviews-emails') . ' - ' . l('Disqus emails', 'admin/content/requests/disqus-emails') . '</div><br/>' . $emails,
     );
     
     return $form;
@@ -362,7 +362,7 @@ function vn_pages_requestsList_form($form, &$form_state) {
 
     $form['emails'] = array(
       '#type' => 'markup',
-      '#markup' => '<div class="type">' . l('All Quote requests data', 'admin/content/quote-requests') . ' - ' . l('Reviews emails', 'admin/content/quote-requests/reviews-emails') . ' - ' . l('Disqus emails', 'admin/content/quote-requests/disqus-emails') . ' - ' . l('Newsletter emails', 'admin/content/quote-requests/newsletter-emails') . '</div><br/>' . $emails,
+      '#markup' => '<div class="type">' . l('All Quote requests data', 'admin/content/requests') . ' - ' . l('Reviews emails', 'admin/content/requests/reviews-emails') . ' - ' . l('Disqus emails', 'admin/content/requests/disqus-emails') . ' - ' . l('Newsletter emails', 'admin/content/requests/newsletter-emails') . '</div><br/>' . $emails,
     );
     
     return $form;
@@ -408,7 +408,7 @@ function vn_pages_requestsList_form($form, &$form_state) {
 
     $form['emails'] = array(
       '#type' => 'markup',
-      '#markup' => '<div class="type">' . l('All Quote requests data', 'admin/content/quote-requests') . ' - ' . l('Quote requests emails only', 'admin/content/quote-requests/emails') . ' - ' . l('Disqus emails', 'admin/content/quote-requests/disqus-emails') . ' - ' . l('Newsletter emails', 'admin/content/quote-requests/newsletter-emails') . '</div><br/>' . $emails,
+      '#markup' => '<div class="type">' . l('All Quote requests data', 'admin/content/requests') . ' - ' . l('Quote requests emails only', 'admin/content/requests/emails') . ' - ' . l('Disqus emails', 'admin/content/requests/disqus-emails') . ' - ' . l('Newsletter emails', 'admin/content/requests/newsletter-emails') . '</div><br/>' . $emails,
     );
     
     return $form;
@@ -433,7 +433,7 @@ function vn_pages_requestsList_form($form, &$form_state) {
 
     $form['emails'] = array(
       '#type' => 'markup',
-      '#markup' => '<div class="type">' . l('All Quote requests data', 'admin/content/quote-requests') . ' - ' . l('Quote requests emails only', 'admin/content/quote-requests/emails')  . ' - ' . l('Reviews emails', 'admin/content/quote-requests/reviews-emails') . ' - ' . l('Newsletter emails', 'admin/content/quote-requests/newsletter-emails') . '</div><br/>' . $emails,
+      '#markup' => '<div class="type">' . l('All Quote requests data', 'admin/content/requests') . ' - ' . l('Quote requests emails only', 'admin/content/requests/emails')  . ' - ' . l('Reviews emails', 'admin/content/requests/reviews-emails') . ' - ' . l('Newsletter emails', 'admin/content/requests/newsletter-emails') . '</div><br/>' . $emails,
     );
     
     return $form;
@@ -510,7 +510,7 @@ function vn_pages_requestsList_form($form, &$form_state) {
   
   $form['emails'] = array(
     '#type' => 'markup',
-    '#markup' => '<div class="type">' . l('Quote requests emails only', 'admin/content/quote-requests/emails') . ' - ' . l('Reviews emails', 'admin/content/quote-requests/reviews-emails') . ' - ' . l('Disqus emails', 'admin/content/quote-requests/disqus-emails') . ' - ' . l('Newsletter emails', 'admin/content/quote-requests/newsletter-emails') . '</div>'
+    '#markup' => '<div class="type">' . l('Quote requests emails only', 'admin/content/requests/emails') . ' - ' . l('Reviews emails', 'admin/content/requests/reviews-emails') . ' - ' . l('Disqus emails', 'admin/content/requests/disqus-emails') . ' - ' . l('Newsletter emails', 'admin/content/requests/newsletter-emails') . '</div>'
       . '<br/><div><strong>All Quote Requests data.</strong></div><br/>',
   );
   

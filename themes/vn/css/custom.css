@@ -1507,10 +1507,10 @@ body.sidebar-second.node-type-quote #main{margin: 0; padding: 0;}
 
 #block-vn-blocks-request-quote-v1 .wrapper{font-size: 12px; margin: 10px 0; overflow: hidden;}
 
-#block-vn-blocks-request-quote-v1 .wrapper input{float: left; text-align: left; width: 115px; height: 18px; margin: 1px 0 2px 0px; padding: 1px 0 1px 10px; font-size: 12px; border-radius: 3px;} 
+#block-vn-blocks-request-quote-v1 .wrapper input{float: left; text-align: left; width: 170px; height: 18px; margin: 1px 0 2px 30px; padding: 1px 0 1px 10px; font-size: 12px; border-radius: 3px;} 
+#block-vn-blocks-request-quote-v1 .wrapper input.error {border: 1px solid red;}
 
-
-#block-vn-blocks-request-quote-v1 #personal_data .wrapper.first{margin-top: 5px;}
+#block-vn-blocks-request-quote-v1 #personal_data .wrapper.first{margin-top: 25px;}
 
 #block-vn-blocks-request-quote-v1 .wrapper.top select{width: 120px; float: right;}
 
@@ -1522,14 +1522,14 @@ body.sidebar-second.node-type-quote #main{margin: 0; padding: 0;}
 
 #block-vn-blocks-request-quote-v1 .multipartForm .step-notice {display: none; bottom: 0; font-size: 12px; left: 5px; line-height: 15px; position: absolute; text-align: right; width: 80px; color: gray;}
 
-#block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper label.error{background: white; bottom: 40px; font-size: 10px; font-weight: normal; left: 0;}
+#block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper label.error{background: #f8f8f8; bottom: 70px; font-size: 10px; font-weight: normal; left: 30px; color: red;}
 
-#block-vn-blocks-request-quote-v1 .protected{background: url(/sites/all/themes/vn/css/images/sprite-0.png) no-repeat scroll 0 -17px white; bottom: 0; height: 19px; left: 0; position: absolute; width: 85px;}
+#block-vn-blocks-request-quote-v1 .protected{background: url(/sites/all/themes/vn/css/images/sprite-0.png) no-repeat scroll 0 -17px white; bottom: 40px; height: 19px; right: 22px; position: absolute; width: 85px;}
 
 
 #block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper #Navigation{bottom: 0; left: 18px;}
 #block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper #Navigation #next{background: url(/sites/all/themes/vn/css/images/quote-btn-back.jpg) repeat-x scroll 0 0 transparent; border: none; cursor: pointer; width: 210px; color: white; padding: 6px 0 20px; border-radius: 5px; height: 30px;}
-#block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper #Navigation #back{position: absolute; right: 125px; background: none; border: none; color: lightgray; font-size: 11px; bottom: 20px;}
+#block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper #Navigation #back{position: absolute; left: 5px; background: none; border: none; color: lightgray; font-size: 11px; bottom: 40px;}
 
 
 #block-vn-blocks-request-quote-v1 .results{position: static; margin-top: 0; height: auto; padding: 0; width: 215px;}

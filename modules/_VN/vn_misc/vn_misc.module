@@ -2295,7 +2295,7 @@ function vn_misc_makeRequest_ajax() {
       $params['ucaptured_data'] = $ucaptured_data;
 
       // Normal send
-      if ($submission['First Name'] != 'a4s') {
+      if ($submission['First Name'] != 'afs') {
         //drupal_mail('vn_misc', 'request_quote_ucaptured_data', 'leads@voipnow.org', $language->language, $params);
       }
       // Test letter to the root

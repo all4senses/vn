@@ -415,11 +415,15 @@ function vn_blocks_get_requestQuote_block_v1() {
 
   $out = '
    <div id="up">
-      <div class="caption">Compare Leading Providers</div>
-      <div class="text">Low Price Assurance</div>
-      <div class="text">Personal Service Reps</div>
-      <div class="text">Unlimited Calling & Faxing</div>
-      <div class="img"></div>
+      <div class="guide"></div>
+                            
+      <div class="text">
+        <div>Low Price Assurance</div>
+        <div>Personal Service Reps</div>
+        <div>Unlimited Calling & Faxing</div>
+        <div class="guide-text">Free VoIP Guide With Request</div>
+      </div>
+      <div class="bottom-clear"></div>
    </div>
    <div class="bottom-clear"></div>   
    <div id="requestQuoteFormWrapper">
@@ -435,7 +439,7 @@ function vn_blocks_get_requestQuote_block_v1() {
                     <div class="step" id="questions_section">
                            
                                 <div class="wrapper top first">
-                                  <div class="question">' . t('Lines needed') . ':</div>
+                                  <div class="question">Lines needed:</div>
                                   <select name="phones_amt" id="phones_amt" class="input required">
                                     <!-- <option value="1 - 4">1 - 4</option> -->
                                     <option value="1">1</option>
@@ -448,32 +452,28 @@ function vn_blocks_get_requestQuote_block_v1() {
                                 </div>
 
                                 <div class="wrapper top">
-                                  <div class="question">' . t('Service Type') . ':</div>
+                                  <div class="question">Service Type:</div>
                                   <select name="q_type" id="q_type" class="input required">
-                                    <option selected="selected" value="Business">' . t('Business') .'</option>
-                                    <option value="Home">' . t('Home') .'</option>
-                                    <option value="Home-Based Business">' . t('Home-Based Business') .'</option>
+                                    <option selected="selected" value="Business">Business</option>
+                                    <option value="Home">Home</option>
+                                    <option value="Home-Based Business">Home-Based Business</option>
                                   </select>
                                 </div>
 
 
                                 <div class="wrapper top last">
-                                  <div class="question">' . t('Buying time frame') . ':</div>
+                                  <div class="question">Buying time frame:</div>
                                   <select name="buying_time" id="buying_time" class="input required">
                                     <!--<option value="">- Select a value -</option>-->
-                                    <option value="ASAP">' . t('ASAP') .'</option>
-                                    <option value="1-3 Months">' . t('1-3 Months') .'</option>
-                                    <option value="3-6 Months">' . t('3-6 Months') .'</option>
+                                    <option value="ASAP">ASAP</option>
+                                    <option value="1-3 Months">1-3 Months</option>
+                                    <option value="3-6 Months">3-6 Months</option>
                                   </select>
                                 </div>
                           
 
                             <div class="bottom-clear"></div>
                             
-                            <div class="guide">Free VoIP Guide With Request</div>
-                            
-
-                            <div class="bottom-clear"></div>
                             
                               
                             <!--<div id="on_error"></div>-->

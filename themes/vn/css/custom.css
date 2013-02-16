@@ -253,7 +253,7 @@ body.not-admin #om-menu-main-om-menu li.om-leaf.leaf-write-review{background: no
 
 #requestQuoteFormWrapper #data{position: absolute;}
 
-#requestQuoteFormWrapper #Navigation{bottom: 10px; position: absolute; right: 10px;}
+#requestQuoteFormWrapper #Navigation{position: absolute;}
 
 #block-vn-blocks-request-quote #Navigation input{background: url("images/sprite-2.png") no-repeat scroll right -905px #478AFD; border: medium none; border-radius: 3px 3px 3px 3px; color: white; cursor: pointer; display: inline-block; font-size: 15px; padding: 3px 12px 3px 5px;}
 #block-vn-blocks-request-quote #Navigation input#back{background: url("images/sprite-2.png") no-repeat scroll 3px -927px #478AFD; padding: 3px 5px 3px 12px;}
@@ -1473,7 +1473,7 @@ body.sidebar-second.node-type-quote #main{margin: 0; padding: 0;}
 
 /* Request a Quote block V1 */
 #block-vn-blocks-request-quote-v1 h3{background: #f3f8fb; padding: 10px 10px 5px 5px;}
-#block-vn-blocks-request-quote-v1 .content{background: #f8f8f8; padding-bottom: 7px;}
+#block-vn-blocks-request-quote-v1 .content{background: #f8f8f8; padding: 10px;}
 
 
 #highlighted #block-vn-blocks-request-quote-v1 .inside{background: transparent; border: medium none; padding: 0;}
@@ -1482,15 +1482,15 @@ body.sidebar-second.node-type-quote #main{margin: 0; padding: 0;}
 
 #highlighted #block-vn-blocks-request-quote-v1 .content{padding: 0;}
 
-#block-vn-blocks-request-quote-v1 #up{font-size: 17px; padding: 5px 0 5px 0;}
+#block-vn-blocks-request-quote-v1 #up{font-size: 17px; line-height: 18px;}
 #block-vn-blocks-request-quote-v1 #up .caption{font-size: 14px; font-weight: bold; text-align: center; margin: 0 0 0px 0;}
-#block-vn-blocks-request-quote-v1 #up .text{font-size: 11px; color: gray; float: left; width: 170px;}
+#block-vn-blocks-request-quote-v1 #up .text{font-size: 11px; color: gray; float: left; width: 165px; margin-left: 10px;}
 
 #block-vn-blocks-request-quote-v1 #up .text li{list-style-type: disc; margin-left: 15px;}
 
 #block-vn-blocks-request-quote-v1 #up .img{background: url("/sites/all/themes/vn/css/images/sprite-0.png") no-repeat scroll -90px -11px transparent; float: right; height: 53px; width: 50px; position: absolute; top: 67px; right: 10px;}
 
-#block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper{width: auto; height: 185px; border-top: 1px solid lightgray; padding: 5px 0 0 7px; margin: 2px 0 0 0;}
+#block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper{width: auto; height: 185px;}
 #block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper .step{height: 185px;}
 
 #block-vn-blocks-request-quote-v1 .left{float: left; margin: 15px 10px 0 0;}
@@ -1516,22 +1516,22 @@ body.sidebar-second.node-type-quote #main{margin: 0; padding: 0;}
 #block-vn-blocks-request-quote-v1 .question{float: left; color: gray;}
 
 
-#block-vn-blocks-request-quote-v1 .multipartForm .step-notice {bottom: 0; font-size: 12px; left: 5px; line-height: 15px; position: absolute; text-align: right; width: 80px; color: gray;}
+#block-vn-blocks-request-quote-v1 .multipartForm .step-notice {display: none; bottom: 0; font-size: 12px; left: 5px; line-height: 15px; position: absolute; text-align: right; width: 80px; color: gray;}
 
 #block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper label.error{background: white; bottom: 40px; font-size: 10px; font-weight: normal; left: 0;}
 
 #block-vn-blocks-request-quote-v1 .protected{background: url(/sites/all/themes/vn/css/images/sprite-0.png) no-repeat scroll 0 -17px white; bottom: 0; height: 19px; left: 0; position: absolute; width: 85px;}
 
 
-#block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper #Navigation{right: 7px; bottom: 0;}
-#block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper #Navigation #next{background: url(/sites/all/themes/vn/css/images/sprite-0.png) no-repeat scroll -2px -73px transparent; border: none; cursor: pointer; height: 35px; left: 7px; position: relative; width: 128px; color: white; padding: 0 25px 0 0;}
+#block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper #Navigation{bottom: 0; left: 18px;}
+#block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper #Navigation #next{background: url(/sites/all/themes/vn/css/images/quote-btn-back.jpg) repeat-x scroll 0 0 transparent; border: none; cursor: pointer; width: 210px; color: white; padding: 6px 0 20px; border-radius: 5px; height: 30px;}
 #block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper #Navigation #back{position: absolute; right: 125px; background: none; border: none; color: lightgray; font-size: 11px; bottom: 20px;}
 
 
 #block-vn-blocks-request-quote-v1 .results{position: static; margin-top: 0; height: auto; padding: 0; width: 215px;}
 #block-vn-blocks-request-quote-v1 .results a{font-size: 13px;}
 #block-vn-blocks-request-quote-v1 .results .quote-final p{font-size: 12px; margin: 0; line-height: 14px;}
-#block-vn-blocks-request-quote-v1 .guide{background: url("/sites/all/themes/vn/css/images/sprite-0.png") no-repeat scroll -152px -10px transparent; width: 90px; height: 80px; float: left;}
+#block-vn-blocks-request-quote-v1 .guide{background: url("/sites/all/themes/vn/css/images/quote-guide.jpg") no-repeat scroll 0 0 transparent; width: 70px; height: 90px; float: left;}
 #block-vn-blocks-request-quote-v1 .results .guide{position: relative; color: black; font-size: 14px; left: 0; padding: 0; top: 0; width: 200px; background: none;}
 #block-vn-blocks-request-quote-v1 .results .guide img{width: 80px; padding: 0 63px; margin: 2px 0 0 0;}
 

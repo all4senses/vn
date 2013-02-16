@@ -423,7 +423,7 @@ function vn_blocks_get_requestQuote_block_v1() {
           <li>Personal Service Reps</li>
           <li>Unlimited Calling & Faxing</li>
         </ul>
-        <div class="guide-text">Free VoIP Guide With Request</div>
+        <div class="guide-text">Plus a <strong>FREE</strong> VoIP Guide with Request</div>
       </div>
       <div class="bottom-clear"></div>
    </div>

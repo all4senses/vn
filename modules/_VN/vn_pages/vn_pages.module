@@ -287,7 +287,7 @@ function vn_pages_requestsList_form($form, &$form_state) {
   // Show user messages from the site footer.
   if (arg(3) == 'footer-messages') {
   
-    if (@$_GET['op'] == 'delete' && @$_GET['timestamp']) {
+    if (@$_GET['op'] == 'delete-ufmessage' && @$_GET['timestamp']) {
 
       $result = db_delete('vn_user_messages')
         ->condition('timestamp', $_GET['timestamp'])

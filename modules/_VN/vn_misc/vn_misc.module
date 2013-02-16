@@ -25,14 +25,14 @@ function vn_misc_menu() {
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   ); 
-  /*
+  
   $items['get-disqus-users'] = array(
     'title' => 'Get new Disqus users',
     'page callback' => 'vn_misc_disqus_getNewUsers',
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   ); 
-  
+  /*
   $items['get/iframe/business-voip-chart'] = array(
     'title' => 'Top Business VoIP Providers',
     'page callback' => 'vn_misc_getIframe_TopProvidersBu',
@@ -90,6 +90,83 @@ function vn_misc_menu() {
   
   
   return $items;
+}
+
+
+/**
+ * Get new users from Disqus and update local variable/db.
+ */
+function vn_misc_disqus_getNewUsers() {
+  
+  $out = 'No new Disqus users this time.';
+  
+  $vn_disqus_users = unserialize(variable_get('vn_disqus_users', serialize(array())));
+  
+  $new_vn_disqus_users = vn_misc_disqus_getUsers();
+  //dpm($new_vn_disqus_users);
+  
+  if ($vn_disqus_users != $new_vn_disqus_users) {
+    
+    $new_users = array_diff_key($new_vn_disqus_users, $vn_disqus_users);
+    
+    $vn_disqus_users += $new_vn_disqus_users;
+    variable_set('vn_disqus_users', serialize($vn_disqus_users));
+    $out = 'Something has changed (new users, less users, etc).
+ 
+
+<pre>' . print_r($new_users, TRUE) . '</pre>';
+  }
+  
+  global $language;
+  $params['report'] = $out;
+  drupal_mail('vn_misc', 'new_disqus_user', 'all4senses@gmail.com', $language->language, $params);
+  //dpm(unserialize(variable_get('vn_disqus_users')));
+  
+  //return $out;
+  echo $out;
+}
+
+  
+/**
+ * Get users from Disqus.
+ */
+function vn_misc_disqus_getUsers($next_id = NULL) {
+
+  $remote_users = array();
+  
+  //dpm($next_id);
+  
+  $url = 'https://disqus.com/api/3.0/forums/listUsers.json?' . 
+    'forum=voipnow' .
+    '&limit=100' .
+    ($next_id ? '&since_id=' . $next_id : '') .
+    '&api_secret=4tW1kaATd4cM96e5j18TK7LETBOLVifA2hXakYtB2Ugys0KVnW5aAIhvMIzzwJ4n'
+    ;
+  
+  $data_from = vn_misc_curlGET($url);
+  
+  if ($data_from) {
+    $data_from = json_decode($data_from);
+    //dpm($data_from);
+    if (!$data_from->code) {
+      
+      foreach ($data_from->response as $remote_user) {
+        if (!empty($remote_user->email) && strpos($remote_user->email, 'voipnow') === FALSE ) {
+          $remote_users[$remote_user->id] = array('name' => $remote_user->name, 'email' => $remote_user->email);
+        }
+      }
+      
+      if ($data_from->cursor->hasNext) {
+        $next_id = explode(':', $data_from->cursor->next);
+        $next_id = $next_id[0];
+        $remote_users += vn_misc_disqus_getUsers($next_id);
+        return $remote_users;
+      }
+      
+    } // End of if (!$data_from->code) {
+  } // End of if ($data_from) {.
+  
+  return $remote_users;
 }
 
 
@@ -3313,6 +3390,13 @@ function vn_misc_mail($key, &$message, $params) {
       $message['subject'] = t('New captured BUT not submitted user data');
       $message['body'][] = theme('vn_misc_requestQuote_mail', $params['ucaptured_data']);
       break;
+    
+    
+    case 'new_disqus_user':
+      $message['subject'] = 'VN Disqus users check up results';
+      $message['body'][] = $params['report'];
+      break;
+    
     case 'email_verification':
       $message['subject'] = t('Submitted Review Requires One-Click Email Verification');
       $message['body'][] = t('Dear User,

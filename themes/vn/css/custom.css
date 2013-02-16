@@ -1474,7 +1474,7 @@ body.sidebar-second.node-type-quote #main{margin: 0; padding: 0;}
 /* Request a Quote block V1 */
 #block-vn-blocks-request-quote-v1{}
 #block-vn-blocks-request-quote-v1 h3{}
-#block-vn-blocks-request-quote-v1 .content{background: #f3f3f3;}
+#block-vn-blocks-request-quote-v1 .content{background: #f3f3f3; padding-bottom: 7px;}
 
 
 #highlighted #block-vn-blocks-request-quote-v1 .inside{background: transparent; border: medium none; padding: 0;}

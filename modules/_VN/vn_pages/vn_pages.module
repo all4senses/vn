@@ -374,7 +374,7 @@ function vn_pages_requestsList_form($form, &$form_state) {
                         '#markup' => '<tr class="'. ($tr_class == 'odd' ? $tr_class = 'even' : $tr_class = 'odd') . '">
                                         <td>' . ($key + 1) . '</td>
                                         <td>' . date('Y-m-d, H:i:s', $result->timestamp) . '</td>
-                                        <td class="name">' . $result->name . '</td>
+                                        <td class="name">' . $result->fname . ' ' . $result->lname . '</td>
                                         <td class="email">' . $result->email . '</td>
                                         <td class="message">' . $result->message . '</td>
                                         <td>' . $result->ip . '</td>

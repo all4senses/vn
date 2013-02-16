@@ -16,6 +16,15 @@ module_load_include('inc', 'vn_misc', 'inc/constants');
  */
 function vn_pages_menu() {
   
+  $items['admin/content/requests'] = array(
+    'title' => 'User Requests',
+    'description' => 'Quote Requests, user messages, subscriptions, etc',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vn_pages_requestsList_form'),
+    'access callback' => 'vn_misc_userIsAdmin',
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
   $items['home'] = array(
     'title' => 'Home page',
     //'description' => 'Home page',
@@ -270,7 +279,7 @@ function vn_misc_userIsAdmin() {
  * A form for a Quote Requests data page, including not submitted, but captured data.
  * 
  */
-function vn_pages_quoteRequestsList_form($form, &$form_state) {
+function vn_pages_requestsList_form($form, &$form_state) {
   
   //$args = arg();
   //dpm($args);
@@ -664,7 +673,7 @@ function vn_pages_quoteRequestsList_form($form, &$form_state) {
  * @return void
  *   Return nothing.
  */
-function vn_pages_quoteRequestsList_formValidate(&$form, &$form_state) {
+function vn_pages_requestsList_formValidate(&$form, &$form_state) {
 
   $get = $_GET;
   unset($get['q']);
@@ -673,7 +682,7 @@ function vn_pages_quoteRequestsList_formValidate(&$form, &$form_state) {
   drupal_goto($_GET['q'], array('query' => $get));
 }
 
-//function vn_pages_quoteRequestsList_formSubmit(&$form, &$form_state) {
+//function vn_pages_requestsList_formSubmit(&$form, &$form_state) {
 //
 //}
 

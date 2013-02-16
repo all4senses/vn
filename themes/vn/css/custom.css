@@ -1532,9 +1532,9 @@ body.sidebar-second.node-type-quote #main{margin: 0; padding: 0;}
 #block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper #Navigation #back{position: absolute; left: 5px; background: none; border: none; color: lightgray; font-size: 11px; bottom: 40px;}
 
 
-#block-vn-blocks-request-quote-v1 .results{position: static; margin-top: 0; height: auto; padding: 0; width: 215px;}
+#block-vn-blocks-request-quote-v1 .results{margin: 20px auto; height: auto; width: 215px; border-top: 1px solid lightgray; padding-top: 20px;}
 #block-vn-blocks-request-quote-v1 .results a{font-size: 13px;}
-#block-vn-blocks-request-quote-v1 .results .quote-final p{font-size: 12px; margin: 0; line-height: 14px;}
+#block-vn-blocks-request-quote-v1 .results .quote-final p{font-size: 12px; margin: 0; line-height: 18px;}
 #block-vn-blocks-request-quote-v1 .guide{background: url("/sites/all/themes/vn/css/images/quote-guide.jpg") no-repeat scroll 0 0 transparent; width: 70px; height: 90px; float: left;}
 #block-vn-blocks-request-quote-v1 .results .guide{position: relative; color: black; font-size: 14px; left: 0; padding: 0; top: 0; width: 200px; background: none;}
 #block-vn-blocks-request-quote-v1 .results .guide img{width: 80px; padding: 0 63px; margin: 2px 0 0 0;}

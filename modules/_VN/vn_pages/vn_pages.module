@@ -351,7 +351,7 @@ function vn_pages_requestsList_form($form, &$form_state) {
 
                   $results = $query
                       ->orderBy($sort, $order)
-                      ->limit(1)
+                      ->limit(20)
                       ->execute();
 
 

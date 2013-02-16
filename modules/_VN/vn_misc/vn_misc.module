@@ -2235,7 +2235,7 @@ function vn_misc_makeRequest_ajax() {
     //$letter = theme('vn_misc_requestQuote_mail', $post);//$params['request_data']);
     
     
-    
+    /*
     if ($submission['First Name'] == 'Nextiva' || $submission['First Name'] == 'nextiva') {
       // Test for Nextiva
       drupal_mail('vn_misc', 'request_quote', 'leads@voipnow.org', $language->language, $params);
@@ -2245,15 +2245,17 @@ function vn_misc_makeRequest_ajax() {
         vn_misc_SendRequestToNextiva($submission);
       }
     }
-    elseif ($submission['First Name'] != 'afs') {
+    else
+      */
+      if ($submission['First Name'] != 'afs') {
       // Normal send if not a test from a4s
-      drupal_mail('vn_misc', 'request_quote', 'leads@voipnow.org', $language->language, $params);
+      //drupal_mail('vn_misc', 'request_quote', 'leads@voipnow.org', $language->language, $params);
       
       // Send a lead to Remote providers.
       if ($submission['Source'] != 'block') {
-        vn_misc_SendRequestToVocalocity($submission);
-        vn_misc_SendRequestTo8x8($submission);
-        //vn_misc_SendRequestToNextiva($submission);
+        //vn_misc_SendRequestToVocalocity($submission);
+        //vn_misc_SendRequestTo8x8($submission);
+        ////vn_misc_SendRequestToNextiva($submission);
       }
     }
     // A test letter to the root.
@@ -2294,7 +2296,7 @@ function vn_misc_makeRequest_ajax() {
 
       // Normal send
       if ($submission['First Name'] != 'a4s') {
-        drupal_mail('vn_misc', 'request_quote_ucaptured_data', 'leads@voipnow.org', $language->language, $params);
+        //drupal_mail('vn_misc', 'request_quote_ucaptured_data', 'leads@voipnow.org', $language->language, $params);
       }
       // Test letter to the root
       drupal_mail('vn_misc', 'request_quote_ucaptured_data', 'all4senses@gmail.com', $language->language, $params);

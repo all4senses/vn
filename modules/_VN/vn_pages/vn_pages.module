@@ -25,6 +25,15 @@ function vn_pages_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
   
+  $items['admin/content/track-report'] = array(
+    'title' => 'Track clicks report',
+    'description' => 'Track clicks report',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vn_pages_trackClickReport_form'),
+    'access callback' => 'vn_misc_userIsAdmin',
+    'type' => MENU_NORMAL_ITEM,
+  );
+   
   $items['home'] = array(
     'title' => 'Home page',
     //'description' => 'Home page',
@@ -57,6 +66,197 @@ function vn_pages_menu() {
   }
   
   return $items;
+}
+
+
+/**
+ * Track clicks report page.
+ */
+function vn_pages_trackClickReport_form($form, &$form_state) {
+  
+  //$args = arg();
+  //dpm($args);
+  
+//  $form['emails'] = array(
+//    '#type' => 'markup',
+//    '#markup' => '<div class="type">' . l('Quote requests emails only', 'admin/content/quote-requests/emails') . ' - ' . l('Reviews emails', 'admin/content/quote-requests/reviews-emails') . ' - ' . l('Disqus emails', 'admin/content/quote-requests/disqus-emails') . ' - ' . l('Newsletter emails', 'admin/content/quote-requests/newsletter-emails') . '</div>'
+//      . '<br/><div><strong>All Quote Requests data.</strong></div><br/><div class="email-captured">' . l('Check and email captured but not submitted requests', 'admin/content/quote-requests', array('query' => array('op' => 'email-captured'))) . '</div>',
+//  );
+  
+  $sort = @$_GET['sort'] ? $_GET['sort'] : 'timestamp';
+  
+  $query = '';
+  foreach ($_GET as $key => $value) {
+    if ($key != 'q' && $key != 'sort' && $key != 'order') {
+      $query .= ($query ? '&' : '?') . $key . '=' . $value;
+    }
+  }
+
+              
+  $sort_options = array('timestamp' => 'Click date', 'type' => 'Object type', 'object_name' => 'Object name', 
+      'url' => 'Url', 'referer' => 'Referrer', 'click_page' => 'Click page', 'ip' => 'IP', 'uname' => 'User name');
+  $start_url = $_SERVER['REDIRECT_URL'] . $query . ($query ? '&' : '?');
+  
+  $sort_exposed = '';
+  $order = 'DESC';
+  foreach($sort_options as $sort_option => $sort_title) {
+    $order_marker = '';
+    if ($sort_option == @$_GET['sort']) {
+      if (!@$_GET['order'] || $_GET['order'] == 'DESC') {
+        $current_order = 'ASC';
+        $order = 'ASC';
+        $order_marker = '&darr;';
+      }
+      else {
+        $current_order = 'DESC';
+        $order = 'DESC';
+        $order_marker = '&uarr;';
+      }
+    }
+    else {
+      $current_order = 'DESC';
+    }
+    //$sort_exposed .= ' | <a href="' . $start_url . 'sort=' . $sort_option . '&order=' . $current_order . '">' . $sort_title . $order_marker . '</a>';
+    $sort_links[$sort_option] = '<a href="' . $start_url . 'sort=' . $sort_option . '&order=' . $current_order . '">' . $sort_title . ' ' . $order_marker . '</a>';
+  }
+  
+  
+  $filter_by = array('provider_link' => 'Provider link', 'video_click' => 'Video link', 'all' => 'Show all');
+  $filter_by_db = array('provider_link' => array('type', 'provider_link'), 'video_click' => array('type', 'video_click'), 'all' => NULL);
+  $current_filter = isset($filter_by[@$_GET['filter']]) ? $_GET['filter'] : 'all';
+  
+  
+  $query = db_select('vn_track_links', 'tl')->extend('PagerDefault');
+  $query->fields('tl');
+  
+  
+  if ($filter_by_db[$current_filter]) {
+    $filter_field = $filter_by_db[$current_filter][0];
+    $filter_value = $filter_by_db[$current_filter][1];
+    if ($filter_field == 'type' && $filter_value == 'provider_link') {
+      // add an alias.
+      $or = db_or()->condition('type', 'provider_link')
+                   ->condition('type', 'provider');
+      $query->condition($or);
+    }
+    else {
+      $query->condition($filter_field, $filter_value);
+    }
+  }
+  
+  $results = 
+    $query
+      ->orderBy($sort, $order)
+      ->limit(20)
+      ->execute();
+  
+  
+  $form['filter'] = array(
+    '#type' => 'radios',
+    '#title' => t('Filter by: '),
+    '#default_value' => $current_filter,
+    '#options' => $filter_by,
+    '#attributes' =>  array('class' =>array('filter_by'), 'onClick' => array('javascript:this.form.submit();')),
+  );
+ 
+    
+  $form['table_start'] = array(
+    '#type' => 'markup',
+    '#markup' => '<table class="views-table track-links"><thead><tr>
+        <th>Num</th>
+        <th class="date">' . $sort_links['timestamp'] . '</th>
+        <th>' . $sort_links['type'] . '</th>
+        <th class="name">' . $sort_links['object_name'] . '</th>
+        <th class="url">' . $sort_links['url'] . '</th>
+        <th class="referer">' . $sort_links['referer'] . '</th>
+        <th class="page">' . $sort_links['click_page'] . '</th>
+        <th>' . $sort_links['ip'] . '</th>
+        <th>' . $sort_links['uname'] . '</th>'
+       //.'<th class="data">Data</th>'
+       .'<th>Operations</th>
+      </tr></thead><tbody>',
+  );
+  
+  
+    
+  $tr_class = 'even';
+  foreach ($results as $key => $result) {
+    
+    $data = '';
+    $result_data = unserialize($result->data);
+    if (!empty($result_data)) {
+      foreach ($result_data as $title => $value) {
+        $data .= "<div>$title: $value</div>";
+      }
+    }
+
+    $form['item_' . ($key + 1) . 'a'] = array(
+      '#markup' => '<tr class="'. ($tr_class == 'odd' ? $tr_class = 'even' : $tr_class = 'odd') . '">
+        <td>' . ($key + 1) . '</td>
+        <td class="date">' . date('Y-m-d, H:i:s', $result->timestamp) . '</td>
+        <td>' . $result->type . '</td>
+        <td class="name">' . $result->object_name . '</td>
+        <td' . ($result->url ? ' class="url"' : '') . '>' . $result->url . '</td>
+        <td' . (($result->referer || !empty($result_data['referer'])) ? ' class="referer"' : '') . '>' . ($result->referer ? $result->referer : (!empty($result_data['referer']) ? $result_data['referer'] : '') ) . '</td>
+        <td' . (($result->click_page || !empty($result_data['click_on_page'])) ? ' class="page"' : '') . '>' . ($result->click_page ? $result->click_page : (!empty($result_data['click_on_page']) ? $result_data['click_on_page'] : '') ) . '</td>
+        <td>' . ($result->ip ? $result->ip : (!empty($result_data['user']['hostname']) ? $result_data['user']['hostname'] : '') ) . '</td>
+        <td>' . ($result->uname ? $result->uname : (!empty($result_data['user']['name']) ? $result_data['user']['name'] : '') ) . '</td>',
+    );
+    
+    
+    
+    
+    $delete_url = $_GET + array('op' => 'delete', 'timestamp' => $result->timestamp);
+    unset($delete_url['q']);
+    
+    
+    $form['item_' . ($key + 1) . 'c'] = array(
+      '#markup' => //'<td class="data">' . $data . '</td>' .
+        '<td>' . l('Delete', $_GET['q'], array('query' => $delete_url)) . '</td>
+        </tr>',
+    );
+  }
+
+  $form['table_close'] = array(
+    '#type' => 'markup',
+    '#markup' => '</tbody></table></div>',
+  );
+  
+  $form['pager'] = array(
+    '#theme' => 'pager',
+    //'#weight' => 5,
+  );
+  
+  //$form['actions']['submit']['#submit'][] = 'gv_pages_trackClickReport_formSubmit';
+  //$form['#submit'][] = 'vn_pages_trackClickReport_formSubmit';
+  $form['#validate'][] = 'vn_pages_trackClickReport_formValidate';
+  
+  
+  return $form;
+}
+
+
+/**
+ * Custom submit of a form for a Quote Requests List page.
+ *
+ * Provides a filtering functionality.
+ * 
+ * @param array &$form
+ *   Array with declared form.
+ *
+ * @param array &$form_state
+ *   Array with current form state.
+
+ * @return void
+ *   Return nothing.
+ */
+function vn_pages_trackClickReport_formValidate(&$form, &$form_state) {
+
+  $get = $_GET;
+  unset($get['q']);
+  $get['filter'] = $form_state['values']['filter'];
+  
+  drupal_goto($_GET['q'], array('query' => $get));
 }
 
 

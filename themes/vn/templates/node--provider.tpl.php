@@ -6,17 +6,23 @@
   <div class="main-content" xmlns:v="http://rdf.data-vocabulary.org/#" typeof="v:Review-aggregate">
     
         <?php if ($page): ?>
-          <h1<?php //print $title_attributes; ?> property="dc:title v:summary" <?php if (!$node->status) {echo ' class="not-published"';}?> >
-                <?php 
+          <h1<?php //print $title_attributes; 
+                //echo 'property="dc:title v:summary"'; 
+                echo ' property="v:summary"'; 
+                if (!$node->status) {echo ' class="not-published"';}?> ><?php 
                   print $title; //t('Our Take on !p Business VoIP Provider', array('!p' => $node->field_p_name['und'][0]['value'] /*$content['field_p_name'][0]['#markup']*/) )
-                ?>
-          </h1>
+                ?></h1>
+   
    
         <?php else: ?>
           <header>
         
-            <h2<?php //print $title_attributes; ?>><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h2>
-        
+            <h2<?php //print $title_attributes; ?> property="dc:title v:summary">
+                <a href="<?php print $node_url; ?>">
+                  <?php print $title; ?>
+                </a>
+            </h2>
+            
           </header>
         <?php endif; ?>
     
@@ -36,7 +42,8 @@
                   //dpm($node);
                   
                   if (isset($content['field_p_logo'][0]['#item']['uri'])) {
-                    echo '<div class="logo"><a href="' . $node->p_data['info']['i_web'] . '" target="_blank">' . theme('image_style', array( 'path' =>  $content['field_p_logo'][0]['#item']['uri'], 'style_name' => 'logo_provider_page', 'alt' => $content['field_p_logo'][0]['#item']['alt'], 'title' => $content['field_p_logo'][0]['#item']['title'], 'attributes' => array('rel' => 'v:photo'))) . '</a></div>'; 
+                    ////echo '<div class="logo"><a href="' . $node->p_data['info']['i_web'] . '" target="_blank">' . theme('image_style', array( 'path' =>  $content['field_p_logo'][0]['#item']['uri'], 'style_name' => 'logo_provider_page', 'alt' => $content['field_p_logo'][0]['#item']['alt'], 'title' => $content['field_p_logo'][0]['#item']['title'], 'attributes' => array('rel' => 'v:photo'))) . '</a></div>'; 
+                    echo '<div class="logo"><a href="/goto?t=provider&n=' . urlencode($node->field_p_name['und'][0]['value']) . '" target="_blank" rel="nofollow">' . theme('image_style', array( 'path' =>  $content['field_p_logo'][0]['#item']['uri'], 'style_name' => 'logo_provider_page', 'alt' => $content['field_p_logo'][0]['#item']['alt'], 'title' => $content['field_p_logo'][0]['#item']['title'], 'attributes' => array('rel' => 'v:photo'))) . '</a></div>'; 
                   }
                   else {
                     //echo render($title_prefix), '<h2', $title_attributes,'>', $node->field_p_name['und'][0]['value'] /*$content['field_p_name'][0]['#markup']*/, '</h2>', render($title_suffix);
@@ -44,8 +51,18 @@
                   $url = 'http://voipnow.org'. url('node/' . $node->nid);
                   
                   if (isset($content['field_p_image'][0]['#item']['uri'])) {
-                    echo '<div class="image"><a href="' , $node->p_data['info']['i_web'] , '" target="_blank">' , theme('image_style', array( 'path' =>  $content['field_p_image'][0]['#item']['uri'], 'style_name' => 'image_provider_page', 'alt' =>  $content['field_p_image'][0]['#item']['alt'], 'title' =>  $content['field_p_image'][0]['#item']['title'])) , '</a></div>', 
-                         '<div class="site">' , l('Visit ' . $node->field_p_name['und'][0]['value'] /*$content['field_p_name'][0]['#markup']*/, $node->p_data['info']['i_web'], array('external' => TRUE, 'attributes' => array('target' => '_blank'))) , '</div>';
+                    
+//                    echo '<div class="image"><a href="' , $node->p_data['info']['i_web'] , '" target="_blank">' , theme('image_style', array( 'path' =>  $content['field_p_image'][0]['#item']['uri'], 'style_name' => 'image_provider_page', 'alt' =>  $content['field_p_image'][0]['#item']['alt'], 'title' =>  $content['field_p_image'][0]['#item']['title'])) , '</a></div>', 
+//                         '<div class="site">' , l('Visit ' . $node->field_p_name['und'][0]['value'] /*$content['field_p_name'][0]['#markup']*/, $node->p_data['info']['i_web'], array('external' => TRUE, 'attributes' => array('target' => '_blank'))) , '</div>';
+                    
+                    $goto_link = 'goto';
+                    $goto_link_query = array('t' => 'provider', 'n' => urlencode($node->field_p_name['und'][0]['value'])/*, 'url' => urlencode($node->p_data['info']['i_web'])*/);
+                    
+                    ////echo '<div><a href="' , $node->p_data['info']['i_web'] , '" target="_blank">' , theme('image_style', array( 'path' =>  $content['field_p_image'][0]['#item']['uri'], 'style_name' => 'image_provider_page', 'alt' =>  $content['field_p_image'][0]['#item']['alt'], 'title' =>  $content['field_p_image'][0]['#item']['title'])) , '</a></div>', 
+                    echo '<div class="image"><a href="/goto?t=provider&n=', urlencode($node->field_p_name['und'][0]['value']), '" rel="nofollow" target="_blank">' , theme('image_style', array( 'path' =>  $content['field_p_image'][0]['#item']['uri'], 'style_name' => 'image_provider_page', 'alt' =>  $content['field_p_image'][0]['#item']['alt'], 'title' =>  $content['field_p_image'][0]['#item']['title'])) , '</a></div>', 
+                         //'<div class="site">' , l('Visit ' . $node->field_p_name['und'][0]['value'], $node->p_data['info']['i_web'], array('external' => TRUE, 'attributes' => array('target' => '_blank'))) , '</div>';
+                         '<div class="site">' , l('Visit ' . $node->field_p_name['und'][0]['value'], $goto_link, array('query' => $goto_link_query, 'attributes' => array('rel' => 'nofollow', 'target' => '_blank'))) , '</div>';
+                    
                   }
                 ?>  
                 

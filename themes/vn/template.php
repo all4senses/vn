@@ -555,7 +555,7 @@ function vn_process_page(&$variables) {
   }
   elseif(isset($variables['node']) && !in_array($variables['node']->type, $not_teasers_types) ) {
     //dpm($variables['node']);
-    dpm('not-teasers node------------');
+    //dpm('not-teasers node------------');
     switch ($variables['node']->type) {
       case 'provider':
         $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('VoIP Providers', 'providers'), $variables['node']->field_p_name['und'][0]['value'] . ' Review')));

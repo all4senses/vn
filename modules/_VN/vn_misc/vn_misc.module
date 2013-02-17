@@ -289,8 +289,6 @@ function vn_misc_drupal_not_found() {
  */
 function vn_misc_getMenuTrail() {
   
-  return NULL;
-  
   if(!$url_aliased = @$_SERVER['REDIRECT_URL']) {
     return FALSE;
   }

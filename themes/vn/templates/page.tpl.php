@@ -1,5 +1,34 @@
 <div id="c-top">
 
+    <header id="header" role="banner" class="clearfix">
+
+    <nav id="navigation" role="navigation" class="clearfix">
+      <div id="header-menu-back"></div>
+      
+      <div id="logo-block">
+        <a href="<?php print $front_page; ?>" title="<?php print 'VoIP Now Home'; ?>" id="logo">
+          <img src="<?php echo '/sites/all/themes/vn/css/images/vn-logo-top.png'; ?>" alt="VoIP Now" title="<?php print 'VoIP Now Home'; ?>" />
+        </a>
+        
+      </div>
+      
+      <?php 
+          global $user;
+
+//        if ($user->uid == 1) {
+          echo /*'<a id="itexpo" href="http://voipnow.org/blog/tags/itexpo-2012"></a>',*/ render($page['header']); 
+          
+          echo vn_blocks_getBlockThemed(array('module' => 'om_maximenu', 'delta' => 'om-maximenu-1', 'no_subject' => TRUE, 'class' => 'block-om-maximenu', 'shadow' => FALSE), TRUE, '+31 day', ($user->uid ? '_logged' : NULL));
+          
+//        }
+//        else {
+//          echo '<div id="block-vn-blocks-header-links"><div class="follow-us">Follow Us</div>', vn_blocks_get_headerLinks(), '</div>', render($page['header']); 
+//        }
+      ?>
+    </nav> <!-- /#navigation -->
+
+    <?php ////if ($breadcrumb): print $breadcrumb; endif;?>
+  </header> <!-- /#header -->
 
 
 
@@ -27,6 +56,7 @@
     </section>
   <?php endif; ?>
   
+ 
   <div id="all-content" class="clearfix">
       
       
@@ -117,6 +147,7 @@
         
   </div> <!-- /#all-content -->
 </div>
+  
 
   
   <footer id="footer" role="contentinfo" class="clearfix">
@@ -134,7 +165,7 @@
         //echo '<div id="block-vn-blocks-follow-links"><div class="follow-us">Follow Us</div>', vn_blocks_get_headerLinks(), '</div>';
       ?>
       
-      <div class="c">Copyright В© 2004-2013 VoIP Now.org</div>
+      <div class="c">Copyright © 2004-2013 VoIP Now.org</div>
     </div>
   </footer> <!-- /#footer -->
 

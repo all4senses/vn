@@ -2326,7 +2326,7 @@ function vn_misc_makeRequest_ajax() {
       */
       if ($submission['First Name'] != 'afs') {
       // Normal send if not a test from a4s
-      //drupal_mail('vn_misc', 'request_quote', 'leads@voipnow.org', $language->language, $params);
+      drupal_mail('vn_misc', 'request_quote', 'leads@getvoip.com', $language->language, $params);
       
       // Send a lead to Remote providers.
       if ($submission['Source'] != 'block') {
@@ -2373,7 +2373,7 @@ function vn_misc_makeRequest_ajax() {
 
       // Normal send
       if ($submission['First Name'] != 'afs') {
-        //drupal_mail('vn_misc', 'request_quote_ucaptured_data', 'leads@voipnow.org', $language->language, $params);
+        drupal_mail('vn_misc', 'request_quote_ucaptured_data', 'leads@getvoip.com', $language->language, $params);
       }
       // Test letter to the root
       drupal_mail('vn_misc', 'request_quote_ucaptured_data', 'all4senses@gmail.com', $language->language, $params);
@@ -2395,10 +2395,8 @@ function vn_misc_makeRequest_ajax() {
     
     $status = TRUE;
          
-    if ($submission['Version'] == 5) {
-      $output = '<a class="guide" href="/pdfs/SMB-VOIP-AdvantagesWhitePaper.pdf" target="_blank">Download Your Free VoIP Buyer\'s Guide Here</a><div class="quote-final">' . t('<p><strong>Thank you</strong> for taking your time to complete our form. A VoIP Expert will be contacting you shortly to provide you with a personalized VoIP Service quote.</p><p>In the meantime, you can gain a great deal of VoIP information right here at <a href="http://voipnow.org">voipnow.org</a></p>') . '</div>';
-    }
-    elseif($submission['Version'] == 6) {
+    
+    if($submission['Version'] == 1) {
       $output = '<a class="guide" href="/pdfs/SMB-VOIP-AdvantagesWhitePaper.pdf" target="_blank">Download Your Free VoIP Buyer\'s Guide<img src="/sites/all/themes/vn/css/images/click-here-button.png" /></a><div class="quote-final">' . t('<p><strong>Thank you</strong> for taking your time to complete our form. A VoIP Expert will be contacting you shortly to provide you with a personalized VoIP Service quote.</p><p>In the meantime, you can gain a great deal of VoIP information right here at <a href="http://voipnow.org">voipnow.org</a></p>') . '</div>';
     }
     else {
@@ -3382,12 +3380,12 @@ function vn_misc_curlGET($url) {
 function vn_misc_mail($key, &$message, $params) {
   switch ($key) {
     case 'request_quote':
-      $message['subject'] = t('New request for a quote');
+      $message['subject'] = 'VN New request for a quote';
       $message['body'][] = theme('vn_misc_requestQuote_mail', $params['request_data']);
       break;
     
     case 'request_quote_ucaptured_data':
-      $message['subject'] = t('New captured BUT not submitted user data');
+      $message['subject'] = 'VN New captured BUT not submitted user data';
       $message['body'][] = theme('vn_misc_requestQuote_mail', $params['ucaptured_data']);
       break;
     
@@ -3398,7 +3396,7 @@ function vn_misc_mail($key, &$message, $params) {
       break;
     
     case 'email_verification':
-      $message['subject'] = t('Submitted Review Requires One-Click Email Verification');
+      $message['subject'] = 'Submitted Review Requires One-Click Email Verification';
       $message['body'][] = t('Dear User,
 
 Thank you for taking your time to share your VoIP experience by submitting a review.
@@ -4934,7 +4932,7 @@ function vn_misc_getProviderQuickData($target, $data) {
       }
       
       $out = '<a class="site-link" href="' . $link . '" target="_blank">Visit website</a>';
-      $out .= '<a class="review-link" href="' . url('node/' . $data['data']->nid) . '" target="_blank">Read Review</a>';
+      $out .= '<a class="review-link" href="' . url('node/' . $data['data']->nid) . '">Read Review</a>';
       
       return $out;
       

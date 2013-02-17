@@ -541,7 +541,7 @@ function vn_blocks_get_requestQuote_block_v1() {
                 
                 <input type="hidden" name="token" value="' . $token . '" />
                 <input type="hidden" name="source" value="block" />
-                <input type="hidden" name="version" value="6" />
+                <input type="hidden" name="version" value="1" />
                 <input type="hidden" name="referrer" value="" />
                 <input type="hidden" name="url" value="" />
                 

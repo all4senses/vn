@@ -543,6 +543,7 @@ function vn_process_page(&$variables) {
   $not_teasers_types = array('preface', 'admin_page', 'page', 'quote', 'webform');
   
   //dpm($_SERVER);
+  dpm($_SERVER['REQUEST_URI']);
   //dpm(arg());
   
   if(@$_SERVER['REQUEST_URI'] == '/') {
@@ -599,7 +600,7 @@ function vn_process_page(&$variables) {
     }
   }
   */
-  /*
+  
   elseif(strpos($_SERVER['REQUEST_URI'], '/tags/') != FALSE) {
     //dpm('Tag page ------------');
     
@@ -608,7 +609,8 @@ function vn_process_page(&$variables) {
     
     // Defined in
     global $current_tag_title;
-    
+    dpm($current_tag_title);
+    //dpm($_SERVER['REQUEST_URI']);
 
     if(strpos($_SERVER['REQUEST_URI'], 'articles/tags/') != FALSE) {
       $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('VoIP Library articles', 'about-voip-services'), l('Articles tags', 'articles/tags'), $current_tag_title )));
@@ -621,7 +623,7 @@ function vn_process_page(&$variables) {
     }
 
   }
-  */
+  
   elseif ($breadcrumb = vn_misc_getMenuTrail()) {
     //dpm('Page VIA MENU------------');
     $variables['breadcrumb'] = $breadcrumb;

@@ -1,7 +1,7 @@
 <div id="c-top">
 
 
-</div>
+
 
 
 
@@ -27,7 +27,6 @@
     </section>
   <?php endif; ?>
   
-  <div id="all-content-wrapper">
   <div id="all-content" class="clearfix">
       
       
@@ -118,7 +117,6 @@
         
   </div> <!-- /#all-content -->
 </div>
-  
 
   
   <footer id="footer" role="contentinfo" class="clearfix">

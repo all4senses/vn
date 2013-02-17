@@ -168,7 +168,7 @@
          }
          else {
            
-          echo '<div class="links">' . l($content['field_categories'][0]['#title'], $content['field_categories'][0]['#href']) . '</div>';
+          //echo '<div class="links">' . l($content['field_categories'][0]['#title'], $content['field_categories'][0]['#href']) . '</div>';
           //dpm($node);
           //dpm($content);
           

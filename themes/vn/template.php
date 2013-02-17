@@ -544,6 +544,8 @@ function vn_process_page(&$variables) {
   
   //dpm($_SERVER);
   dpm($_SERVER['REQUEST_URI']);
+  global $current_tag_title;
+  dpm($current_tag_title);
   //dpm(arg());
   
   if(@$_SERVER['REQUEST_URI'] == '/') {

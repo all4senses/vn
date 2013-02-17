@@ -1,3 +1,4 @@
+body{-webkit-text-size-adjust: none;}
 
 /* Three columns layout */
 body.two-sidebars #sidebar-first {float: left; margin: 0 0 0 -857px; padding: 0; width: 180px;}

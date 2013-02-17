@@ -33,7 +33,7 @@
 //        if ($user->uid == 1) {
           echo /*'<a id="itexpo" href="http://getvoip.com/blog/tags/itexpo-2012"></a>',*/ render($page['header']); 
           
-          echo gv_blocks_getBlockThemed(array('module' => 'om_maximenu', 'delta' => 'om-maximenu-1', 'no_subject' => TRUE, 'class' => 'block-om-maximenu', 'shadow' => FALSE), TRUE, '+31 day', ($user->uid ? '_logged' : NULL));
+          //echo gv_blocks_getBlockThemed(array('module' => 'om_maximenu', 'delta' => 'om-maximenu-1', 'no_subject' => TRUE, 'class' => 'block-om-maximenu', 'shadow' => FALSE), TRUE, '+31 day', ($user->uid ? '_logged' : NULL));
           
 //        }
 //        else {
@@ -120,7 +120,7 @@
           );
           //if ($user->uid == 1) {
           if($is_front || in_array($_SERVER['REDIRECT_URL'], $pages_with_timestamp))
-            echo gv_misc_lastUpdatedStamp();
+            //echo gv_misc_lastUpdatedStamp();
               
           //}
           ?>
@@ -157,7 +157,7 @@
       
       
       if (1/*$user->uid*/) {
-        echo '<div id="block-gv-blocks-follow-links"><div class="follow-us">Follow Us</div>', gv_blocks_get_headerLinks(), '</div>';
+        //echo '<div id="block-gv-blocks-follow-links"><div class="follow-us">Follow Us</div>', gv_blocks_get_headerLinks(), '</div>';
         ?>
           <!--<div id="lock-n-rss">-->
             <div id="sitelock"><a href="#" onclick="window.open('https://www.sitelock.com/verify.php?site=getvoip.com','SiteLock','width=600,height=600,left=160,top=170');" ><img alt="website security" title="SiteLock"  src="//shield.sitelock.com/shield/getvoip.com"/></a></div>

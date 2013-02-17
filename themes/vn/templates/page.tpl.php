@@ -30,7 +30,7 @@
     <?php ////if ($breadcrumb): print $breadcrumb; endif;?>
   </header> <!-- /#header -->
 
-
+</div>
 
 
 
@@ -56,7 +56,7 @@
     </section>
   <?php endif; ?>
   
- 
+  <div id="all-content-wrapper">
   <div id="all-content" class="clearfix">
       
       
@@ -146,7 +146,7 @@
 
         
   </div> <!-- /#all-content -->
-
+</div>
   
 
   
@@ -165,8 +165,7 @@
         //echo '<div id="block-vn-blocks-follow-links"><div class="follow-us">Follow Us</div>', vn_blocks_get_headerLinks(), '</div>';
       ?>
       
-      <div class="c">Copyright © 2004-2013 VoIP Now.org</div>
+      <div class="c">Copyright В© 2004-2013 VoIP Now.org</div>
     </div>
   </footer> <!-- /#footer -->
 
-</div>

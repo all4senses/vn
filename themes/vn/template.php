@@ -602,7 +602,18 @@ function vn_process_page(&$variables) {
     }
   }
   */
-  
+  elseif($current_tag_title) {
+    if (strpos($_SERVER['REQUEST_URI'], 'features/') != FALSE) {
+      $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('Types Of VoIP', 'types'), l('VoIP Features', 'features'), $current_tag_title )));
+    }
+    elseif(strpos($_SERVER['REQUEST_URI'], 'equipment/') != FALSE) {
+      $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('Types Of VoIP', 'types'), l('VoIP Equipment', 'equipment'), $current_tag_title )));
+    }
+    elseif (strpos($_SERVER['REQUEST_URI'], 'protocols/') != FALSE) {
+      $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('Types Of VoIP', 'types'), l('VoIP Protocols', 'protocols'), $current_tag_title )));
+    }
+  }
+  /*
   elseif(strpos($_SERVER['REQUEST_URI'], '/tags/') != FALSE) {
     //dpm('Tag page ------------');
     
@@ -611,9 +622,7 @@ function vn_process_page(&$variables) {
     
     // Defined in
     global $current_tag_title;
-    dpm($current_tag_title);
-    //dpm($_SERVER['REQUEST_URI']);
-
+  
     if(strpos($_SERVER['REQUEST_URI'], 'articles/tags/') != FALSE) {
       $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('VoIP Library articles', 'about-voip-services'), l('Articles tags', 'articles/tags'), $current_tag_title )));
     }
@@ -625,7 +634,7 @@ function vn_process_page(&$variables) {
     }
 
   }
-  
+  */
   elseif ($breadcrumb = vn_misc_getMenuTrail()) {
     //dpm('Page VIA MENU------------');
     $variables['breadcrumb'] = $breadcrumb;

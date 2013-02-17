@@ -542,10 +542,12 @@ function vn_process_page(&$variables) {
   $tags_cloud_pages = array('/articles/tags', '/blog/tags', '/news/tags');
   $not_teasers_types = array('preface', 'admin_page', 'page', 'quote', 'webform');
   
-  //dpm($_SERVER);
-  dpm($_SERVER['REQUEST_URI']);
   global $current_tag_title;
-  dpm($current_tag_title);
+  
+  //dpm($_SERVER);
+  //dpm($_SERVER['REQUEST_URI']);
+  
+  //dpm($current_tag_title);
   //dpm(arg());
   
   if(@$_SERVER['REQUEST_URI'] == '/') {
@@ -553,7 +555,7 @@ function vn_process_page(&$variables) {
   }
   elseif(isset($variables['node']) && !in_array($variables['node']->type, $not_teasers_types) ) {
     //dpm($variables['node']);
-    //dpm('teasers node------------');
+    dpm('not-teasers node------------');
     switch ($variables['node']->type) {
       case 'provider':
         $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('VoIP Providers', 'providers'), $variables['node']->field_p_name['und'][0]['value'] . ' Review')));

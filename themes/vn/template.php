@@ -560,6 +560,14 @@ function vn_process_page(&$variables) {
       case 'provider':
         $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('VoIP Providers', 'providers'), $variables['node']->field_p_name['und'][0]['value'] . ' Review')));
         break;
+      case 'provider_type':
+        if ($variables['node']->title == 'Usage') {
+          $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('Types Of VoIP', 'types'), $variables['node']->title)));
+        }
+        else {
+          $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('Types Of VoIP', 'types'), l('VoIP Usage', 'usage'), $variables['node']->title)));
+        }
+        break;
 //      case 'review':
 //        if (!empty($variables['node']->field_ref_provider['und'][0]['target_id'])) {
 //          $variables['breadcrumb'] = theme('breadcrumb', array('breadcrumb' => array(l('Home', NULL), l('VoIP Providers', 'providers'), l($variables['node']->field_r_provider_name['und'][0]['value'] . ' Review', 'node/' . $variables['node']->field_ref_provider['und'][0]['target_id']), $variables['node']->title )));

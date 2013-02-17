@@ -172,9 +172,9 @@ function vn_misc_goToExternalUrl() {
   // Save a tracked redirection.
   if (!empty($_GET['p']) /* && !empty($_GET['url'])*/) {
     
-    switch ($_GET['p']) {
+    //switch ($_GET['p']) {
       
-      case 'provider':
+      //case 'provider':
         
         $query = db_select('field_data_field_p_name', 'pn');
           //->fields('pn', array(''))
@@ -220,8 +220,8 @@ function vn_misc_goToExternalUrl() {
             drupal_goto($url, array('external' => TRUE));
         }
         
-        break;
-    }
+        //break;
+    //}
   }
   
   drupal_goto(@$_SERVER['HTTP_REFERER']);

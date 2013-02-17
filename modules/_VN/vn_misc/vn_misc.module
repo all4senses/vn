@@ -5046,7 +5046,7 @@ function vn_misc_getProviderQuickData($target, $data) {
       
       if (!empty($all_data_quick[$data['data']->nid]['name'])) {
         //$out .= '<div class="link"><a href="' . $link . '" target="_blank">Visit website</a></div>';
-        $out .= '<a href="/goto?t=provider&n=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">Visit website</a>';
+        $out .= '<div class="link"><a href="/goto?t=provider&n=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">Visit website</a></div>';
       }
           
       return $out;

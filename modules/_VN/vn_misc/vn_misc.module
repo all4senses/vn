@@ -26,14 +26,14 @@ function vn_misc_menu() {
     'type' => MENU_CALLBACK,
   );
   
-  $items['goto'] = array(
+  $items['click'] = array(
     'title' => 'Redirect to an external link',
     'page callback' => 'vn_misc_goToExternalUrl',
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   ); 
   
-  $items['click'] = array(
+  $items['click-a'] = array(
     'title' => 'Track a click',
     'page callback' => 'vn_misc_trackClick_ajax',
     'access arguments' => array('access content'),
@@ -170,16 +170,16 @@ function vn_misc_goToExternalUrl() {
   //dpm($_GET);
   
   // Save a tracked redirection.
-  if (!empty($_GET['t']) && !empty($_GET['n'])/* && !empty($_GET['url'])*/) {
+  if (!empty($_GET['p']) /* && !empty($_GET['url'])*/) {
     
-    switch ($_GET['t']) {
+    switch ($_GET['p']) {
       
       case 'provider':
         
         $query = db_select('field_data_field_p_name', 'pn');
           //->fields('pn', array(''))
         $query->condition('pn.bundle', 'provider');
-        $query->condition('pn.field_p_name_value', urldecode($_GET['n']));
+        $query->condition('pn.field_p_name_value', urldecode($_GET['p']));
         $query->leftJoin('field_data_field_p_data_quick', 'pd', 'pd.entity_id = pn.entity_id');
         $query->fields('pd', array('entity_id', 'field_p_data_quick_value'));
         $p_data_quick = $query->execute()->fetchObject();
@@ -204,7 +204,7 @@ function vn_misc_goToExternalUrl() {
               ->fields(array(
                 'object_id' => $object_id,
                 'type' => 'provider_link',
-                'object_name' => urldecode($_GET['n']),
+                'object_name' => urldecode($_GET['p']),
                 'url' => $url,
                 'timestamp' => time(),
                   
@@ -5031,13 +5031,13 @@ function vn_misc_getProviderQuickData($target, $data) {
         $image = theme('vn_misc_image_style', array('style_name' => $image_style_name, 'path' => $all_data_quick[$data['data']->nid]['i_logo_uri'], 'alt' =>  $all_data_quick[$data['data']->nid]['i_logo_alt'], 'title' =>  $all_data_quick[$data['data']->nid]['i_logo_title'] ));
         
         ////$out = '<a href="' . $link . '" target="_blank">' . $image . '</a>';
-        $out = '<a href="/goto?t=provider&n=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">' . $image . '</a>';
+        $out = '<a href="/click?p=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">' . $image . '</a>';
 
       }
       else {
         if (!empty($all_data_quick[$data['data']->nid]['name'])) {
           /////$out = '<a href="' . $link . '" target="_blank">' . $all_data_quick[$data['data']->nid]['name'] . '</a>';
-          $out = '<a href="/goto?t=provider&n=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">' . $all_data_quick[$data['data']->nid]['name'] . '</a>';
+          $out = '<a href="/click?p=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">' . $all_data_quick[$data['data']->nid]['name'] . '</a>';
         }
 //        else {
 //          $out = '<a href="' . $link . '" target="_blank">' . $data['data']->node_title . '</a>';
@@ -5046,7 +5046,7 @@ function vn_misc_getProviderQuickData($target, $data) {
       
       if (!empty($all_data_quick[$data['data']->nid]['name'])) {
         //$out .= '<div class="link"><a href="' . $link . '" target="_blank">Visit website</a></div>';
-        $out .= '<div class="link"><a href="/goto?t=provider&n=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">Visit website</a></div>';
+        $out .= '<div class="link"><a href="/click?p=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">Visit website</a></div>';
       }
           
       return $out;
@@ -5073,7 +5073,7 @@ function vn_misc_getProviderQuickData($target, $data) {
         $image = theme('vn_misc_image_style', array('style_name' => $image_style_name, 'path' => $all_data_quick[$data['data']->nid]['i_logo_uri'], 'alt' =>  $all_data_quick[$data['data']->nid]['i_logo_alt'], 'title' =>  $all_data_quick[$data['data']->nid]['i_logo_title'] ));
         
         ////$out = '<a href="' . $link . '" target="_blank">' . $image . '</a>';
-        $out = '<a href="/goto?t=provider&n=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">' . $image . '</a>';
+        $out = '<a href="/click?p=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">' . $image . '</a>';
 
         
       }
@@ -5081,7 +5081,7 @@ function vn_misc_getProviderQuickData($target, $data) {
       //$out .= '<a href="' . $link . '" target="_blank">' . @$all_data_quick[$data['data']->nid]['name'] . '</a>';
       if (!empty($all_data_quick[$data['data']->nid]['name'])) {
         //$out .= '<div class="link"><a href="' . $link . '" target="_blank">Visit website</a></div>';
-        $out .= '<a href="/goto?t=provider&n=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">' . @$all_data_quick[$data['data']->nid]['name'] . '</a>';
+        $out .= '<a href="/click?p=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">' . @$all_data_quick[$data['data']->nid]['name'] . '</a>';
       }
       
           
@@ -5103,7 +5103,7 @@ function vn_misc_getProviderQuickData($target, $data) {
       }
       
       if (!empty($all_data_quick[$data['data']->nid]['i_web'])) {
-        $out .= '<a class="site-link" href="/goto?t=provider&n=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">Visit website</a>';
+        $out .= '<a class="site-link" href="/click?p=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">Visit website</a>';
       }
       
       //$out = '<a class="site-link" href="' . $link . '" target="_blank">Visit website</a>';

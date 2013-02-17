@@ -672,6 +672,10 @@ function vn_process_page(&$variables) {
   }
   
   
+  // Set a user referer.
+  $module_path_misc = drupal_get_path('module', 'vn_misc');
+  drupal_add_js( $module_path_misc . '/js/vn_setReferer.js'); 
+  
 }
 
 

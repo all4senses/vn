@@ -5081,7 +5081,7 @@ function vn_misc_getProviderQuickData($target, $data) {
       //$out .= '<a href="' . $link . '" target="_blank">' . @$all_data_quick[$data['data']->nid]['name'] . '</a>';
       if (!empty($all_data_quick[$data['data']->nid]['name'])) {
         //$out .= '<div class="link"><a href="' . $link . '" target="_blank">Visit website</a></div>';
-        $out .= '<div class="link"><a href="/goto?t=provider&n=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">Visit website</a></div>';
+        $out .= '<a href="/goto?t=provider&n=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">' . @$all_data_quick[$data['data']->nid]['name'] . '</a>';
       }
       
           
@@ -5102,11 +5102,12 @@ function vn_misc_getProviderQuickData($target, $data) {
         $link = url('node/' . $data['data']->nid);
       }
       
+      if (!empty($all_data_quick[$data['data']->nid]['i_web'])) {
+        $out .= '<a class="site-link" href="/goto?t=provider&n=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">Visit website</a>';
+      }
+      
       //$out = '<a class="site-link" href="' . $link . '" target="_blank">Visit website</a>';
-      $out = '<div class="site-link"><a href="/goto?t=provider&n=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">Visit website</a></div>';
       $out .= '<a class="review-link" href="' . url('node/' . $data['data']->nid) . '">Read Review</a>';
-      
-      
       
       return $out;
       

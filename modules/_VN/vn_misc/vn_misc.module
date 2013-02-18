@@ -1092,7 +1092,7 @@ function vn_misc_AddContentSection_form() {
     '#type' => 'select',
     //'#title' => 'Select content type',
     '#options' => $options,
-    '#attributes' => array('id' => 'select_type',  'onChange' => "top.location.href='http://voipnow.org/node/add/" . "' + document.getElementById('select_type').options[document.getElementById('select_type').selectedIndex].value"),
+    '#attributes' => array('id' => 'select_type',  'onChange' => "top.location.href='/node/add/" . "' + document.getElementById('select_type').options[document.getElementById('select_type').selectedIndex].value"),
   );
   
   return $form;

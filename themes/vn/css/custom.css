@@ -1,4 +1,4 @@
-body{-webkit-text-size-adjust: none; min-width: 1150px;}
+body{-webkit-text-size-adjust: none; min-width: 1150px; position: relative;}
 
 /*body, #c-top, #all-content-wrapper, #footer{width: 100%; display: table;}*/
 
@@ -768,7 +768,7 @@ form .counter.exceeded{color: red;}
 
 /*.front .share, */
 .preface .share{border: none; padding: 3px 0 3px 10px; position: absolute; top: 27px; right: 420px; height: 20px; z-index: 100;}
-/*.logged-in .front .share,*/ .logged-in .preface .share{top: 47px;}
+.logged-in .preface .share{/*top: 47px;*/}
 
 .share .main{width: 410px; float: right;}
 .IN-widget{float: left; margin-right: 13px;}

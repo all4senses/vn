@@ -279,7 +279,8 @@ function tvi_get_term_info($tid, $type = TVI_DATATYPE_VIEW) {
     $settings = tvi_load_settings($term->tid, TVI_TYPE_TERM, FALSE);
 
     // If the term has no settings, search for parent terms' ones.
-    if (!$settings || !$settings->status) {
+    ////if (!$settings || !$settings->status) {
+    if (!$settings || empty($settings->status)) {
       // Get all the term's ancestors
       $parents = taxonomy_get_parents_all($term->tid);
       // Remove the current term from the array

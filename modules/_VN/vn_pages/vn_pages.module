@@ -1369,7 +1369,18 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
   switch ($form_id) {
     
     case 'taxonomy_form_term':
-      $form['metatags']['description']['value']['#default_value'] = 'xxx';
+      // Restore the Metatag fields data.
+      $query = db_select('metatag', 'm');
+      $query->fields('m', array('data'))
+            ->condition('entity_type', 'taxonomy_term')
+            ->condition('entity_id', $form['#term']['tid']); 
+      $metatags = $query->execute()->fetchField(); 
+      if ($metatags) {
+        $metatags = unserialize($metatags);
+        dpm($metatags);
+      }
+        
+      //$form['metatags']['description']['value']['#default_value'] = 'xxx';
       break;
     
     case 'user_login_block':

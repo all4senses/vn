@@ -1368,6 +1368,10 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
   
   switch ($form_id) {
     
+    case 'taxonomy_form_term':
+      $form['metatags']['description']['value']['#default_value'] = 'xxx';
+      break;
+    
     case 'user_login_block':
     case 'user_login':
       

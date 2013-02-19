@@ -77,7 +77,8 @@
                                 'By: ' .
                                 //'<a href="' . $author_url . '" title="View user profile." class="username" lang="' . $language->language . '" xml:lang="' . $language->language . '" about="' . $author_url . '" typeof="sioc:UserAccount" property="foaf:name">' .
 
-                                (!$extra_data['guest_author'] ? '<a href="' . $author_url . '" title="' . $author_title . '" class="username" lang="' . $language->language . '" xml:lang="' . $language->language . '" about="' . $author_url . '" typeof="sioc:UserAccount" property="foaf:name">' . $author_name . '</a>' . $gplus_profile : '<span class="guest-author">' . $author_name . '</span>') .
+                                ////(!$extra_data['guest_author'] ? '<a href="' . $author_url . '" title="' . $author_title . '" class="username" lang="' . $language->language . '" xml:lang="' . $language->language . '" about="' . $author_url . '" typeof="sioc:UserAccount" property="foaf:name">' . $author_name . '</a>' . $gplus_profile : '<span class="guest-author">' . $author_name . '</span>') .
+                                (!$extra_data['guest_author'] ? '<span class="username" lang="' . $language->language . '" xml:lang="' . $language->language . '" typeof="sioc:UserAccount" property="foaf:name">' . $author_name . '</span>' : '<span class="guest-author">' . $author_name . '</span>') .
 
                                 //($node->type == 'article' ? '' : '<span class="delim">|</span>' . $created_str) .
                                 ', on ' . $created_str .
@@ -162,7 +163,8 @@
         
          if (!$page) {
             global $user;
-            $submitted = 'By: <a href="' . $author_url . '" title="' . $author_title . '" >' . $author_name . '</a>, on ' . $created_str;
+            ////$submitted = 'By: <a href="' . $author_url . '" title="' . $author_title . '" >' . $author_name . '</a>, on ' . $created_str;
+            $submitted = 'By: <span class="author">' . $author_url . '</span>' . $author_name . '</a>, on ' . $created_str;
             //echo '<div class="links">' . l($content['field_categories'][0]['#title'], $content['field_categories'][0]['#href']). '<span class="delim">|</span><span class="submitted">', $submitted, '</span><span class="delim">|</span>' . l('Comments' . ( ($user->uid && $node->comment_count) ? ' (' . $node->comment_count . ')' : ''), 'node/' . $node->nid, array('fragment' => 'comments')) . '</div>';
             echo '<div class="links"><span class="submitted">', $submitted, '</span><span class="delim">|</span>' . l('Comments' . ( ($user->uid && $node->comment_count) ? ' (' . $node->comment_count . ')' : ''), 'node/' . $node->nid, array('fragment' => 'comments')) . '</div>';
          }

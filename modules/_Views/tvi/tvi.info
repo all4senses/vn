@@ -7,9 +7,9 @@ dependencies[] = taxonomy
 
 files[] = includes/tvi.admin.inc
 files[] = includes/tvi.query.inc
-; Information added by drupal.org packaging script on 2013-01-23
-version = "7.x-1.0-beta1"
+; Information added by drupal.org packaging script on 2013-02-05
+version = "7.x-1.0-beta1+6-dev"
 core = "7.x"
 project = "tvi"
-datestamp = "1358900325"
+datestamp = "1360029567"
 

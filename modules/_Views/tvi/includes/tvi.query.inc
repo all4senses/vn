@@ -38,6 +38,10 @@ function tvi_load_settings($xid, $type = TVI_TYPE_TERM, $return_default = TRUE) 
     return tvi_default_settings($type, $xid);
   }
 
+  // Avoid loss during tid/uuid conversion.
+  $settings->xid = $xid;
+  $settings->type = $type;
+
   return $settings;
 }
 
@@ -78,6 +82,9 @@ function tvi_update_settings($settings) {
   if (is_object($settings)) {
     $settings = (array) $settings;
   }
+
+  // Do not store the view object.
+  unset($settings['view']);
 
   variable_set('tvi_' . $settings['type'] . '_' . $settings['xid'], $settings);
 }

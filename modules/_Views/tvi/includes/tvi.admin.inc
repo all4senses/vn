@@ -11,7 +11,10 @@
  */
 function tvi_vocab_form(&$form) {
   if (array_key_exists('#vocabulary', $form)) {
-    $vid = (int) $form['#vocabulary']->vid;
+    $vid = '_autocreate';
+    if (!empty($form['#vocabulary']->vid)) {
+      $vid = (int) $form['#vocabulary']->vid;
+    }
 
     tvi_include('query');
     tvi_taxonomy_admin_form($form, tvi_load_settings($vid, TVI_TYPE_VOCAB));
@@ -25,7 +28,10 @@ function tvi_vocab_form(&$form) {
  */
 function tvi_term_form(&$form) {
   if (array_key_exists('#term', $form)) {
-    $tid = (int) $form['#term']['tid'];
+    $tid = '_autocreate';
+    if (!empty($form['#term']['tid'])) {
+      $tid = (int) $form['#term']['tid'];
+    }
 
     tvi_include('query');
     tvi_taxonomy_admin_form($form, tvi_load_settings($tid, TVI_TYPE_TERM));
@@ -184,8 +190,10 @@ function tvi_taxonomy_admin_form(&$form, $settings) {
 function tvi_validate_handler($form, &$form_state) {
   $values = $form_state['values']['tvi'];
 
-  list($view_name, $display_name) = explode(':', $values['display']);
-  $form_state['values']['tvi']['display'] = $display_name;
+  if(!empty($values['display'])) {
+    list($view_name, $display_name) = explode(':', $values['display']);
+    $form_state['values']['tvi']['display'] = $display_name;
+  }
 }
 
 /**
@@ -193,6 +201,17 @@ function tvi_validate_handler($form, &$form_state) {
  */
 function tvi_submit_handler($form, &$form_state) {
   $settings = (object) $form_state['values']['tvi'];
+
+  // Handle the case of the creation form
+  if (empty($settings->xid) ||$settings->xid == '_autocreate') {
+    if ($settings->type == TVI_TYPE_VOCAB) {
+      $settings->xid = $form_state['vocabulary']->vid;
+    }
+    elseif ($settings->type == TVI_TYPE_TERM) {
+      $settings->xid = $form_state['term']->tid;
+    }
+    $settings->xid = _tvi_get_xid($settings->xid, $settings->type);
+  }
 
   if (!$settings->is_default || $settings->status) {
     tvi_update_settings($settings);

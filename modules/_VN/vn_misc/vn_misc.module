@@ -2618,6 +2618,8 @@ function vn_misc_testPage() {
   
   $out = '<div>Start test...</div>';
 
+  
+  /*
   //vn_misc_import_wp_features();
   //vn_misc_import_wp_equipment();
   
@@ -2687,9 +2689,14 @@ function vn_misc_testPage() {
     //break;
     
   }
-
+  */
   
+  $out = '<div class="test share"></div>';
   
+  drupal_add_js('sites/all/libraries/jquery.plugins/stickyfloat/stickyfloat2.js');
+  $module_path = drupal_get_path('module', 'vn_misc');
+  drupal_add_js( $module_path . '/js/vn_floatingSocials.js'); 
+      
   
   return $out . '<br>End of Test';
 }

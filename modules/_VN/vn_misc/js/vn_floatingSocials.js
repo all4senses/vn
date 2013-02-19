@@ -3,7 +3,7 @@
   Drupal.behaviors.vn_floatingSocials = {
     attach: function (context, settings) {
        
-       $(".preface .share").stickyfloat({duration: 100});
+       $(".share").stickyfloat({duration: 100});
        
 //       $(".preface .share").stickyfloat({ 
 //         duration: 100, 

@@ -4648,15 +4648,17 @@ function vn_misc_views_pre_render(&$view) {
       $view->build_info['title'] = $preface_node->title;
       
       // add metatags for the specific term.
+      /*
       if (isset($term->metatags['keywords']['value']) && $term->metatags['keywords']['value']) {
         vn_misc_addMetatag('keywords', $term->metatags['keywords']['value']);
       }
       else {
         vn_misc_addMetatag('keywords', $term->name);
       }
+      */
       
       if (isset($term->description) && $term->description) {
-        vn_misc_addMetatag('description', $term->description);
+        ////vn_misc_addMetatag('description', $term->description);
         
         $preface_node->body['und'][0]['value'] = $term->description;
         $preface_node->body['und'][0]['safe_value'] = $term->description;
@@ -4702,15 +4704,17 @@ function vn_misc_views_pre_render(&$view) {
       $view->build_info['title'] = $preface_node->title;
       
       // add metatags for the specific term.
+      /*
       if (isset($term->metatags['keywords']['value']) && $term->metatags['keywords']['value']) {
         vn_misc_addMetatag('keywords', $term->metatags['keywords']['value']);
       }
       else {
         vn_misc_addMetatag('keywords', $term->name);
       }
+      */
       
       if (isset($term->description) && $term->description) {
-        vn_misc_addMetatag('description', $term->description);
+        ////vn_misc_addMetatag('description', $term->description);
         
         $preface_node->body['und'][0]['value'] = $term->description;
         $preface_node->body['und'][0]['safe_value'] = $term->description;
@@ -4755,15 +4759,17 @@ function vn_misc_views_pre_render(&$view) {
       }
       
       // add metatags for the specific term.
+      /*
       if (isset($term->metatags['keywords']['value']) && $term->metatags['keywords']['value']) {
         vn_misc_addMetatag('keywords', $term->metatags['keywords']['value']);
       }
       else {
         vn_misc_addMetatag('keywords', $term->name);
       }
+      */
       
       if (isset($term->description) && $term->description) {
-        vn_misc_addMetatag('description', $term->description);
+        ////vn_misc_addMetatag('description', $term->description);
       }
       else {
         /*

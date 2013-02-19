@@ -1378,6 +1378,9 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
       if ($metatags) {
         $metatags = unserialize($metatags);
         dpm($metatags);
+        foreach ($metatags as $key => $value) {
+          $form['metatags'][$key]['value']['#default_value'] = $value;
+        }
       }
         
       //$form['metatags']['description']['value']['#default_value'] = 'xxx';

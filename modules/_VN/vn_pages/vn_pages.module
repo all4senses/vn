@@ -1379,7 +1379,7 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
         $metatags = unserialize($metatags);
         dpm($metatags);
         foreach ($metatags as $key => $value) {
-          $form['metatags'][$key]['value']['#default_value'] = $value;
+          $form['metatags'][$key]['value']['#default_value'] = $value['value'];
         }
       }
         

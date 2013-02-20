@@ -786,8 +786,11 @@ float: left;}
 
 .share .main{width: 410px; float: right;}
 .IN-widget{float: left; margin-right: 13px;}
-#___plusone_0{float: left !important; width: 75px !important;}
-.fb-like{float: left; top: -2px;}
+/*#___plusone_0{float: left !important; width: 75px !important;}*/
+#___plusone_0{float: left !important; width: 56px !important;}
+/*.fb-like{float: left; top: -2px;}*/
+.fb-like{float: left; top: -2px; width: 57px;}
+
 /*.twitter-share-button{width: 95px !important;}*/
 .twitter-share-button{width: 59px !important;}
 
@@ -1594,7 +1597,7 @@ label[for="edit-field-p-types-und"] {color: #478AFD;}
  * Socialite Look-a-like defaults
  */
 
-.social-buttons{display: block; list-style: none; padding: 0; margin: 0;}
+.social-buttons{display: block; list-style: none; padding: 0; margin: 0; float: right;}
 .social-buttons > li{display: block; margin: 0; float: left;}
 
 .social-buttons .socialite{display: block; position: relative; height: 25px;}

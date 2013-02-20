@@ -785,7 +785,8 @@ margin-left: -80px;
 /*overflow: hidden;*/
 float: left;}
 
-.preface.float.share{margin-top: 80px;}
+.node-type-preface .float.share,
+.front .float.share{margin-top: 80px;}
 
 .share .main{width: 410px; float: right;}
 .IN-widget{float: left; margin-right: 13px;}

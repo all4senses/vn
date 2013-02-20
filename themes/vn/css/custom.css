@@ -1597,7 +1597,7 @@ label[for="edit-field-p-types-und"] {color: #478AFD;}
  * Socialite Look-a-like defaults
  */
 
-.social-buttons{display: block; list-style: none; padding: 0; margin: 0; float: right;}
+.social-buttons{display: block; list-style: none; padding: 0; margin: 0; text-align: right;}
 .social-buttons > li{display: block; margin: 0; float: left;}
 
 .social-buttons .socialite{display: block; position: relative; height: 25px;}

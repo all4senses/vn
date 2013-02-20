@@ -17,7 +17,6 @@
 
 
   <?php 
-      echo render($title_prefix); 
       
       // Define if this page should contain G+ provile link and authorship,
       // And if it's a ALL reviews page.
@@ -37,6 +36,30 @@
       }
   
   ?>
+
+
+      <?php
+      if ($page) {
+        $url = 'http://voipnow.org'. url('node/' . $node->nid);
+        
+        $share_title = NULL;
+                
+        if ($is_front) {
+          $share_title = vn_misc_metatag_getFrontTitle();
+        }
+
+        if (!$share_title) {
+          if (isset($node->metatags['title']['value']) && $node->metatags['title']['value']) {
+            $share_title = $node->metatags['title']['value'];
+          }
+          else {
+            $share_title = $title;
+          }
+        }
+
+        echo '<div class="test share">' . vn_blocks_getSocialiteButtons($url, $share_title) . '</div>';
+      }
+      ?>
 
     <h1 class="preface" <?php /*echo preg_replace('/datatype=""/', '', $title_attributes);*/ if ($current_is_reviews) {echo ' property="dc:title v:summary"';} else {echo preg_replace('/datatype=""/', '', $title_attributes);} ?>>
         <?php 
@@ -79,7 +102,7 @@
 
       print render($content);
     
-      $url = 'http://voipnow.org' . ($_GET['q'] == 'home' ? '' : $_SERVER['REQUEST_URI']); // . ($_GET['q'] == 'home' ? '/' : (strpos($_GET['q'], 'node/') === FALSE ? ('/' . $_GET['q']) : url($_GET['q'])));
+      //$url = 'http://voipnow.org' . ($_GET['q'] == 'home' ? '' : $_SERVER['REQUEST_URI']); // . ($_GET['q'] == 'home' ? '/' : (strpos($_GET['q'], 'node/') === FALSE ? ('/' . $_GET['q']) : url($_GET['q'])));
     ?>
     
      <div class="share">
@@ -89,21 +112,21 @@
               
               <?php
               
-                $share_title = NULL;
-                
-                if ($is_front) {
-                  $share_title = vn_misc_metatag_getFrontTitle();
-                }
-                
-                if (!$share_title) {
-                  if (isset($node->metatags['title']['value']) && $node->metatags['title']['value']) {
-                    $share_title = $node->metatags['title']['value'];
-                  }
-                  else {
-                    $share_title = $title;
-                  }
-                }
-                echo vn_blocks_getSocialiteButtons($url, $share_title); 
+//                $share_title = NULL;
+//                
+//                if ($is_front) {
+//                  $share_title = vn_misc_metatag_getFrontTitle();
+//                }
+//                
+//                if (!$share_title) {
+//                  if (isset($node->metatags['title']['value']) && $node->metatags['title']['value']) {
+//                    $share_title = $node->metatags['title']['value'];
+//                  }
+//                  else {
+//                    $share_title = $title;
+//                  }
+//                }
+//                echo vn_blocks_getSocialiteButtons($url, $share_title); 
               
               ?> 
 

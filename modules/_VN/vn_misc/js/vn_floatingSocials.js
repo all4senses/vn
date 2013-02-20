@@ -8,9 +8,10 @@
        
        $(".float.share").stickyfloat({ 
          duration: 200, 
-         //stickToBottom: true,
+         stickToBottom: true
+         //,
          //startOffset: 300,
-         offsetY: -150
+         //offsetY: -150
        });
 
        

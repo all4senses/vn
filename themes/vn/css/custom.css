@@ -788,7 +788,8 @@ float: left;}
 .IN-widget{float: left; margin-right: 13px;}
 #___plusone_0{float: left !important; width: 75px !important;}
 .fb-like{float: left; top: -2px;}
-.twitter-share-button{width: 95px !important;}
+/*.twitter-share-button{width: 95px !important;}*/
+.twitter-share-button{width: 59px !important;}
 
 .share .others{float: left; padding-top: 3px;}
 .share .others .addthis_toolbox a{margin-right: 5px}
@@ -1593,16 +1594,16 @@ label[for="edit-field-p-types-und"] {color: #478AFD;}
  * Socialite Look-a-like defaults
  */
 
-.social-buttons{display: block; list-style: none; padding: 0; margin: 0;}
+.social-buttons{display: block; list-style: none; padding: 0; margin: 0; text-align: right;}
 .social-buttons > li{display: block; margin: 0; float: left;}
 
 .social-buttons .socialite{display: block; position: relative; height: 25px;}
-.social-buttons div.socialite{display: block; position: relative; height: 25px; padding-right: 20px;}
+.social-buttons div.socialite{display: block; position: relative; height: 75px; padding-right: 20px;}
 .social-buttons a.socialite{padding-right: 10px; /*background: url('images/social-sprite-right5.png') 0 0 no-repeat;*/}
 
 .social-buttons .socialite-loaded{background: none !important;}
 
-.social-buttons div.twitter-share{width: 85px;}
+/*.social-buttons div.twitter-share{width: 85px;}*/
 .social-buttons a.twitter-share{width: 95px; background-position: 0 30px; padding-right: 10px;}
 
 .social-buttons div.googleplus-one{width: 60px;}

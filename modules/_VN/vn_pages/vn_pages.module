@@ -3569,6 +3569,15 @@ function vn_pages_node_view($node, $view_mode) {
     break; // End of Preface
     
     
+    
+    
+    case 'blog_post':
+      
+      drupal_add_js('sites/all/libraries/jquery.plugins/stickyfloat/stickyfloat2.js');
+      $module_path = drupal_get_path('module', 'vn_misc');
+      drupal_add_js( $module_path . '/js/vn_floatingSocials.js'); 
+      
+    break; // End of blog_post
   
   } // End of switch ($node->type) {
   

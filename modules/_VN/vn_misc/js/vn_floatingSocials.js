@@ -10,7 +10,7 @@
          duration: 200, 
          //stickToBottom: true,
          //startOffset: 300,
-         offsetY: -50
+         offsetY: -150
        });
 
        

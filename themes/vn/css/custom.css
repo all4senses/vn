@@ -1594,7 +1594,7 @@ label[for="edit-field-p-types-und"] {color: #478AFD;}
  * Socialite Look-a-like defaults
  */
 
-.social-buttons{display: block; list-style: none; padding: 0; margin: 0; text-align: right;}
+.social-buttons{display: block; list-style: none; padding: 0; margin: 0;}
 .social-buttons > li{display: block; margin: 0; float: left;}
 
 .social-buttons .socialite{display: block; position: relative; height: 25px;}
@@ -1611,6 +1611,8 @@ label[for="edit-field-p-types-und"] {color: #478AFD;}
 
 .social-buttons div.facebook-like{width: 65px;}
 .social-buttons a.facebook-like{width: 82px; background-position: -202px 30px; padding-right: 10px;}
+
+.social-buttons .uiGrid{width: 50px !important;}
 
 .social-buttons div.linkedin-share{width: 125px; padding-right: 0;}
 .social-buttons a.linkedin-share{width: 95px; background-position: -294px 30px; padding-right: 10px;}

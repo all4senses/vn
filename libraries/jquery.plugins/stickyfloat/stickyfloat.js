@@ -55,10 +55,11 @@
 				// bind the events
 				$(w).ready(function(){
 					that.rePosition(true);  // do a quick repositioning without any duration or delay
+          
+					$(w).on('scroll.sticky', that.onScroll);
           // afs fix
-					//$(w).on('scroll.sticky', that.onScroll);
           ////$(w).bind('scroll.sticky', that.onScroll);
-          $(w).bind({'scroll.sticky': that.onScroll});
+          ////$(w).bind({'scroll.sticky': that.onScroll});
 				});
 				// for every element, attach it's instanced 'sticky'
 				this.obj.data('_stickyfloat', that);

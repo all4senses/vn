@@ -154,8 +154,12 @@
         ?></div>
 
 
-
-
+      <?php
+      if ($page) {
+        echo '<div class="test share">' . vn_blocks_getSocialiteButtons($url, $title) . '</div>';
+      }
+      ?>
+    
     
       <footer>
 
@@ -182,7 +186,7 @@
                 <?php $url = 'http://voipnow.org'. url('node/' . $node->nid); ?>
 
                 <div class="main">
-                  <?php echo vn_blocks_getSocialiteButtons($url, $title); ?>
+                  <?php //echo vn_blocks_getSocialiteButtons($url, $title); ?>
                 </div> <!-- main share buttons -->
 
               </div>

@@ -10,7 +10,7 @@
  
       <?php
       if ($page) {
-        <?php $url = 'http://voipnow.org'. url('node/' . $node->nid); ?>
+        $url = 'http://voipnow.org'. url('node/' . $node->nid);
         echo '<div class="test share">' . vn_blocks_getSocialiteButtons($url, $title) . '</div>';
       }
       ?>

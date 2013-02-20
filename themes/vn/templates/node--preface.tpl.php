@@ -39,8 +39,11 @@
 
 
       <?php
+      dpm('yyy');
       if ($page) {
         $url = 'http://voipnow.org'. url('node/' . $node->nid);
+        
+        dpm('xxx = ' .$url);
         
         $share_title = NULL;
                 
@@ -71,7 +74,6 @@
         ?>
     </h1>
 
-  <?php print render($title_suffix); ?>
 
 
   <?php if ($display_submitted): ?>

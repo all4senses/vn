@@ -8,6 +8,12 @@
  
   
  
+      <?php
+      if ($page) {
+        <?php $url = 'http://voipnow.org'. url('node/' . $node->nid); ?>
+        echo '<div class="test share">' . vn_blocks_getSocialiteButtons($url, $title) . '</div>';
+      }
+      ?>
           
 
       <?php if (!$page): ?>
@@ -154,11 +160,6 @@
         ?></div>
 
 
-      <?php
-      if ($page) {
-        echo '<div class="test share">' . vn_blocks_getSocialiteButtons($url, $title) . '</div>';
-      }
-      ?>
     
     
       <footer>
@@ -183,7 +184,7 @@
         
               <div class="share">
 
-                <?php $url = 'http://voipnow.org'. url('node/' . $node->nid); ?>
+                
 
                 <div class="main">
                   <?php //echo vn_blocks_getSocialiteButtons($url, $title); ?>

@@ -776,7 +776,7 @@ form .counter.exceeded{color: red;}
 
 .float.share{border: none;
 position: absolute;
-top: 0;
+top: 100px;
 /*height: 120px;*/
 width: 70px;
 z-index: 100;

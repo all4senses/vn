@@ -6,7 +6,7 @@
        //$(".preface .share").stickyfloat({duration: 100});
        ////$(".test.share").stickyfloat({duration: 100});
        
-       $(".test.share").stickyfloat({ 
+       $(".float.share").stickyfloat({ 
          duration: 200, 
          //stickToBottom: true,
          //startOffset: 300,

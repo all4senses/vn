@@ -774,7 +774,7 @@ form .counter.exceeded{color: red;}
 
 /*.preface .share{border: none; padding: 3px 0 3px 10px; position: absolute; top: 27px; right: 320px; height: 20px; z-index: 100;}*/
 
-.test.share{border: none;
+.float.share{border: none;
 position: absolute;
 top: 0;
 /*height: 120px;*/
@@ -784,6 +784,8 @@ z-index: 100;
 margin-left: -80px;
 /*overflow: hidden;*/
 float: left;}
+
+.preface.float.share{margin-top: 80px;}
 
 .share .main{width: 410px; float: right;}
 .IN-widget{float: left; margin-right: 13px;}

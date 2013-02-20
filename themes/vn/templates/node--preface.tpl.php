@@ -60,7 +60,7 @@
           }
         }
 
-        echo '<div class="test share">' . vn_blocks_getSocialiteButtons($url, $share_title) . '</div>';
+        echo '<div class="float share">' . vn_blocks_getSocialiteButtons($url, $share_title) . '</div>';
       //}
       ?>
 

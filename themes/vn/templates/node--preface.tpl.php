@@ -40,7 +40,7 @@
 
       <?php
       dpm('yyy');
-      if ($page) {
+      //if ($page) {
         $url = 'http://voipnow.org'. url('node/' . $node->nid);
         
         dpm('xxx = ' .$url);
@@ -61,7 +61,7 @@
         }
 
         echo '<div class="test share">' . vn_blocks_getSocialiteButtons($url, $share_title) . '</div>';
-      }
+      //}
       ?>
 
     <h1 class="preface" <?php /*echo preg_replace('/datatype=""/', '', $title_attributes);*/ if ($current_is_reviews) {echo ' property="dc:title v:summary"';} else {echo preg_replace('/datatype=""/', '', $title_attributes);} ?>>

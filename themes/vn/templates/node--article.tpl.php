@@ -2,18 +2,19 @@
   <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
   <!-- <div class="inside"> -->
 <?php else: ?>
+  <?php
+
+    $url = 'http://voipnow.org'. url('node/' . $node->nid);
+    echo '<div class="float share">' . vn_blocks_getSocialiteButtons($url, $title) . '</div>';
+
+  ?>
+
   <div class="main-content"> 
 <?php endif; ?>
 
  
   
  
-      <?php
-      if ($page) {
-        $url = 'http://voipnow.org'. url('node/' . $node->nid);
-        echo '<div class="float share">' . vn_blocks_getSocialiteButtons($url, $title) . '</div>';
-      }
-      ?>
           
 
       <?php if (!$page): ?>

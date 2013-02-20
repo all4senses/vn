@@ -776,17 +776,19 @@ form .counter.exceeded{color: red;}
 
 .float.share{border: none;
 position: absolute;
-top: 100px;
+top: 0;
 /*height: 120px;*/
 width: 70px;
 z-index: 100;
 /*background: green;*/
 margin-left: -80px;
 /*overflow: hidden;*/
-float: left;}
+float: left;
+margin-top: 100px;
+}
 
 .node-type-preface .float.share,
-.front .float.share{margin-top: 80px;}
+.front .float.share{margin-top: 180px;}
 
 .share .main{width: 410px; float: right;}
 .IN-widget{float: left; margin-right: 13px;}

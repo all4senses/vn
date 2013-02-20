@@ -11,7 +11,7 @@
       <?php
       if ($page) {
         $url = 'http://voipnow.org'. url('node/' . $node->nid);
-        echo '<div class="test share">' . vn_blocks_getSocialiteButtons($url, $title) . '</div>';
+        echo '<div class="float share">' . vn_blocks_getSocialiteButtons($url, $title) . '</div>';
       }
       ?>
           

@@ -837,7 +837,7 @@ margin-top: 100px;
 #main .view-news .views-row,
 #main .view-blog .views-row
 /*{border: 1px solid lightgray; height: 198px; padding: 5px 10px; margin-bottom: 12px; overflow: hidden; width: 382px;}*/
-{border-bottom: 1px solid lightgray; padding: 5px 0; margin-bottom: 12px; width: 100%;}
+{border-bottom: 1px solid lightgray; padding: 5px 0; margin-bottom: 12px; width: 100%; float: left;}
 
 #main .view-taxonomy-term .views-row-odd,
 #main .view-articles .views-row-odd,

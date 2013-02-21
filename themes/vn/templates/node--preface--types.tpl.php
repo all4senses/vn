@@ -119,8 +119,10 @@
         'Midsize Business VoIP' => 'usage/midsize-business', 
         'Residential VoIP' => 'usage/residential', 
         'Small Business VoIP' => 'usage/small-business',
+        'Hosted PBX' => 'usage/hosted-pbx',
+        'SIP Trunking' => 'usage/sip-trunking',
       );
-      
+            
       $amount = count($service_types);
       
 //      $out = '<div class="col3-1">';

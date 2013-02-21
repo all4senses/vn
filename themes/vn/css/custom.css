@@ -787,6 +787,7 @@ float: left;
 margin-top: 100px;
 }
 
+.node-type-provider-type .float.share,
 .node-type-preface .float.share,
 .front .float.share{margin-top: 180px;}
 

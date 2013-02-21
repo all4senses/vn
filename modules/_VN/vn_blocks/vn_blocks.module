@@ -415,8 +415,8 @@ function vn_blocks_get_requestQuote_block_v1() {
 
   $out = '
    <div id="up">
-      <div class="guide"></div>
-                            
+      <!--<div class="guide"></div>-->
+      <img src="/sites/all/themes/vn/css/images/voipguide.png" />
       <div class="text">
         <ul>
           <li>No Contracts & Easy Setup</li>

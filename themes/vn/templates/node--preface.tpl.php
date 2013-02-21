@@ -38,7 +38,7 @@
 
 
       <?php
-        $url = 'http://voipnow.org'. url('node/' . $node->nid);
+        $url = 'http://voipnow.org' . ($_GET['q'] == 'home' ? '' : $_SERVER['REQUEST_URI']);
         
         $share_title = NULL;
                 

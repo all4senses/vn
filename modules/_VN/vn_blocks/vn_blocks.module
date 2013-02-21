@@ -419,8 +419,8 @@ function vn_blocks_get_requestQuote_block_v1() {
                             
       <div class="text">
         <ul>
-          <li>Low Price Assurance</li>
-          <li>Personal Service Reps</li>
+          <li>No Contracts & Easy Setup</li>
+          <li>Enterprise Phone Sytems</li>
           <li>Unlimited Calling & Faxing</li>
         </ul>
         <div class="guide-text">Plus a <strong>FREE</strong> VoIP Guide with Request</div>
@@ -454,7 +454,7 @@ function vn_blocks_get_requestQuote_block_v1() {
                                 </div>
 
                                 <div class="wrapper top">
-                                  <div class="question">Service Type:</div>
+                                  <div class="question">Service For:</div>
                                   <select name="q_type" id="q_type" class="input required">
                                     <option selected="selected" value="Business">Business</option>
                                     <option value="Home">Home</option>

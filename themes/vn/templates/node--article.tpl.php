@@ -113,14 +113,7 @@
           hide($content['field_categories']);
           hide($content['disqus']);
           
-          
-          //dpm($content);
-          //dpm($node);
-          
-          if (!$page) {
-            
-            //dpm($node);
-            //dpm($content);
+           if (!$page) {
             
               hide($content['body']);
 
@@ -180,24 +173,13 @@
           //dpm($node);
           //dpm($content);
           
-        ?>
-        
-        
-              <div class="share">
-
-                
-
-                <div class="main">
-                  <?php //echo vn_blocks_getSocialiteButtons($url, $title); ?>
-                </div> <!-- main share buttons -->
-
-              </div>
-      <?php } ?>
-      </footer>
+        } 
+      ?>
+    </footer>
     
     
     
-      <div class="bottom-clear"></div>
+    <div class="bottom-clear"></div>
  
 
   

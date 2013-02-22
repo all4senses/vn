@@ -1783,3 +1783,7 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 #disqus_thread {margin-top: 30px;}
 
 .views-row {position: relative;}
+
+.not-logged-in #block-vn_blocks-social_links {left: 5px;}
+
+.not-logged-in #block-vn_blocks-footer_links {left: 400px;}

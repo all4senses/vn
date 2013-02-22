@@ -217,7 +217,7 @@ function vn_misc_goToExternalUrl() {
               ))
               ->execute();
             
-            drupal_goto($url, array('external' => TRUE));
+            drupal_goto( (strpos($url, 'http') ? $url : 'http://' . $url), array('external' => TRUE));
         }
         
         //break;

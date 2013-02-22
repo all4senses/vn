@@ -210,7 +210,7 @@ function vn_misc_goToExternalUrl() {
                   
                 'referer' => @$_SESSION['vn_current_http_referer'],
                 'click_page' => @$_SERVER['HTTP_REFERER'],
-                'uname' => $user->name,
+                'uname' => isset($user->name) ? $user->name : '',
                 'ip' => $user->hostname,
           
                 'data' => $data,

@@ -911,7 +911,7 @@ margin-top: 100px;
 .node-type-provider #tabs-3 div div {margin-bottom: 10px;}
 
 
-.data.tabs{clear: both; margin-bottom: 10px; margin-top: 30px;}
+.data.tabs{/*clear: both; */margin-bottom: 10px; margin-top: 30px;}
 .data.tabs #tabs-1, .data.tabs #tabs-2{font-size: 15px;}
 
 .data.tabs .f.caption{font-size: 17px; font-weight: bold; margin: 0px 0 10px 0; padding-top: 30px;}

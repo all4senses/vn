@@ -725,7 +725,7 @@ form .counter.exceeded{color: red;}
 
 
 /* Node page, including Article */
-.page-node #main .main-content{float: left; /*border: 1px solid lightgray; padding: 0 40px 10px; */ /*clear: both;*/}
+.page-node #main .main-content{float: left; width: 780px; /*border: 1px solid lightgray; padding: 0 40px 10px; */ /*clear: both;*/}
 
 .page-node #main .main-content .content h2.not-published{color: red;}
 

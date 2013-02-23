@@ -115,7 +115,7 @@
               
 
           
-              <div class="bottom-clear"></div>
+              <!-- <div class="bottom-clear"></div> -->
               
                       
               <div class="data tabs">

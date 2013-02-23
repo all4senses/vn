@@ -1118,7 +1118,7 @@ h1.preface{color: gray; font-size: 18px; font-weight: bold; line-height: 25px; m
 
 
 /* Articles teasers */
-.node-teaser{margin-bottom: 0; float: left;}
+.node-teaser{margin-bottom: 0; float: left; width: 780px;}
 .node-teaser h2{display: block; overflow: hidden; position: static; text-indent: 0;}
 .node-teaser h2 a, .node-teaser h3 a{color: #004286; font-size: 18px; line-height: 22px; font-weight: bold; margin: 0; border: medium none; padding: 0;}
 

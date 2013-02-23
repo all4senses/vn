@@ -13,9 +13,6 @@
 <?php endif; ?> <!-- if (!$page) -->
     
 
-  <?php //print $user_picture; ?>
-
-
   <?php 
       
       // Define if this page should contain G+ provile link and authorship,
@@ -34,10 +31,7 @@
         }
       }
   
-  ?>
 
-
-      <?php
         $url = 'http://voipnow.org' . ($_GET['q'] == 'home' ? '' : $_SERVER['REQUEST_URI']);
         
         $share_title = NULL;

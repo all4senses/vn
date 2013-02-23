@@ -5,7 +5,7 @@
   <?php
 
     $url = 'http://voipnow.org'. url('node/' . $node->nid);
-    echo '<div class="float share">' . vn_blocks_getSocialiteButtons($url, $title) . '</div>';
+    echo '<div class="float share">' . vn_blocks_getSocialiteButtons($url, $node->title) . '</div>';
 
   ?>
 

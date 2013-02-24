@@ -243,7 +243,7 @@ function vn_misc_setReferer_ajax() {
     $post[$key] = check_plain(strip_tags($value));
   }
   
-  if (!empty($post['referer']) && strpos($post['referer'], 'http://voipnow.org') === FALSE) {
+  if (!empty($post['referer']) && strpos($post['referer'], 'http://www.voipnow.org') === FALSE) {
     $_SESSION['vn_current_http_referer'] = $post['referer'];
   }
   
@@ -1375,7 +1375,7 @@ function vn_misc_getStreamUriFromRelativePath($path) {
   $file_default_scheme = file_default_scheme();
   $default_file_path = variable_get('file_' . $file_default_scheme . '_path', conf_path() . '/f');
 
-  $stream_path = str_replace('http://voipnow.org', '', $path);
+  $stream_path = str_replace('http://www.voipnow.org', '', $path);
   $stream_path = ltrim($stream_path, '/');
   return $file_default_scheme . ':/' . str_replace($default_file_path, '', $stream_path);
 }
@@ -1467,8 +1467,8 @@ function vn_misc_addSocialShareData_toPage($node) {
         '#attributes' => array( 
             'rel' => 'alternate',
             'type' => 'application/rss+xml',
-            'title' => 'VoIP Library articles from VoIPNow.org',
-            'href' => 'http://voipnow.org/about-voip-services/rss.xml',
+            'title' => 'VoIP Library articles from www.voipnow.org',
+            'href' => 'http://www.voipnow.org/about-voip-services/rss.xml',
         ),
       ),
       'blog_rss' => array(
@@ -1476,8 +1476,8 @@ function vn_misc_addSocialShareData_toPage($node) {
         '#attributes' => array( 
             'rel' => 'alternate',
             'type' => 'application/rss+xml',
-            'title' => 'voipnow.org Blog',
-            'href' => 'http://voipnow.org/blog/rss.xml',
+            'title' => 'www.voipnow.org Blog',
+            'href' => 'http://www.voipnow.org/blog/rss.xml',
         ),
       ),
       'news_rss' => array(
@@ -1485,8 +1485,8 @@ function vn_misc_addSocialShareData_toPage($node) {
         '#attributes' => array( 
             'rel' => 'alternate',
             'type' => 'application/rss+xml',
-            'title' => 'voipnow.org News',
-            'href' => 'http://voipnow.org/news/rss.xml',
+            'title' => 'www.voipnow.org News',
+            'href' => 'http://www.voipnow.org/news/rss.xml',
         ),
       ),
         
@@ -1566,7 +1566,7 @@ function vn_misc_addSocialShareData_toPage($node) {
     
   }
   
-  //$title = str_replace('[site:name]', 'voipnow.org', $title);
+  //$title = str_replace('[site:name]', 'www.voipnow.org', $title);
   $title = token_replace($title);
   
   
@@ -1576,8 +1576,8 @@ function vn_misc_addSocialShareData_toPage($node) {
     $image = '/sites/all/themes/vn/css/images/voipnow-logo2-t.png';
   }
 
-  if (!strpos($image, '//voipnow.org')) {
-    $image = 'http://voipnow.org/' . ltrim($image, '/');
+  if (!strpos($image, '//www.voipnow.org')) {
+    $image = 'http://www.voipnow.org/' . ltrim($image, '/');
   }
 
   $tags += array(
@@ -1723,8 +1723,8 @@ function vn_misc_addSocialShareData_toPage($node) {
       '#attributes' => array( 
           'rel' => 'alternate',
           'type' => 'application/rss+xml',
-          'title' => 'Latest Articles from VoIPNow.org',
-          'href' => 'http://voipnow.org/rss.xml',
+          'title' => 'Latest Articles from www.voipnow.org',
+          'href' => 'http://www.voipnow.org/rss.xml',
       ),
     ),
       
@@ -2032,7 +2032,7 @@ function vn_misc_makeRequestCapture_ajax() {
               'Start Submission Time' => date('Y-m-d, H:i:s', $_SESSION['ucaptured_timestamp']),
             );
             
-            if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] && !strpos($_SERVER['HTTP_REFERER'], '://voipnow.org')) {
+            if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] && !strpos($_SERVER['HTTP_REFERER'], '://www.voipnow.org')) {
               $ucaptured_data['Referrer'] = $_SERVER['HTTP_REFERER'];
             }
             
@@ -2234,7 +2234,7 @@ function vn_misc_setUcapturedVariable($post, $ucaptured = NULL, $combine_phone =
       $ucaptured['Referrer'] = $post['referrer'];
     }
     /*
-    if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] && !strpos($_SERVER['HTTP_REFERER'], '://voipnow.org')) {
+    if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] && !strpos($_SERVER['HTTP_REFERER'], '://www.voipnow.org')) {
       $ucaptured['Referrer'] = $_SERVER['HTTP_REFERER'];
     }
     */
@@ -2333,7 +2333,7 @@ function vn_misc_makeRequest_ajax() {
       }
       $save_submission['Sumbission page'] = $post['url'];
       /*
-      if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] && !strpos($_SERVER['HTTP_REFERER'], '://voipnow.org')) {
+      if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] && !strpos($_SERVER['HTTP_REFERER'], '://www.voipnow.org')) {
         $save_submission['Referrer'] = $_SERVER['HTTP_REFERER'];
       }
       */
@@ -2554,24 +2554,24 @@ function vn_misc_makeRequest_ajax() {
          
     
     if($submission['Version'] == 1) {
-      $output = '<a class="guide" href="/pdfs/SMB-VOIP-AdvantagesWhitePaper.pdf" target="_blank">Download Your Free VoIP Buyer\'s Guide<img src="/sites/all/themes/vn/css/images/click-here-button.png" /></a><div class="quote-final">' . t('<p><strong>Thank you</strong> for taking your time to complete our form. A VoIP Expert will be contacting you shortly to provide you with a personalized VoIP Service quote.</p><p>In the meantime, you can gain a great deal of VoIP information right here at <a href="http://voipnow.org">voipnow.org</a></p>') . '</div>';
+      $output = '<a class="guide" href="/pdfs/SMB-VOIP-AdvantagesWhitePaper.pdf" target="_blank">Download Your Free VoIP Buyer\'s Guide<img src="/sites/all/themes/vn/css/images/click-here-button.png" /></a><div class="quote-final">' . t('<p><strong>Thank you</strong> for taking your time to complete our form. A VoIP Expert will be contacting you shortly to provide you with a personalized VoIP Service quote.</p><p>In the meantime, you can gain a great deal of VoIP information right here at <a href="http://www.voipnow.org">www.voipnow.org</a></p>') . '</div>';
     }
     else {
-      $output = '<p><strong>Thank you</strong> for taking your time to complete our form. A VoIP Expert will be contacting you shortly to provide you with a personalized VoIP Service quote.</p><p>In the meantime, you can gain a great deal of VoIP information right here at <a href="http://voipnow.org">voipnow.org</a></p>'; 
+      $output = '<p><strong>Thank you</strong> for taking your time to complete our form. A VoIP Expert will be contacting you shortly to provide you with a personalized VoIP Service quote.</p><p>In the meantime, you can gain a great deal of VoIP information right here at <a href="http://www.voipnow.org">www.voipnow.org</a></p>'; 
     }
     
     if ($post['source'] == 'page') {
       switch ($post['version']) {
         case '1':
-          $output .= '<script>top.location.href="http://voipnow.org/request-voip-phone-system-quote-final";</script>';
+          $output .= '<script>top.location.href="http://www.voipnow.org/request-voip-phone-system-quote-final";</script>';
           break;
         
         case '2':
-          $output .= '<script>top.location.href="http://voipnow.org/voip-provider-quotes-final";</script>';
+          $output .= '<script>top.location.href="http://www.voipnow.org/voip-provider-quotes-final";</script>';
           break;
         
         case '3':
-          $output .= '<script>top.location.href="http://voipnow.org/compare-voip-solutions-final";</script>';
+          $output .= '<script>top.location.href="http://www.voipnow.org/compare-voip-solutions-final";</script>';
           break;
       }
       
@@ -3571,7 +3571,7 @@ To faster verify and publish your review, please click on the email verification
 
 Best Wishes,
 VoIP Now Team
-', array('!url' => 'http://voipnow.org/approve/email/' . $params['verification_code']));
+', array('!url' => 'http://www.voipnow.org/approve/email/' . $params['verification_code']));
       
       break;
     
@@ -3588,7 +3588,7 @@ Please, don\'t forget to log in to access this page.
 
 Best wishes,
 Get VoIP team
-', array('!pending_reviews' => 'http://voipnow.org/admin/content/approve-reviews', '!provider' => $params['provider_name']));
+', array('!pending_reviews' => 'http://www.voipnow.org/admin/content/approve-reviews', '!provider' => $params['provider_name']));
       
       break;
     
@@ -3606,7 +3606,7 @@ Please, don\'t forget to log in to access this page.
 
 Best wishes,
 Get VoIP team
-', array('!pending_reviews' => 'http://voipnow.org/admin/content/approve-phone-reviews', '!phone' => $params['phone_name']));
+', array('!pending_reviews' => 'http://www.voipnow.org/admin/content/approve-phone-reviews', '!phone' => $params['phone_name']));
       
       break;
     
@@ -3686,7 +3686,7 @@ function vn_misc_mail_alter(&$message){
   $default_from = variable_get('site_mail', ini_get('sendmail_from'));
   
   if($message['from'] == $default_from){
-    $message['from'] = '"'. variable_get('site_name', 'voipnow.org') .'" <'. $default_from .'>';
+    $message['from'] = '"'. variable_get('site_name', 'www.voipnow.org') .'" <'. $default_from .'>';
     $message['headers']['From'] = $message['headers']['Sender'] = $message['headers']['Return-Path'] = $message['headers']['Errors-To'] = $message['headers']['Reply-To'] = $message['from'];
   }
 }
@@ -3731,7 +3731,7 @@ function vn_misc_sendMessage($tag, $data = NULL) {
       
       global $language;
       $params['verification_code'] = $data['verification_code'];
-      drupal_mail('vn_misc', 'email_verification', $data['email'], $language, $params, 'voipnow.org <contact@voipnow.org>');
+      drupal_mail('vn_misc', 'email_verification', $data['email'], $language, $params, 'www.voipnow.org <contact@voipnow.org>');
       
       break;
     
@@ -3743,8 +3743,8 @@ function vn_misc_sendMessage($tag, $data = NULL) {
       $params['lname'] = $data['lname'];
       $params['email'] = $data['email'];
       $params['subscribed'] = $data['subscribed'];
-      drupal_mail('vn_misc', 'user_message', 'all4senses@gmail.com', $language, $params, 'voipnow.org <contact@voipnow.org>');
-      drupal_mail('vn_misc', 'user_message', 'ry@getvoip.com', $language, $params, 'voipnow.org <contact@voipnow.org>');
+      drupal_mail('vn_misc', 'user_message', 'all4senses@gmail.com', $language, $params, 'www.voipnow.org <contact@voipnow.org>');
+      drupal_mail('vn_misc', 'user_message', 'ry@getvoip.com', $language, $params, 'www.voipnow.org <contact@voipnow.org>');
       
       break;
     
@@ -3942,7 +3942,7 @@ function theme_vn_misc_image_style(array $variables) {
 
 function theme_vn_misc_image(array $variables) {
   
-//  if (!file_exists(str_replace(array('http://voipnow.org/', '%20'), array('', ' '), $variables['path']))) {
+//  if (!file_exists(str_replace(array('http://www.voipnow.org/', '%20'), array('', ' '), $variables['path']))) {
 //    return NULL;
 //  }
   
@@ -4575,7 +4575,7 @@ function vn_misc_views_pre_render(&$view) {
           '#value' => $provider_isset ? $providers[$_GET['provider']] : $providers[''],
           ////'#default_value' => 'VoIPo',
           ////'#value' => 'VoIPo',
-          '#attributes' => array('id' => 'select_provider',  'onChange' => "top.location.href='http://voipnow.org/" . $_GET['q'] . "?provider=' + encodeURIComponent(document.getElementById('select_provider').options[document.getElementById('select_provider').selectedIndex].value) + '$url'"),
+          '#attributes' => array('id' => 'select_provider',  'onChange' => "top.location.href='http://www.voipnow.org/" . $_GET['q'] . "?provider=' + encodeURIComponent(document.getElementById('select_provider').options[document.getElementById('select_provider').selectedIndex].value) + '$url'"),
 
       ); 
       
@@ -4621,7 +4621,7 @@ function vn_misc_views_pre_render(&$view) {
           '#value' => $provider_isset ? $providers[$_GET['provider']] : $providers[''],
           ////'#default_value' => 'VoIPo',
           ////'#value' => 'VoIPo',
-          '#attributes' => array('id' => 'select_provider',  'onChange' => "top.location.href='http://voipnow.org/" . $_GET['q'] . "?provider=' + encodeURIComponent(document.getElementById('select_provider').options[document.getElementById('select_provider').selectedIndex].value) + '$url'"),
+          '#attributes' => array('id' => 'select_provider',  'onChange' => "top.location.href='http://www.voipnow.org/" . $_GET['q'] . "?provider=' + encodeURIComponent(document.getElementById('select_provider').options[document.getElementById('select_provider').selectedIndex].value) + '$url'"),
 
       ); 
       
@@ -5529,7 +5529,7 @@ function vn_misc_sortArrayByWeight($a, $b)
 function vn_blocks_getSocialiteButtons($url = NULL, $title = NULL) {
 
   if (!$url) {
-    $url = 'http://voipnow.org' . ($_GET['q'] == 'home' ? '' : $_SERVER['REQUEST_URI']);
+    $url = 'http://www.voipnow.org' . ($_GET['q'] == 'home' ? '' : $_SERVER['REQUEST_URI']);
   }
   
   drupal_add_js('sites/all/libraries/jquery.plugins/socialite/socialite.min.js');

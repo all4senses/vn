@@ -1,6 +1,6 @@
 (function ($) {
 
-  Drupal.behaviors.vn_requestquote_page_v3 = {
+  Drupal.behaviors.vn_requestquote_page_v1 = {
     
     attach: function (context, settings) {
        

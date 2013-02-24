@@ -16,7 +16,7 @@
 
 
       <?php
-        $url = 'http://voipnow.org' . ($_GET['q'] == 'home' ? '' : $_SERVER['REQUEST_URI']);
+        $url = 'http://www.voipnow.org' . ($_GET['q'] == 'home' ? '' : $_SERVER['REQUEST_URI']);
         
         $share_title = NULL;
                 

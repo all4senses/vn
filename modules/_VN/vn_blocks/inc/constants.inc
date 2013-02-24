@@ -6,4 +6,4 @@
  */
 
 // Topics vocabulary name.
-define('TOPICS', 'tags');
+//define('TOPICS', 'tags');

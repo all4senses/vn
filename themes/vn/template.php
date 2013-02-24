@@ -18,7 +18,7 @@ function vn_preprocess_user_profile(&$profile) {
  */
 function vn_link($variables) {
   
-  if (strpos($variables['path'], '://') && !strpos($variables['path'], 'ttp://voipnow.org')) {
+  if (strpos($variables['path'], '://') && !strpos($variables['path'], 'ttp://www.voipnow.org')) {
     
     if (empty($variables['options']['attributes']['rel'])) {
       $variables['options']['attributes']['rel'] = 'nofollow';
@@ -86,7 +86,7 @@ function vn_pager_next($variables) {
       //dpm($matches);
 
       if ($matches[2] == 'Go to next page') {
-        vn_misc_addMetatag('next', NULL, $href = 'http://voipnow.org' . $matches[1]);
+        vn_misc_addMetatag('next', NULL, $href = 'http://www.voipnow.org' . $matches[1]);
       }
     }
   }
@@ -119,7 +119,7 @@ function vn_pager_previous($variables) {
       //dpm($matches);
       
       if ($matches[2] == 'Go to previous page') {
-        vn_misc_addMetatag('prev', NULL, $href = 'http://voipnow.org' . $matches[1]);
+        vn_misc_addMetatag('prev', NULL, $href = 'http://www.voipnow.org' . $matches[1]);
       }
       
     }
@@ -194,7 +194,7 @@ function vn_pager($variables) {
     );
     
 //    if(preg_match('|.*href="(.*)"\s.*|', $li_previous, $matches) && !empty($matches[1])) {
-//      vn_misc_addMetatag('prev', NULL, $href = 'http://voipnow.org' . $matches[1]);
+//      vn_misc_addMetatag('prev', NULL, $href = 'http://www.voipnow.org' . $matches[1]);
 //    }
     
   }
@@ -206,7 +206,7 @@ function vn_pager($variables) {
     );
     
 //    if(preg_match('|.*href="(.*)"\s.*|', $li_next, $matches) && !empty($matches[1])) {
-//      vn_misc_addMetatag('next', NULL, $href = 'http://voipnow.org' . $matches[1]);
+//      vn_misc_addMetatag('next', NULL, $href = 'http://www.voipnow.org' . $matches[1]);
 //    }
 
   }
@@ -342,7 +342,7 @@ function vn_preprocess_search_results(&$variables) {
 //  // a4s - fix - show lost pager from the results page on some pages.
 //  // need prior actions (hack) in function node_search_execute() at node.module
 //  // v1
-//  //doesn't work correctly - it create bad links like http://voipnow.org/search/node/sip%20trunking?page=0%2C0%2C0%2C0%2C0%2C0%2C0%2C1
+//  //doesn't work correctly - it create bad links like http://www.voipnow.org/search/node/sip%20trunking?page=0%2C0%2C0%2C0%2C0%2C0%2C0%2C1
 //  $variables['pager'] = theme('pager', array('tags' => NULL, 'element' => 7));
 
   
@@ -444,7 +444,7 @@ function vn_html_head_alter(&$head_elements) {
         $current_title = drupal_get_title();
       }
 
-      $current_title = str_replace(' | voipnow.org', '', $current_title);
+      $current_title = str_replace(' | www.voipnow.org', '', $current_title);
 
       //dpm($current_title);
 
@@ -851,7 +851,7 @@ function vn_preprocess_views_view_row_rss(&$vars) {
     // Clear attribute typeof="foaf:Image" from the img tag (which iss added by the core rdf module via hook_preprocess_image).
     $rss_teaser = preg_replace('|typeof="foaf:Image" |', '', $rss_teaser);
     // Convert relative links to absolute.
-    $rss_teaser = preg_replace('|href="/|', 'href="http://voipnow.org/', $rss_teaser);
+    $rss_teaser = preg_replace('|href="/|', 'href="http://www.voipnow.org/', $rss_teaser);
     // Restore a normal state of a YouTube url from a token.
     // [video: http://www.youtube.com/watch?v=SoMS77zE7iE]
     $rss_teaser =   preg_replace('|\[video:.*(http.*)\]|', '<a href="$1"> [Watch a video] </a>', $rss_teaser);
@@ -926,7 +926,7 @@ function vn_preprocess_views_view(&$vars) {
     $out = '';
     foreach ($vars['view']->result as $item) {
       $url = preg_replace('/^(.*)(....)(..)$/', '$1$2/$3', $item->url);
-      $url = str_replace('voipnow.org', 'test.voipnow.org', $url);
+      $url = str_replace('www.voipnow.org', 'test.www.voipnow.org', $url);
       //$out .= '<li>' . l($item->link, $url) . '</li>';
       $out .= '<li><a href="/' . $url . '">' . $item->link . '</a></li>';
     }

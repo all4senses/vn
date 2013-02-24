@@ -6,7 +6,7 @@
  */
 
 
-module_load_include('inc', 'vn_blocks', 'inc/constants');
+//module_load_include('inc', 'vn_blocks', 'inc/constants');
 
 
 /**

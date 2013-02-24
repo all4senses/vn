@@ -10,7 +10,7 @@
     
           <?php
 
-            $url = 'http://voipnow.org'. url('node/' . $node->nid);
+            $url = 'http://www.voipnow.org'. url('node/' . $node->nid);
             echo '<div class="float share">' . vn_blocks_getSocialiteButtons($url, $node->title) . '</div>';
 
           ?>
@@ -58,7 +58,7 @@
                   else {
                     //echo render($title_prefix), '<h2', $title_attributes,'>', $node->field_p_name['und'][0]['value'] /*$content['field_p_name'][0]['#markup']*/, '</h2>', render($title_suffix);
                   }
-                  $url = 'http://voipnow.org'. url('node/' . $node->nid);
+                  $url = 'http://www.voipnow.org'. url('node/' . $node->nid);
                   
                   $goto_link = 'click';
                   $goto_link_query = array('p' => urlencode($node->field_p_name['und'][0]['value'])/*, 'url' => urlencode($node->p_data['info']['i_web'])*/);

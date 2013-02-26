@@ -172,10 +172,32 @@ function vn_misc_trackClick_ajax() {
  * Redirect to an external url and track the data.
  */
 function vn_misc_goToExternalUrl2() {
- dpm($_GET);
- dpm($_SERVER);
- dpm(arg());
- return 'xxx';
+  dpm($_GET);
+  dpm($_SERVER);
+  dpm(arg());
+ 
+  $query = db_select('url_alias', 'a');
+  //->fields('pn', array(''))
+  $query->condition('a.alias', $_GET[1] .  '/' . $_GET[2]);
+  $node_id = str_replace('node', '', $query->execute()->fetchField());
+  
+  $query = db_select('field_data_field_p_data_quick', 'pd');
+  $query->condition('pd.entity_id', $node_id);
+  $query->fields('pd', array('entity_id', 'field_p_data_quick_value'));
+  $p_data_quick = $query->execute()->fetchObject();
+  
+  if ($p_data_quick) {
+    $object_id = $p_data_quick->entity_id;
+    $p_data_quick = unserialize($p_data_quick->field_p_data_quick_value);
+    $url = $p_data_quick['i_web'];
+    
+    dpm($p_data_quick);
+    dpm($url);
+    
+  }
+    
+        
+  return 'xxx';
 }
 
 

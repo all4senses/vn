@@ -33,6 +33,13 @@ function vn_misc_menu() {
     'type' => MENU_CALLBACK,
   ); 
   
+  $items['click/%'] = array(
+    'title' => 'Redirect to an external link',
+    'page callback' => 'vn_misc_goToExternalUrl2',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  ); 
+  
   $items['click-a'] = array(
     'title' => 'Track a click',
     'page callback' => 'vn_misc_trackClick_ajax',
@@ -158,6 +165,15 @@ function vn_misc_trackClick_ajax() {
   }
   
   drupal_json_output(array('status' => $status, /*'data' => $output*/));
+}
+
+
+/**
+ * Redirect to an external url and track the data.
+ */
+function vn_misc_goToExternalUrl2() {
+ dpm($_GET);
+ dpm($_SERVER);
 }
 
 
@@ -1301,7 +1317,7 @@ function vn_misc_getArticleTeaserData($target, $body_full_markup, $nid, $charact
   $last_pos = strrpos($teaser, ' ');
   
   // $teaser = substr_replace ($teaser, '...' . l(t('Read More'), 'node/' . $nid, array('attributes' => array('class' => array('more')))) , $last_pos, strlen($matches[1]));
-  ////$teaser = substr_replace ($teaser, '...' . l('Read the rest of this entry »', 'node/' . $nid, array('attributes' => array('class' => array('more')))), $last_pos);
+  ////$teaser = substr_replace ($teaser, '...' . l('Read the rest of this entry В»', 'node/' . $nid, array('attributes' => array('class' => array('more')))), $last_pos);
   $teaser = substr_replace ($teaser, '...', $last_pos);
   
   
@@ -2995,7 +3011,7 @@ function vn_misc_import_wp_equipment() {
 //    if (preg_match('/(.*)<!--more-->(.*)/s', $form_state['values']['body']['und'][0]['value'], $matches)) {
 //      //dpm($matches);
 //      ////$form_state['values']['body']['und'][0]['value'] = $matches[1] . /*'<span id="more"></span>' .*/ $matches[2];
-//      $form_state['values']['body']['und'][0]['summary'] = $matches[1] . '<p><a href="/' . $form_state['values']['url_alias'] . '#more" class="more-link">Read the rest of this entry »</a></p>';
+//      $form_state['values']['body']['und'][0]['summary'] = $matches[1] . '<p><a href="/' . $form_state['values']['url_alias'] . '#more" class="more-link">Read the rest of this entry В»</a></p>';
 //      //$body_full_markup = preg_replace('|\[video:.*(http.*)\]|', '<a href="$1"> [Watch a video] </a>', $body_full_markup);
 //    }
 //    else 
@@ -3105,7 +3121,7 @@ function vn_misc_import_wp_features() {
 //    if (preg_match('/(.*)<!--more-->(.*)/s', $form_state['values']['body']['und'][0]['value'], $matches)) {
 //      //dpm($matches);
 //      ////$form_state['values']['body']['und'][0]['value'] = $matches[1] . /*'<span id="more"></span>' .*/ $matches[2];
-//      $form_state['values']['body']['und'][0]['summary'] = $matches[1] . '<p><a href="/' . $form_state['values']['url_alias'] . '#more" class="more-link">Read the rest of this entry »</a></p>';
+//      $form_state['values']['body']['und'][0]['summary'] = $matches[1] . '<p><a href="/' . $form_state['values']['url_alias'] . '#more" class="more-link">Read the rest of this entry В»</a></p>';
 //      //$body_full_markup = preg_replace('|\[video:.*(http.*)\]|', '<a href="$1"> [Watch a video] </a>', $body_full_markup);
 //    }
 //    else 
@@ -3276,7 +3292,7 @@ function vn_misc_import_wp_providers() {
 //    if (preg_match('/(.*)<!--more-->(.*)/s', $form_state['values']['body']['und'][0]['value'], $matches)) {
 //      //dpm($matches);
 //      ////$form_state['values']['body']['und'][0]['value'] = $matches[1] . /*'<span id="more"></span>' .*/ $matches[2];
-//      $form_state['values']['body']['und'][0]['summary'] = $matches[1] . '<p><a href="/' . $form_state['values']['url_alias'] . '#more" class="more-link">Read the rest of this entry »</a></p>';
+//      $form_state['values']['body']['und'][0]['summary'] = $matches[1] . '<p><a href="/' . $form_state['values']['url_alias'] . '#more" class="more-link">Read the rest of this entry В»</a></p>';
 //      //$body_full_markup = preg_replace('|\[video:.*(http.*)\]|', '<a href="$1"> [Watch a video] </a>', $body_full_markup);
 //    }
 //    else 
@@ -3408,7 +3424,7 @@ function vn_misc_import_wp_blogPosts() {
     if (preg_match('/(.*)<!--more-->(.*)/s', $form_state['values']['body']['und'][0]['value'], $matches)) {
       //dpm($matches);
       ////$form_state['values']['body']['und'][0]['value'] = $matches[1] . /*'<span id="more"></span>' .*/ $matches[2];
-      ////////$form_state['values']['body']['und'][0]['summary'] = $matches[1] . '<p><a href="/' . $form_state['values']['url_alias'] . '#more" class="more-link">Read the rest of this entry »</a></p>';
+      ////////$form_state['values']['body']['und'][0]['summary'] = $matches[1] . '<p><a href="/' . $form_state['values']['url_alias'] . '#more" class="more-link">Read the rest of this entry В»</a></p>';
       $form_state['values']['body']['und'][0]['summary'] = $matches[1];
       //$body_full_markup = preg_replace('|\[video:.*(http.*)\]|', '<a href="$1"> [Watch a video] </a>', $body_full_markup);
     }
@@ -5170,7 +5186,7 @@ function vn_misc_getProviderQuickData($target, $data) {
         $out = theme('vn_misc_fivestar_static', array('rating' => $all_data_quick[$data['data']->nid]['erating'], 'stars' => 5, 'tag' => 'overall', 'widget' => array('name' => 'stars', 'css' => 'stars.css')));
       }
       
-      $out .= '<div class="link">' . l('Read review »', 'node/' . $data['data']->nid) . '</div>';
+      $out .= '<div class="link">' . l('Read review В»', 'node/' . $data['data']->nid) . '</div>';
       
       return $out;
       

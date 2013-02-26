@@ -178,10 +178,11 @@ function vn_misc_goToExternalUrl2() {
  
   $args = arg();
   
-  $query = db_select('url_alias', 'a');
-  //->fields('pn', array(''))
+  $query = db_select('url_alias', 'a')
+      ->fields('a', array('source'));
   $query->condition('a.alias', $args[1] .  '/' . $args[2]);
-  $node_id = str_replace('node', '', $query->execute()->fetchField());
+  //$alias = ;
+  $node_id = str_replace('node/', '', $query->execute()->fetchField());
   
   $query = db_select('field_data_field_p_data_quick', 'pd');
   $query->condition('pd.entity_id', $node_id);

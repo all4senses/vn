@@ -177,7 +177,7 @@ function vn_misc_goToExternalUrl2() {
 
   dpm($args);
   
-  if ($args[1] == 'provider' && !empty($args[2])) {
+  if ($args[1] == 'providers' && !empty($args[2])) {
     
     $query = db_select('url_alias', 'a')
         ->fields('a', array('source'));

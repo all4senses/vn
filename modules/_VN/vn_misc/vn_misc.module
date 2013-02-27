@@ -184,6 +184,8 @@ function vn_misc_getTrackingUrl($title_or_wrapped_object, $subpath = NULL, $targ
     $subpath = $_SERVER['REDIRECT_URL'];
   }
   $trackingUrl = '<a href="/click' . $subpath . '" target = "_blank">' . $title_or_wrapped_object . '</a>';
+  
+  return $trackingUrl;
 }
 
 

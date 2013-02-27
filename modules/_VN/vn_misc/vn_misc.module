@@ -5149,7 +5149,7 @@ function vn_misc_getProviderQuickData($target, $data) {
         ////$out = '<a href="' . $link . '" target="_blank">' . $image . '</a>';
         $out = '<a href="/click?p=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">' . $image . '</a>';
         
-        vn_misc_getTrackingUrl('Visit ' . $node->field_p_name['und'][0]['value'])
+//        vn_misc_getTrackingUrl('Visit ' . $node->field_p_name['und'][0]['value'])
 
       }
       else {

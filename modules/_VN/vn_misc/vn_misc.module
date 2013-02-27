@@ -227,9 +227,9 @@ function vn_misc_goToExternalUrl2() {
     
   }
   
-  drupal_goto(@$_SERVER['HTTP_REFERER']);
+  //drupal_goto(@$_SERVER['HTTP_REFERER']);
   
-  return '';
+  return 'xxx';
 }
 
 

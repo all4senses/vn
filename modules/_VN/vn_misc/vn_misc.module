@@ -174,8 +174,6 @@ function vn_misc_trackClick_ajax() {
 function vn_misc_goToExternalUrl2() {
 
   $args = arg();
-
-  dpm($args);
   
   if ($args[1] == 'providers' && !empty($args[2])) {
     
@@ -197,7 +195,6 @@ function vn_misc_goToExternalUrl2() {
       $url = $p_data_quick['i_web'];
     }
     
-    dpm($url);
     
     if (@$url) {
           

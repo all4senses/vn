@@ -190,9 +190,10 @@ function vn_misc_goToExternalUrl2() {
     $p_data_quick = $query->execute()->fetchObject();
 
     if ($p_data_quick) {
-      $object_name = $p_data_quick->name;
+      
       $object_id = $p_data_quick->entity_id;
       $p_data_quick = unserialize($p_data_quick->field_p_data_quick_value);
+      $object_name = $p_data_quick->name;
       $url = $p_data_quick['i_web'];
     }
     
@@ -225,7 +226,7 @@ function vn_misc_goToExternalUrl2() {
               ))
               ->execute();
             
-            //drupal_goto( (strpos($url, 'http') ? $url : 'http://' . $url), array('external' => TRUE));
+            //drupal_goto( (strpos($url, 'http') === FALSE ? $url : 'http://' . $url), array('external' => TRUE));
         }
      
     
@@ -261,9 +262,9 @@ function vn_misc_goToExternalUrl() {
         $p_data_quick = $query->execute()->fetchObject();
         
         if ($p_data_quick) {
-          $object_name = $p_data_quick->name;
           $object_id = $p_data_quick->entity_id;
           $p_data_quick = unserialize($p_data_quick->field_p_data_quick_value);
+          $object_name = $p_data_quick->name;
           $url = $p_data_quick['i_web'];
         }
     

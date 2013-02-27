@@ -196,6 +196,8 @@ function vn_misc_goToExternalUrl2() {
       $url = $p_data_quick['i_web'];
     }
     
+    dpm($url);
+    
     if (@$url) {
           
             global $user;
@@ -223,7 +225,7 @@ function vn_misc_goToExternalUrl2() {
               ))
               ->execute();
             
-            drupal_goto( (strpos($url, 'http') ? $url : 'http://' . $url), array('external' => TRUE));
+            //drupal_goto( (strpos($url, 'http') ? $url : 'http://' . $url), array('external' => TRUE));
         }
      
     

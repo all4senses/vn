@@ -5147,7 +5147,8 @@ function vn_misc_getProviderQuickData($target, $data) {
         $image = theme('vn_misc_image_style', array('style_name' => $image_style_name, 'path' => $all_data_quick[$data['data']->nid]['i_logo_uri'], 'alt' =>  $all_data_quick[$data['data']->nid]['i_logo_alt'], 'title' =>  $all_data_quick[$data['data']->nid]['i_logo_title'] ));
         
         ////$out = '<a href="' . $link . '" target="_blank">' . $image . '</a>';
-        ////$out = '<a href="/click?p=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">' . $image . '</a>';
+        
+        //////$out = '<a href="/click?p=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">' . $image . '</a>';
         
 //        vn_misc_getTrackingUrl('Visit ' . $node->field_p_name['und'][0]['value'])
         $out = vn_misc_getTrackingUrl($image, NULL, $data['data']->nid);
@@ -5156,7 +5157,12 @@ function vn_misc_getProviderQuickData($target, $data) {
       else {
         if (!empty($all_data_quick[$data['data']->nid]['name'])) {
           /////$out = '<a href="' . $link . '" target="_blank">' . $all_data_quick[$data['data']->nid]['name'] . '</a>';
-          $out = '<a href="/click?p=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">' . $all_data_quick[$data['data']->nid]['name'] . '</a>';
+          
+          
+          ///////$out = '<a href="/click?p=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">' . $all_data_quick[$data['data']->nid]['name'] . '</a>';
+          
+          
+          $out = vn_misc_getTrackingUrl($all_data_quick[$data['data']->nid]['name'], NULL, $data['data']->nid);
         }
 //        else {
 //          $out = '<a href="' . $link . '" target="_blank">' . $data['data']->node_title . '</a>';
@@ -5165,7 +5171,10 @@ function vn_misc_getProviderQuickData($target, $data) {
       
       if (!empty($all_data_quick[$data['data']->nid]['name'])) {
         //$out .= '<div class="link"><a href="' . $link . '" target="_blank">Visit website</a></div>';
-        $out .= '<div class="link"><a href="/click?p=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">Visit website</a></div>';
+        
+        /////$out .= '<div class="link"><a href="/click?p=' . urlencode($all_data_quick[$data['data']->nid]['name']) . '" rel="nofollow" target="_blank">Visit website</a></div>';
+        
+        $out .= '<div class="link">' . vn_misc_getTrackingUrl('Visit website', NULL, $data['data']->nid) . '</div>';
       }
           
       return $out;

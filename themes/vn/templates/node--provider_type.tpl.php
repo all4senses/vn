@@ -119,7 +119,7 @@
             echo '<div class="block block-views"><div class="content"><h2 class="block-title">All VoIP Providers that Offer ' . $service_types[$node->field_p_types['und'][0]['value']] . ' VoIP Services</h2>' . $results . '</div></div>';
           }
           else {
-            echo '<br/>no providers';
+            //echo '<br/>no providers';
           }
 
       }

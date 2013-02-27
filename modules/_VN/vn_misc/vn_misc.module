@@ -169,7 +169,26 @@ function vn_misc_trackClick_ajax() {
 
 
 /**
- * Redirect to an external url and track the data.
+ * Build the tracking url.
+ */
+function vn_misc_getTrackingUrl($title_or_wrapped_object, $subpath = NULL, $target_name = NULL) {
+  
+  // v1
+  //$trackingUrl = l($title_or_wrapped_object, 'click', array('query' => array('p' => urlencode($target_name)), 'attributes' => array('rel' => 'nofollow', 'target' => '_blank')));
+  
+  
+  // v2
+  //$trackingUrl = l($title_or_wrapped_object, 'click' . $subpath, array('attributes' => array('rel' => 'nofollow', 'target' => '_blank')));
+  
+  if (!$subpath) {
+    $subpath = $_SERVER['REDIRECT_URL'];
+  }
+  $trackingUrl = '<a href="/click' . $subpath . '" target = "_blank">' . $title_or_wrapped_object . '</a>';
+}
+
+
+/**
+ * Redirect to an external url and track the data without params.
  */
 function vn_misc_goToExternalUrl2() {
 

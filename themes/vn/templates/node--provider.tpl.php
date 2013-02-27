@@ -92,7 +92,7 @@
                          ///////'<div class="site">' , l('Visit ' . $node->field_p_name['und'][0]['value'], $goto_link, array('attributes' => array('rel' => 'nofollow', 'target' => '_blank'))) , '</div>';
                       
                         //'<div class="site">' , vn_misc_getTrackingUrl('Visit ' . $node->field_p_name['und'][0]['value']) , '</div>';
-                      '<div class="site">' , vn_misc_getTrackingUrl('Visit ' . $node->field_p_name['und'][0]['value'], NULL, $node->nid) , '</div>';
+                      '<div class="site">' , vn_misc_getTrackingUrl('Visit ' . $node->field_p_name['und'][0]['value']) , '</div>';
                   }
                 ?>  
                 

@@ -193,7 +193,7 @@ function vn_misc_goToExternalUrl2() {
       
       $object_id = $p_data_quick->entity_id;
       $p_data_quick = unserialize($p_data_quick->field_p_data_quick_value);
-      $object_name = $p_data_quick->name;
+      $object_name = $p_data_quick['name'];
       $url = $p_data_quick['i_web'];
     }
     
@@ -226,15 +226,15 @@ function vn_misc_goToExternalUrl2() {
               ))
               ->execute();
             
-            //drupal_goto( (strpos($url, 'http') === FALSE ? $url : 'http://' . $url), array('external' => TRUE));
+            drupal_goto( (strpos($url, 'http') !== FALSE ? $url : 'http://' . $url), array('external' => TRUE));
         }
      
     
   }
   
-  //drupal_goto(@$_SERVER['HTTP_REFERER']);
+  drupal_goto(@$_SERVER['HTTP_REFERER']);
   
-  return 'xxx';
+  return '';
 }
 
 
@@ -264,7 +264,7 @@ function vn_misc_goToExternalUrl() {
         if ($p_data_quick) {
           $object_id = $p_data_quick->entity_id;
           $p_data_quick = unserialize($p_data_quick->field_p_data_quick_value);
-          $object_name = $p_data_quick->name;
+          $object_name = $p_data_quick['name'];
           $url = $p_data_quick['i_web'];
         }
     
@@ -295,7 +295,7 @@ function vn_misc_goToExternalUrl() {
               ))
               ->execute();
             
-            drupal_goto( (strpos($url, 'http') ? $url : 'http://' . $url), array('external' => TRUE));
+            drupal_goto( (strpos($url, 'http') !== FALSE ? $url : 'http://' . $url), array('external' => TRUE));
         }
         
         //break;

@@ -422,7 +422,10 @@ function vn_misc_js_alter(&$javascript) {
  * Implements hook_flush_caches().
  */
 function vn_misc_flush_caches() {
+  
   // Remove all minified files from jsmin-vn folder.
+  // Uncomment in case ov changing any js
+  /*
   $dir = 'f/jsmin-vn';
   $objects = scandir($dir);
   foreach ($objects as $object) {
@@ -431,15 +434,16 @@ function vn_misc_flush_caches() {
     }
   }
   variable_del('vn_minified_js');
+ */ 
   
   // Recalculate the reviews amount.
-  $query = db_select('votingapi_vote', 'v');
-  $query->condition('v.value_type', 'percent')
-        ->condition('v.tag', 'overall');
-  //$votes = $query->execute();
-  $countQuery = $query->countQuery();
-  $num_votes = $countQuery->execute()->fetchField();
-  variable_set('vn_allReviewsAmount', $num_votes + 100);
+//  $query = db_select('votingapi_vote', 'v');
+//  $query->condition('v.value_type', 'percent')
+//        ->condition('v.tag', 'overall');
+//  //$votes = $query->execute();
+//  $countQuery = $query->countQuery();
+//  $num_votes = $countQuery->execute()->fetchField();
+//  variable_set('vn_allReviewsAmount', $num_votes + 100);
   
   // Reset blog archive block content.
   $view = views_get_view('archive');
@@ -1476,7 +1480,7 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
             );
             $form['bottom_text']['center_text'] = array(
               '#type' => 'textarea',
-              '#title' => t('Сenter text'),
+              '#title' => t('РЎenter text'),
               //'#description' => t(''),
               '#default_value' => isset($data['bottom_text']['center_text']) ? $data['bottom_text']['center_text'] : '',
             );
@@ -1795,7 +1799,7 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
               
               $form['s'][$service_type_key] = array(
                 '#type' => 'fieldset',
-                '#title' => t("$service_type_title serviсes"),
+                '#title' => t("$service_type_title serviСЃes"),
                 '#collapsible' => TRUE,
                 '#collapsed' => TRUE,
                 '#states' => array(

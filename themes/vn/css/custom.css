@@ -77,18 +77,18 @@ input.blur, textarea.blur,
 #block-search-form{color: lightgray; padding-bottom: 0;position: absolute; right: 0; top: 25px;}
 #block-search-form .contextual-links-wrapper{display: none;}
 form#search-block-form{margin-bottom: 0;}
-#block-search-form input.form-text{-webkit-appearance: textfield; border: none; height: 23px; outline: medium none; padding-left: 5px; width: 230px; color: lightgray; border-radius: 2px;}
+#block-search-form input.form-text{-webkit-appearance: textfield; border: none; height: 25px; outline: medium none; padding-left: 5px; width: 230px; color: lightgray; border-radius: 2px;}
 #block-search-form input.form-text:focus{ -webkit-appearance: none; outline: none; border: none;}
 
 input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-search-cancel-button{-webkit-appearance: none;}
 
 #block-search-form .form-type-textfield{float: left; margin: 0; position: static;}
 #block-search-form .form-actions{display: block; height: 20px; float: left;}
-#block-search-form input.form-submit{background: url("/sites/all/themes/vn/css/images/search-button.png") no-repeat scroll 0 0 transparent; color: white; border: none; font-size: 12px; height: 25px; display: block; margin: 2px 0 0 6px; width: 57px; cursor: pointer;}
+#block-search-form input.form-submit{background: url("/sites/all/themes/vn/css/images/search-button.png") no-repeat scroll 0 0 transparent; color: white; border: none; font-size: 12px; height: 25px; display: block; margin: 0 0 0 6px; width: 57px; cursor: pointer;}
 
 
 
-#header #logo-block{color: #C5C5C5; left: 0; position: absolute; top: 2px; z-index: 200px;}
+#header #logo-block{color: #C5C5C5; left: 0; position: absolute; top: 2px; z-index: 200;}
 #header #logo{float: left; margin-bottom: 0;}
 #header #logo-block .descr{float: left;}
 #header #logo-block .title{font-size: 26px; font-weight: bold; margin-top: 10px;}

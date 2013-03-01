@@ -176,8 +176,8 @@ function vn_blocks_get_socialLinks() {
 //  else 
     {
     $menu = menu_build_tree('menu-social-links');
-    //$out = '<div class="title">Connect with us on the following social media platforms</div>' . theme('vn_misc_socialLinks', array('submenu' => array('below' => $menu)));
-    $out = '<div class="title">Follow us on our social media channels:</div>' . theme('vn_misc_submenuSimple', array('class' => 'social-links', 'submenu' => array('below' => $menu)));
+    $out = '<div class="title">Connect with us on the following social media platforms</div>' . theme('vn_misc_socialLinks', array('submenu' => array('below' => $menu)));
+    //$out = '<div class="title">Follow us on our social media channels:</div>' . theme('vn_misc_submenuSimple', array('class' => 'social-links', 'submenu' => array('below' => $menu)));
     
     cache_set($cid, $out, 'cache', strtotime('+31 day'));
   } 

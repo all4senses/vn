@@ -470,7 +470,8 @@ td.views-field-php-3{font-size: 14px; font-weight: bold; color: #004286;}
 
 
 td.views-field-php-2{font-size: 17px; vertical-align: middle;}
-.views-field-php-2 .link a{font-size: 14px; color: #004286;}
+
+.views-field-php-2 .link a{font-size: 14px; color: #004286; background: url(/sites/all/themes/vn/css/images/read-review-btn.png) no-repeat 0 0 transparent; text-indent: -9999px; color: black; display: block; width: 103px; height: 25px; margin: 10px auto 0;}
 
 td.views-field-field-p-logo a{font-size: 20px; font-weight: bold;}
 

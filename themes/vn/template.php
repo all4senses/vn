@@ -780,7 +780,7 @@ function vn_form_alter(&$form, &$form_state, $form_id) {
     ///$form['actions']['submit']['#value'] = '';
     
     // Autohiding hint.
-    $default_search_text = t('Search on VoIP Now');
+    $default_search_text = t('Search VoIPNow');
     $form['search_block_form']['#default_value'] = $default_search_text;
     $form['default_text']['#default_value'] = $default_search_text;
     // Cause a fatal error without it for anonymous.

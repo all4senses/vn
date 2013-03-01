@@ -165,7 +165,7 @@
         //echo '<div id="block-vn-blocks-follow-links"><div class="follow-us">Follow Us</div>', vn_blocks_get_headerLinks(), '</div>';
       ?>
       
-      <div class="c">Copyright В© 2004-2013 VoIP Now.org</div>
+      <div class="c">Copyright © 2004-2013 VoIPNow.org | All rights reserved.</div>
     </div>
   </footer> <!-- /#footer -->
 

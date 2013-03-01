@@ -153,7 +153,7 @@
   <footer id="footer" role="contentinfo" class="clearfix">
     <div id="footer-inside">
 
-      <div id="in-touch"></div>
+      <!--<div id="in-touch"></div> -->
 
       <?php 
         echo render($page['footer']);

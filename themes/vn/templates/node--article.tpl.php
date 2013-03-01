@@ -65,6 +65,8 @@
               if (!$extra_data['guest_author']) {
                 $authorExtendedData = vn_misc_loadUserExtendedData($node->uid);
                 $author_name = $authorExtendedData->realname;
+                
+                dpm($authorExtendedData);
               }
 
               global $language;

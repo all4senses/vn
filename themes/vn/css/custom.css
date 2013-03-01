@@ -864,6 +864,8 @@ margin-top: 100px;
 
 .node-type-provider .site {text-align: center;}
 
+.node-type-provider .site a {background: url(/sites/all/themes/vn/css/images/visit-site-btn.png) no-repeat 0 0 transparent; text-indent: -9999px;color: black; display: block; width: 103px; height: 25px; margin: auto; }
+
 .pros-and-cons{margin: 0 0 0 315px;}
 .pros-and-cons .title {font-weight: bold;}
 .pros-and-cons .text {font-size: 11px; line-height: 17px; margin-bottom: 10px; border-bottom: 1px solid lightgray;}

@@ -4108,7 +4108,7 @@ function theme_vn_misc_socialLinks($vars) {
   $class = isset($vars['class']) ? $vars['class'] : 'social-links';
   $delimiter = isset($vars['delimiter']) ? $vars['delimiter'] : '';
   $out = '<div class="' . $class . '">';
-  
+  $count = 0;
   foreach ($vars['submenu']['below'] as $submenu) {
     if (isset($submenu['link']['hidden']) && $submenu['link']['hidden']) {
       continue;

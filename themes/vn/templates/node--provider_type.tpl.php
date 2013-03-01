@@ -79,48 +79,48 @@
       if (empty($node->field_p_types['und'][0]['value'])) {
         // Usage page
         // Show all provider types and subtypes.
-        $view_name = 'providers'; 
-        $display_name = 'block_provider_types_all';
-        $view = views_get_view($view_name);
-        $results = $view->preview($display_name);
-        if ($view->result) {
-          echo $results;
-        }
+//        $view_name = 'providers'; 
+//        $display_name = 'block_provider_types_all';
+//        $view = views_get_view($view_name);
+//        $results = $view->preview($display_name);
+//        if ($view->result) {
+//          echo $results;
+//        }
 
       }
       elseif ($node->field_p_types['und'][0]['value'] == 'bu') {
         // Busines VoIP page.
         // Show all Business subtypes.
-        $view_name = 'providers'; 
-        $display_name = 'block_provider_types_bu';
-        $view = views_get_view($view_name);
-        $results = $view->preview($display_name);
-        if ($view->result) {
-          echo $results;
-        }
+//        $view_name = 'providers'; 
+//        $display_name = 'block_provider_types_bu';
+//        $view = views_get_view($view_name);
+//        $results = $view->preview($display_name);
+//        if ($view->result) {
+//          echo $results;
+//        }
       }
       else {
-          // Other provider type pages.
-
-          // Show providers by a type.
-          $view_name = 'providers'; 
-          //$display_name = 'block_providers_by_type';
-          $display_name = 'block_chart_all_providers';
-          $view = views_get_view($view_name);
-
-          //$viewsFilterOptions_p_type = array('id' => 'field_p_types_value', 'value' => array('smbv' => 'smbv'));
-          $viewsFilterOptions_p_type = array('id' => 'field_p_types_value', 'value' => array($node->field_p_types['und'][0]['value'] => $node->field_p_types['und'][0]['value']));
-          $view->add_item($display_name, 'filter', 'field_data_field_p_types', 'field_p_types_value', $viewsFilterOptions_p_type);
-
-          $results = $view->preview($display_name);
-          if ($view->result) {
-            module_load_include('inc', 'vn_misc', 'inc/constants');
-            $service_types = unserialize(SERVICE_TYPES);
-            echo '<div class="block block-views"><div class="content"><h2 class="block-title">All VoIP Providers that Offer ' . $service_types[$node->field_p_types['und'][0]['value']] . ' VoIP Services</h2>' . $results . '</div></div>';
-          }
-          else {
-            //echo '<br/>no providers';
-          }
+//          // Other provider type pages.
+//
+//          // Show providers by a type.
+//          $view_name = 'providers'; 
+//          //$display_name = 'block_providers_by_type';
+//          $display_name = 'block_chart_all_providers';
+//          $view = views_get_view($view_name);
+//
+//          //$viewsFilterOptions_p_type = array('id' => 'field_p_types_value', 'value' => array('smbv' => 'smbv'));
+//          $viewsFilterOptions_p_type = array('id' => 'field_p_types_value', 'value' => array($node->field_p_types['und'][0]['value'] => $node->field_p_types['und'][0]['value']));
+//          $view->add_item($display_name, 'filter', 'field_data_field_p_types', 'field_p_types_value', $viewsFilterOptions_p_type);
+//
+//          $results = $view->preview($display_name);
+//          if ($view->result) {
+//            module_load_include('inc', 'vn_misc', 'inc/constants');
+//            $service_types = unserialize(SERVICE_TYPES);
+//            echo '<div class="block block-views"><div class="content"><h2 class="block-title">All VoIP Providers that Offer ' . $service_types[$node->field_p_types['und'][0]['value']] . ' VoIP Services</h2>' . $results . '</div></div>';
+//          }
+//          else {
+//            //echo '<br/>no providers';
+//          }
 
       }
   

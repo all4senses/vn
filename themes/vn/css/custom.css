@@ -544,7 +544,7 @@ body.sidebar-second #sidebar-second{float: right; margin-right: 18px; padding: 1
 
 /*.sidebar .block-title{padding: 10px 5px 3px 0; border-bottom: 3px solid lightgray; color: gray;}*/
 
-.sidebar .block-title{padding: 15px 5px 10px 5px; border-bottom: 3px solid lightgray; color: white; background: url("/sites/all/themes/vn/css/images/main-menu-hover.png") repeat-x 0 6px; font-weight: normal;}
+.sidebar .block-title{padding: 15px 5px 10px 5px; border-bottom: 3px solid lightgray; color: white; background: url("/sites/all/themes/vn/css/images/main-menu-hover.png") repeat-x 0 6px; font-weight: normal; margin: 0; font-size: 16px;}
 
 
 .sidebar .block li{list-style: none; clear: both;}
@@ -602,9 +602,10 @@ body.front.one-sidebar.sidebar-second #sidebar-second{padding-top: 3px}
 
 .sidebar .block .content .views-row a{color: #777; font-size: 12px; display: block; width: 205px; margin: 0 0 0 5px;}
 
-#block-views-blog-block-latest-news .views-row {border-bottom: 1px solid lightgray;}
+#block-views-blog-block-latest-news .views-row {border-bottom: 1px solid lightgray; padding: 5px 0 0 0;}
+#block-views-blog-block-latest-news .views-row.views-row-last {border-bottom: none;}
 
-#block-views-blog-block-latest-news .date-icon{height: 55px; float: left; text-align: center; margin: 0 10px 0 0; color: #004286; font-weight: bold; width: 40px;}
+#block-views-blog-block-latest-news .date-icon{height: 50px; float: left; text-align: center; margin: 0 10px 0 0; color: #004286; font-weight: bold; width: 40px;}
 .date-icon span {font-size: 25px; font-weight: bold; font-family: arial black; line-height: 25px;}
 .date-icon div div div {font-size: 16px;}
 
@@ -1518,7 +1519,7 @@ body.sidebar-second.node-type-quote #main{margin: 0; padding: 0;}
 
 
 /* Request a Quote block V1 */
-#block-vn-blocks-request-quote-v1 h3{background: #f3f8fb; padding: 10px 10px 5px 5px;}
+#block-vn-blocks-request-quote-v1 h3{background: #f3f8fb; padding: 10px 10px 5px 5px; color: gray; font-weight: bold;}
 #block-vn-blocks-request-quote-v1 .content{background: #f8f8f8; padding: 10px;}
 
 
@@ -1526,7 +1527,7 @@ body.sidebar-second.node-type-quote #main{margin: 0; padding: 0;}
 #highlighted #block-vn-blocks-request-quote-v1 .shadow{background: none; height: 0; margin-bottom: 0;}
 
 
-#highlighted #block-vn-blocks-request-quote-v1 .content{padding: 0;}
+#highlighted #block-vn-blocks-request-quote-v1 .content{padding: 0; border: none;}
 
 #block-vn-blocks-request-quote-v1 #up{font-size: 17px; line-height: 18px;}
 #block-vn-blocks-request-quote-v1 #up img{width: 60px; float: left; margin: 0 5px 0 0;}

@@ -68,7 +68,7 @@ input.blur, textarea.blur,
 
 
 #header, #navigation, #all-content, #footer-inside{width: 1100px; margin: auto;}
-#footer-inside{position: relative; height: 353px;}
+#footer-inside{position: relative; text-align: center; /*height: 353px;*/}
 
 #header{padding-top: 95px; z-index: 4;}
 
@@ -123,7 +123,7 @@ ul.header-links a.Submit.Reviews{background: url("images/block-head-red.png") re
 
 /* Footer */
 
-#footer {background: url("images/footer-back.jpg") repeat-x scroll 0 0 white; color: white; height: 440px; padding: 5px 0;}
+#footer {background: url("images/footer-back.jpg") repeat-x scroll 0 0 white; color: white; height: 190px; padding: 5px 0;}
 #footer #in-touch{background: url("images/in-touch.png") no-repeat transparent; width: 170px; height: 70px; position: relative; top: -10px;}
 
 #footer .region-footer{width: 560px; margin: auto;}
@@ -143,7 +143,7 @@ ul.header-links a.Submit.Reviews{background: url("images/block-head-red.png") re
 #footer .menu a{color: white; font-size: 14px;}
 #footer .menu li{margin: 2px 2px 0 2px;}
 
-#footer .c{color: gray; font-size: 12px; position: absolute; top: 395px; left: 455px;}
+#footer .c{color: gray; font-size: 12px; /*position: absolute; top: 395px; left: 455px;*/}
 
 
 #footer #sitelock{margin: auto;}
@@ -1741,11 +1741,11 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 #block-vn_blocks-send_msg_n_subscribe .form-actions input, #block-vn-blocks-send-msg-n-subscribe .form-actions input {height: 100px; width: 100%; background: url("images/send-msg-btn.png") no-repeat scroll -3px 0 transparent; border: none; text-indent: -9999px; cursor: pointer;}
 
 /*#block-vn_blocks-social_links{position: absolute; top: 110px; left: 20px;}*/
-#block-vn_blocks-social_links {width: 700px; margin: auto;}
+#block-vn_blocks-social_links {width: 660px; margin: auto;}
 /*#block-vn_blocks-social_links .title {font-size: 12px; width: 220px; line-height: 18px; margin-bottom: 15px; color: #aaaaaa;}*/
-#block-vn_blocks-social_links .title {font-size: 12px; line-height: 18px; margin: 15px auto; color: #aaaaaa; width: 400px;}
+#block-vn_blocks-social_links .title {font-size: 12px; line-height: 18px; margin: 15px; color: #aaaaaa;/* width: 400px;*/}
 
-.social-links {position: relative;}
+.social-links {position: relative; overflow: hidden;}
 
 .social-links div {float: left; margin-left: 10px;}
 
@@ -1761,13 +1761,13 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 
 /*#block-vn_blocks-footer_links {position: absolute; left: 840px; top: 110px;}*/
 
-#block-vn_blocks-footer_links {overflow: hidden; display: block; clear: both; margin: auto; width: 500px;}
+#block-vn_blocks-footer_links {overflow: hidden; display: block; clear: both; margin: auto; width: 480px;}
 
 #block-vn_blocks-footer_links .title a{font-size: 13px; color: white; position: relative; top: -5px;}
 
 #block-vn_blocks-footer_links li {float: left; margin-right: 10px;}
 
-#block-vn_blocks-footer_links .vn {position: relative;}
+#block-vn_blocks-footer_links .vn {position: relative; overflow: hidden; margin: 10px 0 10px;}
 #block-vn_blocks-footer_links .col-2 {position: absolute; top: 0; left: 150px; width: 120px;}
 #block-vn_blocks-footer_links a {color: #aaaaaa; font-size: 13px;}
 #block-vn_blocks-footer_links a:hover {color: white; text-decoration: underline;}

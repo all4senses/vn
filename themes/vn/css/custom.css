@@ -123,7 +123,7 @@ ul.header-links a.Submit.Reviews{background: url("images/block-head-red.png") re
 
 /* Footer */
 
-#footer {background: url("images/footer-back.jpg") repeat-x scroll 0 0 white; color: white; height: 190px; padding: 5px 0;}
+#footer {background: url("images/footer-back.jpg") repeat-x scroll 0 0 white; color: lightgray; height: 190px; padding: 5px 0;}
 #footer #in-touch{background: url("images/in-touch.png") no-repeat transparent; width: 170px; height: 70px; position: relative; top: -10px;}
 
 #footer .region-footer{width: 560px; margin: auto;}
@@ -1761,11 +1761,11 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 
 /*#block-vn_blocks-footer_links {position: absolute; left: 840px; top: 110px;}*/
 
-#block-vn_blocks-footer_links {overflow: hidden; display: block; clear: both; margin: auto; width: 480px;}
+#block-vn_blocks-footer_links {overflow: hidden; display: block; clear: both; margin: auto; width: 500px;}
 
 #block-vn_blocks-footer_links .title a{font-size: 13px; color: white; position: relative; top: -5px;}
 
-#block-vn_blocks-footer_links li {float: left; margin-right: 10px;}
+#block-vn_blocks-footer_links li {float: left; margin-right: 3px;}
 
 #block-vn_blocks-footer_links .vn {position: relative; overflow: hidden; margin: 10px 0 10px;}
 #block-vn_blocks-footer_links .col-2 {position: absolute; top: 0; left: 150px; width: 120px;}

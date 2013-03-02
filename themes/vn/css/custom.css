@@ -1520,7 +1520,7 @@ body.sidebar-second.node-type-quote #main{margin: 0; padding: 0;}
 
 /* Request a Quote block V1 */
 #block-vn-blocks-request-quote-v1 h3{background: #f3f8fb; padding: 10px 10px 5px 5px; color: gray; font-weight: bold;}
-#block-vn-blocks-request-quote-v1 .content{background: #f8f8f8; padding: 10px;}
+#block-vn-blocks-request-quote-v1 .content{background: #f8f8f8; padding: 10px; border: none;}
 
 
 #highlighted #block-vn-blocks-request-quote-v1 .inside{background: transparent; border: medium none; padding: 0;}

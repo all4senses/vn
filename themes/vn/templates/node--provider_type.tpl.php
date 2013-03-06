@@ -59,16 +59,19 @@
       global $user;
       if ($user->uid == 1) {
         
+        $chart_title = NULL;
         switch ($node->field_p_types['und'][0]['value']) {
           case 'bu':
             $chart_title = 'Featured Business VoIP Providers';
+            break;
           case 'smbv':
             $chart_title = 'Featured Small Business VoIP Providers';
-            
-            $block_data = array('module' => 'views', 'delta' => 'providers-block_chart_featured_providers', 'subject' => $chart_title);
-            echo vn_blocks_getBlockThemed($block_data);
-            
-            
+            break;
+        }
+        
+        if ($chart_title) {
+          $block_data = array('module' => 'views', 'delta' => 'providers-block_chart_featured_providers', 'subject' => $chart_title);
+          echo vn_blocks_getBlockThemed($block_data);
         }
         
       }

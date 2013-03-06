@@ -56,36 +56,31 @@
       // Hide links now so that we can render them later.
       hide($content['links']);
       
-      global $user;
-      if ($user->uid == 1) {
-        
-        $chart_title = NULL;
-        switch ($node->field_p_types['und'][0]['value']) {
-          case 'bu':
-            $chart_title = 'Featured Business VoIP Providers';
-            break;
-          case 'smbv':
-            $chart_title = 'Featured Small Business VoIP Providers';
-            break;
-          case 'mb':
-            $chart_title = 'Featured Midsize Business VoIP Providers';
-            break;
-          case 'eb':
-            $chart_title = 'Featured Enterprise VoIP Providers';
-            break;
-          case 'pbx':
-            $chart_title = 'Featured Hosted PBX VoIP Providers';
-            break;
-          case 'sip':
-            $chart_title = 'Featured SIP Trunking VoIP Providers';
-            break;
-        }
-        
-        if ($chart_title) {
-          $block_data = array('module' => 'views', 'delta' => 'providers-block_chart_featured_providers', 'subject' => $chart_title);
-          echo vn_blocks_getBlockThemed($block_data);
-        }
-        
+      // Show the Featured Providers chart rigth below the H1 title on the page.
+      $chart_title = NULL;
+      switch ($node->field_p_types['und'][0]['value']) {
+        case 'bu':
+          $chart_title = 'Featured Business VoIP Providers';
+          break;
+        case 'smbv':
+          $chart_title = 'Featured Small Business VoIP Providers';
+          break;
+        case 'mb':
+          $chart_title = 'Featured Midsize Business VoIP Providers';
+          break;
+        case 'eb':
+          $chart_title = 'Featured Enterprise VoIP Providers';
+          break;
+        case 'pbx':
+          $chart_title = 'Featured Hosted PBX VoIP Providers';
+          break;
+        case 'sip':
+          $chart_title = 'Featured SIP Trunking VoIP Providers';
+          break;
+      }
+      if ($chart_title) {
+        $block_data = array('module' => 'views', 'delta' => 'providers-block_chart_featured_providers', 'subject' => $chart_title);
+        echo vn_blocks_getBlockThemed($block_data);
       }
       
       echo render($content);

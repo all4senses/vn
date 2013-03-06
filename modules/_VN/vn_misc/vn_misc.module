@@ -1278,7 +1278,7 @@ function vn_misc_getArticleTeaserData($target, $body_full_markup, $nid, $charact
     $query->condition('fid', $thumbnail_fid);
     $main_image['uri'] = $query->execute()->fetchField();
     $main_image['src'] = vn_misc_getPathFromStreamUri($main_image['uri']);
-    dpm($main_image);
+
     $found_image = TRUE;
   }
   elseif (preg_match('/<img[^>]+>/i', $body_full_markup, $matches)) {
@@ -2657,7 +2657,7 @@ function vn_misc_makeRequest_ajax() {
          
     
     if($submission['Version'] == 1) {
-      $output = '<a class="guide" href="/pdfs/SMB-VOIP-AdvantagesWhitePaper.pdf" target="_blank">Download Your Free VoIP Buyer\'s Guide<img src="/sites/all/themes/vn/css/images/click-here-button.png" /></a><div class="quote-final">' . t('<p><strong>Thank you</strong> for taking your time to complete our form. A VoIP Expert will be contacting you shortly to provide you with a personalized VoIP Service quote.</p><p>In the meantime, you can gain a great deal of VoIP information right here at <a href="http://www.voipnow.org">www.voipnow.org</a></p>') . '</div>';
+      $output = '<a class="guide" href="/pdfs/VoIP-Buyers-Guide-Questions.pdf" target="_blank">Download Your Free VoIP Buyer\'s Guide<img src="/sites/all/themes/vn/css/images/click-here-button.png" /></a><div class="quote-final">' . t('<p><strong>Thank you</strong> for taking your time to complete our form. A VoIP Expert will be contacting you shortly to provide you with a personalized VoIP Service quote.</p><p>In the meantime, you can gain a great deal of VoIP information right here at <a href="http://www.voipnow.org">www.voipnow.org</a></p>') . '</div>';
     }
     else {
       $output = '<p><strong>Thank you</strong> for taking your time to complete our form. A VoIP Expert will be contacting you shortly to provide you with a personalized VoIP Service quote.</p><p>In the meantime, you can gain a great deal of VoIP information right here at <a href="http://www.voipnow.org">www.voipnow.org</a></p>'; 

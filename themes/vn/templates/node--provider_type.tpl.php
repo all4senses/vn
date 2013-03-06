@@ -67,6 +67,18 @@
           case 'smbv':
             $chart_title = 'Featured Small Business VoIP Providers';
             break;
+          case 'mb':
+            $chart_title = 'Featured Midsize Business VoIP Providers';
+            break;
+          case 'eb':
+            $chart_title = 'Featured Enterprise VoIP Providers';
+            break;
+          case 'pbx':
+            $chart_title = 'Featured Hosted PBX VoIP Providers';
+            break;
+          case 'sip':
+            $chart_title = 'Featured SIP Trunking VoIP Providers';
+            break;
         }
         
         if ($chart_title) {

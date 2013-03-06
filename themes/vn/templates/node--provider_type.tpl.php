@@ -58,8 +58,7 @@
       
       global $user;
       if ($user->uid == 1) {
-        echo 'xxxxxxxxxxxxxxxxx';
-        $block_data = array('module' => 'views', 'delta' => 'providers-block_chart_featured_providers');
+        $block_data = array('module' => 'views', 'delta' => 'providers-block_chart_featured_providers', 'subject' => 'xxxxx');
         echo vn_blocks_getBlockThemed($block_data);
       }
       

@@ -56,6 +56,11 @@
       // Hide links now so that we can render them later.
       hide($content['links']);
       
+      global $user;
+      if ($user->uid == 1) {
+        echo 'xxxxxxxxxxxxxxxxx';
+      }
+      
       echo render($content);
       
 

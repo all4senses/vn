@@ -1406,7 +1406,7 @@ function vn_misc_getArticleTeaserData($target, $body_full_markup, $nid, $charact
   // $teaser = substr_replace ($teaser, '...' . l(t('Read More'), 'node/' . $nid, array('attributes' => array('class' => array('more')))) , $last_pos, strlen($matches[1]));
   ////$teaser = substr_replace ($teaser, '...' . l('Read the rest of this entry »', 'node/' . $nid, array('attributes' => array('class' => array('more')))), $last_pos);
   
-  $teaser = substr_replace ($teaser, '...' . l('Read more »', 'node/' . $nid, array('attributes' => array('class' => array('more')))), $last_pos);
+  $teaser = substr_replace ($teaser, '... ' . l('Read more »', 'node/' . $nid, array('attributes' => array('class' => array('more')))), $last_pos);
   //$teaser = substr_replace ($teaser, '...', $last_pos);
   
   

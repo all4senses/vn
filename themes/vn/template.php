@@ -819,7 +819,17 @@ function vn_preprocess_views_view_rss(&$vars) {
   
     dpr($namespaces);
 
-    $disabled_namespaces = array('content', 'dc', 'foaf', 'og', 'rdfs', 'sioc', 'sioct', 'skos', 'xsd', 'xmlns:xmlns:addthis');
+    $disabled_namespaces = array('content', 'dc', 'foaf', 'og', 'rdfs', 'sioc', 'sioct', 'skos', 'xsd', 'addthis');
+    
+    // FIX bad names
+    foreach ($namespaces as $key => $value) {
+      $key_new = str_replace('xmlns:xmlns:', 'xmlns:', $key);
+      if ($key_new != $key) {
+        $namespaces[$key_new] = $value;
+        unset($namespaces[$key]);
+      }
+    }
+    
     foreach ($disabled_namespaces as $disabled_namespace) {
       if (isset($namespaces[$disabled_namespace])) {
         unset($namespaces[$disabled_namespace]);
@@ -837,6 +847,17 @@ function vn_preprocess_views_view_rss(&$vars) {
   }
   else {
     $disabled_namespaces = array('content', 'dc', 'foaf', 'og', 'rdfs', 'sioc', 'sioct', 'skos', 'xsd', 'xmlns:xmlns:addthis');
+    
+        // FIX bad names
+    foreach ($namespaces as $key => $value) {
+      $key_new = str_replace('xmlns:xmlns:', 'xmlns:', $key);
+      if ($key_new != $key) {
+        $namespaces[$key_new] = $value;
+        unset($namespaces[$key]);
+      }
+    }
+
+    
     foreach ($disabled_namespaces as $disabled_namespace) {
       if (isset($namespaces[$disabled_namespace])) {
         unset($namespaces[$disabled_namespace]);

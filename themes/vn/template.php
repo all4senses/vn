@@ -830,11 +830,25 @@ function vn_preprocess_views_view_rss(&$vars) {
       }
     }
     
+    
     foreach ($disabled_namespaces as $disabled_namespace) {
-      if (isset($namespaces[$disabled_namespace])) {
-        unset($namespaces[$disabled_namespace]);
+      
+      foreach ($namespaces as $key => $value) {
+        if (strpos($key, $disabled_namespace) != FALSE) {
+          unset($namespaces[$key]);
+        }
       }
+      
+      
     }
+    
+//    foreach ($disabled_namespaces as $disabled_namespace) {
+//      if (isset($namespaces[$disabled_namespace])) {
+//        unset($namespaces[$disabled_namespace]);
+//      }
+//    }
+    
+    
     $vars['namespaces'] = '';
     foreach ($namespaces as $key => $value) {
       $vars['namespaces'] .= ' ' . $key . '="' . $value . '"';

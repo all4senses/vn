@@ -807,17 +807,47 @@ function vn_username($object) {
 * Default theme function for all RSS rows.
 */
 function vn_preprocess_views_view_rss(&$vars) {
+  
   $namespaces = $vars['view']->style_plugin->namespaces;
-  $disabled_namespaces = array('content', 'dc', 'foaf', 'og', 'rdfs', 'sioc', 'sioct', 'skos', 'xsd', 'xmlns:addthis');
-  foreach ($disabled_namespaces as $disabled_namespace) {
-    if (isset($namespaces[$disabled_namespace])) {
-      unset($namespaces[$disabled_namespace]);
+  
+  
+  
+  global $user;
+  
+  
+  if ($user->uid == 1) {
+  
+    dpr($namespaces);
+
+    $disabled_namespaces = array('content', 'dc', 'foaf', 'og', 'rdfs', 'sioc', 'sioct', 'skos', 'xsd', 'xmlns:xmlns:addthis');
+    foreach ($disabled_namespaces as $disabled_namespace) {
+      if (isset($namespaces[$disabled_namespace])) {
+        unset($namespaces[$disabled_namespace]);
+      }
+    }
+    $vars['namespaces'] = '';
+    foreach ($namespaces as $key => $value) {
+      $vars['namespaces'] .= ' ' . $key . '="' . $value . '"';
+    }
+
+
+    dpr($namespaces);
+    exit;
+
+  }
+  else {
+    $disabled_namespaces = array('content', 'dc', 'foaf', 'og', 'rdfs', 'sioc', 'sioct', 'skos', 'xsd', 'xmlns:xmlns:addthis');
+    foreach ($disabled_namespaces as $disabled_namespace) {
+      if (isset($namespaces[$disabled_namespace])) {
+        unset($namespaces[$disabled_namespace]);
+      }
+    }
+    $vars['namespaces'] = '';
+    foreach ($namespaces as $key => $value) {
+      $vars['namespaces'] .= ' ' . $key . '="' . $value . '"';
     }
   }
-  $vars['namespaces'] = '';
-  foreach ($namespaces as $key => $value) {
-    $vars['namespaces'] .= ' ' . $key . '="' . $value . '"';
-  }
+  
 }
 
 

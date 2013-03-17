@@ -940,8 +940,14 @@ function vn_preprocess_views_view_row_rss(&$vars) {
 
   global $user;
   if ($user->uid == 1 && !$node->uid) {
+    
+    $extra_data = unserialize($node->field_extra_data['und'][0]['value']);
+    $vars['item_elements'] = preg_replace('|<dc:creator>.*</dc:creator>|', '<dc:creator>' . $extra_data['guest_author'] . '</dc:creator>', $vars['item_elements']);
+    
     dpr($vars);
-    dpr($node);
+    //dpr($node);
+    
+    
     exit;
   }
 }

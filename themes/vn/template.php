@@ -860,7 +860,7 @@ function vn_preprocess_views_view_rss(&$vars) {
 //
 //  }
 //  else {
-    $disabled_namespaces = array('content', 'dc', 'foaf', 'og', 'rdfs', 'sioc', 'sioct', 'skos', 'xsd', 'xmlns:xmlns:addthis');
+    $disabled_namespaces = array('content', /*'dc',*/ 'foaf', 'og', 'rdfs', 'sioc', 'sioct', 'skos', 'xsd', 'xmlns:xmlns:addthis');
     
         // FIX bad names
     foreach ($namespaces as $key => $value) {
@@ -940,24 +940,14 @@ function vn_preprocess_views_view_row_rss(&$vars) {
   if (!empty($extra_data['guest_author'])) {
     //$vars['item_elements'] = preg_replace('|<dc:creator>.*</dc:creator>|', '<creator>' . $extra_data['guest_author'] . '</creator>', $vars['item_elements']);
     $vars['item_elements'] = preg_replace('|<dc:creator>.*</dc:creator>|', '<dc:creator>' . $extra_data['guest_author'] . '</dc:creator>', $vars['item_elements']);
-    //$vars['item_elements'] = preg_replace('|<dc:creator />|', '<dc:creator>' . $extra_data['guest_author'] . '</dc:creator>', $vars['item_elements']);
-    $vars['item_elements'] = preg_replace('|<dc:creator />|', '<creator>' . $extra_data['guest_author'] . '</creator>', $vars['item_elements']);
+    //$vars['item_elements'] = preg_replace('|<dc:creator />|', '<creator>' . $extra_data['guest_author'] . '</creator>', $vars['item_elements']);
+    $vars['item_elements'] = preg_replace('|<dc:creator />|', '<dc:creator>' . $extra_data['guest_author'] . '</dc:creator>', $vars['item_elements']);
   }
   else {
-    //$vars['item_elements'] = preg_replace('|<dc:creator>.*</dc:creator>|', '<dc:creator>' . vn_misc_getUserRealName($node->uid) . '</dc:creator>', $vars['item_elements']);
-    $vars['item_elements'] = preg_replace('|<dc:creator>.*</dc:creator>|', '<creator>' . vn_misc_getUserRealName($node->uid) . '</creator>', $vars['item_elements']);
+    //$vars['item_elements'] = preg_replace('|<dc:creator>.*</dc:creator>|', '<creator>' . vn_misc_getUserRealName($node->uid) . '</creator>', $vars['item_elements']);
+    $vars['item_elements'] = preg_replace('|<dc:creator>.*</dc:creator>|', '<dc:creator>' . vn_misc_getUserRealName($node->uid) . '</dc:creator>', $vars['item_elements']);
   }
   
-  global $user;
-  if ($user->uid == 1) {
-//    $vars['item_elements'] = preg_replace('|<dc:creator>.*</dc:creator>|', '<dc:creator>' . 'xxx' . '</dc:creator>', $vars['item_elements']);
-//    $vars['item_elements'] = preg_replace('|<dc:creator />|', '<dc:creator>' . 'xxx' . '</dc:creator>', $vars['item_elements']);
-    //dpr($vars);
-    //dpr($node);
-    
-    
-    //exit;
-  }
 }
 
 

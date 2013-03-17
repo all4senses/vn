@@ -936,19 +936,23 @@ function vn_preprocess_views_view_row_rss(&$vars) {
   }
   
   // Replace username with real user name for <dc:creator>
-  $vars['item_elements'] = preg_replace('|<dc:creator>.*</dc:creator>|', '<dc:creator>' . vn_misc_getUserRealName($node->uid) . '</dc:creator>', $vars['item_elements']);
-
+  $extra_data = unserialize($node->field_extra_data['und'][0]['value']);
+  if (!empty($extra_data['guest_author'])) {
+    $vars['item_elements'] = preg_replace('|<dc:creator>.*</dc:creator>|', '<dc:creator>' . $extra_data['guest_author'] . '</dc:creator>', $vars['item_elements']);
+  }
+  else {
+    $vars['item_elements'] = preg_replace('|<dc:creator>.*</dc:creator>|', '<dc:creator>' . vn_misc_getUserRealName($node->uid) . '</dc:creator>', $vars['item_elements']);
+  }
+  
   global $user;
   if ($user->uid == 1 && !$node->uid) {
     
-    $extra_data = unserialize($node->field_extra_data['und'][0]['value']);
-    $vars['item_elements'] = preg_replace('|<dc:creator>.*</dc:creator>|', '<dc:creator>' . $extra_data['guest_author'] . '</dc:creator>', $vars['item_elements']);
     
-    dpr($vars);
+    //dpr($vars);
     //dpr($node);
     
     
-    exit;
+    //exit;
   }
 }
 

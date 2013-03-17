@@ -946,7 +946,7 @@ function vn_preprocess_views_view_row_rss(&$vars) {
   
   global $user;
   if ($user->uid == 1 && !$node->uid) {
-    
+    $vars['item_elements'] = preg_replace('|<dc:creator>.*</dc:creator>|', '<dc:creator>' . 'xxx' . '</dc:creator>', $vars['item_elements']);
     
     //dpr($vars);
     //dpr($node);

@@ -1288,6 +1288,12 @@ function vn_misc_getArticleTeaserData($target, $body_full_markup, $nid, $charact
       $main_image[$key] = $matches[2][$index];
     }
     $body_full_markup = preg_replace('/<img[^>]+>/i', '', $body_full_markup);
+    
+    // Set No image for externally linked image.
+    if ( (strpos($main_image['src'], 'http') !== FALSE && !strpos($main_image['src'], 'www.voip-weblog.com')) || !file_exists(str_replace('http://www.voipnow.org/', '', $main_image['src']))) {
+      $found_image = FALSE;
+      //dpm($main_image);
+    }
   }
   elseif (preg_match('/\[video:.*v=(.*)\]/i', $body_full_markup, $matches)) {
     // [video: https://www.youtube.com/watch?v=H1vdPJzzzAY]

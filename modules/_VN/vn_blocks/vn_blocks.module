@@ -139,12 +139,12 @@ function vn_blocks_block_configure($delta = '') {
     
     $recommendedSites_block = unserialize(variable_get('vn_recommendedSites_block', NULL));
     
-    dpm($recommendedSites_block);
+    //dpm($recommendedSites_block);
     
     $form['vn_body'] = array(
       '#type' => 'text_format', 
       '#title' => t('Body'),
-      '#default_value' => $recommendedSites_block['vn_body'], 
+      '#default_value' => $recommendedSites_block['vn_body']['value'], 
     );
     
   }

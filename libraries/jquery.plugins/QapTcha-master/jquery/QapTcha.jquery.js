@@ -8,7 +8,6 @@
 
 **************************************************************************
 *************************************************************************/
-
 jQuery.QapTcha = {
 	build : function(options)
 	{
@@ -26,8 +25,8 @@ jQuery.QapTcha = {
 			/** Vars **/
 			var
 				opts = $.extend(defaults, options),
-				$this = jQuery(this),
-				form = jQuery('form').has($this),
+				$this = $(this),
+				form = $('form').has($this),
 				Clr = jQuery('<div>',{'class':'clr'}),
 				bgSlider = jQuery('<div>',{'class':'bgSlider'}),
 				Slider = jQuery('<div>',{'class':'Slider'}),

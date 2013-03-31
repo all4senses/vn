@@ -439,6 +439,8 @@ function vn_blocks_get_accessToFootprintBanner() {
  */
 function vn_blocks_get_requestQuote_block_v1() {
   
+  global $user;
+  
   drupal_add_library('system', 'ui.core');
   drupal_add_library('system', 'ui.widget');
   drupal_add_library('system', 'ui.position');  
@@ -564,9 +566,10 @@ function vn_blocks_get_requestQuote_block_v1() {
                                 </div>
                                 
 
+                                ' . ($user->uid == 1 ? '
                                 <div class="wrapper middle captcha">
                                     <input class="after" name="defaultReal" id="defaultReal" title="Captcha" />
-                                </div>
+                                </div>' : '') . ' 
 
                             <div class="bottom-clear"></div>
                             

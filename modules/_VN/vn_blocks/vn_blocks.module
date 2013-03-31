@@ -451,7 +451,7 @@ function vn_blocks_get_requestQuote_block_v1() {
   //drupal_add_js('sites/all/libraries/jquery.plugins/jquery.realperson/jquery.realperson.js');
   
   drupal_add_js('sites/all/libraries/jquery.plugins/QapTcha-master/jquery/jquery-ui.js');
-  drupal_add_js('sites/all/libraries/jquery.plugins/QapTcha-master/jquery/jquery.ui.touch.js');
+  //drupal_add_js('sites/all/libraries/jquery.plugins/QapTcha-master/jquery/jquery.ui.touch.js');
   drupal_add_js('sites/all/libraries/jquery.plugins/QapTcha-master/jquery/QapTcha.jquery.js');
   
   $path_to_custom_js = drupal_get_path('module', 'vn_blocks') . '/js/';

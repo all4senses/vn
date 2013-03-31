@@ -5,7 +5,7 @@
        
        //$('#defaultReal').realperson();
        
-       $('.QapTcha').QapTcha({disabledSubmit:false,autoRevert:true,autoSubmit:false});
+       //$('.QapTcha').QapTcha({disabledSubmit:false,autoRevert:true,autoSubmit:false});
 
        
         $('input[name="referrer"]').val(document.referrer);

@@ -441,16 +441,18 @@ function vn_blocks_get_requestQuote_block_v1() {
   
   global $user;
   
-//  drupal_add_library('system', 'ui.core');
-//  drupal_add_library('system', 'ui.widget');
-//  drupal_add_library('system', 'ui.position');  
+  drupal_add_library('system', 'ui.core');
+  drupal_add_library('system', 'ui.widget');
+  drupal_add_library('system', 'ui.position');  
+  drupal_add_library('system', 'ui.draggable');
+  drupal_add_library('system', 'ui.slider');  
 
   drupal_add_js('sites/all/libraries/jquery.plugins/jquery.hint-with-password.js');
   
   //Captcha
   //drupal_add_js('sites/all/libraries/jquery.plugins/jquery.realperson/jquery.realperson.js');
   
-  drupal_add_js('sites/all/libraries/jquery.plugins/QapTcha-master/jquery/jquery-ui.js');
+  //drupal_add_js('sites/all/libraries/jquery.plugins/QapTcha-master/jquery/jquery-ui.js');
   //drupal_add_js('sites/all/libraries/jquery.plugins/QapTcha-master/jquery/jquery.ui.touch.js');
   drupal_add_js('sites/all/libraries/jquery.plugins/QapTcha-master/jquery/QapTcha.jquery.js');
   

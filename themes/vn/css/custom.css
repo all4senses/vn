@@ -1539,7 +1539,8 @@ body.sidebar-second.node-type-quote #main{margin: 0; padding: 0;}
 
 #block-vn-blocks-request-quote-v1 #up .img{background: url("/sites/all/themes/vn/css/images/sprite-0.png") no-repeat scroll -90px -11px transparent; float: right; height: 53px; width: 50px; position: absolute; top: 67px; right: 10px;}
 
-#block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper{width: auto; height: 285px;}
+/*#block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper{width: auto; height: 285px;}*/
+#block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper{width: auto; height: 290px;}
 #block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper .step{height: 285px;}
 
 #block-vn-blocks-request-quote-v1 .step#questions_section .quote-pic {background: url("/sites/all/themes/vn/css/images/quote-phone.png") no-repeat scroll 0 0 transparent; width: 270px; height: 190px;}

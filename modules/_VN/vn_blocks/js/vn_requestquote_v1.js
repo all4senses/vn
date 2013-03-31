@@ -3,7 +3,7 @@
   Drupal.behaviors.vn_requestquote_block_v1 = {
     attach: function (context, settings) {
        
-       $('#defaultReal').realperson();
+       $('#defaultReal').realperson('option', {length: 4, includeNumbers: false});
 
        
         $('input[name="referrer"]').val(document.referrer);

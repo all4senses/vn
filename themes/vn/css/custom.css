@@ -1815,4 +1815,4 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 
 .views-row {position: relative;}
 
-.vn-captcha{line-height: 7px; font-size: 9px;}
+.vn-captcha{line-height: 7px; font-size: 9px !important;}

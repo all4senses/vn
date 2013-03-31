@@ -19,6 +19,14 @@
 function vn_misc_menu() {
  
   
+  
+  $items['securimage_show'] = array(
+    'title' => 'Securimage',
+    'page callback' => 'vn_misc_securimage_show_ajax',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  
   $items['request'] = array(
     'title' => 'Make a request',
     'page callback' => 'vn_misc_makeRequest_ajax',
@@ -118,6 +126,16 @@ function vn_misc_menu() {
   
   
   return $items;
+}
+
+
+function vn_misc_securimage_show_ajax() {
+
+  require_once dirname(__FILE__) . '/securimage.php';
+
+  $img = new Securimage();
+
+  $img->show();  // outputs the image and content headers to the browser
 }
 
 

@@ -700,6 +700,8 @@ class Securimage
             $this->send_headers = true;
         }
 
+        exit(session_id());
+        
         if ($this->no_session != true) {
             // Initialize session or attach to existing
             if ( session_id() == '' ) { // no session has been started yet, which is needed for validation

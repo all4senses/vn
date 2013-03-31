@@ -8,6 +8,7 @@
 
 **************************************************************************
 *************************************************************************/
+(function ($) {
 
 jQuery.QapTcha = {
 	build : function(options)
@@ -26,7 +27,7 @@ jQuery.QapTcha = {
 			/** Vars **/
 			var
 				//opts = $.extend(defaults, options),
-        opts = jQuery.extend(defaults, options),
+        opts = $.extend(defaults, options),
 				$this = jQuery(this),
 				form = jQuery('form').has($this),
 				Clr = jQuery('<div>',{'class':'clr'}),
@@ -91,3 +92,6 @@ jQuery.QapTcha = {
 		});
 	}
 }; jQuery.fn.QapTcha = jQuery.QapTcha.build;
+
+
+}(jQuery));

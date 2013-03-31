@@ -445,6 +445,8 @@ function vn_blocks_get_requestQuote_block_v1() {
 
   drupal_add_js('sites/all/libraries/jquery.plugins/jquery.hint-with-password.js');
   
+  drupal_add_js('sites/all/libraries/jquery.plugins/jquery.realperson/jquery.realperson.js');
+  
   $path_to_custom_js = drupal_get_path('module', 'vn_blocks') . '/js/';
   drupal_add_js($path_to_custom_js . 'vn_requestquote_v1.js');
   
@@ -452,6 +454,8 @@ function vn_blocks_get_requestQuote_block_v1() {
   drupal_add_js($path_to_custom_js . 'jquery.form.js');
   drupal_add_js($path_to_custom_js . 'jquery.validate.js');
   drupal_add_js($path_to_custom_js . 'jquery.form.wizard-min.js');
+  
+  
   
   
   // height: 140px; 
@@ -557,6 +561,11 @@ function vn_blocks_get_requestQuote_block_v1() {
 
                                 <div class="wrapper middle company">
                                     <input class="after" name="company" id="company" title="Company" />
+                                </div>
+                                
+
+                                <div class="wrapper middle captcha">
+                                    <input class="after" name="defaultReal" id="defaultReal" title="Captcha" />
                                 </div>
 
                             <div class="bottom-clear"></div>

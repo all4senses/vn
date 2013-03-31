@@ -441,9 +441,9 @@ function vn_blocks_get_requestQuote_block_v1() {
   
   global $user;
   
-//  drupal_add_library('system', 'ui.core');
-//  drupal_add_library('system', 'ui.widget');
-//  drupal_add_library('system', 'ui.position');  
+  drupal_add_library('system', 'ui.core');
+  drupal_add_library('system', 'ui.widget');
+  drupal_add_library('system', 'ui.position');  
 //  drupal_add_library('system', 'ui.draggable');
 //  drupal_add_library('system', 'ui.slider');  
 
@@ -452,10 +452,12 @@ function vn_blocks_get_requestQuote_block_v1() {
   //Captcha
   //drupal_add_js('sites/all/libraries/jquery.plugins/jquery.realperson/jquery.realperson.js');
   
-  drupal_add_js('sites/all/libraries/jquery.plugins/QapTcha-master/jquery/jquery.js');
-  drupal_add_js('sites/all/libraries/jquery.plugins/QapTcha-master/jquery/jquery-ui.js');
+//  drupal_add_js('sites/all/libraries/jquery.plugins/QapTcha-master/jquery/jquery.js');
+//  drupal_add_js('sites/all/libraries/jquery.plugins/QapTcha-master/jquery/jquery-ui.js');
   //drupal_add_js('sites/all/libraries/jquery.plugins/QapTcha-master/jquery/jquery.ui.touch.js');
-  drupal_add_js('sites/all/libraries/jquery.plugins/QapTcha-master/jquery/QapTcha.jquery.js');
+  //drupal_add_js('sites/all/libraries/jquery.plugins/QapTcha-master/jquery/QapTcha.jquery.js');
+  
+  
   
   $path_to_custom_js = drupal_get_path('module', 'vn_blocks') . '/js/';
   drupal_add_js($path_to_custom_js . 'vn_requestquote_v1.js');
@@ -582,7 +584,21 @@ function vn_blocks_get_requestQuote_block_v1() {
 //                                    <input class="after" name="defaultReal" id="defaultReal" title="Captcha" />
 //                                </div>' 
                                     
-                                    '<div class="QapTcha"></div>'
+//                                    '<div class="QapTcha"></div>'
+                                    
+                                    '
+  <p>
+    <img id="siimage" style="border: 1px solid #000; margin-right: 15px" src="/sites/all/libraries/jquery.plugins/securimage/securimage_show.php?sid=' . md5(uniqid()) . '" alt="CAPTCHA Image" align="left" />
+    <object type="application/x-shockwave-flash" data="/sites/all/libraries/jquery.plugins/securimage/securimage_play.swf?bgcol=#ffffff&amp;icon_file=/sites/all/libraries/jquery.plugins/securimage/images/audio_icon.png&amp;audio_file=/sites/all/libraries/jquery.plugins/securimage/securimage_play.php" height="32" width="32">
+    <param name="movie" value="/sites/all/libraries/jquery.plugins/securimage/securimage_play.swf?bgcol=#ffffff&amp;icon_file=/sites/all/libraries/jquery.plugins/securimage/images/audio_icon.png&amp;audio_file=/sites/all/libraries/jquery.plugins/securimage/securimage_play.php" />
+    </object>
+
+    <a tabindex="-1" style="border-style: none;" href="#" title="Refresh Image" onclick="document.getElementById(' . "'siimage'" . '").src = "/sites/all/libraries/jquery.plugins/securimage/securimage_show.php?sid=" + Math.random(); this.blur(); return false"><img src="/sites/all/libraries/jquery.plugins/securimage/images/refresh.png" alt="Reload Image" height="32" width="32" onclick="this.blur()" align="bottom" border="0" /></a><br />
+    <strong>Enter Code*:</strong><br />' . @$_SESSION["ctform"]["captcha_error"] . '
+    <input type="text" name="ct_captcha" size="12" maxlength="16" />
+  </p>'
+                                    
+                                    
                                     : '') . ' 
 
                             <div class="bottom-clear"></div>

@@ -712,7 +712,7 @@ class Securimage
             }
         }
         
-        exit('ses = ' . session_id());
+        //exit('ses = ' . session_id());
     }
 
     /**

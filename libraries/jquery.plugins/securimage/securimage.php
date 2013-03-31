@@ -700,7 +700,7 @@ class Securimage
             $this->send_headers = true;
         }
 
-        exit('ses = ' . session_id());
+        
         
         if ($this->no_session != true) {
             // Initialize session or attach to existing
@@ -711,6 +711,8 @@ class Securimage
                 session_start();
             }
         }
+        
+        exit('ses = ' . session_id());
     }
 
     /**

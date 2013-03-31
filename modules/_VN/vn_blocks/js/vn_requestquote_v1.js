@@ -3,9 +3,9 @@
   Drupal.behaviors.vn_requestquote_block_v1 = {
     attach: function (context, settings) {
        
-       //$('#defaultReal').realperson('option', {length: 4, includeNumbers: false});
-       //$('#defaultReal').realperson('option', {length: 4});
-       $('#defaultReal').realperson();
+       //$('#defaultReal').realperson();
+       
+       $('.QapTcha').QapTcha({disabledSubmit:false,autoRevert:true,autoSubmit:false});
 
        
         $('input[name="referrer"]').val(document.referrer);

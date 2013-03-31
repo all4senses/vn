@@ -4,7 +4,8 @@
     attach: function (context, settings) {
        
        //$('#defaultReal').realperson('option', {length: 4, includeNumbers: false});
-       $('#defaultReal').realperson('option', {length: 4});
+       //$('#defaultReal').realperson('option', {length: 4});
+       $('#defaultReal').realperson();
 
        
         $('input[name="referrer"]').val(document.referrer);

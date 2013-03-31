@@ -27,8 +27,8 @@ jQuery.QapTcha = {
 			/** Vars **/
 			var
 				opts = $.extend(defaults, options),
-				$this = $(this),
-				form = $('form').has($this),
+				$this = jQuery(this),
+				form = jQuery('form').has($this),
 				Clr = jQuery('<div>',{'class':'clr'}),
 				bgSlider = jQuery('<div>',{'class':'bgSlider'}),
 				Slider = jQuery('<div>',{'class':'Slider'}),

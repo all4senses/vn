@@ -567,7 +567,7 @@ function vn_blocks_get_requestQuote_block_v1() {
                                 
 
                                 ' . ($user->uid == 1 ? '
-                                <div class="wrapper middle captcha">
+                                <div class="wrapper middle vn-captcha">
                                     <input class="after" name="defaultReal" id="defaultReal" title="Captcha" />
                                 </div>' : '') . ' 
 

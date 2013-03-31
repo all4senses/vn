@@ -1827,8 +1827,8 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 
 /*.vn-captcha{line-height: 7px; font-size: 9px !important;}*/
 .vn-captcha{margin-left: 30px; width: 180px; margin-top: 20px;}
-#siimage{border: 1px solid #000; margin-right: 15px; width: 120px;}
-#play-btn{width: 20px; height: 20px;}
-#reload-btn{border-style: none; margin: 0; padding: 0;}
-#reload-btn img{width: 17px; height: 17px; float: none;}
-#code{color: gray; font-size: 11px; clear: both;}
+.vn-captcha #siimage{border: 1px solid #000; margin-right: 15px; width: 120px;}
+.vn-captcha #play-btn{width: 20px; height: 20px;}
+.vn-captcha #reload-btn{border-style: none; margin: 0; padding: 0;}
+.vn-captcha #reload-btn img{width: 17px; height: 17px; float: none;}
+.vn-captcha #code{color: gray; font-size: 11px; clear: both; margin-top: 7px;}

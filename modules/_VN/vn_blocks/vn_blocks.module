@@ -593,7 +593,7 @@ function vn_blocks_get_requestQuote_block_v1() {
     <param name="movie" value="/sites/all/libraries/jquery.plugins/securimage/securimage_play.swf?bgcol=#ffffff&amp;icon_file=/sites/all/libraries/jquery.plugins/securimage/images/audio_icon.png&amp;audio_file=/sites/all/libraries/jquery.plugins/securimage/securimage_play.php" />
     </object>
 
-    <a tabindex="-1" style="border-style: none;" href="#" title="Refresh Image" onclick="document.getElementById(' . "'siimage'" . '").src = "/sites/all/libraries/jquery.plugins/securimage/securimage_show.php?sid=" + Math.random(); this.blur(); return false"><img src="/sites/all/libraries/jquery.plugins/securimage/images/refresh.png" alt="Reload Image" height="32" width="32" onclick="this.blur()" align="bottom" border="0" /></a><br />
+    <a tabindex="-1" style="border-style: none;" href="#" title="Refresh Image" onclick="document.getElementById(' . '"siimage"' . '").src = "/sites/all/libraries/jquery.plugins/securimage/securimage_show.php?sid=" + Math.random(); this.blur(); return false"><img src="/sites/all/libraries/jquery.plugins/securimage/images/refresh.png" alt="Reload Image" height="32" width="32" onclick="this.blur()" align="bottom" border="0" /></a><br />
     <strong>Enter Code*:</strong><br />' . @$_SESSION["ctform"]["captcha_error"] . '
     <input type="text" name="ct_captcha" size="12" maxlength="16" />
   </p>'

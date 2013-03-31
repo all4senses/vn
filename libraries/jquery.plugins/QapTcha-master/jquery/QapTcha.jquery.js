@@ -8,6 +8,8 @@
 
 **************************************************************************
 *************************************************************************/
+(function ($) {
+
 jQuery.QapTcha = {
 	build : function(options)
 	{
@@ -89,3 +91,6 @@ jQuery.QapTcha = {
 		});
 	}
 }; jQuery.fn.QapTcha = jQuery.QapTcha.build;
+
+
+}(jQuery));

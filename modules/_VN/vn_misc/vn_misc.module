@@ -133,7 +133,7 @@ function vn_misc_securimage_show_ajax() {
 
   //require_once dirname(__FILE__) . '/securimage.php';
   
-  require_once '/sites/all/libraries/jquery.plugins/securimage/securimage.php';
+  require_once '/home/voipno5/public_html/sites/all/libraries/jquery.plugins/securimage/securimage.php';
 
   
   

@@ -34,6 +34,7 @@ function vn_misc_menu() {
     'type' => MENU_CALLBACK,
   );
   
+  // Old version.
   $items['click'] = array(
     'title' => 'Redirect to an external link',
     'page callback' => 'vn_misc_goToExternalUrl',
@@ -439,7 +440,7 @@ function vn_misc_goToExternalUrl2() {
               ))
               ->execute();
             
-            drupal_goto( (strpos($url, 'http') !== FALSE ? $url : 'http://' . $url), array('external' => TRUE));
+            drupal_goto( (strpos($url, 'http') !== FALSE ? $url : 'http://' . $url), array('external' => TRUE), 301);
         }
      
     
@@ -508,7 +509,7 @@ function vn_misc_goToExternalUrl() {
               ))
               ->execute();
             
-            drupal_goto( (strpos($url, 'http') !== FALSE ? $url : 'http://' . $url), array('external' => TRUE));
+            drupal_goto( (strpos($url, 'http') !== FALSE ? $url : 'http://' . $url), array('external' => TRUE), 301);
         }
         
         //break;

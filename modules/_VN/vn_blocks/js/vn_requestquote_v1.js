@@ -220,11 +220,11 @@
                 required: true,
                 notEqualsTo: $('input[id="lastname"]').attr('title')
 							}
-//              ,
-//              ct_captcha: {
-//                required: true,
-//                wrongCaptcha: 'aaa'
-//							}
+              ,
+              ct_captcha: {
+                required: true,
+                wrongCaptcha: 'aaa'
+							}
               /*
               phone_1: {
                 number: true,

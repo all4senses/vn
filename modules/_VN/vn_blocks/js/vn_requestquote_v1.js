@@ -75,20 +75,22 @@
 
         });
 
+        // Overriding the default Required message.
+        jQuery.extend(jQuery.validator.messages, {
+            required: Drupal.t('All fields with * are required')
+        });
+        
         jQuery.validator.addMethod("notEqualsTo", function(value, element, param) {
           return !(this.optional(element) || value === param);
         //}, jQuery.format("You must not enter {0}"));
         }, "All fields with are required");
 
         jQuery.validator.addMethod("wrongCaptcha", function(value, element, param) {
-          return !(this.optional(element) || value === 'abc');
+          return !(this.optional(element) && value === 'abc');
         //}, jQuery.format("You must not enter {0}"));
         }, "Wrong captcha");
         
-        // Overriding the default Required message.
-        jQuery.extend(jQuery.validator.messages, {
-            required: Drupal.t('All fields with * are required')
-        });
+        
 
         // Click on a label will click on a radio button.
         $(".label_after").click(function(){

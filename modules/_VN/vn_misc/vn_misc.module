@@ -2572,7 +2572,7 @@ function vn_misc_checkCtCaptcha_ajax() {
   }
 
   
-  drupal_json_output(array('status' => $status, 'data' => $output, 'post' => $_POST, 'cap' => $_SESSION['securimage_code_value'], 'ses' => $_SESSION, 'ses_id' => session_id()/*, 'token' => $post['token'], 'test_token' => $test_token, 'valid_token' => $valid_token, 'letter' => $letter*/));
+  drupal_json_output(array('status' => $status, 'data' => $output, 'post' => $_POST, 'cap' => $_SESSION['securimage_code_value']['default'], 'ses' => $_SESSION, 'ses_id' => session_id()/*, 'token' => $post['token'], 'test_token' => $test_token, 'valid_token' => $valid_token, 'letter' => $letter*/));
 }
 
 /**

@@ -34,6 +34,15 @@ function vn_misc_menu() {
     'type' => MENU_CALLBACK,
   );
   
+  
+  $items['check_ctcaptcha'] = array(
+    'title' => 'Check CT Captcha',
+    'page callback' => 'vn_misc_checkCtCaptcha_ajax',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  
+  
   // Old version.
   $items['click'] = array(
     'title' => 'Redirect to an external link',
@@ -2545,6 +2554,26 @@ function vn_misc_setUcapturedVariable($post, $ucaptured = NULL, $combine_phone =
   return $ucaptured;
 }
 
+
+
+/**
+ * Implements requests from users.
+ * 
+ * Returns json result data with OK or error.
+ */
+function vn_misc_checkCtCaptcha_ajax() {
+  $status = TRUE;
+  $output = '';
+  
+  //$post = $_POST;
+  $post = array();
+  foreach ($_POST as $key => $value) {
+    $post[$key] = check_plain(strip_tags($value));
+  }
+
+  
+  drupal_json_output(array('status' => $status, 'data' => $output, 'post' => $_POST, 'cap' => $_SESSION['securimage_code_value'], 'ses' => $_SESSION, 'ses_id' => session_id()/*, 'token' => $post['token'], 'test_token' => $test_token, 'valid_token' => $valid_token, 'letter' => $letter*/));
+}
 
 /**
  * Implements requests from users.

@@ -3,10 +3,39 @@
   Drupal.behaviors.vn_requestquote_block_v1 = {
     attach: function (context, settings) {
        
+       captcha_val = 'kjhjhkgsjdhgjk';
+       console.log('Initial captcha: ' + captcha_val);
+       
        //$('#defaultReal').realperson();
        
        //$('.QapTcha').QapTcha({disabledSubmit:false,autoRevert:true,autoSubmit:false});
 
+       // Get a current captcha value.
+       (jQuery).ajax({
+            
+                url: '/check_ctcaptcha', 
+                data: {
+                        op: 'get'
+                        //,
+                        //url: window.location.href,
+                        //referer: document.referrer
+                       
+                      }, 
+                    type: 'POST', 
+                    dataType: 'json'
+                    , 
+                    success: function(data) 
+                            { 
+                                if(!data.error) {
+                                    captcha_val = data.captcha_val;
+                                    console.log('The header is arrived: ' + captcha_val);
+                                }
+                                return false;
+                            } 
+                    
+            }); // end of (jQuery).ajax
+       
+       
        
         $('input[name="referrer"]').val(document.referrer);
         $('input[name="url"]').val(document.URL);

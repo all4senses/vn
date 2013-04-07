@@ -46,7 +46,7 @@
 //        });
 
 
-        $('#code').focus(function(){
+        $('#code').click(function(){
           console.log('cooooode');
         });  
         //$("body").on("focus", 'input[name="ct_capture"]', function() {

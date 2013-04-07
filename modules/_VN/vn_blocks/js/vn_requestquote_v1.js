@@ -41,6 +41,7 @@
         $('input[name="url"]').val(document.URL);
         
         $('input[name="ct_capture"]').focusin(function(){
+          console.log('Iiiiiiiiiiiin');
            // Get a current captcha value.
           (jQuery).ajax({
             

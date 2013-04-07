@@ -606,7 +606,7 @@ function vn_blocks_get_requestQuote_block_v1() {
 
     <a id="reload-btn" tabindex="-1" style="border-style: none;" href="#" title="Refresh Image" onclick="document.getElementById(' . "'siimage'" . ').src = ' . "'/securimage_show.php?sid='" . ' + Math.random(); this.blur(); return false"><img src="/sites/all/libraries/jquery.plugins/securimage/images/refresh.png" alt="Reload Image" height="32" width="32" onclick="this.blur()" align="bottom" border="0" /></a>
     <div id="code">Enter Code*:</div>' . @$_SESSION["ctform"]["captcha_error"] . '
-    <input type="text" id="ct_captcha" name="ct_captcha" size="12" maxlength="16" />
+    <input type="text" class="required ct_captcha" id="ct_captcha" name="ct_captcha" size="12" maxlength="16" />
   </div>'
   
                                     

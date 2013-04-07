@@ -116,7 +116,7 @@
           
           validationOptions: {
             groups: {
-              username: "firstname lastname email phone"
+              username: "firstname lastname email phone ct_captcha"
               ,first_step: "phones_amt q_type buying_time"
             },
             errorPlacement: function(error, element) {
@@ -126,7 +126,7 @@
                 ////error.insertAfter("#on_error");
               error.insertAfter(".step");
               
-              else if(element.attr("name") == "firstname" || element.attr("name") == "lastname"  || element.attr("name") == "company" || element.attr("name") == "email" || element.attr("name") == "phone")
+              else if(element.attr("name") == "ct_captcha" || element.attr("name") == "firstname" || element.attr("name") == "lastname"  || element.attr("name") == "company" || element.attr("name") == "email" || element.attr("name") == "phone")
                 error.insertAfter("#phone");
               else
                 error.insertAfter(element);

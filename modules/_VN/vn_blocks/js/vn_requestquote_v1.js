@@ -4,7 +4,7 @@
     attach: function (context, settings) {
        
        captcha_val = 'kjhjhkgsjdhgjk';
-       console.log('Initial captcha: ' + captcha_val);
+       //console.log('Initial captcha: ' + captcha_val);
        
        //$('#defaultReal').realperson();
        
@@ -28,7 +28,7 @@
                             { 
                                 if(!data.error) {
                                     captcha_val = data.cap;
-                                    console.log('The header is arrived: ' + captcha_val);
+                                    //console.log('The header is arrived: ' + captcha_val);
                                 }
                                 return false;
                             } 
@@ -116,7 +116,7 @@
 
         jQuery.validator.addMethod("wrongCaptcha", function(value, element, param) {
           console.log('va = ' + value);
-          return value === 'abc';
+          return value === captcha_val;
         //}, jQuery.format("You must not enter {0}"));
         }, "Wrong captcha");
         

@@ -76,9 +76,9 @@
         });
 
         // Overriding the default Required message.
-        jQuery.extend(jQuery.validator.messages, {
-            required: Drupal.t('All fields with * are required')
-        });
+//        jQuery.extend(jQuery.validator.messages, {
+//            required: Drupal.t('All fields with * are required')
+//        });
         
         jQuery.validator.addMethod("notEqualsTo", function(value, element, param) {
           return !(this.optional(element) || value === param);
@@ -86,7 +86,7 @@
         }, "All fields with are required");
 
         jQuery.validator.addMethod("wrongCaptcha", function(value, element, param) {
-          return !(this.optional(element) && value === 'abc');
+          return (this.optional(element) && value === 'abc');
         //}, jQuery.format("You must not enter {0}"));
         }, "Wrong captcha");
         

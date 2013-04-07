@@ -80,7 +80,11 @@
         //}, jQuery.format("You must not enter {0}"));
         }, "All fields with are required");
 
-
+        jQuery.validator.addMethod("wrongCaptcha", function(value, element, param) {
+          return !(this.optional(element) || value === 'abc');
+        //}, jQuery.format("You must not enter {0}"));
+        }, "Wrong captcha");
+        
         // Overriding the default Required message.
         jQuery.extend(jQuery.validator.messages, {
             required: Drupal.t('All fields with * are required')
@@ -169,12 +173,9 @@
                 required: true,
                 notEqualsTo: $('input[id="lastname"]').attr('title')
 							},
-              phone: {
+              ct_captcha: {
                 required: true,
-                //number: true,
-                minlength: 9,
-                maxlength: 15,
-                notEqualsTo: $('input[id="phone"]').attr('title')
+                wrongCaptcha: 'aaa'
 							}
               /*
               phone_1: {

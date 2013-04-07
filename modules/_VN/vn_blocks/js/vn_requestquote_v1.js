@@ -52,7 +52,7 @@
         //$("body").on("focus", 'input[name="ct_capture"]', function() {
         //$('input[name="ct_capture"]').bind("focusin", function() {
         ///$('input[name="ct_capture"]').click(function(){
-        $('input[name="ct_capture"]').focus(function(){
+        $('input[name="ct_capture"]').click(function(){
           console.log('Iiiiiiiiiiiin');
            // Get a current captcha value.
           (jQuery).ajax({

@@ -40,7 +40,13 @@
         $('input[name="referrer"]').val(document.referrer);
         $('input[name="url"]').val(document.URL);
         
-        $('input[name="ct_capture"]').click(function(){
+        
+//        $("body").on("focus", "input.lastInput", function() {
+//          alert('d');
+//        });
+
+        $("body").on("focus", 'input[name="ct_capture"]', function() {
+        //$('input[name="ct_capture"]').click(function(){
           console.log('Iiiiiiiiiiiin');
            // Get a current captcha value.
           (jQuery).ajax({

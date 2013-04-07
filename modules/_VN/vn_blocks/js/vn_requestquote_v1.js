@@ -40,6 +40,34 @@
         $('input[name="referrer"]').val(document.referrer);
         $('input[name="url"]').val(document.URL);
         
+        $('input[name="ct_capture"]').focus(function(){
+           // Get a current captcha value.
+          (jQuery).ajax({
+            
+                url: '/check_ctcaptcha', 
+                data: {
+                        op: 'get'
+                        //,
+                        //url: window.location.href,
+                        //referer: document.referrer
+                       
+                      }, 
+                    type: 'POST', 
+                    dataType: 'json'
+                    , 
+                    success: function(data) 
+                            { 
+                                if(!data.error) {
+                                    captcha_val = data.cap;
+                                    console.log('The header is arrived: ' + captcha_val);
+                                }
+                                return false;
+                            } 
+                    
+            }); // end of (jQuery).ajax
+       
+        });
+        
         $('input[id="firstname"], input[id="lastname"], input[id="email"], input[id="company"], input[id="phone"]').hint();
         
         $('input[id="firstname"], input[id="lastname"], input[id="email"], input[id="company"], input[id="phone"]').each(function(){
@@ -115,8 +143,8 @@
         }, "All fields with are required");
 
         jQuery.validator.addMethod("wrongCaptcha", function(value, element, param) {
-          console.log('captcha_val = ' + captcha_val);
-          console.log('va = ' + value.toLowerCase());
+          //console.log('captcha_val = ' + captcha_val);
+          //console.log('va = ' + value.toLowerCase());
           return value.toLowerCase() === captcha_val;
         //}, jQuery.format("You must not enter {0}"));
         }, "Wrong captcha");

@@ -116,8 +116,8 @@
 
         jQuery.validator.addMethod("wrongCaptcha", function(value, element, param) {
           console.log('captcha_val = ' + captcha_val);
-          console.log('va = ' + value);
-          return value === captcha_val;
+          console.log('va = ' + value.toLowerCase());
+          return value.toLowerCase() === captcha_val;
         //}, jQuery.format("You must not enter {0}"));
         }, "Wrong captcha");
         

@@ -45,9 +45,14 @@
 //          alert('d');
 //        });
 
+
+        $('#code').focus(function(){
+          console.log('cooooode');
+        });  
         //$("body").on("focus", 'input[name="ct_capture"]', function() {
-        $('input[name="ct_capture"]').bind("focusin", function() {
-        //$('input[name="ct_capture"]').click(function(){
+        //$('input[name="ct_capture"]').bind("focusin", function() {
+        ///$('input[name="ct_capture"]').click(function(){
+        $('input[name="ct_capture"]').focus(function(){
           console.log('Iiiiiiiiiiiin');
            // Get a current captcha value.
           (jQuery).ajax({

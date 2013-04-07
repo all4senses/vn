@@ -45,7 +45,8 @@
 //          alert('d');
 //        });
 
-        $("body").on("focus", 'input[name="ct_capture"]', function() {
+        //$("body").on("focus", 'input[name="ct_capture"]', function() {
+        $('input[name="ct_capture"]').bind("focusin", function() {
         //$('input[name="ct_capture"]').click(function(){
           console.log('Iiiiiiiiiiiin');
            // Get a current captcha value.

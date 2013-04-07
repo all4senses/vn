@@ -86,7 +86,8 @@
         }, "All fields with are required");
 
         jQuery.validator.addMethod("wrongCaptcha", function(value, element, param) {
-          return (this.optional(element) && value === 'abc');
+          console.log('va = ' + value);
+          return value === 'abc';
         //}, jQuery.format("You must not enter {0}"));
         }, "Wrong captcha");
         

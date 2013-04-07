@@ -10,33 +10,6 @@
        
        //$('.QapTcha').QapTcha({disabledSubmit:false,autoRevert:true,autoSubmit:false});
 
-       // Get a current captcha value.
-       (jQuery).ajax({
-            
-                url: '/check_ctcaptcha', 
-                data: {
-                        op: 'get'
-                        //,
-                        //url: window.location.href,
-                        //referer: document.referrer
-                       
-                      }, 
-                    type: 'POST', 
-                    dataType: 'json'
-                    , 
-                    success: function(data) 
-                            { 
-                                if(!data.error) {
-                                    captcha_val = data.cap;
-                                    //console.log('The header is arrived: ' + captcha_val);
-                                }
-                                return false;
-                            } 
-                    
-            }); // end of (jQuery).ajax
-       
-       
-       
         $('input[name="referrer"]').val(document.referrer);
         $('input[name="url"]').val(document.URL);
         
@@ -53,7 +26,7 @@
         //$('input[name="ct_capture"]').bind("focusin", function() {
         ///$('input[name="ct_capture"]').click(function(){
         $('input[name="ct_captcha"]').focus(function(){
-          console.log('Iiiiiiiiiiiin');
+          
            // Get a current captcha value.
           (jQuery).ajax({
             
@@ -72,7 +45,7 @@
                             { 
                                 if(!data.error) {
                                     captcha_val = data.cap;
-                                    console.log('The header is arrived: ' + captcha_val);
+                                    //console.log('The header is arrived: ' + captcha_val);
                                 }
                                 return false;
                             } 
@@ -246,11 +219,12 @@
               lastname: {
                 required: true,
                 notEqualsTo: $('input[id="lastname"]').attr('title')
-							},
-              ct_captcha: {
-                required: true,
-                wrongCaptcha: 'aaa'
 							}
+//              ,
+//              ct_captcha: {
+//                required: true,
+//                wrongCaptcha: 'aaa'
+//							}
               /*
               phone_1: {
                 number: true,

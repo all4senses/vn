@@ -1232,7 +1232,7 @@ font-size: 15px;
 .node-type-quote #requestQuoteFormWrapper #personal_info .wrapper{clear: both; height: 25px; margin-bottom: 5px; width: 280px;}
 
 .node-type-quote #requestQuoteFormWrapper #personal_info input{margin: 0; padding: 0 5px; text-align: left; width: 140px;}
-#requestQuoteFormWrapper #personal_info input.error{border: 1px dotted red;}
+#requestQuoteFormWrapper /*#personal_info*/ input.error{border: 1px dotted red;}
 
 .node-type-quote #requestQuoteFormWrapper #personal_info #phone input{margin-left: 5px; width: 35px;}
 
@@ -1543,7 +1543,7 @@ body.sidebar-second.node-type-quote #main{margin: 0; padding: 0;}
 #block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper{width: auto; height: 290px;}
 #block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper .step{height: 285px;}
 
-#block-vn-blocks-request-quote-v1 .step#questions_section .quote-pic {background: url("/sites/all/themes/vn/css/images/quote-phone.png") no-repeat scroll 0 0 transparent; width: 270px; height: 190px;}
+#block-vn-blocks-request-quote-v1 .step#questions_section .quote-pic {background: url("/sites/all/themes/vn/css/images/quote-phone.png") no-repeat scroll 0 0 transparent; width: 270px; height: 190px; margin: 15px 0 0 0;}
 
 #block-vn-blocks-request-quote-v1 .left{float: left; margin: 15px 10px 0 0;}
 #block-vn-blocks-request-quote-v1 .step#personal_data .left{margin: 5px;}
@@ -1558,7 +1558,9 @@ body.sidebar-second.node-type-quote #main{margin: 0; padding: 0;}
 /*#block-vn-blocks-request-quote-v1 .wrapper{font-size: 12px; margin: 10px 0; overflow: hidden;}*/
 #block-vn-blocks-request-quote-v1 .wrapper{font-size: 12px; margin: 0; overflow: hidden;}
 
-#block-vn-blocks-request-quote-v1 .wrapper input{float: left; text-align: left; width: 170px; height: 18px; margin: 1px 0 2px 30px; padding: 1px 0 1px 10px; font-size: 12px; border-radius: 3px;} 
+#block-vn-blocks-request-quote-v1 #questions_section .wrapper{margin: 10px 0 5px;}
+
+#block-vn-blocks-request-quote-v1 .wrapper input{float: left; text-align: left; width: 170px; height: 18px; margin: 1px 0 2px 30px; padding: 1px 0 1px 10px; font-size: 12px; border-radius: 3px; background: white;} 
 #block-vn-blocks-request-quote-v1 .wrapper input.error {border: 1px solid red;}
 
 /*#block-vn-blocks-request-quote-v1 #personal_data .wrapper.first{margin-top: 25px;}*/
@@ -1832,3 +1834,4 @@ body.one-sidebar.sidebar-second.page-get-iframe #main{background: none transpare
 .vn-captcha #reload-btn{border-style: none; margin: 0; padding: 0;}
 .vn-captcha #reload-btn img{width: 17px; height: 17px; float: none;}
 .vn-captcha #code{color: gray; font-size: 11px; clear: both; margin-top: 7px;}
+#ct_captcha {background: white;}

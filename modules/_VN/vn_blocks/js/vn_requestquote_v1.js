@@ -224,6 +224,11 @@
               ct_captcha: {
                 required: true,
                 wrongCaptcha: 'aaa'
+							},
+              phone: {
+                number: true,
+                minlength: 3,
+                maxlength: 12
 							}
               /*
               phone_1: {

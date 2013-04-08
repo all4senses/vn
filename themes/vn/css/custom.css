@@ -1588,7 +1588,7 @@ body.sidebar-second.node-type-quote #main{margin: 0; padding: 0;}
 #block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper #Navigation #next{background: url(/sites/all/themes/vn/css/images/quote-btn-back.jpg) repeat-x scroll 0 0 transparent; border: none; cursor: pointer; width: 210px; color: white; padding: 6px 0 20px; border-radius: 5px; height: 30px;}
 
 /*#block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper #Navigation #back{position: absolute; left: 5px; background: none; border: none; color: lightgray; font-size: 11px; bottom: 40px;}*/
-#block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper #Navigation #back{position: absolute; left: 12px; background: none; border: none; color: lightgray; font-size: 11px; bottom: 37px;}
+#block-vn-blocks-request-quote-v1 #requestQuoteFormWrapper #Navigation #back{position: absolute; left: 12px; background: none; border: none; color: #478AFD; font-size: 11px; bottom: 37px; cursor: pointer;}
 
 
 #block-vn-blocks-request-quote-v1 .results{margin: 20px auto; height: auto; width: 215px; border-top: 1px solid lightgray; padding-top: 20px;}

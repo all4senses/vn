@@ -4349,7 +4349,15 @@ function theme_vn_misc_socialLinks($vars) {
       continue;
     }
     
-    $out .= ($count ? $delimiter : '') . '<div>' . l(t($submenu['link']['link_title']), $submenu['link']['href'], array('attributes' => array('class' => array($submenu['link']['link_title']), 'title' => $submenu['link']['options']['attributes']['title'], 'target' => '_blank' ))) . '</div>';
+    //$out .= ($count ? $delimiter : '') . '<div>' . l(t($submenu['link']['link_title']), $submenu['link']['href'], array('attributes' => array('class' => array($submenu['link']['link_title']), 'title' => $submenu['link']['options']['attributes']['title'], 'target' => '_blank' ))) . '</div>';
+    
+    if ($submenu['link']['link_title'] == 'GooglePlus') {
+      $out .= ($count ? $delimiter : '') . '<div>' . l($submenu['link']['link_title'], $submenu['link']['href'], array('attributes' => array('class' => array($submenu['link']['link_title']), 'title' => $submenu['link']['options']['attributes']['title'], 'target' => '_blank', 'rel' => 'publisher' ))) . '</div>';
+    }
+    else {
+      $out .= ($count ? $delimiter : '') . '<div>' . l($submenu['link']['link_title'], $submenu['link']['href'], array('attributes' => array('class' => array($submenu['link']['link_title']), 'title' => $submenu['link']['options']['attributes']['title'], 'target' => '_blank' ))) . '</div>';
+    }
+    
     $count++;
   }
   $out .= '</div>';

@@ -573,10 +573,15 @@ function vn_misc_disqus_getNewUsers() {
     
     $vn_disqus_users += $new_vn_disqus_users;
     variable_set('vn_disqus_users', serialize($vn_disqus_users));
-    $out = 'Something has changed (new users, less users, etc).
+    
+    
+    if ($new_users = print_r($new_users, TRUE)) {
+      $out = 'Something has changed (new users, less users, etc).
  
 
-<pre>' . print_r($new_users, TRUE) . '</pre>';
+<pre>' . $new_users . '</pre>';
+    }
+    
   }
   
   global $language;

@@ -1863,7 +1863,7 @@ span[data-picture-align="center"], img[data-picture-align="center"]  {
  * to control the size of images. It is formatted as
  * span[data-picture-group="[The machine name of your picture group]"
 */
- span[data-picture-group="vn"] {
+ img[data-picture-group="vn"] {
   width: 50%;
 }
 /*

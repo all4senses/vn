@@ -1864,7 +1864,7 @@ span[data-picture-align="center"], img[data-picture-align="center"]  {
  * span[data-picture-group="[The machine name of your picture group]"
 */
  span[data-picture-group="vn"] {
-  width: 100%;
+  width: 50%;
 }
 /*
 span[data-picture-group="normal"] {

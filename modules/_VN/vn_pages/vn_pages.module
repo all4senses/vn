@@ -1206,6 +1206,10 @@ function vn_pages_form_alter(&$form, &$form_state, $form_id) {
   
   switch ($form_id) {
     
+    case 'redirect_list_form':
+      $form['rids']['#options'][43]['source'] = '<a href="/node/366">node/366?1</a>';
+      break;
+    
     case 'taxonomy_form_term':
       // Restore the Metatag fields data.
       $query = db_select('metatag', 'm');

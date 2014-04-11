@@ -1201,13 +1201,16 @@ function vn_pages_buildHome($name = NULL, $data  = NULL) {
  */
 function vn_pages_form_alter(&$form, &$form_state, $form_id) {
   
-  dpm($form_id);  dpm($form);
+  //dpm($form_id);  dpm($form);
   // $conf['locale_custom_strings_en']['old string'] = 'new string'
   
   switch ($form_id) {
     
     case 'redirect_list_form':
       $form['rids']['#options'][43]['source'] = '<a href="/node/366">node/366?1</a>';
+      
+      dpm($form);
+      
       break;
     
     case 'taxonomy_form_term':

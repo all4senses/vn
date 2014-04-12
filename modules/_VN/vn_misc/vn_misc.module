@@ -6231,6 +6231,8 @@ function vn_misc_sendMessageAndNewsletterSubscribe_form_submit(&$form, &$form_st
  * @ingroup redirect_api_hooks
  */
 function vn_misc_redirect_load_by_source_alter(array &$redirects, $source, array $context) {
+  dpm($source);
+  dpm($context);
   dpm($redirects);
   foreach ($redirects as $rid => $redirect) {
     

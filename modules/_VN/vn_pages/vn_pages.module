@@ -3614,6 +3614,7 @@ function vn_pages_createRedirectionsInBulk_form($form, &$form_state) {
   );
   */
   
+  
  
   $form['filter'] = array(
     '#type' => 'textfield',
@@ -3646,9 +3647,11 @@ function vn_pages_createRedirectionsInBulk_form($form, &$form_state) {
  */
 function vn_pages_createRedirectionsInBulk_formValidate(&$form, &$form_state) {
 
+  dpm($_POST);
+  
   $get = $_GET;
   unset($get['q']);
   //$get['filter'] = $form_state['values']['filter'];
   
-  drupal_goto($_GET['q'], array('query' => $get));
+  //drupal_goto($_GET['q'], array('query' => $get));
 }

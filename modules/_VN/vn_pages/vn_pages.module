@@ -3606,11 +3606,11 @@ function vn_pages_createRedirectionsInBulk_form($form, &$form_state) {
   
   
    
-  $form['filter'] = array(
-    '#type' => 'textfield',
-    '#title' => 'Filter by: ',
-    '#default_value' => 'xxx',
-  );
+//  $form['filter'] = array(
+//    '#type' => 'textfield',
+//    '#title' => 'Filter by: ',
+//    '#default_value' => 'xxx',
+//  );
   
   if (@$_GET['action'] == 'done') {
     $form['submit_again'] = array('#type' => 'submit', '#value' => t('Submit again'));

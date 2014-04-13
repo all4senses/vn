@@ -3627,7 +3627,7 @@ function vn_pages_createRedirectionsInBulk_form($form, &$form_state) {
   if (@$_GET['action'] == 'done') {
     $form['submit_again'] = array('#type' => 'submit', '#value' => t('Submit again'));
   } else {
-    
+    /*
     $form['upload'] = array(
       '#name' => 'x1', //'files[' . implode('_', $form['#parents']) . ']',
       '#type' => 'file',
@@ -3637,6 +3637,20 @@ function vn_pages_createRedirectionsInBulk_form($form, &$form_state) {
       '#theme_wrappers' => array(),
       '#weight' => -10,
     );
+    */
+    
+     // Use the #managed_file FAPI element to upload a file.
+    $form['file_fid'] = array(
+      '#title' => t('File'),
+      '#type' => 'managed_file',
+      '#description' => t('The uploaded file will be processed.'),
+      '#default_value' => variable_get('file_fid', ''),
+      '#upload_validators' => array(
+      'file_validate_extensions' => array('put-in-your-file-extention'),
+      ),
+    '#upload_location' => 'public://docs/',
+    '#process' => array('import_my_file_element_process')
+  );
     
     $form['submit'] = array('#type' => 'submit', '#value' => t('Submit'));
   }
@@ -3648,6 +3662,15 @@ function vn_pages_createRedirectionsInBulk_form($form, &$form_state) {
   //dpm($form);
   
   return $form;
+}
+
+
+/* It disables the default upload button that comes with this #managed_file form */
+function import_my_file_element_process($element, &$form_state, $form) {
+  $element = file_managed_file_process($element, $form_state, $form);
+  $element['upload_button']['#access'] = FALSE;
+ 
+  return $element;
 }
 
 
@@ -3673,6 +3696,8 @@ function vn_pages_createRedirectionsInBulk_formValidate(&$form, &$form_state) {
   if ($form_state['values']['op'] == 'Submit') {
     $get['action'] = 'done';
 
+    
+    /*
     $file = file_save_upload('file', array(
       'file_validate_extensions' => array('csv'), // Validate extensions.
       'public://',FILE_EXISTS_REPLACE
@@ -3691,6 +3716,24 @@ function vn_pages_createRedirectionsInBulk_formValidate(&$form, &$form_state) {
     else {
       form_set_error('file', t('No file was uploaded.'));
     }
+    
+    */
+    
+    
+    // Load the file.
+    $file = file_load($form_state['values']['file_fid']);
+    // Change status to permanent.
+    $file->status = FILE_STATUS_PERMANENT;
+    // Save.
+    $uploaded = file_save($file);
+    if ($uploaded == TRUE) {
+      drupal_set_message(t('The file has been uploaded.'));
+    }
+    else {
+      drupal_set_message(t('The file could not be uploaded. Please contact the site administrator.'), 'error');
+    }
+
+    $file_path = $file->uri;
   }
   
   

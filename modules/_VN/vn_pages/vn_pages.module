@@ -33,6 +33,18 @@ function vn_pages_menu() {
     'access callback' => 'vn_misc_userIsAdmin',
     'type' => MENU_NORMAL_ITEM,
   );
+  
+  
+  $items['admin/content/create-redirections-in-bulk'] = array(
+    'title' => 'Create Redirections In Bulk',
+    'description' => 'Create Redirections In Bulk page',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('vn_pages_createRedirectionsInBulk_form'),
+    'access callback' => 'vn_misc_userIsAdmin',
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
+  
    
   $items['home'] = array(
     'title' => 'Home page',
@@ -3179,7 +3191,7 @@ function vn_pages_addProviderPreview_form($node, &$form_state, $provider_nid) {
   $provider_node = node_load($provider_nid);
   $form['provider_set'] = array(
       '#type' => 'fieldset',
-      '#title' => t('Provider description (for a quick reference)'),
+      '#title' => 'Provider description (for a quick reference)',
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
       '#weight' => -100,
@@ -3579,3 +3591,62 @@ function vn_pages_addReviewButton_form_submit(&$form, &$form_state) {
   drupal_goto('node/add/review', array('query' => array('id' => $form_state['values']['id'])));
 }
 
+
+
+
+
+
+
+
+
+/**
+ * Сreate Redirections In Bulk page.
+ */
+function vn_pages_createRedirectionsInBulk_form($form, &$form_state) {
+  
+  /*
+  $form['filter'] = array(
+    '#type' => 'radios',
+    '#title' => t('Filter by: '),
+    '#default_value' => $current_filter,
+    '#options' => $filter_by,
+    '#attributes' =>  array('class' =>array('filter_by'), 'onClick' => array('javascript:this.form.submit();')),
+  );
+  */
+  
+ 
+  $form['filter'] = array(
+    '#type' => 'textfield',
+    '#title' => 'Filter by: ',
+    '#default_value' => 'xxx',
+  );
+  
+  //$form['actions']['submit']['#submit'][] = 'gv_pages_trackClickReport_formSubmit';
+  //$form['#submit'][] = 'vn_pages_trackClickReport_formSubmit';
+  $form['#validate'][] = 'vn_pages_createRedirectionsInBulk_formValidate';
+  
+  dpm($form);
+  
+  return $form;
+}
+
+
+/**
+ * 
+ * @param array &$form
+ *   Array with declared form.
+ *
+ * @param array &$form_state
+ *   Array with current form state.
+
+ * @return void
+ *   Return nothing.
+ */
+function vn_pages_createRedirectionsInBulk_formValidate(&$form, &$form_state) {
+
+  $get = $_GET;
+  unset($get['q']);
+  $get['filter'] = $form_state['values']['filter'];
+  
+  drupal_goto($_GET['q'], array('query' => $get));
+}

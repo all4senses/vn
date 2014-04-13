@@ -3651,7 +3651,7 @@ function vn_pages_createRedirectionsInBulk_formValidate(&$form, &$form_state) {
   
   $get = $_GET;
   unset($get['q']);
-  //$get['filter'] = $form_state['values']['filter'];
+  $get['filter'] = $form_state['values']['filter'];
   
-  //drupal_goto($_GET['q'], array('query' => $get));
+  drupal_goto($_GET['q'], array('query' => $get));
 }

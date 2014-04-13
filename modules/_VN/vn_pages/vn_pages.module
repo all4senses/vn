@@ -3626,8 +3626,18 @@ function vn_pages_createRedirectionsInBulk_form($form, &$form_state) {
   
   if (@$_GET['action'] == 'done') {
     $form['submit_again'] = array('#type' => 'submit', '#value' => t('Submit again'));
-  }
-  else {
+  } else {
+    
+    $form['upload'] = array(
+      '#name' => 'files[' . implode('_', $form['#parents']) . ']',
+      '#type' => 'file',
+      '#title' => t('Choose a file'),
+      '#title_display' => 'invisible',
+      '#size' => 22,
+      '#theme_wrappers' => array(),
+      '#weight' => -10,
+    );
+    
     $form['submit'] = array('#type' => 'submit', '#value' => t('Submit'));
   }
   

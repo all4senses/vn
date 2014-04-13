@@ -3668,7 +3668,7 @@ function import_my_file_element_process($element, &$form_state, $form) {
 function vn_pages_createRedirectionsInBulk_formValidate(&$form, &$form_state) {
 
   //dpm($_POST);
-  dpm($form_state);
+  //dpm($form_state);
   
   $get = $_GET;
   unset($get['q'], $get['action']);
@@ -3688,7 +3688,7 @@ function vn_pages_createRedirectionsInBulk_formValidate(&$form, &$form_state) {
       
       if (($handle = fopen(vn_misc_getPathFromStreamUri($file->uri), "r")) !== FALSE) {
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-            $file_data = $data;
+            $file_data[] = $data;
         }
         fclose($handle);
         dpm($file_data);

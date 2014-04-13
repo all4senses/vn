@@ -3617,14 +3617,19 @@ function vn_pages_createRedirectionsInBulk_form($form, &$form_state) {
   
   dpm($_GET);
  
+   
   $form['filter'] = array(
     '#type' => 'textfield',
     '#title' => 'Filter by: ',
     '#default_value' => 'xxx',
   );
   
-  $form['submit'] = array('#type' => 'submit', '#value' => t('Submit'));
-  $form['submit_again'] = array('#type' => 'submit', '#value' => t('Submit again'));
+  if (@$_GET['action'] == 'done') {
+    $form['submit_again'] = array('#type' => 'submit', '#value' => t('Submit again'));
+  }
+  else {
+    $form['submit'] = array('#type' => 'submit', '#value' => t('Submit'));
+  }
   
   //$form['actions']['submit']['#submit'][] = 'gv_pages_trackClickReport_formSubmit';
   //$form['#submit'][] = 'vn_pages_trackClickReport_formSubmit';
@@ -3654,7 +3659,11 @@ function vn_pages_createRedirectionsInBulk_formValidate(&$form, &$form_state) {
   
   $get = $_GET;
   unset($get['q']);
-  $get['filter'] = $form_state['values']['filter'];
+  
+  if ($form_state['values']['op'] == 'Submit')
+  $get['action'] = 'done';
+  
+  
   
   drupal_goto($_GET['q'], array('query' => $get));
 }

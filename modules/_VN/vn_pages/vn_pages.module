@@ -3734,9 +3734,10 @@ function vn_pages_createRedirectionsInBulk_formValidate(&$form, &$form_state) {
     if ($uploaded == TRUE) {
       drupal_set_message(t('The file has been uploaded.'));
       
-      if (($handle = fopen($file, "r")) !== FALSE) {
+      if (($handle = fopen(vn_misc_getPathFromStreamUri($file->uri), "r")) !== FALSE) {
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
             $num = count($data);
+            dpm($data);
             echo "<p> $num полей в строке $row: <br /></p>\n";
             $row++;
             for ($c=0; $c < $num; $c++) {

@@ -3658,10 +3658,11 @@ function vn_pages_createRedirectionsInBulk_formValidate(&$form, &$form_state) {
   dpm($form_state);
   
   $get = $_GET;
-  unset($get['q']);
+  unset($get['q'], $get['action']);
   
-  if ($form_state['values']['op'] == 'Submit')
-  $get['action'] = 'done';
+  if ($form_state['values']['op'] == 'Submit') {
+    $get['action'] = 'done';
+  }
   
   
   

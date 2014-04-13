@@ -3615,6 +3615,7 @@ function vn_pages_createRedirectionsInBulk_form($form, &$form_state) {
   */
   
   
+  dpm($_GET);
  
   $form['filter'] = array(
     '#type' => 'textfield',

@@ -3639,7 +3639,11 @@ function vn_pages_createRedirectionsInBulk_form($form, &$form_state) {
     );
     */
     
-     // Use the #managed_file FAPI element to upload a file.
+
+    
+    // http://www.lilianagaete.com/how-to-do-a-file-upload-in-drupal-7/
+
+    // Use the #managed_file FAPI element to upload a file.
     $form['file_fid'] = array(
       '#title' => t('File'),
       '#type' => 'managed_file',
@@ -3729,6 +3733,19 @@ function vn_pages_createRedirectionsInBulk_formValidate(&$form, &$form_state) {
     $uploaded = file_save($file);
     if ($uploaded == TRUE) {
       drupal_set_message(t('The file has been uploaded.'));
+      
+      if (($handle = fopen($file, "r")) !== FALSE) {
+        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+            $num = count($data);
+            echo "<p> $num полей в строке $row: <br /></p>\n";
+            $row++;
+            for ($c=0; $c < $num; $c++) {
+                echo $data[$c] . "<br />\n";
+            }
+        }
+        fclose($handle);
+      }
+      
     }
     else {
       drupal_set_message(t('The file could not be uploaded. Please contact the site administrator.'), 'error');

@@ -3714,7 +3714,7 @@ function vn_pages_createRedirectionsInBulk($data) {
     
     $redirect = new stdClass();
     redirect_object_prepare($redirect);
-    $redirect->source = $row[0]; //$path['original']['alias'];
+    $redirect->source = str_replace('http://www.voipnow.org/', '', $row[0]); //$path['original']['alias'];
     $redirect->redirect = $row[1]; //$path['source'];
     $redirect->language = 'und'; //$path['original']['language'];
     // Check if the redirect exists before saving.

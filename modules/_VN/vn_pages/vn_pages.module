@@ -3629,7 +3629,7 @@ function vn_pages_createRedirectionsInBulk_form($form, &$form_state) {
   } else {
     
     $form['upload'] = array(
-      '#name' => 'files[' . implode('_', $form['#parents']) . ']',
+      '#name' => 'x1', //'files[' . implode('_', $form['#parents']) . ']',
       '#type' => 'file',
       '#title' => t('Choose a file'),
       '#title_display' => 'invisible',
@@ -3645,7 +3645,7 @@ function vn_pages_createRedirectionsInBulk_form($form, &$form_state) {
   //$form['#submit'][] = 'vn_pages_trackClickReport_formSubmit';
   $form['#validate'][] = 'vn_pages_createRedirectionsInBulk_formValidate';
   
-  dpm($form);
+  //dpm($form);
   
   return $form;
 }
@@ -3664,7 +3664,7 @@ function vn_pages_createRedirectionsInBulk_form($form, &$form_state) {
  */
 function vn_pages_createRedirectionsInBulk_formValidate(&$form, &$form_state) {
 
-  dpm($_POST);
+  //dpm($_POST);
   dpm($form_state);
   
   $get = $_GET;

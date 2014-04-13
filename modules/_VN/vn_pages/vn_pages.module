@@ -3621,6 +3621,8 @@ function vn_pages_createRedirectionsInBulk_form($form, &$form_state) {
     '#default_value' => 'xxx',
   );
   
+  $form['submit'] = array('#type' => 'submit', '#value' => t('Import'));
+  
   //$form['actions']['submit']['#submit'][] = 'gv_pages_trackClickReport_formSubmit';
   //$form['#submit'][] = 'vn_pages_trackClickReport_formSubmit';
   $form['#validate'][] = 'vn_pages_createRedirectionsInBulk_formValidate';
@@ -3646,7 +3648,7 @@ function vn_pages_createRedirectionsInBulk_formValidate(&$form, &$form_state) {
 
   $get = $_GET;
   unset($get['q']);
-  $get['filter'] = $form_state['values']['filter'];
+  //$get['filter'] = $form_state['values']['filter'];
   
   drupal_goto($_GET['q'], array('query' => $get));
 }

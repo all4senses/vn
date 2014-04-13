@@ -3692,6 +3692,8 @@ function vn_pages_createRedirectionsInBulk_formValidate(&$form, &$form_state) {
         }
         fclose($handle);
         dpm($file_data);
+        
+        vn_pages_createRedirectionsInBulk($file_data);
       }
       
     }
@@ -3702,7 +3704,31 @@ function vn_pages_createRedirectionsInBulk_formValidate(&$form, &$form_state) {
     $file_path = $file->uri;
   }
   
-  
-  
   drupal_goto($_GET['q'], array('query' => $get));
 }
+
+
+function vn_pages_createRedirectionsInBulk($data) {
+  
+  foreach ($data as $row) {
+    
+    $redirect = new stdClass();
+    redirect_object_prepare($redirect);
+    $redirect->source = $row[0]; //$path['original']['alias'];
+    $redirect->redirect = $row[1]; //$path['source'];
+    $redirect->language = 'und'; //$path['original']['language'];
+    // Check if the redirect exists before saving.
+    $hash = redirect_hash($redirect);
+    if (!redirect_load_by_hash($hash)) {
+      redirect_save($redirect);
+    }
+    
+    dpm($row);
+    
+    break;
+    
+  }
+  
+  
+}
+

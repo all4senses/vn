@@ -6240,10 +6240,11 @@ function vn_misc_redirect_load_by_source_alter(array &$redirects, $source, array
       unset($redirects[$rid]);
     }
     
-    if ($redirect->source !== $source) {
-      // If the redirects to do not exactly match $source (e.g. case
-      // insensitive matches), then remove them from the results.
-      unset($redirects[$rid]);
-    }
+    // From API example
+//    if ($redirect->source !== $source) {
+//      // If the redirects to do not exactly match $source (e.g. case
+//      // insensitive matches), then remove them from the results.
+//      unset($redirects[$rid]);
+//    }
   }
 }

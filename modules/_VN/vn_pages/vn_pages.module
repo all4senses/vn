@@ -36,7 +36,7 @@ function vn_pages_menu() {
   
   
   $items['admin/content/create-redirections-in-bulk'] = array(
-    'title' => 'Create Redirections In Bulk',
+    'title' => 'Create Redirections In Bulk to GV',
     'description' => 'Create Redirections In Bulk page',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('vn_pages_createRedirectionsInBulk_form'),
@@ -3597,7 +3597,18 @@ function vn_pages_addReviewButton_form_submit(&$form, &$form_state) {
 
 
 
+// About redirections in .htaccess
+// 
+// https://drupal.org/node/38960
 
+
+/* It disables the default upload button that comes with this #managed_file form */
+function import_my_file_element_process($element, &$form_state, $form) {
+  $element = file_managed_file_process($element, $form_state, $form);
+  $element['upload_button']['#access'] = FALSE;
+ 
+  return $element;
+}
 
 /**
  * Сreate Redirections In Bulk page.
@@ -3643,16 +3654,6 @@ function vn_pages_createRedirectionsInBulk_form($form, &$form_state) {
   
   return $form;
 }
-
-
-/* It disables the default upload button that comes with this #managed_file form */
-function import_my_file_element_process($element, &$form_state, $form) {
-  $element = file_managed_file_process($element, $form_state, $form);
-  $element['upload_button']['#access'] = FALSE;
- 
-  return $element;
-}
-
 
 /**
  * 
